@@ -53,6 +53,55 @@ def small_model(lora_rank=0):
     return model, inputs
 
 
+def test_reasoning_feature_loss_reaches_adapters_and_projection_without_changing_backbones():
+    import mlx.optimizers as optim
+
+    from laya_vision_stitch.reasoning_transfer import TransferModel, transfer_loss
+
+    model, inputs = small_model(lora_rank=2)
+    model.policy_config.action_context_source = "encoder"
+    wrapped = TransferModel(model, 12)
+    original = {k: fingerprint(getattr(model, k), frozen_only=True) for k in ("vision", "laya")}
+    row = {"task": "instruction", "answer": "hold"}
+    target = {"probabilities": {"hold": 0.9, "release": 0.1}, "feature_array": mx.ones(12)}
+    ordinary = model.from_features(*inputs)
+    outputs = wrapped(inputs)
+    np.testing.assert_array_equal(np.asarray(ordinary["buttons"]), np.asarray(outputs["buttons"]))
+    grad_fn = nn.value_and_grad(
+        wrapped, lambda m: transfer_loss(m(inputs), row, target, model.policy_config.buttons)
+    )
+    value, gradient = grad_fn(wrapped)
+    assert np.isfinite(float(value))
+    flat = dict(tree_flatten(gradient))
+    assert sum(float(mx.abs(v).sum()) for k, v in flat.items() if k.startswith("projection.")) > 0
+    assert (
+        sum(float(mx.abs(v).sum()) for k, v in flat.items() if k.startswith("policy.connector."))
+        > 0
+    )
+    optimizer = optim.Adam(1e-4)
+    optimizer.update(wrapped, gradient)
+    mx.eval(wrapped.parameters())
+    assert original == {k: fingerprint(getattr(model, k), frozen_only=True) for k in original}
+    assert all(not k.startswith("projection") for k, _ in tree_flatten(model.parameters()))
+
+
+def test_reasoning_losses_align_named_choices_and_control_ignores_teacher():
+    from laya_vision_stitch.reasoning_transfer import cosine_loss, transfer_loss
+
+    row = {"task": "state", "choices": {"closed": "Closed", "open": "Open"}, "answer": "open"}
+    output = {"choices": mx.array([[-1.0, 2.0]]), "feature": mx.array([[1.0, 0.0]])}
+    target = {"probabilities": {"open": 0.9, "closed": 0.1}, "feature_array": mx.array([1.0, 0.0])}
+    first = transfer_loss(output, row, target, ("w",))
+    reversed_row = dict(row, choices=dict(reversed(list(row["choices"].items()))))
+    reversed_out = dict(output, choices=output["choices"][:, ::-1])
+    assert np.isclose(
+        float(first), float(transfer_loss(reversed_out, reversed_row, target, ("w",)))
+    )
+    assert float(cosine_loss(output["feature"], mx.array([[3.0, 0.0]]))) == 0
+    control = transfer_loss(output, row, {}, ("w",), control=True)
+    assert np.isfinite(float(control))
+
+
 def test_gradient_updates_only_connector_and_action_heads():
     model, inputs = small_model()
     before = {

@@ -10,7 +10,9 @@ real-game clips (95.3% exact / 97.6% button F1), but fails separate-session tran
 Expanding to 190 clips and balancing rare keys has not solved that failure.
 Reworded goals also remain unreliable. It is **not a playable general game agent**.
 [Recorded-action results](docs/GAMEPLAY_BUTTONS.md) ·
-[Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md).
+[Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md) ·
+[Full-Qwen teacher and reasoning-transfer experiment](docs/REASONING_TRANSFER.md) ·
+[Local inference profiling](docs/LATENCY_AND_GAMEPLAY.md).
 
 The synthetic-training checkpoint reached its target in **40/40 fresh synthetic sandbox episodes**,
 using its learned A/D button outputs. Warm inference took **58 ms median** on an
@@ -67,6 +69,12 @@ experiments. Small-adapter training fixes the 64-clip button-fitting failure;
 neither instruction robustness nor gameplay transfer passes. New-game scoring
 and live control remain gated, and no experimental checkpoint replaces the
 default model below. All experiments remain one neural model at inference.
+
+The full-Qwen teacher audit now tests scene recognition, paired instructions and
+recorded button candidates. Neither direct generation nor bounded thinking
+qualifies as an instruction teacher: 62.5% / 60.4% accuracy versus the stitched
+model's 79.2% on the same cases. A guarded feature/decision distillation recipe is
+implemented, but no transfer training or deployment ran with these failed labels.
 
 With the locally trained checkpoint available:
 

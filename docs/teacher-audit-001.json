@@ -1,0 +1,414 @@
+{
+  "without_thinking": {
+    "teacher": {
+      "instruction": {
+        "n": 48,
+        "accuracy": 0.625,
+        "order_consistency": 0.8333333333333334,
+        "both_goals_correct": 0.4166666666666667
+      },
+      "recorded": {
+        "n": 24,
+        "accuracy": 0.5
+      },
+      "state": {
+        "n": 24,
+        "accuracy": 0.9166666666666666,
+        "order_consistency": 0.8333333333333334
+      },
+      "invalid_responses": 1
+    },
+    "student": {
+      "instruction": {
+        "n": 48,
+        "accuracy": 0.7916666666666666,
+        "order_consistency": 0.9166666666666666,
+        "both_goals_correct": 0.6666666666666666
+      },
+      "recorded": {
+        "n": 24,
+        "accuracy": 0.375
+      },
+      "state": {
+        "n": 24,
+        "accuracy": 0.4166666666666667,
+        "order_consistency": 0.16666666666666666
+      },
+      "invalid_responses": 0
+    },
+    "qualification": {
+      "checks": {
+        "state": true,
+        "instruction": false,
+        "both_goals": false,
+        "order_consistency": false,
+        "advantage": false
+      },
+      "menu_distillation_eligible": false,
+      "gameplay_distillation_eligible": false,
+      "note": "Recorded-next-key agreement cannot certify optimal gameplay labels."
+    },
+    "by_game": {
+      "Grounded": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.5625,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.25
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.625
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 1.0,
+            "order_consistency": 1.0
+          },
+          "invalid_responses": 0
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.625,
+            "order_consistency": 1.0,
+            "both_goals_correct": 0.5
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.5
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.375,
+            "order_consistency": 0.25
+          },
+          "invalid_responses": 0
+        }
+      },
+      "Minecraft_1.21.8": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.6875,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.5
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.25
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.75,
+            "order_consistency": 0.5
+          },
+          "invalid_responses": 0
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.8125,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.625
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.125
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.375,
+            "order_consistency": 0.25
+          },
+          "invalid_responses": 0
+        }
+      },
+      "Raft": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.625,
+            "order_consistency": 0.75,
+            "both_goals_correct": 0.5
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.625
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 1.0,
+            "order_consistency": 1.0
+          },
+          "invalid_responses": 1
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.9375,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.875
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.5
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.5,
+            "order_consistency": 0.0
+          },
+          "invalid_responses": 0
+        }
+      }
+    },
+    "teacher_configuration": {
+      "model": "mlx-community/Qwen3.5-4B-4bit",
+      "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+      "width": 640,
+      "thinking_enabled": false,
+      "mode": "generated brief evidence then choice",
+      "max_tokens": 128
+    },
+    "student_bundles": [
+      "artifacts/gameplay-buttons-002/bundle",
+      "artifacts/robust-decoder-007/bundle"
+    ],
+    "protocol": {
+      "seed": 1729,
+      "gates": {
+        "state_accuracy_min": 0.9,
+        "instruction_accuracy_min": 0.85,
+        "both_goals_min": 0.8,
+        "order_consistency_min": 0.9,
+        "instruction_advantage_min": 0.1
+      },
+      "source": "artifacts/learning-gate-002",
+      "annotations_sha256": "e32ca10b1ac44f852f2b9b39d8e4df1f5114095cdbd5a12c076e7fed415a8fcc",
+      "digests": {
+        "train": "7ce65a8ffff8ff287cc093406bedb6f28641a8ee1663b088b4808eb4e90427c4",
+        "validation": "0b0760006762ee40ac50a9ca8e8d838b676685366893d598c4a2550ad0569c9d",
+        "recorded": "b4548eb185588eda48be9575e5895300b62610ab2931b9162c6a24c04057a37a"
+      },
+      "counts": {
+        "train": 72,
+        "validation": 72,
+        "recorded": 24
+      },
+      "scope": "Teacher selection on reused development sessions; menu targets from reviewed state plus synthetic instructions, recorded buttons are ambiguous proxy only. No Hordes or withheld-game evaluation. No training on development rows."
+    },
+    "live_inputs_sent": 0
+  },
+  "with_bounded_thinking": {
+    "teacher": {
+      "instruction": {
+        "n": 48,
+        "accuracy": 0.6041666666666666,
+        "order_consistency": 0.75,
+        "both_goals_correct": 0.375
+      },
+      "recorded": {
+        "n": 24,
+        "accuracy": 0.5
+      },
+      "state": {
+        "n": 24,
+        "accuracy": 0.875,
+        "order_consistency": 0.75
+      },
+      "invalid_responses": 1
+    },
+    "student": {
+      "instruction": {
+        "n": 48,
+        "accuracy": 0.7916666666666666,
+        "order_consistency": 0.9166666666666666,
+        "both_goals_correct": 0.6666666666666666
+      },
+      "recorded": {
+        "n": 24,
+        "accuracy": 0.375
+      },
+      "state": {
+        "n": 24,
+        "accuracy": 0.4166666666666667,
+        "order_consistency": 0.16666666666666666
+      },
+      "invalid_responses": 0
+    },
+    "qualification": {
+      "checks": {
+        "state": false,
+        "instruction": false,
+        "both_goals": false,
+        "order_consistency": false,
+        "advantage": false
+      },
+      "menu_distillation_eligible": false,
+      "gameplay_distillation_eligible": false,
+      "note": "Recorded-next-key agreement cannot certify optimal gameplay labels."
+    },
+    "by_game": {
+      "Grounded": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.625,
+            "order_consistency": 0.5,
+            "both_goals_correct": 0.375
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.625
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 1.0,
+            "order_consistency": 1.0
+          },
+          "invalid_responses": 0
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.625,
+            "order_consistency": 1.0,
+            "both_goals_correct": 0.5
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.5
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.375,
+            "order_consistency": 0.25
+          },
+          "invalid_responses": 0
+        }
+      },
+      "Minecraft_1.21.8": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.625,
+            "order_consistency": 1.0,
+            "both_goals_correct": 0.5
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.375
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.875,
+            "order_consistency": 0.75
+          },
+          "invalid_responses": 0
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.8125,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.625
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.125
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.375,
+            "order_consistency": 0.25
+          },
+          "invalid_responses": 0
+        }
+      },
+      "Raft": {
+        "teacher": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.5625,
+            "order_consistency": 0.75,
+            "both_goals_correct": 0.25
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.5
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.75,
+            "order_consistency": 0.5
+          },
+          "invalid_responses": 1
+        },
+        "student": {
+          "instruction": {
+            "n": 16,
+            "accuracy": 0.9375,
+            "order_consistency": 0.875,
+            "both_goals_correct": 0.875
+          },
+          "recorded": {
+            "n": 8,
+            "accuracy": 0.5
+          },
+          "state": {
+            "n": 8,
+            "accuracy": 0.5,
+            "order_consistency": 0.0
+          },
+          "invalid_responses": 0
+        }
+      }
+    },
+    "teacher_configuration": {
+      "model": "mlx-community/Qwen3.5-4B-4bit",
+      "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+      "width": 640,
+      "thinking_enabled": true,
+      "mode": "generated brief evidence then choice",
+      "max_tokens": 384,
+      "thinking_budget": 256
+    },
+    "student_bundles": [
+      "artifacts/gameplay-buttons-002/bundle",
+      "artifacts/robust-decoder-007/bundle"
+    ],
+    "protocol": {
+      "seed": 1729,
+      "gates": {
+        "state_accuracy_min": 0.9,
+        "instruction_accuracy_min": 0.85,
+        "both_goals_min": 0.8,
+        "order_consistency_min": 0.9,
+        "instruction_advantage_min": 0.1
+      },
+      "source": "artifacts/learning-gate-002",
+      "annotations_sha256": "e32ca10b1ac44f852f2b9b39d8e4df1f5114095cdbd5a12c076e7fed415a8fcc",
+      "digests": {
+        "train": "7ce65a8ffff8ff287cc093406bedb6f28641a8ee1663b088b4808eb4e90427c4",
+        "validation": "0b0760006762ee40ac50a9ca8e8d838b676685366893d598c4a2550ad0569c9d",
+        "recorded": "b4548eb185588eda48be9575e5895300b62610ab2931b9162c6a24c04057a37a"
+      },
+      "counts": {
+        "train": 72,
+        "validation": 72,
+        "recorded": 24
+      },
+      "scope": "Teacher selection on reused development sessions; menu targets from reviewed state plus synthetic instructions, recorded buttons are ambiguous proxy only. No Hordes or withheld-game evaluation. No training on development rows."
+    },
+    "live_inputs_sent": 0
+  },
+  "rejected_exports": {
+    "no_thinking": "Teacher qualification failed: {'state': True, 'instruction': False, 'both_goals': False, 'order_consistency': False, 'advantage': False}",
+    "thinking": "Teacher qualification failed: {'state': False, 'instruction': False, 'both_goals': False, 'order_consistency': False, 'advantage': False}"
+  },
+  "training_run_performed": false,
+  "live_inputs_sent": 0,
+  "incomplete_512_token_run": "Retained locally, interrupted after truncation failures; excluded from scores."
+}
