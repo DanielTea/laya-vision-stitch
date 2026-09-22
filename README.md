@@ -1,9 +1,20 @@
 # Laya Vision Stitch
 
-Research toward a fast local visual decision model with **Laya retained** and
-**no new training or connector fitting**.
+Research toward a fast local visual decision model with **Laya retained**.
 
-The current experiment combines frozen CLIP, paired image–description reference
+The current path combines **frozen Qwen vision, a trainable goal-conditioned
+connector, Laya, and keyboard/mouse action outputs**, with optional small LoRA
+adapters. Full Qwen can supply offline teacher targets; it does not decode text
+during deployment. Original backbone weights stay frozen. See the
+[training guide and data format](docs/TRAINABLE_STITCH.md) and
+[initial training results](docs/TRAINING_RESULTS.md).
+
+The pipeline trains and exports a single model, but the initial synthetic pilots
+remain at chance on goal-dependent choices. This is research infrastructure,
+not a trained general game agent. The previous no-training experiments remain
+available below.
+
+The previous experiment combines frozen CLIP, paired image–description reference
 memory, and frozen Laya in one MLX module and one weights file. No autoregressive
 model generates captions. No game-specific detector or action rule selects the
 answer.
@@ -111,11 +122,10 @@ and screenshots under `artifacts/` are ignored by Git. ScreenQuest is unchanged.
 
 ## Earlier experiments
 
-- [Paired references: active experiment](docs/PAIRED_REFERENCE.md).
+- [Paired references: previous no-training experiment](docs/PAIRED_REFERENCE.md).
 - [Fixed lexical bridge: fast, but failed basic visual tests](docs/LEXICAL_STITCH.md).
 - [Historical fitted ridge bridge: failed constant-action controls](docs/RESULTS.md).
-  This older experiment predates the no-training requirement and is not used by
-  the current model. Its [protocol](docs/PROTOCOL.md) is retained for reproducibility.
+  Its [protocol](docs/PROTOCOL.md) is retained for reproducibility.
 
 ## Sources and licensing
 
@@ -127,7 +137,7 @@ and screenshots under `artifacts/` are ignored by Git. ScreenQuest is unchanged.
   Our decision-mixture experiment is not an ASIF reproduction.
 
 Original project code is MIT licensed, except the Apache-2.0 embedding-forward
-adaptation identified in `lexical_stitch.py`. Vendored CLIP code retains Apple's
+adaptations identified in `lexical_stitch.py` and `trainable_model.py`. Vendored CLIP code retains Apple's
 MIT license; modifications and upstream notices are recorded under
 `third_party/`. Pretrained weights retain their upstream licenses and are not
 included in this Git repository.

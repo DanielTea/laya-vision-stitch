@@ -1,7 +1,7 @@
 [project]
 name = "laya-vision-stitch"
 version = "0.1.0"
-description = "Offline research connecting frozen visual features to Laya, including a no-training lexical stitch"
+description = "Local Qwen-to-Laya visual stitching with frozen backbones, small adapters and offline distillation"
 requires-python = ">=3.11,<3.14"
 dependencies = ["numpy>=2", "pillow>=12"]
 

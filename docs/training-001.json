@@ -1,0 +1,350 @@
+{
+  "runs": {
+    "trained-002": {
+      "parameters": {
+        "total": 755622678,
+        "trainable": 814608,
+        "trainable_roots": [
+          "actions",
+          "connector"
+        ]
+      },
+      "before": {
+        "train": {
+          "loss": 3.9858840852975845,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08113795711954365,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 3.963030993938446,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08126549777012611,
+          "examples": 8,
+          "zero_visual": false
+        }
+      },
+      "after": {
+        "train": {
+          "loss": 0.9659573100507259,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0007250543325974905,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 0.9646598473191261,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0007231427984696133,
+          "examples": 8,
+          "zero_visual": false
+        },
+        "validation_zero_visual": {
+          "loss": 1.0663920640945435,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0007544805915383288,
+          "examples": 8,
+          "zero_visual": true
+        }
+      },
+      "frozen_weights_unchanged": true,
+      "connector_changed": true,
+      "action_heads_changed": true,
+      "nonzero_gradient_steps": 24,
+      "reload_matches": true,
+      "warm_image_to_outputs_p50_ms": 47.298000019509345,
+      "warm_image_to_outputs_p95_ms": 48.861033146386035,
+      "training": {
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "steps_this_run": 24,
+        "train_digest": "f1607dec4624d8da210180896cdca2ba6c2abb0d04e0f59bb484c2dc44277d37",
+        "validation_digest": "f31af637aa705fcf0311edac99f4b834084ea0642d2e55d981ba10386cb6f17f",
+        "holdout_games": false,
+        "frozen_sha256": {
+          "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+          "laya": "3338e61c6bf13ea27cf4241538eeb59a859b7530081d147d302a45fb94188e7b"
+        },
+        "teacher_examples": 0,
+        "action_examples": 16,
+        "optimizer_state_saved": false
+      },
+      "input_events_sent": 0,
+      "cross_game_capability_established": false
+    },
+    "trained-supervised-001": {
+      "parameters": {
+        "total": 755622678,
+        "trainable": 814608,
+        "trainable_roots": [
+          "actions",
+          "connector"
+        ]
+      },
+      "before": {
+        "train": {
+          "loss": 3.9858840852975845,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08113795711954365,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 3.963030993938446,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08126549777012611,
+          "examples": 8,
+          "zero_visual": false
+        }
+      },
+      "after": {
+        "train": {
+          "loss": 0.9240002408623695,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.5,
+          "mouse_mse": 1.2396953057240336e-06,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 0.9241969808936119,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 1.2871424701781865e-06,
+          "examples": 8,
+          "zero_visual": false
+        },
+        "validation_zero_visual": {
+          "loss": 0.9243595153093338,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 4.843551283603658e-06,
+          "examples": 8,
+          "zero_visual": true
+        }
+      },
+      "frozen_weights_unchanged": true,
+      "connector_changed": true,
+      "action_heads_changed": true,
+      "nonzero_gradient_steps": 512,
+      "reload_matches": true,
+      "warm_image_to_outputs_p50_ms": 45.0342710246332,
+      "warm_image_to_outputs_p95_ms": 46.78717947972473,
+      "training": {
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "steps_this_run": 512,
+        "train_digest": "f1607dec4624d8da210180896cdca2ba6c2abb0d04e0f59bb484c2dc44277d37",
+        "validation_digest": "f31af637aa705fcf0311edac99f4b834084ea0642d2e55d981ba10386cb6f17f",
+        "holdout_games": false,
+        "frozen_sha256": {
+          "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+          "laya": "3338e61c6bf13ea27cf4241538eeb59a859b7530081d147d302a45fb94188e7b"
+        },
+        "teacher_examples": 0,
+        "action_examples": 16,
+        "optimizer_state_saved": false
+      },
+      "input_events_sent": 0,
+      "cross_game_capability_established": false
+    },
+    "trained-distilled-001": {
+      "parameters": {
+        "total": 755622678,
+        "trainable": 814608,
+        "trainable_roots": [
+          "actions",
+          "connector"
+        ]
+      },
+      "before": {
+        "train": {
+          "loss": 7.114431977272034,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08113795711954365,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 3.963030993938446,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08126549777012611,
+          "examples": 8,
+          "zero_visual": false
+        }
+      },
+      "after": {
+        "train": {
+          "loss": 1.7778123915195465,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.5,
+          "mouse_mse": 3.850473630170653e-05,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 0.9785562008619308,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 3.8689124144508335e-05,
+          "examples": 8,
+          "zero_visual": false
+        },
+        "validation_zero_visual": {
+          "loss": 0.9789963513612747,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 4.795122500353912e-05,
+          "examples": 8,
+          "zero_visual": true
+        }
+      },
+      "frozen_weights_unchanged": true,
+      "connector_changed": true,
+      "action_heads_changed": true,
+      "nonzero_gradient_steps": 200,
+      "reload_matches": true,
+      "warm_image_to_outputs_p50_ms": 45.300458499696106,
+      "warm_image_to_outputs_p95_ms": 47.834445800981484,
+      "training": {
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "steps_this_run": 200,
+        "train_digest": "c5ad175f0c000d8288e583a4ae9a13f730e9b0d0f6baf1db5ed6f3731b0f8fdc",
+        "validation_digest": "f31af637aa705fcf0311edac99f4b834084ea0642d2e55d981ba10386cb6f17f",
+        "holdout_games": false,
+        "frozen_sha256": {
+          "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+          "laya": "3338e61c6bf13ea27cf4241538eeb59a859b7530081d147d302a45fb94188e7b"
+        },
+        "teacher_examples": 16,
+        "action_examples": 16,
+        "optimizer_state_saved": false
+      },
+      "input_events_sent": 0,
+      "cross_game_capability_established": false
+    },
+    "trained-lora-001": {
+      "parameters": {
+        "total": 755720982,
+        "trainable": 912912,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya"
+        ]
+      },
+      "before": {
+        "train": {
+          "loss": 5.30416975915432,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08113795711954365,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 3.963030993938446,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.0,
+          "mouse_mse": 0.08126549777012611,
+          "examples": 8,
+          "zero_visual": false
+        }
+      },
+      "after": {
+        "train": {
+          "loss": 1.7355227209627628,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 16,
+          "button_exact_match": 0.5,
+          "mouse_mse": 8.488840808379463e-06,
+          "examples": 16,
+          "zero_visual": false
+        },
+        "validation": {
+          "loss": 0.9908913746476173,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 8.159948114256753e-06,
+          "examples": 8,
+          "zero_visual": false
+        },
+        "validation_zero_visual": {
+          "loss": 1.0028692930936813,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 8,
+          "button_exact_match": 0.5,
+          "mouse_mse": 7.754952697739628e-06,
+          "examples": 8,
+          "zero_visual": true
+        }
+      },
+      "frozen_weights_unchanged": true,
+      "connector_changed": true,
+      "action_heads_changed": true,
+      "nonzero_gradient_steps": 512,
+      "reload_matches": true,
+      "warm_image_to_outputs_p50_ms": 45.37164600333199,
+      "warm_image_to_outputs_p95_ms": 47.15367310564034,
+      "training": {
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "steps_this_run": 512,
+        "train_digest": "8b6d0fab63d210f818811110ae0f2d7eca36e6295c27acab056c8b2e5850a69f",
+        "validation_digest": "f31af637aa705fcf0311edac99f4b834084ea0642d2e55d981ba10386cb6f17f",
+        "holdout_games": false,
+        "frozen_sha256": {
+          "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+          "laya": "6f3a46ef38f342fbdee3aee95a30f0ae04d5fea1f37b4886d909b751410cb326"
+        },
+        "teacher_examples": 16,
+        "action_examples": 16,
+        "optimizer_state_saved": false
+      },
+      "input_events_sent": 0,
+      "cross_game_capability_established": false,
+      "final_goal_counterfactual_accuracy": 0.0,
+      "goal_counterfactual_groups": 4
+    }
+  },
+  "teacher": {
+    "train-teacher": {
+      "examples": 16,
+      "correct": 9
+    },
+    "train-teacher-generated": {
+      "examples": 16,
+      "correct": 16
+    }
+  },
+  "note": "Synthetic pilot; no cross-game or live-play capability established."
+}
