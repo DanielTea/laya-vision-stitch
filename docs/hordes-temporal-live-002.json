@@ -1,0 +1,45 @@
+{
+  "duration_seconds": 60,
+  "checkpoint": "artifacts/temporal-expanded-regularized-001/attention/bundle",
+  "summary": {
+    "stop_reason": "duration_complete",
+    "observations": 840,
+    "applied_steps": 840,
+    "steps_with_input_events": 209,
+    "nonempty_button_steps": 134,
+    "proposed_buttons": {
+      "mouse_left": 39,
+      "w": 95
+    },
+    "applied_buttons": {
+      "mouse_left": 39,
+      "w": 95
+    },
+    "state_resets": 111,
+    "inference_p50_ms": 52.70206299610436,
+    "inference_p95_ms": 95.80522534088232,
+    "screenshot_to_dispatch_start_p50_ms": 75.70522947935387,
+    "screenshot_to_dispatch_start_p95_ms": 122.77064972440712,
+    "gameplay_success": null,
+    "note": "Latency ends at dispatch start, not event posting or game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions."
+  },
+  "transport_audit": {
+    "blocked_buttons": {},
+    "mouse_magnitude_clipped": 16,
+    "raw_mouse_nonzero": 305,
+    "actual_mouse_nonzero": 113,
+    "frame_gap_p50_ms": 67.88904196582735,
+    "frame_gap_p95_ms": 102.5343580637127,
+    "gaps_over100ms": 110
+  },
+  "visual_review": {
+    "initial_target": "self",
+    "final_target": "Mature Grub",
+    "final_target_health": "70/70",
+    "player_health_before_after": "244/244",
+    "xp_before_after": "466/1600",
+    "ability_key_proposals": 0,
+    "combat_demonstrated": false,
+    "automated_success_rate": null
+  }
+}

@@ -6,6 +6,12 @@ requires-python = ">=3.11,<3.14"
 dependencies = ["numpy>=2", "pillow>=12"]
 
 [project.optional-dependencies]
+desktop = [
+    "pyobjc-framework-Quartz>=11",
+    "pyobjc-framework-Cocoa>=11",
+    "pyobjc-framework-ApplicationServices>=11",
+    "pyobjc-framework-ScreenCaptureKit>=11",
+]
 models = ["mlx-vlm==0.7.1", "laya-coreml==0.1.0"]
 stitch = [
     "laya-mlx==0.2.0",

@@ -17,6 +17,11 @@ and game contention. Qwen and Laya remain frozen; about 0.13% of parameters trai
 [Expanded data, comparisons and limitations](docs/TEMPORAL_EXPANSION.md) ·
 [Temporal architecture and streaming usage](docs/TEMPORAL_MEMORY.md).
 
+A subsequent **60-second live Hordes trial** measured **52.7 ms median inference**
+and produced movement and a selected monster, but **no ability presses or
+demonstrated combat**. Slow frames caused 111 temporal-memory resets.
+[Live results, recording details and experimental runner](docs/HORDES_TEMPORAL_LIVE.md).
+
 The earlier visual action adapter with numeric control history reached **82.0%**
 validation button F1 and **84.4%** on withheld experiences on a different sample
 set. It still lost to repeating the previous action. These percentages are not
