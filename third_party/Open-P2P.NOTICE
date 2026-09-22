@@ -1,4 +1,4 @@
-Open Pixel2Play pretrained image tokenizer
+Open Pixel2Play pretrained image tokenizer, temporal policy and action decoder
 
 Source code: https://github.com/elefant-ai/open-p2p
 Pretrained release: https://huggingface.co/guaguaa/open-p2p
@@ -15,5 +15,10 @@ followed by its learned spatial projection. The reference check constructs the
 architecture using torchvision and loads the actual gameplay checkpoint weights;
 it does not replace them with ImageNet weights.
 
-The pretrained policy transformer and action decoder have not yet been ported.
-The image tokenizer alone is not a playable model or a Laya stitch.
+p2p_pretrained_policy.py ports the released policy transformer, grouped temporal
+attention mask, rotary embeddings and autoregressive action decoder to MLX.
+p2p_adaptation.py reuses the released action vocabulary and mouse-bin boundaries,
+and optionally appends a separately learned Tab token. The original released
+weights are kept frozen during adapter training.
+Reference parity uses the original upstream Transformer, ActionDecoder and
+RollingStepKVCache. Conversion parity does not establish gameplay capability.

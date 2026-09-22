@@ -26,6 +26,13 @@ class LiveRuntime:
     """Select the checkpoint's trained neural path; no gameplay decisions here."""
 
     def __init__(self, bundle):
+        metadata = json.loads((Path(bundle) / "config.json").read_text())
+        if metadata.get("format") == "laya-p2p-1":
+            from .laya_p2p_stream import LayaP2PStream
+
+            self.model = LayaP2PStream.load(bundle)
+            self.temporal = True
+            return
         from .trainable_model import TrainableRuntime
 
         model = TrainableRuntime.load(bundle)

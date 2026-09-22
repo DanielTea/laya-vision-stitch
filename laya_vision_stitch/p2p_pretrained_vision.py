@@ -8,7 +8,8 @@ Full policy conversion and Laya goal alignment are separate, unvalidated work.
 import mlx.core as mx
 import mlx.nn as nn
 import numpy as np
-from PIL import Image
+
+from .p2p_resize import resize_rgb
 
 P2P_ID = "guaguaa/open-p2p"
 P2P_REVISION = "de18b62bc8f9722bda64497600c38c8f7634d86b"
@@ -133,14 +134,5 @@ class OpenP2PVision(nn.Module):
 
 
 def preprocess(image):
-    """Full-frame Hamming resize; parity with the upstream Rust resizer is untested.
-
-    Numerical model parity compares identical input tensors. Pillow downsampling
-    need not be byte-identical to fast_image_resize's interpolation mode.
-    """
-    return (
-        np.asarray(
-            image.convert("RGB").resize((192, 192), Image.Resampling.HAMMING), dtype=np.float32
-        )[None]
-        / 255
-    )
+    """Released Hamming interpolation with intermediate uint8 rounding, RGB/255."""
+    return resize_rgb(np.asarray(image.convert("RGB")))[None].astype(np.float32) / 255

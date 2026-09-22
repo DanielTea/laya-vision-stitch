@@ -5,7 +5,13 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Latest experiment:** a native MLX C-RADIOv3-B visual encoder and learned visual
+**Latest experiment:** Laya goal features now condition the pretrained Open-P2P
+vision, memory and action decoder in one checkpoint. Fresh screenshot inference
+takes **31.7 ms median** offline. Image interventions show visual dependence on
+public games, but Hordes combat and robust goal following remain unsolved.
+[Architecture, conversion checks and limitations](docs/LAYA_P2P.md).
+
+**Previous faster-vision experiment:** a native MLX C-RADIOv3-B visual encoder and learned visual
 action branch reduce full fresh-image prediction to **31.0 ms median** offline.
 A 32-image fitting test passes and fails under image permutation, but held-out
 Hordes gameplay remains unsolved. **No reliable Hordes agent or sub-60 ms live

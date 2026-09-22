@@ -1,0 +1,7 @@
+The Hamming interpolation and fixed-point coefficient algorithm in
+laya_vision_stitch/p2p_resize.py is adapted from fast_image_resize 5.1.4,
+Copyright (c) 2021 Kirill Kuzminykh, under its MIT license option.
+See fast-image-resize.LICENSE for the license text.
+Source: https://github.com/Cykooz/fast_image_resize
+The native/p2p_resize helper pins the original crate for offline parity testing;
+it is not required for model inference.

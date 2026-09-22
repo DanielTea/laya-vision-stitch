@@ -1,0 +1,1398 @@
+{
+  "goal_bridge": {
+    "audit": {
+      "recordings": 212,
+      "conflicting_instructions_removed": 2,
+      "unique_instructions": 1294,
+      "splits": {
+        "test": 178,
+        "train": 899,
+        "validation": 217
+      },
+      "test_games": [
+        "roblox/a-dusty-trip",
+        "roblox/be-a-snake",
+        "roblox/evade"
+      ],
+      "teacher": "Released annotation Gemma raw pooled features; no online teacher or target lookup at inference"
+    },
+    "parent_fingerprints": {
+      "laya": "3338e61c6bf13ea27cf4241538eeb59a859b7530081d147d302a45fb94188e7b",
+      "policy": "80cff68ac076a1b546491544487cd9bcde4ad162b9c101000997a905d56d9b47"
+    },
+    "selected_regularization": 0.01,
+    "candidates": [
+      {
+        "regularization": 0.01,
+        "validation": {
+          "examples": 217,
+          "mse": 0.3775068521499634,
+          "training_mean_mse": 0.45985832810401917,
+          "r2_vs_training_mean": 0.1790801012424592,
+          "cosine": 0.8488968014717102,
+          "centered_cosine": 0.43076378107070923,
+          "paired_retrieval_top1": 0.29493087557603687
+        }
+      },
+      {
+        "regularization": 0.1,
+        "validation": {
+          "examples": 217,
+          "mse": 0.4208488464355469,
+          "training_mean_mse": 0.45985832810401917,
+          "r2_vs_training_mean": 0.0848293469628072,
+          "cosine": 0.8315081000328064,
+          "centered_cosine": 0.30811408162117004,
+          "paired_retrieval_top1": 0.12903225806451613
+        }
+      },
+      {
+        "regularization": 1,
+        "validation": {
+          "examples": 217,
+          "mse": 0.443280428647995,
+          "training_mean_mse": 0.45985832810401917,
+          "r2_vs_training_mean": 0.03605001463031954,
+          "cosine": 0.8232261538505554,
+          "centered_cosine": 0.19935333728790283,
+          "paired_retrieval_top1": 0.027649769585253458
+        }
+      },
+      {
+        "regularization": 10,
+        "validation": {
+          "examples": 217,
+          "mse": 0.45117083191871643,
+          "training_mean_mse": 0.45985832810401917,
+          "r2_vs_training_mean": 0.01889167957688398,
+          "cosine": 0.8207436800003052,
+          "centered_cosine": 0.14121733605861664,
+          "paired_retrieval_top1": 0.018433179723502304
+        }
+      },
+      {
+        "regularization": 100,
+        "validation": {
+          "examples": 217,
+          "mse": 0.45475634932518005,
+          "training_mean_mse": 0.45985832810401917,
+          "r2_vs_training_mean": 0.011094675179363134,
+          "cosine": 0.8195167779922485,
+          "centered_cosine": 0.10713078081607819,
+          "paired_retrieval_top1": 0.018433179723502304
+        }
+      }
+    ],
+    "results": {
+      "train": {
+        "examples": 899,
+        "mse": 0.324014812707901,
+        "training_mean_mse": 0.46131813526153564,
+        "r2_vs_training_mean": 0.2976326141520387,
+        "cosine": 0.8729701638221741,
+        "centered_cosine": 0.5830757021903992,
+        "paired_retrieval_top1": 0.5317018909899889
+      },
+      "validation": {
+        "examples": 217,
+        "mse": 0.3775068521499634,
+        "training_mean_mse": 0.45985832810401917,
+        "r2_vs_training_mean": 0.1790801012424592,
+        "cosine": 0.8488968014717102,
+        "centered_cosine": 0.43076378107070923,
+        "paired_retrieval_top1": 0.29493087557603687
+      },
+      "test": {
+        "examples": 178,
+        "mse": 0.568376898765564,
+        "training_mean_mse": 0.5892735123634338,
+        "r2_vs_training_mean": 0.03546165432425186,
+        "cosine": 0.7624463438987732,
+        "centered_cosine": 0.20924866199493408,
+        "paired_retrieval_top1": 0.08426966292134831
+      }
+    },
+    "scope": "Goal-feature alignment only. Does not establish correct game actions, Hordes transfer or live latency.",
+    "parents_unchanged": true,
+    "reload_max_abs_error": 4.291534423828125e-06
+  },
+  "fresh_inference": {
+    "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+    "preprocessing": "fast_image_resize 5.1.4 Hamming interpolation, byte-parity checked",
+    "scope": "Offline fresh screenshots, preprocessing, fresh Laya goal encoding and autoregressive control. No capture, input posting or gameplay-success measurement. Teacher condition is diagnostic only.",
+    "input_events_sent": 0,
+    "conditions": {
+      "no_goal_greedy": {
+        "goal": null,
+        "temperature": 0,
+        "button_counts": {},
+        "nonzero_mouse_steps": 0,
+        "active_steps": 0,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 24.15270800702274,
+          "p95_ms": 50.33686701208352
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 28.008145978674293,
+          "p95_ms": 28.527749911881983
+        }
+      },
+      "teacher_attack_greedy": {
+        "goal": "teacher",
+        "temperature": 0,
+        "button_counts": {},
+        "nonzero_mouse_steps": 0,
+        "active_steps": 0,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 27.821250027045608,
+          "p95_ms": 39.88512887153774
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 27.19041652744636,
+          "p95_ms": 27.833854214986786
+        }
+      },
+      "laya_attack_greedy": {
+        "goal": "Attack the opponent",
+        "temperature": 0,
+        "button_counts": {},
+        "nonzero_mouse_steps": 0,
+        "active_steps": 0,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 27.333457954227924,
+          "p95_ms": 31.43696691840887
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 31.339396082330495,
+          "p95_ms": 39.28600653889589
+        }
+      },
+      "laya_wait_greedy": {
+        "goal": "Stand still and do nothing.",
+        "temperature": 0,
+        "button_counts": {},
+        "nonzero_mouse_steps": 0,
+        "active_steps": 0,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 29.2712920345366,
+          "p95_ms": 38.644671405199915
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 31.651145487558097,
+          "p95_ms": 32.33352465322241
+        }
+      },
+      "no_goal_sampled": {
+        "goal": null,
+        "temperature": 1,
+        "button_counts": {
+          "e": 1,
+          "w": 5,
+          "2": 2,
+          "mouse_left": 4,
+          "d": 43,
+          "s": 14,
+          "a": 17
+        },
+        "nonzero_mouse_steps": 37,
+        "active_steps": 116,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 24.333832901902497,
+          "p95_ms": 44.92414995329454
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 27.576603926718235,
+          "p95_ms": 28.555804170900956
+        }
+      },
+      "laya_attack_sampled": {
+        "goal": "Attack the opponent",
+        "temperature": 1,
+        "button_counts": {
+          "w": 82,
+          "mouse_left": 7,
+          "d": 114,
+          "s": 10,
+          "a": 19,
+          "space": 10
+        },
+        "nonzero_mouse_steps": 57,
+        "active_steps": 195,
+        "growing_cache": {
+          "samples": 195,
+          "p50_ms": 29.257374932058156,
+          "p95_ms": 33.109771308954805
+        },
+        "full_cache": {
+          "samples": 40,
+          "p50_ms": 31.68606251711026,
+          "p95_ms": 32.696353836217895
+        }
+      }
+    }
+  },
+  "ablations": {
+    "scope": "Offline single-frame control likelihood, teacher forcing within each action. No temporal history; no live success claims. Hordes labels are weak controller demonstrations. Public P2P games may overlap parent pretraining.",
+    "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+    "manifest": "artifacts/hordes-radio-data-001/test.jsonl",
+    "input_events_sent": 0,
+    "excluded": {},
+    "games": {
+      "Hordes.io": {
+        "examples": 40,
+        "active_examples": 16,
+        "conditions": {
+          "actual": {
+            "button_nll": 0.48277171147249237,
+            "active_button_nll": 5.72215773910284,
+            "first_button_accuracy": 0.7,
+            "probability_total_variation": 0.0
+          },
+          "shuffled_image": {
+            "button_nll": 0.5015225622988313,
+            "active_button_nll": 5.949133902788162,
+            "first_button_accuracy": 0.65,
+            "probability_total_variation": 0.04714766615070402
+          },
+          "blank_image": {
+            "button_nll": 0.5067255843175189,
+            "active_button_nll": 6.960820570588112,
+            "first_button_accuracy": 0.75,
+            "probability_total_variation": 0.05412159014958888
+          },
+          "wait_goal": {
+            "button_nll": 0.48216153435658854,
+            "active_button_nll": 5.762932233512402,
+            "first_button_accuracy": 0.725,
+            "probability_total_variation": 0.011685708782169967
+          }
+        }
+      },
+      "roblox/a-dusty-trip": {
+        "examples": 24,
+        "active_examples": 23,
+        "conditions": {
+          "actual": {
+            "button_nll": 0.19594766825178392,
+            "active_button_nll": 0.7811960155225318,
+            "first_button_accuracy": 0.625,
+            "probability_total_variation": 0.0
+          },
+          "shuffled_image": {
+            "button_nll": 0.5995115148625911,
+            "active_button_nll": 2.5313649880497353,
+            "first_button_accuracy": 0.2916666666666667,
+            "probability_total_variation": 0.13132556027267128
+          },
+          "blank_image": {
+            "button_nll": 0.615580479122299,
+            "active_button_nll": 2.8998610545759615,
+            "first_button_accuracy": 0.20833333333333334,
+            "probability_total_variation": 0.15860652287180224
+          },
+          "wait_goal": {
+            "button_nll": 0.19475642148735992,
+            "active_button_nll": 0.7785186736803987,
+            "first_button_accuracy": 0.625,
+            "probability_total_variation": 0.005644092423608527
+          }
+        }
+      },
+      "roblox/be-a-snake": {
+        "examples": 24,
+        "active_examples": 24,
+        "conditions": {
+          "actual": {
+            "button_nll": 0.13922069365729564,
+            "active_button_nll": 0.46868172732259455,
+            "first_button_accuracy": 0.7083333333333334,
+            "probability_total_variation": 0.0
+          },
+          "shuffled_image": {
+            "button_nll": 0.317029120692975,
+            "active_button_nll": 1.1454639569468175,
+            "first_button_accuracy": 0.4166666666666667,
+            "probability_total_variation": 0.10793236476213981
+          },
+          "blank_image": {
+            "button_nll": 0.4960284584989394,
+            "active_button_nll": 2.250756397843361,
+            "first_button_accuracy": 0.0,
+            "probability_total_variation": 0.20422344033916792
+          },
+          "wait_goal": {
+            "button_nll": 0.13618271625478132,
+            "active_button_nll": 0.45695635220423964,
+            "first_button_accuracy": 0.7083333333333334,
+            "probability_total_variation": 0.0036000493176591894
+          }
+        }
+      },
+      "roblox/evade": {
+        "examples": 24,
+        "active_examples": 24,
+        "conditions": {
+          "actual": {
+            "button_nll": 0.2657749562190534,
+            "active_button_nll": 0.9479747934836066,
+            "first_button_accuracy": 0.4583333333333333,
+            "probability_total_variation": 0.0
+          },
+          "shuffled_image": {
+            "button_nll": 0.3163202594400077,
+            "active_button_nll": 1.0951704532684137,
+            "first_button_accuracy": 0.4166666666666667,
+            "probability_total_variation": 0.06004931180117031
+          },
+          "blank_image": {
+            "button_nll": 0.7209702885512445,
+            "active_button_nll": 2.360506568931871,
+            "first_button_accuracy": 0.0,
+            "probability_total_variation": 0.19378026109188795
+          },
+          "wait_goal": {
+            "button_nll": 0.27199200259094364,
+            "active_button_nll": 0.9667707807901834,
+            "first_button_accuracy": 0.4166666666666667,
+            "probability_total_variation": 0.0065854534089642884
+          }
+        }
+      }
+    }
+  },
+  "control_adaptation_equal_games": {
+    "source": "artifacts/laya-p2p-bridge-001/bundle",
+    "data": "artifacts/hordes-radio-data-001",
+    "excluded": {
+      "train: Unsupported controls: ['c']": 2,
+      "train: Unsupported controls: ['r']": 1
+    },
+    "trainable_parameters": 120897,
+    "frozen_parameters_unchanged": true,
+    "frozen_sha256": "3cd0437d31ff177e1a0dc4c0ed150e178564d76e4adde4448c2f9f5e998f481d",
+    "parallel_decoder_max_error": 0.0,
+    "reload_max_error": 0.0,
+    "selected_step": 0,
+    "history": [
+      {
+        "step": 0,
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.464451137363188
+      },
+      {
+        "step": 100,
+        "loss": 0.27575692534446716,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 130,
+            "exact": 107,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.45147679324894513
+          },
+          "left-4-dead-2": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 11,
+            "exact": 16,
+            "examples": 24,
+            "button_f1": 0.6451612903225806,
+            "exact_button_set_accuracy": 0.6666666666666666
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 0,
+            "fn": 4,
+            "exact": 20,
+            "examples": 24,
+            "button_f1": 0.9285714285714286,
+            "exact_button_set_accuracy": 0.8333333333333334
+          }
+        },
+        "selection_score": 0.39343317972350234
+      },
+      {
+        "step": 200,
+        "loss": 0.5210182666778564,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 6,
+            "fn": 130,
+            "exact": 105,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4430379746835443
+          },
+          "left-4-dead-2": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 10,
+            "exact": 16,
+            "examples": 24,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.6666666666666666
+          },
+          "roblox/be-a-tornado": {
+            "tp": 27,
+            "fp": 2,
+            "fn": 3,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9152542372881356,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.3954802259887006
+      },
+      {
+        "step": 300,
+        "loss": 0.4679514765739441,
+        "validation": {
+          "Hordes.io": {
+            "tp": 5,
+            "fp": 126,
+            "fn": 125,
+            "exact": 54,
+            "examples": 237,
+            "button_f1": 0.038314176245210725,
+            "exact_button_set_accuracy": 0.22784810126582278
+          },
+          "left-4-dead-2": {
+            "tp": 16,
+            "fp": 5,
+            "fn": 5,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.7619047619047619,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.4369060058715231
+      },
+      {
+        "step": 400,
+        "loss": 0.20583385229110718,
+        "validation": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 11,
+            "fn": 128,
+            "exact": 104,
+            "examples": 237,
+            "button_f1": 0.027972027972027972,
+            "exact_button_set_accuracy": 0.4388185654008439
+          },
+          "left-4-dead-2": {
+            "tp": 13,
+            "fp": 5,
+            "fn": 8,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.40792540792540793
+      },
+      {
+        "step": 500,
+        "loss": 0.41248181462287903,
+        "validation": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 9,
+            "fn": 128,
+            "exact": 105,
+            "examples": 237,
+            "button_f1": 0.028368794326241134,
+            "exact_button_set_accuracy": 0.4430379746835443
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.4243839537041405
+      },
+      {
+        "step": 600,
+        "loss": 0.21043738722801208,
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 13,
+            "fn": 123,
+            "exact": 106,
+            "examples": 237,
+            "button_f1": 0.09333333333333334,
+            "exact_button_set_accuracy": 0.4472573839662447
+          },
+          "left-4-dead-2": {
+            "tp": 16,
+            "fp": 5,
+            "fn": 5,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.7619047619047619,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.46441558441558445
+      }
+    ],
+    "validation": {
+      "Hordes.io": {
+        "tp": 7,
+        "fp": 26,
+        "fn": 123,
+        "exact": 101,
+        "examples": 237,
+        "button_f1": 0.08588957055214724,
+        "exact_button_set_accuracy": 0.42616033755274263
+      },
+      "left-4-dead-2": {
+        "tp": 15,
+        "fp": 2,
+        "fn": 6,
+        "exact": 18,
+        "examples": 24,
+        "button_f1": 0.7894736842105263,
+        "exact_button_set_accuracy": 0.75
+      },
+      "roblox/be-a-tornado": {
+        "tp": 26,
+        "fp": 2,
+        "fn": 4,
+        "exact": 18,
+        "examples": 24,
+        "button_f1": 0.896551724137931,
+        "exact_button_set_accuracy": 0.75
+      }
+    },
+    "test": {
+      "Hordes.io": {
+        "tp": 4,
+        "fp": 16,
+        "fn": 70,
+        "exact": 102,
+        "examples": 178,
+        "button_f1": 0.0851063829787234,
+        "exact_button_set_accuracy": 0.5730337078651685
+      },
+      "roblox/evade": {
+        "tp": 36,
+        "fp": 11,
+        "fn": 7,
+        "exact": 11,
+        "examples": 24,
+        "button_f1": 0.8,
+        "exact_button_set_accuracy": 0.4583333333333333
+      },
+      "roblox/be-a-snake": {
+        "tp": 28,
+        "fp": 4,
+        "fn": 3,
+        "exact": 17,
+        "examples": 24,
+        "button_f1": 0.8888888888888888,
+        "exact_button_set_accuracy": 0.7083333333333334
+      },
+      "roblox/a-dusty-trip": {
+        "tp": 24,
+        "fp": 3,
+        "fn": 7,
+        "exact": 15,
+        "examples": 24,
+        "button_f1": 0.8275862068965517,
+        "exact_button_set_accuracy": 0.625
+      }
+    },
+    "shuffled_test": {
+      "Hordes.io": {
+        "tp": 4,
+        "fp": 81,
+        "fn": 70,
+        "exact": 66,
+        "examples": 178,
+        "button_f1": 0.050314465408805034,
+        "exact_button_set_accuracy": 0.3707865168539326
+      },
+      "roblox/evade": {
+        "tp": 9,
+        "fp": 5,
+        "fn": 34,
+        "exact": 2,
+        "examples": 24,
+        "button_f1": 0.3157894736842105,
+        "exact_button_set_accuracy": 0.08333333333333333
+      },
+      "roblox/be-a-snake": {
+        "tp": 12,
+        "fp": 2,
+        "fn": 19,
+        "exact": 7,
+        "examples": 24,
+        "button_f1": 0.5333333333333333,
+        "exact_button_set_accuracy": 0.2916666666666667
+      },
+      "roblox/a-dusty-trip": {
+        "tp": 6,
+        "fp": 7,
+        "fn": 25,
+        "exact": 3,
+        "examples": 24,
+        "button_f1": 0.2727272727272727,
+        "exact_button_set_accuracy": 0.125
+      }
+    },
+    "scope": "Weak labels, whole-session Hordes splits. No live success claim. Single-frame adaptation; temporal-memory deployment remains unvalidated. Shuffled test mixes games and is diagnostic, not a within-game causal score."
+  },
+  "control_adaptation_hordes_50_percent": {
+    "hordes_sampling_fraction": 0.5,
+    "source": "artifacts/laya-p2p-bridge-001/bundle",
+    "data": "artifacts/hordes-radio-data-001",
+    "excluded": {
+      "train: Unsupported controls: ['c']": 2,
+      "train: Unsupported controls: ['r']": 1
+    },
+    "trainable_parameters": 120897,
+    "frozen_parameters_unchanged": true,
+    "frozen_sha256": "3cd0437d31ff177e1a0dc4c0ed150e178564d76e4adde4448c2f9f5e998f481d",
+    "parallel_decoder_max_error": 0.0,
+    "reload_max_error": 0.0,
+    "selected_step": 0,
+    "history": [
+      {
+        "step": 0,
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.464451137363188
+      },
+      {
+        "step": 100,
+        "loss": 0.37305083870887756,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 130,
+            "exact": 107,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.45147679324894513
+          },
+          "left-4-dead-2": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 13,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.5517241379310345,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 27,
+            "fp": 2,
+            "fn": 3,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9152542372881356,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.3667445938047925
+      },
+      {
+        "step": 200,
+        "loss": 0.2649862766265869,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 7,
+            "fn": 130,
+            "exact": 104,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4388185654008439
+          },
+          "left-4-dead-2": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 13,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.5517241379310345,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.36015325670498083
+      },
+      {
+        "step": 300,
+        "loss": 0.268576443195343,
+        "validation": {
+          "Hordes.io": {
+            "tp": 1,
+            "fp": 25,
+            "fn": 129,
+            "exact": 97,
+            "examples": 237,
+            "button_f1": 0.01282051282051282,
+            "exact_button_set_accuracy": 0.4092827004219409
+          },
+          "left-4-dead-2": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 10,
+            "exact": 17,
+            "examples": 24,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.7083333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 0,
+            "fn": 4,
+            "exact": 20,
+            "examples": 24,
+            "button_f1": 0.9285714285714286,
+            "exact_button_set_accuracy": 0.8333333333333334
+          }
+        },
+        "selection_score": 0.4052197802197802
+      },
+      {
+        "step": 400,
+        "loss": 0.3923139274120331,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 6,
+            "fn": 130,
+            "exact": 104,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4388185654008439
+          },
+          "left-4-dead-2": {
+            "tp": 14,
+            "fp": 2,
+            "fn": 7,
+            "exact": 17,
+            "examples": 24,
+            "button_f1": 0.7567567567567568,
+            "exact_button_set_accuracy": 0.7083333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 1,
+            "fn": 4,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9122807017543859,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.4172593646277857
+      },
+      {
+        "step": 500,
+        "loss": 0.312813937664032,
+        "validation": {
+          "Hordes.io": {
+            "tp": 1,
+            "fp": 11,
+            "fn": 129,
+            "exact": 104,
+            "examples": 237,
+            "button_f1": 0.014084507042253521,
+            "exact_button_set_accuracy": 0.4388185654008439
+          },
+          "left-4-dead-2": {
+            "tp": 13,
+            "fp": 1,
+            "fn": 8,
+            "exact": 17,
+            "examples": 24,
+            "button_f1": 0.7428571428571429,
+            "exact_button_set_accuracy": 0.7083333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.42002926650813976
+      },
+      {
+        "step": 600,
+        "loss": 0.2526320517063141,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 11,
+            "fn": 130,
+            "exact": 104,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4388185654008439
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.4101995565410199
+      },
+      {
+        "step": 700,
+        "loss": 0.3110337257385254,
+        "validation": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 21,
+            "fn": 128,
+            "exact": 99,
+            "examples": 237,
+            "button_f1": 0.026143790849673203,
+            "exact_button_set_accuracy": 0.4177215189873418
+          },
+          "left-4-dead-2": {
+            "tp": 14,
+            "fp": 6,
+            "fn": 7,
+            "exact": 13,
+            "examples": 24,
+            "button_f1": 0.6829268292682927,
+            "exact_button_set_accuracy": 0.5416666666666666
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 3,
+            "fn": 4,
+            "exact": 17,
+            "examples": 24,
+            "button_f1": 0.8813559322033898,
+            "exact_button_set_accuracy": 0.7083333333333334
+          }
+        },
+        "selection_score": 0.40414258579275725
+      },
+      {
+        "step": 800,
+        "loss": 0.2331876903772354,
+        "validation": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 27,
+            "fn": 128,
+            "exact": 96,
+            "examples": 237,
+            "button_f1": 0.025157232704402517,
+            "exact_button_set_accuracy": 0.4050632911392405
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.41772766784271614
+      },
+      {
+        "step": 900,
+        "loss": 0.16266556084156036,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 13,
+            "fn": 130,
+            "exact": 105,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4430379746835443
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.4051490514905149
+      },
+      {
+        "step": 1000,
+        "loss": 0.27893319725990295,
+        "validation": {
+          "Hordes.io": {
+            "tp": 1,
+            "fp": 18,
+            "fn": 129,
+            "exact": 101,
+            "examples": 237,
+            "button_f1": 0.013422818791946308,
+            "exact_button_set_accuracy": 0.42616033755274263
+          },
+          "left-4-dead-2": {
+            "tp": 16,
+            "fp": 5,
+            "fn": 5,
+            "exact": 15,
+            "examples": 24,
+            "button_f1": 0.7619047619047619,
+            "exact_button_set_accuracy": 0.625
+          },
+          "roblox/be-a-tornado": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "exact": 19,
+            "examples": 24,
+            "button_f1": 0.9090909090909091,
+            "exact_button_set_accuracy": 0.7916666666666666
+          }
+        },
+        "selection_score": 0.4244603271448909
+      },
+      {
+        "step": 1100,
+        "loss": 0.1592012643814087,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 130,
+            "exact": 103,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4345991561181435
+          },
+          "left-4-dead-2": {
+            "tp": 14,
+            "fp": 5,
+            "fn": 7,
+            "exact": 13,
+            "examples": 24,
+            "button_f1": 0.7,
+            "exact_button_set_accuracy": 0.5416666666666666
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.3972222222222222
+      },
+      {
+        "step": 1200,
+        "loss": 0.13519631326198578,
+        "validation": {
+          "Hordes.io": {
+            "tp": 9,
+            "fp": 38,
+            "fn": 121,
+            "exact": 95,
+            "examples": 237,
+            "button_f1": 0.1016949152542373,
+            "exact_button_set_accuracy": 0.4008438818565401
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.45599650911763356
+      },
+      {
+        "step": 1300,
+        "loss": 0.06315939873456955,
+        "validation": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 19,
+            "fn": 128,
+            "exact": 100,
+            "examples": 237,
+            "button_f1": 0.026490066225165563,
+            "exact_button_set_accuracy": 0.4219409282700422
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.4183940846030977
+      },
+      {
+        "step": 1400,
+        "loss": 0.29899486899375916,
+        "validation": {
+          "Hordes.io": {
+            "tp": 1,
+            "fp": 19,
+            "fn": 129,
+            "exact": 100,
+            "examples": 237,
+            "button_f1": 0.013333333333333334,
+            "exact_button_set_accuracy": 0.4219409282700422
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.41181571815718154
+      },
+      {
+        "step": 1500,
+        "loss": 0.2529110610485077,
+        "validation": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 9,
+            "fn": 130,
+            "exact": 103,
+            "examples": 237,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.4345991561181435
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "button_f1": 0.7317073170731707,
+            "exact_button_set_accuracy": 0.5833333333333334
+          },
+          "roblox/be-a-tornado": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.75
+          }
+        },
+        "selection_score": 0.4051490514905149
+      }
+    ],
+    "validation": {
+      "Hordes.io": {
+        "tp": 7,
+        "fp": 26,
+        "fn": 123,
+        "exact": 101,
+        "examples": 237,
+        "button_f1": 0.08588957055214724,
+        "exact_button_set_accuracy": 0.42616033755274263
+      },
+      "left-4-dead-2": {
+        "tp": 15,
+        "fp": 2,
+        "fn": 6,
+        "exact": 18,
+        "examples": 24,
+        "button_f1": 0.7894736842105263,
+        "exact_button_set_accuracy": 0.75
+      },
+      "roblox/be-a-tornado": {
+        "tp": 26,
+        "fp": 2,
+        "fn": 4,
+        "exact": 18,
+        "examples": 24,
+        "button_f1": 0.896551724137931,
+        "exact_button_set_accuracy": 0.75
+      }
+    },
+    "test": {
+      "Hordes.io": {
+        "tp": 4,
+        "fp": 16,
+        "fn": 70,
+        "exact": 102,
+        "examples": 178,
+        "button_f1": 0.0851063829787234,
+        "exact_button_set_accuracy": 0.5730337078651685
+      },
+      "roblox/evade": {
+        "tp": 36,
+        "fp": 11,
+        "fn": 7,
+        "exact": 11,
+        "examples": 24,
+        "button_f1": 0.8,
+        "exact_button_set_accuracy": 0.4583333333333333
+      },
+      "roblox/be-a-snake": {
+        "tp": 28,
+        "fp": 4,
+        "fn": 3,
+        "exact": 17,
+        "examples": 24,
+        "button_f1": 0.8888888888888888,
+        "exact_button_set_accuracy": 0.7083333333333334
+      },
+      "roblox/a-dusty-trip": {
+        "tp": 24,
+        "fp": 3,
+        "fn": 7,
+        "exact": 15,
+        "examples": 24,
+        "button_f1": 0.8275862068965517,
+        "exact_button_set_accuracy": 0.625
+      }
+    },
+    "shuffled_test": {
+      "Hordes.io": {
+        "tp": 8,
+        "fp": 87,
+        "fn": 66,
+        "exact": 65,
+        "examples": 178,
+        "button_f1": 0.09467455621301775,
+        "exact_button_set_accuracy": 0.3651685393258427
+      },
+      "roblox/evade": {
+        "tp": 7,
+        "fp": 3,
+        "fn": 36,
+        "exact": 3,
+        "examples": 24,
+        "button_f1": 0.2641509433962264,
+        "exact_button_set_accuracy": 0.125
+      },
+      "roblox/be-a-snake": {
+        "tp": 9,
+        "fp": 1,
+        "fn": 22,
+        "exact": 5,
+        "examples": 24,
+        "button_f1": 0.43902439024390244,
+        "exact_button_set_accuracy": 0.20833333333333334
+      },
+      "roblox/a-dusty-trip": {
+        "tp": 10,
+        "fp": 1,
+        "fn": 21,
+        "exact": 7,
+        "examples": 24,
+        "button_f1": 0.47619047619047616,
+        "exact_button_set_accuracy": 0.2916666666666667
+      }
+    },
+    "scope": "Weak labels, whole-session Hordes splits. No live success claim. Single-frame adaptation; temporal-memory deployment remains unvalidated. Shuffled test mixes games and is diagnostic, not a within-game causal score."
+  }
+}
