@@ -38,9 +38,16 @@ def loss_terms(output, row, config):
     if "action" in row:
         action = row["action"]
         target = mx.array([[float(b in action["buttons"]) for b in config.buttons]])
-        terms["buttons"] = nn.losses.binary_cross_entropy(
-            output["buttons"], target, with_logits=True, reduction="mean"
-        )
+        if "_button_positive_weights" in row:
+            weights = mx.array([row["_button_positive_weights"]])
+            logits = output["buttons"]
+            terms["buttons"] = mx.mean(
+                target * weights * mx.logaddexp(0, -logits) + (1 - target) * mx.logaddexp(0, logits)
+            )
+        else:
+            terms["buttons"] = nn.losses.binary_cross_entropy(
+                output["buttons"], target, with_logits=True, reduction="mean"
+            )
         terms["mouse"] = mx.mean((output["mouse"] - mx.array([action["mouse_delta"]])) ** 2)
         duration = list(config.durations).index(action["duration_seconds"])
         terms["duration"] = nn.losses.cross_entropy(
@@ -167,7 +174,14 @@ def evaluate(runtime, examples, zero_visual=False):
 
 
 def train(
-    runtime, examples, steps=50, learning_rate=1e-4, seed=17, log=None, shuffle_options=False
+    runtime,
+    examples,
+    steps=50,
+    learning_rate=1e-4,
+    seed=17,
+    log=None,
+    shuffle_options=False,
+    button_positive_weights=None,
 ):
     if steps < 1 or not np.isfinite(learning_rate) or learning_rate <= 0:
         raise ValueError("Positive steps and finite learning rate required")
@@ -193,6 +207,8 @@ def train(
         if not order:
             order = rng.permutation(len(examples)).tolist()
         row, inputs = examples[order.pop()]
+        if button_positive_weights is not None and "action" in row:
+            row = dict(row, _button_positive_weights=button_positive_weights)
         if shuffle_options and row.get("choices"):
             labels = list(row["choices"])
             labels = [labels[i] for i in rng.permutation(len(labels))]

@@ -10,6 +10,11 @@ models = ["mlx-vlm==0.7.1", "laya-coreml==0.1.0"]
 stitch = [
     "laya-mlx==0.2.0",
 ]
+data = [
+    "av>=14,<17",
+    "mcap>=1.3,<2",
+    "zstandard>=0.23,<1",
+]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff==0.15.12"]

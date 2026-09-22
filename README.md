@@ -5,7 +5,7 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-The latest model reached its target in **40/40 fresh synthetic sandbox episodes**,
+The synthetic-training checkpoint reached its target in **40/40 fresh synthetic sandbox episodes**,
 using its learned A/D button outputs. Warm inference took **58 ms median** on an
 M3 Max. It answered 384/384 standard move-toward questions across fresh scenes,
 withheld object combinations and a withheld visual style; shuffled images
@@ -30,6 +30,17 @@ optimization steps. Description supervision exists only during training;
 inference receives pixels and the ordinary prompt.
 
 ## Run the current local model
+
+The subsequent [real-game training pilot](docs/REAL_GAME_TRAINING.md) imports
+synchronized human controls from Grounded, Raft and Minecraft, with Satisfactory
+and Barony held out. It adds two-frame inputs, a larger physical-key vocabulary,
+and offline action-agreement evaluations with visual and persistence controls.
+These demonstrations use D2E's CC BY-NC 4.0 data. Offline imitation must not be
+confused with successful closed-loop gameplay. **The first trained real-game
+checkpoint failed the transfer checks:** Barony button F1 was 0.332, versus 0.841
+for repeating the previous action, and shuffling screenshots scored 0.338.
+[Results and failure analysis](docs/REAL_GAME_RESULTS.md). It has not replaced
+the default model below.
 
 With the locally trained checkpoint available:
 

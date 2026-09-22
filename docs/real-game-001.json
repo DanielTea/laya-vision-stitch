@@ -1,0 +1,1839 @@
+{
+  "checkpoint": "artifacts/d2e-model-002/bundle",
+  "status": "failed_transfer_checks",
+  "training": {
+    "seed": 17,
+    "learning_rate": 3e-05,
+    "steps_this_run": 3000,
+    "train_digest": "4aeb0d4c9249c559e2384177ccb61357f1f832ec092fb62da57ae481eba38779",
+    "validation_digest": "8a3de9f6119a90d065d00acb29d578172d813feb0ebdb6563fc03df886cde2b1",
+    "holdout_games": true,
+    "frozen_sha256": {
+      "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+      "laya": "6f3a46ef38f342fbdee3aee95a30f0ae04d5fea1f37b4886d909b751410cb326"
+    },
+    "teacher_examples": 0,
+    "action_examples": 2035,
+    "optimizer_state_saved": false,
+    "shuffle_options": false,
+    "train_examples": 2099,
+    "train_evaluation_examples": 128,
+    "button_positive_weights": [
+      1.501998668441487,
+      2.8722813232690143,
+      6.649979114420001,
+      3.3336309390955736,
+      4.544110052607966,
+      2.702983989774929,
+      8.790291847784735,
+      1.0,
+      1.0,
+      6.300793600809346,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      10.0,
+      1.0,
+      1.0,
+      1.0,
+      10.0,
+      1.0,
+      1.0,
+      1.0,
+      10.0,
+      10.0,
+      10.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      10.0,
+      1.0,
+      10.0,
+      1.0,
+      2.3107496322467194,
+      5.378333439666538,
+      10.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "datasets": [
+      {
+        "dataset": "open-world-agents/D2E-480p",
+        "revision": "f075f7e25df6f6d385840a836f86bf92dfb877ff",
+        "license": "CC-BY-NC-4.0"
+      }
+    ]
+  },
+  "parameters": {
+    "total": 760907586,
+    "trainable": 6099516,
+    "trainable_roots": [
+      "actions",
+      "connector",
+      "laya"
+    ]
+  },
+  "frozen_weights_unchanged": true,
+  "reload_matches": true,
+  "input_events_sent": 0,
+  "data": {
+    "config": {
+      "repo_id": "open-world-agents/D2E-480p",
+      "revision": "f075f7e25df6f6d385840a836f86bf92dfb877ff",
+      "license": "CC-BY-NC-4.0",
+      "seed": 20260922,
+      "history_seconds": 0.2,
+      "horizon_seconds": 0.1,
+      "mouse_scale": 512,
+      "per_recording": {
+        "train": 320,
+        "validation": 160,
+        "test": 192
+      },
+      "recordings": [
+        {
+          "split": "train",
+          "game": "Grounded",
+          "video": "Grounded/recording_20250911_151717__b51ae29c_split_09.mkv",
+          "bytes": 18761880,
+          "session": "Grounded/recording_20250911_151717__b51ae29c"
+        },
+        {
+          "split": "train",
+          "game": "Grounded",
+          "video": "Grounded/recording_20250911_093608__b2bb0680_split_02.mkv",
+          "bytes": 20154696,
+          "session": "Grounded/recording_20250911_093608__b2bb0680"
+        },
+        {
+          "split": "train",
+          "game": "Raft",
+          "video": "Raft/recording_20250908_091120__61300285_split_03.mkv",
+          "bytes": 36239250,
+          "session": "Raft/recording_20250908_091120__61300285"
+        },
+        {
+          "split": "train",
+          "game": "Raft",
+          "video": "Raft/recording_20250907_203942__043debc2_split_01.mkv",
+          "bytes": 39316712,
+          "session": "Raft/recording_20250907_203942__043debc2"
+        },
+        {
+          "split": "train",
+          "game": "Minecraft_1.21.8",
+          "video": "Minecraft_1.21.8/recording_20250827_052328__366c9184_split_00.mkv",
+          "bytes": 49587454,
+          "session": "Minecraft_1.21.8/recording_20250827_052328__366c9184"
+        },
+        {
+          "split": "train",
+          "game": "Minecraft_1.21.8",
+          "video": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734.mkv",
+          "bytes": 220003434,
+          "session": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734"
+        },
+        {
+          "split": "validation",
+          "game": "Satisfactory",
+          "video": "Satisfactory/recording_20250912_211302__65ec8d50_split_01.mkv",
+          "bytes": 16500314,
+          "session": "Satisfactory/recording_20250912_211302__65ec8d50"
+        },
+        {
+          "split": "test",
+          "game": "Barony",
+          "video": "Barony/recording_20250914_010048__3245daa8_split_00.mkv",
+          "bytes": 227578861,
+          "session": "Barony/recording_20250914_010048__3245daa8"
+        }
+      ]
+    },
+    "recordings": [
+      {
+        "split": "train",
+        "game": "Grounded",
+        "video": "Grounded/recording_20250911_151717__b51ae29c_split_09.mkv",
+        "bytes": 18761880,
+        "session": "Grounded/recording_20250911_151717__b51ae29c",
+        "examples": 319,
+        "rejected_frame_timing": 1,
+        "duration_seconds": 109.8035797,
+        "maximum_video_age_ms": 10.819900000001326,
+        "clipped_mouse_examples": 0,
+        "unknown_key_state_counts": {
+          "1": 25
+        },
+        "video_sha256": "c97630c697cf3d3ecd348b3f41bca43bf8e833d2e067550655649aef98b64946",
+        "mcap_sha256": "0bacc9e53df06bcb159b49517ae105503e2f0dfefa89f55baffd8a72c5014e9e"
+      },
+      {
+        "split": "train",
+        "game": "Grounded",
+        "video": "Grounded/recording_20250911_093608__b2bb0680_split_02.mkv",
+        "bytes": 20154696,
+        "session": "Grounded/recording_20250911_093608__b2bb0680",
+        "examples": 308,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 145.42732070000002,
+        "maximum_video_age_ms": 16.86159999999859,
+        "clipped_mouse_examples": 1,
+        "unknown_key_state_counts": {
+          "1": 4
+        },
+        "video_sha256": "dba204fedd5bb942c44e6551f6d0c859f4912b1201e4944c78c6ab86ed9f1c4d",
+        "mcap_sha256": "5b68be9b9f56c3b20bd7e07d6f39c5acfa93a1af205d2ce5527a8344e833dcf6"
+      },
+      {
+        "split": "train",
+        "game": "Raft",
+        "video": "Raft/recording_20250908_091120__61300285_split_03.mkv",
+        "bytes": 36239250,
+        "session": "Raft/recording_20250908_091120__61300285",
+        "examples": 320,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 379.8296782,
+        "maximum_video_age_ms": 16.993499999998107,
+        "clipped_mouse_examples": 20,
+        "unknown_key_state_counts": {
+          "1": 484
+        },
+        "video_sha256": "cc7757aaff0b2223eb3ae1f105ae388177a1aa22742ecce68227a288f4df4359",
+        "mcap_sha256": "75c918fa68caae0190f8308cb5e7d0e790e3195132a5c7d4f09a51360b186533"
+      },
+      {
+        "split": "train",
+        "game": "Raft",
+        "video": "Raft/recording_20250907_203942__043debc2_split_01.mkv",
+        "bytes": 39316712,
+        "session": "Raft/recording_20250907_203942__043debc2",
+        "examples": 320,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 259.9096735,
+        "maximum_video_age_ms": 15.92510000000047,
+        "clipped_mouse_examples": 14,
+        "unknown_key_state_counts": {
+          "1": 164
+        },
+        "video_sha256": "05edfd9ee1523f75da4f28d837c9d916e7bea97a71a842e79f8b0a8a3422dbc2",
+        "mcap_sha256": "5cc191c956eb0c8eacab124acd41564f3eb8cd008fdc72213c60aa4718670c9c"
+      },
+      {
+        "split": "train",
+        "game": "Minecraft_1.21.8",
+        "video": "Minecraft_1.21.8/recording_20250827_052328__366c9184_split_00.mkv",
+        "bytes": 49587454,
+        "session": "Minecraft_1.21.8/recording_20250827_052328__366c9184",
+        "examples": 320,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 375.9445064,
+        "maximum_video_age_ms": 16.722999999984722,
+        "clipped_mouse_examples": 3,
+        "unknown_key_state_counts": {
+          "1": 313,
+          "2": 694
+        },
+        "video_sha256": "a286f151e45dac20cf7a50d8587b3ae55dccea65548b439867d7a27948bb5d34",
+        "mcap_sha256": "a501a8b488fa2cf9c810ee4d87d2b62f727eb5aeb8e9aec9ffb2bd192e4c74b5"
+      },
+      {
+        "split": "train",
+        "game": "Minecraft_1.21.8",
+        "video": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734.mkv",
+        "bytes": 220003434,
+        "session": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734",
+        "examples": 320,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 1904.9588691000001,
+        "maximum_video_age_ms": 16.979300000002695,
+        "clipped_mouse_examples": 2,
+        "unknown_key_state_counts": {
+          "1": 1621,
+          "2": 95
+        },
+        "video_sha256": "42fc4bbd9d74e00d7ef81a44ea63fd65309b114be31be649f97856eab2379842",
+        "mcap_sha256": "01d7bcc6e6acab7d273a550c3dd5082cf0c514dcacf1ad2e5c657e133a77fc51"
+      },
+      {
+        "split": "validation",
+        "game": "Satisfactory",
+        "video": "Satisfactory/recording_20250912_211302__65ec8d50_split_01.mkv",
+        "bytes": 16500314,
+        "session": "Satisfactory/recording_20250912_211302__65ec8d50",
+        "examples": 159,
+        "rejected_frame_timing": 1,
+        "duration_seconds": 96.9279049,
+        "maximum_video_age_ms": 16.990000000006944,
+        "clipped_mouse_examples": 0,
+        "unknown_key_state_counts": {
+          "1": 15
+        },
+        "video_sha256": "fbc4835ac8a18e1b92c90c854ad3a0402103291bd7068e8d86c5bcbee4cb01d9",
+        "mcap_sha256": "50c5eb6467c6ddb3afd360a0e12ac97fbbd2eaf2cd94b7fa62ef958ceb9cb85e"
+      },
+      {
+        "split": "test",
+        "game": "Barony",
+        "video": "Barony/recording_20250914_010048__3245daa8_split_00.mkv",
+        "bytes": 227578861,
+        "session": "Barony/recording_20250914_010048__3245daa8",
+        "examples": 192,
+        "rejected_frame_timing": 0,
+        "duration_seconds": 1411.9589966,
+        "maximum_video_age_ms": 16.503400000033253,
+        "clipped_mouse_examples": 6,
+        "unknown_key_state_counts": {
+          "1": 892,
+          "2": 321
+        },
+        "video_sha256": "f656abae46a940071b8c5b2dc8f796aca8e0e40fa13f19326e21fb5f72cba261",
+        "mcap_sha256": "82270923d77f401464e1c4e53b50787e01dd2f39ab69eea14825c38fdceb6060"
+      }
+    ],
+    "buttons": [
+      "w",
+      "a",
+      "s",
+      "d",
+      "space",
+      "mouse_left",
+      "mouse_right",
+      "b",
+      "c",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "t",
+      "u",
+      "v",
+      "x",
+      "y",
+      "z",
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "tab",
+      "enter",
+      "escape",
+      "backspace",
+      "shift",
+      "ctrl",
+      "alt",
+      "left",
+      "up",
+      "right",
+      "down",
+      "mouse_middle"
+    ]
+  },
+  "validation": {
+    "bundle": "artifacts/d2e-model-002/bundle",
+    "games": [
+      "Satisfactory"
+    ],
+    "game_holdout_verified": true,
+    "closed_loop_gameplay_tested": false,
+    "protocol": "Fixed 0.5 button threshold; no test tuning. 100 ms imitation targets.",
+    "variants": {
+      "actual": {
+        "examples": 159,
+        "button_exact_match": 0.44654088050314467,
+        "button_micro_f1": 0.13253012048192772,
+        "button_macro_f1_active": 0.05390946502057613,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.08888888888888889,
+            "predicted_positive": 28
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.1,
+            "predicted_positive": 12
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 15
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.2962962962962963,
+            "predicted_positive": 44
+          }
+        },
+        "mouse_mae": 0.06420392316946197,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.5327102803738317
+      },
+      "zero_vision": {
+        "examples": 159,
+        "button_exact_match": 0.5283018867924528,
+        "button_micro_f1": 0.1878453038674033,
+        "button_macro_f1_active": 0.06598047990453054,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.35443037974683544,
+            "predicted_positive": 62
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.07272727272727272,
+            "predicted_positive": 50
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.16666666666666666,
+            "predicted_positive": 2
+          }
+        },
+        "mouse_mae": 0.06304419539892993,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.48598130841121495
+      },
+      "shuffled_vision": {
+        "examples": 159,
+        "button_exact_match": 0.4276729559748428,
+        "button_micro_f1": 0.11042944785276074,
+        "button_macro_f1_active": 0.05954415954415956,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.11538461538461539,
+            "predicted_positive": 35
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.15384615384615385,
+            "predicted_positive": 5
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.0,
+            "predicted_positive": 1
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.06666666666666667,
+            "predicted_positive": 25
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.2,
+            "predicted_positive": 30
+          }
+        },
+        "mouse_mae": 0.06336189168208842,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.5327102803738317
+      },
+      "no_action_history": {
+        "examples": 159,
+        "button_exact_match": 0.20125786163522014,
+        "button_micro_f1": 0.1285140562248996,
+        "button_macro_f1_active": 0.055485058274343003,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.3380281690140845,
+            "predicted_positive": 54
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.0,
+            "predicted_positive": 8
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.044444444444444446,
+            "predicted_positive": 32
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.038461538461538464,
+            "predicted_positive": 47
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.0784313725490196,
+            "predicted_positive": 41
+          }
+        },
+        "mouse_mae": 0.06114983532516251,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.514018691588785
+      }
+    },
+    "button_transition_subset": {
+      "count": 24,
+      "variants": {
+        "actual": {
+          "examples": 24,
+          "button_exact_match": 0.041666666666666664,
+          "button_micro_f1": 0.06451612903225806,
+          "button_macro_f1_active": 0.022727272727272728,
+          "button_per_key": {
+            "w": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 3
+            },
+            "a": {
+              "support": 0,
+              "f1": 0.0,
+              "predicted_positive": 1
+            },
+            "s": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 5,
+              "f1": 0.0,
+              "predicted_positive": 2
+            },
+            "q": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "escape": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 1,
+              "f1": 0.18181818181818182,
+              "predicted_positive": 10
+            }
+          },
+          "mouse_mae": 0.06464363745665953,
+          "mouse_moving_axis_count": 20,
+          "mouse_direction_accuracy": 0.65
+        },
+        "zero_vision": {
+          "examples": 24,
+          "button_exact_match": 0.08333333333333333,
+          "button_micro_f1": 0.13953488372093023,
+          "button_macro_f1_active": 0.050420168067226885,
+          "button_per_key": {
+            "w": {
+              "support": 2,
+              "f1": 0.11764705882352941,
+              "predicted_positive": 15
+            },
+            "s": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 5,
+              "f1": 0.23529411764705882,
+              "predicted_positive": 12
+            },
+            "q": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "escape": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 1
+            }
+          },
+          "mouse_mae": 0.061847124289973486,
+          "mouse_moving_axis_count": 20,
+          "mouse_direction_accuracy": 0.4
+        },
+        "shuffled_vision": {
+          "examples": 24,
+          "button_exact_match": 0.25,
+          "button_micro_f1": 0.13333333333333333,
+          "button_macro_f1_active": 0.08571428571428572,
+          "button_per_key": {
+            "w": {
+              "support": 2,
+              "f1": 0.4,
+              "predicted_positive": 3
+            },
+            "a": {
+              "support": 0,
+              "f1": 0.0,
+              "predicted_positive": 2
+            },
+            "s": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 5,
+              "f1": 0.2857142857142857,
+              "predicted_positive": 2
+            },
+            "q": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "escape": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 8
+            }
+          },
+          "mouse_mae": 0.06582044179231161,
+          "mouse_moving_axis_count": 20,
+          "mouse_direction_accuracy": 0.45
+        },
+        "no_action_history": {
+          "examples": 24,
+          "button_exact_match": 0.041666666666666664,
+          "button_micro_f1": 0.11320754716981132,
+          "button_macro_f1_active": 0.04027777777777777,
+          "button_per_key": {
+            "w": {
+              "support": 2,
+              "f1": 0.2222222222222222,
+              "predicted_positive": 16
+            },
+            "a": {
+              "support": 0,
+              "f1": 0.0,
+              "predicted_positive": 1
+            },
+            "s": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 3
+            },
+            "mouse_left": {
+              "support": 5,
+              "f1": 0.1,
+              "predicted_positive": 15
+            },
+            "q": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "escape": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 1,
+              "f1": 0.0,
+              "predicted_positive": 3
+            }
+          },
+          "mouse_mae": 0.062121098053466994,
+          "mouse_moving_axis_count": 20,
+          "mouse_direction_accuracy": 0.55
+        }
+      },
+      "repeat_previous_action": {
+        "examples": 24,
+        "button_exact_match": 0.0,
+        "button_micro_f1": 0.2777777777777778,
+        "button_macro_f1_active": 0.20089285714285715,
+        "button_per_key": {
+          "w": {
+            "support": 2,
+            "f1": 0.25,
+            "predicted_positive": 6
+          },
+          "a": {
+            "support": 0,
+            "f1": 0.0,
+            "predicted_positive": 1
+          },
+          "s": {
+            "support": 3,
+            "f1": 0.8571428571428571,
+            "predicted_positive": 4
+          },
+          "d": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 5
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 2
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.5,
+            "predicted_positive": 3
+          }
+        },
+        "mouse_mae": 0.059326171875,
+        "mouse_moving_axis_count": 20,
+        "mouse_direction_accuracy": 0.6
+      }
+    },
+    "baselines": {
+      "repeat_previous_action": {
+        "examples": 159,
+        "button_exact_match": 0.8490566037735849,
+        "button_micro_f1": 0.8142857142857143,
+        "button_macro_f1_active": 0.604972621690888,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.8421052631578947,
+            "predicted_positive": 21
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.9411764705882353,
+            "predicted_positive": 9
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.9523809523809523,
+            "predicted_positive": 11
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.8,
+            "predicted_positive": 17
+          },
+          "space": {
+            "support": 1,
+            "f1": 1.0,
+            "predicted_positive": 1
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 2
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.9090909090909091,
+            "predicted_positive": 12
+          }
+        },
+        "mouse_mae": 0.042354559748427674,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.8037383177570093
+      },
+      "no_action": {
+        "examples": 159,
+        "button_exact_match": 0.710691823899371,
+        "button_micro_f1": 0.0,
+        "button_macro_f1_active": 0.0,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.044105001965408806,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.0
+      },
+      "train_frequency": {
+        "examples": 159,
+        "button_exact_match": 0.710691823899371,
+        "button_micro_f1": 0.0,
+        "button_macro_f1_active": 0.0,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.044105001965408806,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.0
+      },
+      "before_game_training": {
+        "examples": 159,
+        "button_exact_match": 0.050314465408805034,
+        "button_micro_f1": 0.11504424778761062,
+        "button_macro_f1_active": 0.016795865633074933,
+        "button_per_key": {
+          "w": {
+            "support": 17,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 8,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 13,
+            "f1": 0.1511627906976744,
+            "predicted_positive": 159
+          },
+          "space": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 5,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "q": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "escape": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 10,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.052379944184926815,
+        "mouse_moving_axis_count": 107,
+        "mouse_direction_accuracy": 0.45794392523364486
+      }
+    },
+    "warm_image_to_outputs_p50_ms": 143.70420802151784,
+    "warm_image_to_outputs_p95_ms": 147.20941416162532
+  },
+  "test": {
+    "bundle": "artifacts/d2e-model-002/bundle",
+    "games": [
+      "Barony"
+    ],
+    "game_holdout_verified": true,
+    "closed_loop_gameplay_tested": false,
+    "protocol": "Fixed 0.5 button threshold; no test tuning. 100 ms imitation targets.",
+    "variants": {
+      "actual": {
+        "examples": 192,
+        "button_exact_match": 0.19791666666666666,
+        "button_micro_f1": 0.3315508021390374,
+        "button_macro_f1_active": 0.08485101710994808,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.6096256684491979,
+            "predicted_positive": 96
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.044444444444444446,
+            "predicted_positive": 3
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 1
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.1095890410958904,
+            "predicted_positive": 66
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 11
+          }
+        },
+        "mouse_mae": 0.07814581878392346,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.49295774647887325
+      },
+      "zero_vision": {
+        "examples": 192,
+        "button_exact_match": 0.2604166666666667,
+        "button_micro_f1": 0.28484848484848485,
+        "button_macro_f1_active": 0.07110778443113772,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.5149700598802395,
+            "predicted_positive": 76
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.125,
+            "predicted_positive": 57
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.07598416404061936,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.528169014084507
+      },
+      "shuffled_vision": {
+        "examples": 192,
+        "button_exact_match": 0.234375,
+        "button_micro_f1": 0.33773087071240104,
+        "button_macro_f1_active": 0.08362736958627369,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.625,
+            "predicted_positive": 101
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.045454545454545456,
+            "predicted_positive": 2
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.0821917808219178,
+            "predicted_positive": 66
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 13
+          }
+        },
+        "mouse_mae": 0.07727294056167011,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.5211267605633803
+      },
+      "no_action_history": {
+        "examples": 192,
+        "button_exact_match": 0.11458333333333333,
+        "button_micro_f1": 0.348,
+        "button_macro_f1_active": 0.0810702947845805,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.648,
+            "predicted_positive": 159
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.08163265306122448,
+            "predicted_positive": 140
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 4
+          }
+        },
+        "mouse_mae": 0.07357015449088067,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.5633802816901409
+      }
+    },
+    "button_transition_subset": {
+      "count": 55,
+      "variants": {
+        "actual": {
+          "examples": 55,
+          "button_exact_match": 0.10909090909090909,
+          "button_micro_f1": 0.224,
+          "button_macro_f1_active": 0.06435786435786435,
+          "button_per_key": {
+            "w": {
+              "support": 21,
+              "f1": 0.43636363636363634,
+              "predicted_positive": 34
+            },
+            "a": {
+              "support": 14,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "s": {
+              "support": 6,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 7,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "space": {
+              "support": 8,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 4,
+              "f1": 0.14285714285714285,
+              "predicted_positive": 24
+            },
+            "mouse_right": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "tab": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 0,
+              "f1": 0.0,
+              "predicted_positive": 2
+            }
+          },
+          "mouse_mae": 0.11152985599897379,
+          "mouse_moving_axis_count": 50,
+          "mouse_direction_accuracy": 0.5
+        },
+        "zero_vision": {
+          "examples": 55,
+          "button_exact_match": 0.16363636363636364,
+          "button_micro_f1": 0.21621621621621623,
+          "button_macro_f1_active": 0.07912234042553191,
+          "button_per_key": {
+            "w": {
+              "support": 21,
+              "f1": 0.3829787234042553,
+              "predicted_positive": 26
+            },
+            "a": {
+              "support": 14,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "s": {
+              "support": 6,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 7,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "space": {
+              "support": 8,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 4,
+              "f1": 0.25,
+              "predicted_positive": 20
+            },
+            "mouse_right": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "tab": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            }
+          },
+          "mouse_mae": 0.10965131721829742,
+          "mouse_moving_axis_count": 50,
+          "mouse_direction_accuracy": 0.54
+        },
+        "shuffled_vision": {
+          "examples": 55,
+          "button_exact_match": 0.10909090909090909,
+          "button_micro_f1": 0.2857142857142857,
+          "button_macro_f1_active": 0.08171663727219282,
+          "button_per_key": {
+            "w": {
+              "support": 21,
+              "f1": 0.5925925925925926,
+              "predicted_positive": 33
+            },
+            "a": {
+              "support": 14,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "s": {
+              "support": 6,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 7,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "space": {
+              "support": 8,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 4,
+              "f1": 0.14285714285714285,
+              "predicted_positive": 24
+            },
+            "mouse_right": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "tab": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "shift": {
+              "support": 0,
+              "f1": 0.0,
+              "predicted_positive": 4
+            }
+          },
+          "mouse_mae": 0.11047453129537065,
+          "mouse_moving_axis_count": 50,
+          "mouse_direction_accuracy": 0.54
+        },
+        "no_action_history": {
+          "examples": 55,
+          "button_exact_match": 0.03636363636363636,
+          "button_micro_f1": 0.2948717948717949,
+          "button_macro_f1_active": 0.08842121492445267,
+          "button_per_key": {
+            "w": {
+              "support": 21,
+              "f1": 0.5797101449275363,
+              "predicted_positive": 48
+            },
+            "a": {
+              "support": 14,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "s": {
+              "support": 6,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "d": {
+              "support": 7,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "space": {
+              "support": 8,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "mouse_left": {
+              "support": 4,
+              "f1": 0.1276595744680851,
+              "predicted_positive": 43
+            },
+            "mouse_right": {
+              "support": 2,
+              "f1": 0.0,
+              "predicted_positive": 0
+            },
+            "tab": {
+              "support": 3,
+              "f1": 0.0,
+              "predicted_positive": 0
+            }
+          },
+          "mouse_mae": 0.1090664696329358,
+          "mouse_moving_axis_count": 50,
+          "mouse_direction_accuracy": 0.58
+        }
+      },
+      "repeat_previous_action": {
+        "examples": 55,
+        "button_exact_match": 0.0,
+        "button_micro_f1": 0.5263157894736842,
+        "button_macro_f1_active": 0.3843938181333139,
+        "button_per_key": {
+          "w": {
+            "support": 21,
+            "f1": 0.7346938775510204,
+            "predicted_positive": 28
+          },
+          "a": {
+            "support": 14,
+            "f1": 0.32,
+            "predicted_positive": 11
+          },
+          "s": {
+            "support": 6,
+            "f1": 0.7272727272727273,
+            "predicted_positive": 5
+          },
+          "d": {
+            "support": 7,
+            "f1": 0.14285714285714285,
+            "predicted_positive": 7
+          },
+          "space": {
+            "support": 8,
+            "f1": 0.7058823529411765,
+            "predicted_positive": 9
+          },
+          "mouse_left": {
+            "support": 4,
+            "f1": 0.4444444444444444,
+            "predicted_positive": 5
+          },
+          "mouse_right": {
+            "support": 2,
+            "f1": 0.0,
+            "predicted_positive": 3
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.11186079545454546,
+        "mouse_moving_axis_count": 50,
+        "mouse_direction_accuracy": 0.66
+      }
+    },
+    "baselines": {
+      "repeat_previous_action": {
+        "examples": 192,
+        "button_exact_match": 0.7135416666666666,
+        "button_micro_f1": 0.8413098236775819,
+        "button_macro_f1_active": 0.6939555282635204,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.9312169312169312,
+            "predicted_positive": 98
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.7901234567901234,
+            "predicted_positive": 39
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.8571428571428571,
+            "predicted_positive": 10
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.6842105263157895,
+            "predicted_positive": 19
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.8717948717948718,
+            "predicted_positive": 20
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.6666666666666666,
+            "predicted_positive": 8
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.4444444444444444,
+            "predicted_positive": 5
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 1.0,
+            "predicted_positive": 1
+          }
+        },
+        "mouse_mae": 0.07857767740885417,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.7887323943661971
+      },
+      "no_action": {
+        "examples": 192,
+        "button_exact_match": 0.28125,
+        "button_micro_f1": 0.0,
+        "button_macro_f1_active": 0.0,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.06255086263020833,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.0
+      },
+      "train_frequency": {
+        "examples": 192,
+        "button_exact_match": 0.28125,
+        "button_micro_f1": 0.0,
+        "button_macro_f1_active": 0.0,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.06255086263020833,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.0
+      },
+      "before_game_training": {
+        "examples": 192,
+        "button_exact_match": 0.026041666666666668,
+        "button_micro_f1": 0.09768637532133675,
+        "button_macro_f1_active": 0.020010531858873092,
+        "button_per_key": {
+          "w": {
+            "support": 91,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "a": {
+            "support": 42,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "s": {
+            "support": 11,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "d": {
+            "support": 19,
+            "f1": 0.18009478672985782,
+            "predicted_positive": 192
+          },
+          "space": {
+            "support": 19,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_left": {
+            "support": 7,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "mouse_right": {
+            "support": 4,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "tab": {
+            "support": 3,
+            "f1": 0.0,
+            "predicted_positive": 0
+          },
+          "shift": {
+            "support": 1,
+            "f1": 0.0,
+            "predicted_positive": 0
+          }
+        },
+        "mouse_mae": 0.06914828764198926,
+        "mouse_moving_axis_count": 142,
+        "mouse_direction_accuracy": 0.5352112676056338
+      }
+    },
+    "warm_image_to_outputs_p50_ms": 162.6564374892041,
+    "warm_image_to_outputs_p95_ms": 215.92738922627177
+  },
+  "synthetic_retention": {
+    "actual": {
+      "loss": 3.289016396331135,
+      "choice_accuracy": 0.7734375,
+      "labelled_choices": 128,
+      "button_exact_match": 0.8984375,
+      "mouse_mse": 0.00022055921501102344,
+      "examples": 128,
+      "zero_visual": false,
+      "goal_counterfactual_groups": 64,
+      "goal_counterfactual_accuracy": 0.546875
+    },
+    "zero_vision": {
+      "loss": 27.756474807858467,
+      "choice_accuracy": 0.5,
+      "labelled_choices": 128,
+      "button_exact_match": 0.0,
+      "mouse_mse": 0.0018793084836830156,
+      "examples": 128,
+      "zero_visual": true,
+      "goal_counterfactual_groups": 64,
+      "goal_counterfactual_accuracy": 0.0
+    }
+  },
+  "closed_loop_gameplay_tested": false,
+  "default_controller_replaced": false
+}

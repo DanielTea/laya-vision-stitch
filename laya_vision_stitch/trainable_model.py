@@ -287,6 +287,26 @@ class TrainableRuntime:
         self.metadata["policy_config"] = asdict(config)
         self.metadata["laya_lora_enabled"] = True
 
+    def expand_buttons(self, names):
+        """Extend action vocabulary while preserving all existing learned logits."""
+        config = self.module.policy_config
+        names = tuple(names)
+        if len(set(names)) != len(names) or not set(config.buttons) <= set(names):
+            raise ValueError("New vocabulary must contain each old button exactly once")
+        if any(not isinstance(name, str) or not name.strip() for name in names):
+            raise ValueError("Button names must be nonempty strings")
+        old = self.module.actions.buttons
+        new = nn.Linear(old.weight.shape[1], len(names))
+        # Rare additional buttons start inactive; existing rows remain exact.
+        new.bias = mx.full((len(names),), -3.0)
+        for index, name in enumerate(config.buttons):
+            target = names.index(name)
+            new.weight[target] = old.weight[index]
+            new.bias[target] = old.bias[index]
+        self.module.actions.buttons = new
+        config.buttons = names
+        self.metadata["policy_config"] = asdict(config)
+
     @classmethod
     def build(cls, config=None):
         config = config or PolicyConfig()

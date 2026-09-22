@@ -1,0 +1,72 @@
+{
+  "repo_id": "open-world-agents/D2E-480p",
+  "revision": "f075f7e25df6f6d385840a836f86bf92dfb877ff",
+  "license": "CC-BY-NC-4.0",
+  "seed": 20260922,
+  "history_seconds": 0.2,
+  "horizon_seconds": 0.1,
+  "mouse_scale": 512,
+  "per_recording": {
+    "train": 320,
+    "validation": 160,
+    "test": 192
+  },
+  "recordings": [
+    {
+      "split": "train",
+      "game": "Grounded",
+      "video": "Grounded/recording_20250911_151717__b51ae29c_split_09.mkv",
+      "bytes": 18761880,
+      "session": "Grounded/recording_20250911_151717__b51ae29c"
+    },
+    {
+      "split": "train",
+      "game": "Grounded",
+      "video": "Grounded/recording_20250911_093608__b2bb0680_split_02.mkv",
+      "bytes": 20154696,
+      "session": "Grounded/recording_20250911_093608__b2bb0680"
+    },
+    {
+      "split": "train",
+      "game": "Raft",
+      "video": "Raft/recording_20250908_091120__61300285_split_03.mkv",
+      "bytes": 36239250,
+      "session": "Raft/recording_20250908_091120__61300285"
+    },
+    {
+      "split": "train",
+      "game": "Raft",
+      "video": "Raft/recording_20250907_203942__043debc2_split_01.mkv",
+      "bytes": 39316712,
+      "session": "Raft/recording_20250907_203942__043debc2"
+    },
+    {
+      "split": "train",
+      "game": "Minecraft_1.21.8",
+      "video": "Minecraft_1.21.8/recording_20250827_052328__366c9184_split_00.mkv",
+      "bytes": 49587454,
+      "session": "Minecraft_1.21.8/recording_20250827_052328__366c9184"
+    },
+    {
+      "split": "train",
+      "game": "Minecraft_1.21.8",
+      "video": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734.mkv",
+      "bytes": 220003434,
+      "session": "Minecraft_1.21.8/recording_20250822_222525_Minecraft_07de2734"
+    },
+    {
+      "split": "validation",
+      "game": "Satisfactory",
+      "video": "Satisfactory/recording_20250912_211302__65ec8d50_split_01.mkv",
+      "bytes": 16500314,
+      "session": "Satisfactory/recording_20250912_211302__65ec8d50"
+    },
+    {
+      "split": "test",
+      "game": "Barony",
+      "video": "Barony/recording_20250914_010048__3245daa8_split_00.mkv",
+      "bytes": 227578861,
+      "session": "Barony/recording_20250914_010048__3245daa8"
+    }
+  ]
+}

@@ -24,6 +24,9 @@ def run_training(args, config):
         # Load config before model allocation so invalid data fails cheaply.
         saved = json.loads((args.bundle / "config.json").read_text())
         config = PolicyConfig(**saved["policy_config"])
+    if args.buttons_file:
+        config.buttons = tuple(json.loads(args.buttons_file.read_text()))
+        config.__post_init__()
     train_rows = read_manifest(args.train, config)
     validation_rows = read_manifest(args.validation, config)
     check_separation(train_rows, validation_rows, args.holdout_games)
@@ -34,6 +37,8 @@ def run_training(args, config):
         flush=True,
     )
     runtime = TrainableRuntime.load(args.bundle) if args.bundle else TrainableRuntime.build(config)
+    if args.buttons_file and args.bundle:
+        runtime.expand_buttons(config.buttons)
     if args.add_lora_rank:
         runtime.add_lora(args.add_lora_rank, args.add_lora_layers)
     if not args.bundle and config.connector_type == "aligned":
@@ -61,6 +66,19 @@ def run_training(args, config):
     actions_before = fingerprint(runtime.module.actions)
     examples = cache_examples(runtime, train_rows, args.feature_cache)
     validation = cache_examples(runtime, validation_rows, args.feature_cache)
+    button_weights = None
+    if args.balance_buttons:
+        action_rows = [r for r in train_rows if "action" in r]
+        if not action_rows:
+            raise ValueError("Button balancing requires recorded actions")
+        positives = np.array(
+            [sum(b in r["action"]["buttons"] for r in action_rows) for b in config.buttons]
+        )
+        button_weights = np.where(
+            positives > 0,
+            np.clip(np.sqrt((len(action_rows) - positives) / np.maximum(positives, 1)), 1, 10),
+            1,
+        ).tolist()
     training_eval = examples
     if args.train_eval_limit and len(examples) > args.train_eval_limit:
         from .policy_training import ExampleSubset
@@ -83,7 +101,14 @@ def run_training(args, config):
                 print(json.dumps(record), flush=True)
 
         history = train(
-            runtime, examples, args.steps, args.learning_rate, args.seed, log, args.shuffle_options
+            runtime,
+            examples,
+            args.steps,
+            args.learning_rate,
+            args.seed,
+            log,
+            args.shuffle_options,
+            button_positive_weights=button_weights,
         )
     frozen_after = {
         k: fingerprint(getattr(runtime.module, k), frozen_only=True) for k in ("vision", "laya")
@@ -111,6 +136,17 @@ def run_training(args, config):
         "shuffle_options": args.shuffle_options,
         "train_examples": len(examples),
         "train_evaluation_examples": len(training_eval),
+        "button_positive_weights": button_weights,
+        "datasets": list(
+            {
+                (r["provenance"]["dataset"], r["provenance"].get("revision", "unspecified")): {
+                    k: r["provenance"].get(k, "unspecified")
+                    for k in ("dataset", "revision", "license")
+                }
+                for r in train_rows
+                if isinstance(r.get("provenance"), dict) and "dataset" in r["provenance"]
+            }.values()
+        ),
     }
     runtime.save(args.output / "bundle")
     # Ensure exported checkpoint runs the entire raw-image graph, including vision.
@@ -172,6 +208,12 @@ def main():
     fit.add_argument("--learning-rate", type=float, default=1e-4)
     fit.add_argument("--seed", type=int, default=17)
     fit.add_argument("--holdout-games", action="store_true")
+    fit.add_argument(
+        "--buttons-file", type=Path, help="JSON action vocabulary; preserves old heads"
+    )
+    fit.add_argument(
+        "--balance-buttons", action="store_true", help="Capped train-only positive weights"
+    )
     fit.add_argument(
         "--shuffle-options",
         action="store_true",
