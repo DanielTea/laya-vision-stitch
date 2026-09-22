@@ -197,3 +197,63 @@ def test_lora_training_updates_adapters_but_not_pretrained_weights():
         not np.array_equal(initial_adapters[k], np.asarray(v))
         for k, v in tree_flatten(model.laya.trainable_parameters())
     )
+
+
+def test_decoder_context_matches_normal_forward_and_freezes_entire_upstream():
+    from laya_vision_stitch.decoder_probe import freeze_decoder_only
+
+    model, inputs = small_model(lora_rank=2)
+    runtime = SimpleNamespace(module=model)
+    ordinary = model.from_features(*inputs)
+    h, choices = model.action_context(*inputs)
+    cached = model.actions(h[:, 0], h)
+    np.testing.assert_array_equal(np.asarray(ordinary["buttons"]), np.asarray(cached["buttons"]))
+    np.testing.assert_array_equal(np.asarray(ordinary["choices"]), np.asarray(choices))
+    freeze_decoder_only(runtime)
+    trainable = [k for k, _ in tree_flatten(model.trainable_parameters())]
+    assert trainable and all(k.startswith("actions.") for k in trainable)
+    assert not any(k.startswith("actions.mouse.") for k in trainable)
+    assert not any(k.startswith("actions.pointer") for k in trainable)
+    assert all(
+        not tree_flatten(getattr(model, k).trainable_parameters())
+        for k in ("vision", "connector", "laya")
+    )
+
+
+@pytest.mark.parametrize("batch_size", [1, 4])
+def test_decoder_training_updates_buttons_without_changing_context(batch_size):
+    import io
+
+    from laya_vision_stitch.decoder_probe import freeze_decoder_only, train_decoder
+
+    model, inputs = small_model(lora_rank=2)
+    runtime = SimpleNamespace(
+        module=model, metadata={"training_steps": 0, "action_training_examples": 0}
+    )
+    freeze_decoder_only(runtime)
+    before = {k: fingerprint(getattr(model, k)) for k in ("vision", "connector", "laya", "actions")}
+    mouse = fingerprint(model.actions.mouse)
+    h, _ = model.action_context(*inputs)
+    rows = [
+        {"goal": "Hold W.", "action": {"buttons": ["w"]}},
+        {"goal": "Release W.", "action": {"buttons": []}},
+    ]
+    train_decoder(runtime, rows, [h, h + 1], 4, 0.0001, 17, io.StringIO(), batch_size=batch_size)
+    after = {k: fingerprint(getattr(model, k)) for k in before}
+    assert all(before[k] == after[k] for k in ("vision", "connector", "laya"))
+    assert before["actions"] != after["actions"]
+    assert mouse == fingerprint(model.actions.mouse)
+
+
+def test_decoder_button_signal_is_not_diluted_by_unused_keys():
+    from laya_vision_stitch.decoder_probe import button_loss
+
+    def gradient(width):
+        target = mx.array([[1.0] + [0.0] * (width - 1)])
+        return mx.grad(lambda logits: button_loss(logits, target, [True] + [False] * (width - 1)))(
+            mx.zeros((1, width))
+        )
+
+    a, b = gradient(7), gradient(51)
+    np.testing.assert_allclose(np.asarray(a)[0, 0], np.asarray(b)[0, 0])
+    assert float(a[0, 0]) < 0

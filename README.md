@@ -48,6 +48,12 @@ parallel action chunks, reviewed real-image grounding and explicit goal probes.
 The final checkpoint predicts no buttons; it remains experimental and has not
 replaced the default.
 
+A subsequent [decoder-only experiment](docs/DECODER_PROBE.md) freezes the entire
+visual/language path and improves a two-action, paired-goal diagnostic from 50%
+to 82% exact action match on separate sessions. Balanced accuracy is 71%, and
+reworded goals score 34%; its strict gates still fail. This is progress in action
+decoding, not validated gameplay. The checkpoint remains experimental.
+
 With the locally trained checkpoint available:
 
 ```bash

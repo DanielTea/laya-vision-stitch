@@ -1,0 +1,637 @@
+{
+  "runs": {
+    "decoder-probe-001": {
+      "protocol": {
+        "source_checkpoint": "artifacts/fit-gate-grounding-001/bundle",
+        "steps": 4000,
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "training_scope": "action decoder, buttons only",
+        "sampling": "equal goal/action strata; no preservation, mouse or language losses",
+        "manifest_digests": {
+          "train": "456ab14ce51a071b144876989b71e665abb318a4236cd172ae6d37d70300826f",
+          "validation": "c071994df216b9adcc6da14fa729f83a2f1074106c1530ae712de9a5a031fce7"
+        },
+        "train_gate": {
+          "exact_min": 0.95,
+          "balanced_min": 0.95,
+          "both_goals_min": 0.9
+        },
+        "validation_gate": {
+          "exact_min": 0.85,
+          "balanced_min": 0.8,
+          "both_goals_min": 0.75,
+          "shuffle_balanced_margin_min": 0.15
+        },
+        "source_selection": "grounding-001 retains 88% conditional answer accuracy; selected on previously used development sessions",
+        "dataset": "open-world-agents/D2E-480p",
+        "license": "CC-BY-NC-4.0",
+        "labels": "assistant-reviewed menu state and synthetic opposing instructions, not player intent",
+        "not_measured": [
+          "gameplay success",
+          "cross-game transfer",
+          "camera actions",
+          "four-step action quality"
+        ],
+        "batch_size": 1,
+        "training_presentations": 4000
+      },
+      "parameters": {
+        "total": 763710052,
+        "trainable": 843059,
+        "trainable_roots": [
+          "actions"
+        ]
+      },
+      "before": {
+        "train": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8984375
+        },
+        "validation": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8828125
+        }
+      },
+      "after": {
+        "train": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.8984375
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.7734375
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.8828125
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.7734375
+          },
+          "paraphrased_goal": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.453125
+          },
+          "reversed_choices": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.109375
+          }
+        }
+      },
+      "frozen_path_unchanged": true,
+      "auxiliary_heads_unchanged": true,
+      "train_gate_passed": false,
+      "validation_gate_passed": false,
+      "reload_matches": true,
+      "live_inputs_sent": 0,
+      "joint_training_resumed": false
+    },
+    "decoder-probe-002": {
+      "protocol": {
+        "source_checkpoint": "artifacts/fit-gate-grounding-001/bundle",
+        "steps": 500,
+        "batch_size": 8,
+        "training_presentations": 4000,
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "training_scope": "action decoder, buttons only",
+        "sampling": "equal goal/action strata; no preservation, mouse or language losses",
+        "manifest_digests": {
+          "train": "456ab14ce51a071b144876989b71e665abb318a4236cd172ae6d37d70300826f",
+          "validation": "c071994df216b9adcc6da14fa729f83a2f1074106c1530ae712de9a5a031fce7"
+        },
+        "train_gate": {
+          "exact_min": 0.95,
+          "balanced_min": 0.95,
+          "both_goals_min": 0.9
+        },
+        "validation_gate": {
+          "exact_min": 0.85,
+          "balanced_min": 0.8,
+          "both_goals_min": 0.75,
+          "shuffle_balanced_margin_min": 0.15
+        },
+        "source_selection": "grounding-001 retains 88% conditional answer accuracy; selected on previously used development sessions",
+        "dataset": "open-world-agents/D2E-480p",
+        "license": "CC-BY-NC-4.0",
+        "labels": "assistant-reviewed menu state and synthetic opposing instructions, not player intent",
+        "not_measured": [
+          "gameplay success",
+          "cross-game transfer",
+          "camera actions",
+          "four-step action quality"
+        ]
+      },
+      "parameters": {
+        "total": 763710052,
+        "trainable": 843059,
+        "trainable_roots": [
+          "actions"
+        ]
+      },
+      "before": {
+        "train": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8984375
+        },
+        "validation": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8828125
+        }
+      },
+      "after": {
+        "train": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.6796875,
+            "balanced_button_exact_match": 0.6105769230769231,
+            "button_micro_f1": 0.7132867132867133,
+            "both_goals_correct": 0.359375,
+            "opposing_actions_rate": 0.359375,
+            "frozen_choice_accuracy": 0.8984375
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.6015625,
+            "balanced_button_exact_match": 0.48237179487179493,
+            "button_micro_f1": 0.6433566433566433,
+            "both_goals_correct": 0.28125,
+            "opposing_actions_rate": 0.359375,
+            "frozen_choice_accuracy": 0.7734375
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.6953125,
+            "balanced_button_exact_match": 0.5999142367066895,
+            "button_micro_f1": 0.7153284671532847,
+            "both_goals_correct": 0.40625,
+            "opposing_actions_rate": 0.421875,
+            "frozen_choice_accuracy": 0.8828125
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.5,
+            "balanced_button_exact_match": 0.5,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.6015625,
+            "balanced_button_exact_match": 0.43524871355060035,
+            "button_micro_f1": 0.6277372262773723,
+            "both_goals_correct": 0.3125,
+            "opposing_actions_rate": 0.421875,
+            "frozen_choice_accuracy": 0.7734375
+          },
+          "paraphrased_goal": {
+            "examples": 128,
+            "button_exact_match": 0.4296875,
+            "balanced_button_exact_match": 0.45754716981132076,
+            "button_micro_f1": 0.23157894736842105,
+            "both_goals_correct": 0.015625,
+            "opposing_actions_rate": 0.171875,
+            "frozen_choice_accuracy": 0.453125
+          },
+          "reversed_choices": {
+            "examples": 128,
+            "button_exact_match": 0.7734375,
+            "balanced_button_exact_match": 0.6831046312178387,
+            "button_micro_f1": 0.7642276422764228,
+            "both_goals_correct": 0.546875,
+            "opposing_actions_rate": 0.546875,
+            "frozen_choice_accuracy": 0.109375
+          }
+        }
+      },
+      "frozen_path_unchanged": true,
+      "auxiliary_heads_unchanged": true,
+      "train_gate_passed": false,
+      "validation_gate_passed": false,
+      "reload_matches": true,
+      "live_inputs_sent": 0,
+      "joint_training_resumed": false
+    },
+    "decoder-probe-003": {
+      "protocol": {
+        "source_checkpoint": "artifacts/fit-gate-grounding-001/bundle",
+        "steps": 4000,
+        "batch_size": 8,
+        "training_presentations": 32000,
+        "seed": 17,
+        "learning_rate": 0.0001,
+        "training_scope": "action decoder, buttons only",
+        "sampling": "equal goal/action strata; no preservation, mouse or language losses",
+        "manifest_digests": {
+          "train": "456ab14ce51a071b144876989b71e665abb318a4236cd172ae6d37d70300826f",
+          "validation": "c071994df216b9adcc6da14fa729f83a2f1074106c1530ae712de9a5a031fce7"
+        },
+        "train_gate": {
+          "exact_min": 0.95,
+          "balanced_min": 0.95,
+          "both_goals_min": 0.9
+        },
+        "validation_gate": {
+          "exact_min": 0.85,
+          "balanced_min": 0.8,
+          "both_goals_min": 0.75,
+          "shuffle_balanced_margin_min": 0.15
+        },
+        "source_selection": "grounding-001 retains 88% conditional answer accuracy; selected on previously used development sessions",
+        "dataset": "open-world-agents/D2E-480p",
+        "license": "CC-BY-NC-4.0",
+        "labels": "assistant-reviewed menu state and synthetic opposing instructions, not player intent",
+        "not_measured": [
+          "gameplay success",
+          "cross-game transfer",
+          "camera actions",
+          "four-step action quality"
+        ]
+      },
+      "parameters": {
+        "total": 763710052,
+        "trainable": 843059,
+        "trainable_roots": [
+          "actions"
+        ]
+      },
+      "before": {
+        "train": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8984375
+        },
+        "validation": {
+          "examples": 128,
+          "button_exact_match": 0.5,
+          "balanced_button_exact_match": 0.5,
+          "button_micro_f1": 0.0,
+          "both_goals_correct": 0.0,
+          "opposing_actions_rate": 0.0,
+          "frozen_choice_accuracy": 0.8828125
+        }
+      },
+      "after": {
+        "train": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.9375,
+            "balanced_button_exact_match": 0.8653846153846154,
+            "button_micro_f1": 0.9344262295081968,
+            "both_goals_correct": 0.875,
+            "opposing_actions_rate": 0.875,
+            "frozen_choice_accuracy": 0.8984375
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.0,
+            "balanced_button_exact_match": 0.0,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.765625,
+            "balanced_button_exact_match": 0.5833333333333334,
+            "button_micro_f1": 0.7540983606557377,
+            "both_goals_correct": 0.703125,
+            "opposing_actions_rate": 0.875,
+            "frozen_choice_accuracy": 0.7734375
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.8359375,
+            "balanced_button_exact_match": 0.7028301886792453,
+            "button_micro_f1": 0.7244094488188977,
+            "both_goals_correct": 0.71875,
+            "opposing_actions_rate": 0.78125,
+            "frozen_choice_accuracy": 0.8828125
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.0,
+            "balanced_button_exact_match": 0.0,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.6953125,
+            "balanced_button_exact_match": 0.4738421955403087,
+            "button_micro_f1": 0.5669291338582677,
+            "both_goals_correct": 0.5625,
+            "opposing_actions_rate": 0.78125,
+            "frozen_choice_accuracy": 0.7734375
+          },
+          "paraphrased_goal": {
+            "examples": 128,
+            "button_exact_match": 0.296875,
+            "balanced_button_exact_match": 0.4133790737564322,
+            "button_micro_f1": 0.0975609756097561,
+            "both_goals_correct": 0.078125,
+            "opposing_actions_rate": 0.5,
+            "frozen_choice_accuracy": 0.453125
+          },
+          "reversed_choices": {
+            "examples": 128,
+            "button_exact_match": 0.6171875,
+            "balanced_button_exact_match": 0.570754716981132,
+            "button_micro_f1": 0.28368794326241137,
+            "both_goals_correct": 0.296875,
+            "opposing_actions_rate": 0.5625,
+            "frozen_choice_accuracy": 0.109375
+          }
+        }
+      },
+      "frozen_path_unchanged": true,
+      "auxiliary_heads_unchanged": true,
+      "train_gate_passed": false,
+      "validation_gate_passed": false,
+      "reload_matches": true,
+      "live_inputs_sent": 0,
+      "joint_training_resumed": false
+    },
+    "decoder-probe-004": {
+      "protocol": {
+        "source_checkpoint": "artifacts/decoder-probe-003/bundle",
+        "steps": 2000,
+        "batch_size": 8,
+        "training_presentations": 16000,
+        "seed": 17,
+        "learning_rate": 1e-05,
+        "training_scope": "action decoder, buttons only",
+        "sampling": "equal goal/action strata; no preservation, mouse or language losses",
+        "manifest_digests": {
+          "train": "456ab14ce51a071b144876989b71e665abb318a4236cd172ae6d37d70300826f",
+          "validation": "c071994df216b9adcc6da14fa729f83a2f1074106c1530ae712de9a5a031fce7"
+        },
+        "train_gate": {
+          "exact_min": 0.95,
+          "balanced_min": 0.95,
+          "both_goals_min": 0.9
+        },
+        "validation_gate": {
+          "exact_min": 0.85,
+          "balanced_min": 0.8,
+          "both_goals_min": 0.75,
+          "shuffle_balanced_margin_min": 0.15
+        },
+        "source_selection": "Decoder-only continuation after improved training fit; development validation is reused",
+        "source_decoder_probe": {
+          "source_checkpoint": "artifacts/fit-gate-grounding-001/bundle",
+          "steps": 4000,
+          "batch_size": 8,
+          "training_presentations": 32000,
+          "seed": 17,
+          "learning_rate": 0.0001,
+          "training_scope": "action decoder, buttons only",
+          "sampling": "equal goal/action strata; no preservation, mouse or language losses",
+          "manifest_digests": {
+            "train": "456ab14ce51a071b144876989b71e665abb318a4236cd172ae6d37d70300826f",
+            "validation": "c071994df216b9adcc6da14fa729f83a2f1074106c1530ae712de9a5a031fce7"
+          },
+          "train_gate": {
+            "exact_min": 0.95,
+            "balanced_min": 0.95,
+            "both_goals_min": 0.9
+          },
+          "validation_gate": {
+            "exact_min": 0.85,
+            "balanced_min": 0.8,
+            "both_goals_min": 0.75,
+            "shuffle_balanced_margin_min": 0.15
+          },
+          "source_selection": "grounding-001 retains 88% conditional answer accuracy; selected on previously used development sessions",
+          "dataset": "open-world-agents/D2E-480p",
+          "license": "CC-BY-NC-4.0",
+          "labels": "assistant-reviewed menu state and synthetic opposing instructions, not player intent",
+          "not_measured": [
+            "gameplay success",
+            "cross-game transfer",
+            "camera actions",
+            "four-step action quality"
+          ],
+          "frozen_path_unchanged": true
+        },
+        "dataset": "open-world-agents/D2E-480p",
+        "license": "CC-BY-NC-4.0",
+        "labels": "assistant-reviewed menu state and synthetic opposing instructions, not player intent",
+        "not_measured": [
+          "gameplay success",
+          "cross-game transfer",
+          "camera actions",
+          "four-step action quality"
+        ]
+      },
+      "parameters": {
+        "total": 763710052,
+        "trainable": 843059,
+        "trainable_roots": [
+          "actions"
+        ]
+      },
+      "before": {
+        "train": {
+          "examples": 128,
+          "button_exact_match": 0.9375,
+          "balanced_button_exact_match": 0.8653846153846154,
+          "button_micro_f1": 0.9344262295081968,
+          "both_goals_correct": 0.875,
+          "opposing_actions_rate": 0.875,
+          "frozen_choice_accuracy": 0.8984375
+        },
+        "validation": {
+          "examples": 128,
+          "button_exact_match": 0.8359375,
+          "balanced_button_exact_match": 0.7028301886792453,
+          "button_micro_f1": 0.7244094488188977,
+          "both_goals_correct": 0.71875,
+          "opposing_actions_rate": 0.78125,
+          "frozen_choice_accuracy": 0.8828125
+        }
+      },
+      "after": {
+        "train": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.8984375,
+            "balanced_button_exact_match": 0.9375,
+            "button_micro_f1": 0.8888888888888888,
+            "both_goals_correct": 0.796875,
+            "opposing_actions_rate": 0.796875,
+            "frozen_choice_accuracy": 0.8984375
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.0546875,
+            "balanced_button_exact_match": 0.14583333333333334,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 1.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.6640625,
+            "balanced_button_exact_match": 0.5528846153846154,
+            "button_micro_f1": 0.6324786324786325,
+            "both_goals_correct": 0.5625,
+            "opposing_actions_rate": 0.796875,
+            "frozen_choice_accuracy": 0.7734375
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 128,
+            "button_exact_match": 0.8203125,
+            "balanced_button_exact_match": 0.7114065180102915,
+            "button_micro_f1": 0.7678571428571429,
+            "both_goals_correct": 0.671875,
+            "opposing_actions_rate": 0.703125,
+            "frozen_choice_accuracy": 0.8828125
+          },
+          "zero_vision": {
+            "examples": 128,
+            "button_exact_match": 0.046875,
+            "balanced_button_exact_match": 0.13636363636363635,
+            "button_micro_f1": 0.0,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 1.0,
+            "frozen_choice_accuracy": 0.5
+          },
+          "shuffled_vision": {
+            "examples": 128,
+            "button_exact_match": 0.703125,
+            "balanced_button_exact_match": 0.5145797598627787,
+            "button_micro_f1": 0.625,
+            "both_goals_correct": 0.546875,
+            "opposing_actions_rate": 0.703125,
+            "frozen_choice_accuracy": 0.7734375
+          },
+          "paraphrased_goal": {
+            "examples": 128,
+            "button_exact_match": 0.34375,
+            "balanced_button_exact_match": 0.33361921097770153,
+            "button_micro_f1": 0.1422924901185771,
+            "both_goals_correct": 0.0,
+            "opposing_actions_rate": 0.390625,
+            "frozen_choice_accuracy": 0.453125
+          },
+          "reversed_choices": {
+            "examples": 128,
+            "button_exact_match": 0.4296875,
+            "balanced_button_exact_match": 0.4575471698113207,
+            "button_micro_f1": 0.35398230088495575,
+            "both_goals_correct": 0.203125,
+            "opposing_actions_rate": 0.546875,
+            "frozen_choice_accuracy": 0.109375
+          }
+        }
+      },
+      "frozen_path_unchanged": true,
+      "auxiliary_heads_unchanged": true,
+      "train_gate_passed": false,
+      "validation_gate_passed": false,
+      "reload_matches": true,
+      "live_inputs_sent": 0,
+      "joint_training_resumed": false
+    }
+  },
+  "note": "All are development diagnostics; no gameplay or unseen-game success measured."
+}

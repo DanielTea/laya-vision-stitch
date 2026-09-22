@@ -324,6 +324,20 @@ class TrainableStitch(nn.Module):
 
     def from_state(self, state, batch, start):
         """Shared Laya path; explicit state input also enables text-oracle audits."""
+        h, choices = self.encode_state(state, batch, start)
+        return {
+            "choices": choices,
+            "visual_state": state.astype(mx.float32),
+            **self.actions(h[:, 0], h),
+        }
+
+    def action_context(self, patches, coordinates, batch, goal_ids, start):
+        """Frozen-context caching for decoder-only experiments, without labels."""
+        goal = self.laya.encoder.embeddings.tok_embeddings(goal_ids)
+        state = self.connector(patches, coordinates, goal)
+        return self.encode_state(state, batch, start)
+
+    def encode_state(self, state, batch, start):
         from laya_mlx.model import attention_masks
 
         encoder = self.laya.encoder
@@ -342,11 +356,7 @@ class TrainableStitch(nn.Module):
         markers = h[mx.arange(h.shape[0])[:, None], batch["marker_pos"]]
         choices = self.laya.scorer(markers).squeeze(-1).astype(mx.float32)
         choices = mx.where(batch["marker_mask"], choices, -1e4)
-        return {
-            "choices": choices,
-            "visual_state": state.astype(mx.float32),
-            **self.actions(h[:, 0], h),
-        }
+        return h, choices
 
     def __call__(self, frames, batch, goal_ids, start):
         encoded = [self.encode_frame(*frame) for frame in frames]
