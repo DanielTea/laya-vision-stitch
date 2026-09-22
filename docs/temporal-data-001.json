@@ -1,0 +1,318 @@
+{
+  "seed": 83,
+  "length": 32,
+  "sampling": "Uniform random valid nonoverlapping windows; constant weak/generic goal per window",
+  "frame_action_alignment": "image[t] -> annotation[t+1]; previous action annotation[t]",
+  "future_supervision": "image[t+1], training/evaluation target only",
+  "removed_duplicate_sequences": {
+    "test": 0,
+    "validation": 0,
+    "train": 0
+  },
+  "recordings": [
+    {
+      "recording": "019a4b10-11b0-76b3-8112-bd6f0a3e3dff",
+      "split": "train",
+      "game": "doom",
+      "starts": [
+        132,
+        982,
+        1238,
+        1298,
+        1357,
+        2337,
+        2780,
+        3323
+      ],
+      "excluded": {
+        "mouse_out_of_range": 191
+      },
+      "annotation_sha256": "aff523f8aaf6da4b246e45e411f0f914c68bad76a67f37c73d8d026735f4b88f",
+      "video_sha256": "6e2a355de4cb906525a574028f64c788975ba9da32b1d9c8b750c04f5d1bfc9b",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "019a4b11-d29d-7be0-9c47-9ce4da72cedc",
+      "split": "train",
+      "game": "left-4-dead-2",
+      "starts": [
+        653,
+        697,
+        924,
+        983,
+        1126,
+        1533,
+        3976,
+        4802
+      ],
+      "excluded": {
+        "scroll": 21
+      },
+      "annotation_sha256": "f6eb03d719720fb909314171be2b1e6a4ea72048b993052c339b67bf1a03dafb",
+      "video_sha256": "0547766c2ead37dae6d9cc4cb005b67bd91dc9d2da22b081c2c66660d6342d2d",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "019a4b0d-39c2-7440-8654-f2190fb3015e",
+      "split": "train",
+      "game": "roblox/be-a-tornado",
+      "starts": [
+        929,
+        2696,
+        3474,
+        3799,
+        3907,
+        4762,
+        5112,
+        5605
+      ],
+      "excluded": {
+        "unknown_keyboard_key": 619
+      },
+      "annotation_sha256": "21f01f95a35083d33a5d83f1b254aaacbf8766741c02580f972512fc179e6304",
+      "video_sha256": "8864315a854f6d3251b5df9b2d29c75b4f05aa635fc4d8ee0f64b796688cb795",
+      "irregular_video_intervals": [
+        809,
+        810,
+        1287,
+        1288,
+        1762,
+        1763,
+        2206,
+        2207,
+        2676,
+        2677,
+        3145,
+        3146,
+        4660,
+        4661,
+        5260,
+        5261,
+        5860,
+        5861,
+        6448,
+        6449,
+        6832,
+        6833,
+        7654,
+        7655,
+        8249,
+        8250,
+        9414,
+        9415,
+        10008,
+        10009,
+        10611,
+        10612
+      ],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "019a4b12-28e2-7553-b1d8-5d0338319981",
+      "split": "validation",
+      "game": "left-4-dead-2",
+      "starts": [
+        1679,
+        1925,
+        2257,
+        2542,
+        3507,
+        3961,
+        4523,
+        5069
+      ],
+      "excluded": {
+        "mouse_out_of_range": 103,
+        "scroll": 24
+      },
+      "annotation_sha256": "2a20dcfed28b3b5fbe550dfcff0160488a0519eb5c05f5d14e34fd4af87bbcc7",
+      "video_sha256": "aee19116ca6a24997942cb4223f1d0061f122c55c6ed9873f3fc08be54571f6d",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01991a4f-acbb-7b61-a831-89c58f038d59",
+      "split": "train",
+      "game": "roblox/blade-ball",
+      "starts": [
+        301,
+        334,
+        837,
+        1589,
+        1998,
+        2095,
+        2524,
+        2641
+      ],
+      "excluded": {
+        "unknown_keyboard_key": 523,
+        "no_active_instruction": 2
+      },
+      "annotation_sha256": "19f9e7e161a5a6209906275a35b7aa6d86718a501ee0194dafcb6897a4adf6eb",
+      "video_sha256": "0de58413bba99c1ab5285a11cde223d9e5bbc9042e002ca227d36e7088d3e98b",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01991a4f-bc55-7c13-b3ee-1b2148c63cf5",
+      "split": "validation",
+      "game": "roblox/be-a-tornado",
+      "starts": [
+        1679,
+        2674,
+        3347,
+        4018,
+        4262,
+        4560,
+        5141,
+        5765
+      ],
+      "excluded": {
+        "unknown_keyboard_key": 1308,
+        "no_active_instruction": 6
+      },
+      "annotation_sha256": "f0565b6cce2cbe4b3266220f238baec21721759f553e6e0202fbc3f777ba02b8",
+      "video_sha256": "97c71d7a8aec88b294612fd3521ebdfea434b0891c4a2743a12c7adaadaff098",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01991a4a-5a07-7f33-9b05-aff2144a7f58",
+      "split": "test",
+      "game": "roblox/evade",
+      "starts": [
+        231,
+        314,
+        2160,
+        2822,
+        3332,
+        3409,
+        3502,
+        3555
+      ],
+      "excluded": {},
+      "annotation_sha256": "f6d52a905e54694b57f4c2e0db56f66fabe9643e9e52ac5152cd5b2679e0e664",
+      "video_sha256": "21e2ef91f3e727ec3b3af0a11652bee854b9c9426015f177b619057d07467fc3",
+      "irregular_video_intervals": [
+        3702,
+        3703
+      ],
+      "prior_frame_plan_count": 96,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01991a45-382a-73f1-9936-1f6e5ea59655",
+      "split": "train",
+      "game": "roblox/hypershot",
+      "starts": [
+        101,
+        2739,
+        3460,
+        3727,
+        4285,
+        5639,
+        6774,
+        7323
+      ],
+      "excluded": {
+        "mouse_out_of_range": 74,
+        "scroll": 10,
+        "no_active_instruction": 2
+      },
+      "annotation_sha256": "0190890284234f48685fea8129b501b3660af0016c87c0fdbdabdb7ee2c7ce89",
+      "video_sha256": "396e903331b74f2a95132d375002ed097555be0b66894b131959b8d1a6684faf",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 128,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01981a4b-bd07-7e10-be67-c2123935befe",
+      "split": "test",
+      "game": "roblox/be-a-snake",
+      "starts": [
+        1381,
+        1536,
+        1641,
+        1805,
+        2275,
+        4265,
+        4377,
+        4446
+      ],
+      "excluded": {
+        "unknown_keyboard_key": 1536,
+        "no_active_instruction": 7
+      },
+      "annotation_sha256": "abf3b2df866e88bbbce22cd9f7f952389a826e6645ca2cdb05b7c1da86ed0c83",
+      "video_sha256": "ff46f7fe9878cd403be053aa4fc72d6ce651bcd84bc2f9655d08bb5c0cfc85ae",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 96,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    },
+    {
+      "recording": "01981a1c-4fa2-7fb2-98c1-024129a263b3",
+      "split": "test",
+      "game": "roblox/a-dusty-trip",
+      "starts": [
+        1870,
+        5104,
+        8835,
+        8981,
+        16761,
+        27219,
+        32201,
+        35443
+      ],
+      "excluded": {
+        "no_active_instruction": 490,
+        "scroll": 441
+      },
+      "annotation_sha256": "3bbec704be9f0267dc0470fa723b286b6ebc7bbb2a92a496722e114b32cdf135",
+      "video_sha256": "1f7897a70877a586cdce59be415b78da7bdc3e61a843c0c8003bf689b614c170",
+      "irregular_video_intervals": [],
+      "prior_frame_plan_count": 96,
+      "requested_sequences": 8,
+      "sequence_length": 32
+    }
+  ],
+  "rows": {
+    "train": 1280,
+    "validation": 512,
+    "test": 768
+  },
+  "games": {
+    "train": {
+      "doom": 256,
+      "left-4-dead-2": 256,
+      "roblox/be-a-tornado": 256,
+      "roblox/blade-ball": 256,
+      "roblox/hypershot": 256
+    },
+    "validation": {
+      "left-4-dead-2": 256,
+      "roblox/be-a-tornado": 256
+    },
+    "test": {
+      "roblox/evade": 256,
+      "roblox/be-a-snake": 256,
+      "roblox/a-dusty-trip": 256
+    }
+  }
+}

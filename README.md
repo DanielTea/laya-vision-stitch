@@ -5,19 +5,23 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Current status:** a new visual action adapter with numeric control history improves
-button F1 from 72.5% to **82.0%** on separate validation recordings and from 79.8%
-to **84.4%** on withheld experiences. It trains 3.61M parameters (~0.47%) while
-preserving the whole parent model. Cached-frame inference measures **44.9 ms median**
-on an M3 Max; this excludes capture, input posting and game contention.
-The model still loses to repeating the previous action, gains little from correct
-screenshots, and fails camera transfer. It is **not a playable Hordes/general game agent**.
-[Latest adapter, expanded data, results and architecture](docs/VISUAL_ACTION_ADAPTER.md) ·
+**Current status:** implemented and trained two streaming memory adapters: Mamba-3
+SISO plus local attention, and a causal transformer. Qwen and Laya remain frozen;
+only about **0.13%** of parameters train. Fresh-image inference measured **44.5–45.6 ms
+median** on an M3 Max over 128 recorded frames, excluding capture and game contention.
+Both models fit the training clips but **fail transfer and visual-dependence checks**.
+They are not playable Hordes agents and have not replaced the default model.
+[Temporal architecture, six experiments, results and streaming usage](docs/TEMPORAL_MEMORY.md).
+
+The earlier visual action adapter with numeric control history reached **82.0%**
+validation button F1 and **84.4%** on withheld experiences on a different sample
+set. It still lost to repeating the previous action. These percentages are not
+directly comparable with the new consecutive-sequence experiment.
+[Earlier visual adapter](docs/VISUAL_ACTION_ADAPTER.md) ·
 [Recorded-action results](docs/GAMEPLAY_BUTTONS.md) ·
-[Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md) ·
-[Full-Qwen teacher and reasoning-transfer experiment](docs/REASONING_TRANSFER.md) ·
-[Local inference profiling](docs/LATENCY_AND_GAMEPLAY.md) ·
-[Public P2P data and staged button/camera training](docs/P2P_TRAINING.md).
+[Instruction robustness](docs/ROBUST_DECODER.md) ·
+[Reasoning-transfer experiment](docs/REASONING_TRANSFER.md) ·
+[Public P2P data](docs/P2P_TRAINING.md).
 
 The synthetic-training checkpoint reached its target in **40/40 fresh synthetic sandbox episodes**,
 using its learned A/D button outputs. Warm inference took **58 ms median** on an
@@ -229,7 +233,8 @@ and screenshots under `artifacts/` are ignored by Git. ScreenQuest is unchanged.
   Our decision-mixture experiment is not an ASIF reproduction.
 
 Original project code is MIT licensed, except the Apache-2.0 embedding-forward
-adaptations identified in `lexical_stitch.py` and `trainable_model.py`. Vendored CLIP code retains Apple's
+adaptations identified in `lexical_stitch.py`, `trainable_model.py` and the
+Mamba-3 recurrence in `temporal_memory.py`. Vendored CLIP code retains Apple's
 MIT license; modifications and upstream notices are recorded under
 `third_party/`. Pretrained weights retain their upstream licenses and are not
 included in this Git repository.

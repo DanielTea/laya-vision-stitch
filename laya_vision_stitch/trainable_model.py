@@ -37,6 +37,8 @@ class PolicyConfig:
     action_context_source: str = "decision"
     visual_action_adapter: bool = False
     numeric_action_history: bool = False
+    temporal_adapter: str = "none"
+    temporal_width: int = 128
     mouse_bins: tuple = (
         -1.0,
         -0.5,
@@ -76,6 +78,12 @@ class PolicyConfig:
             raise ValueError("Unknown action context source")
         if self.visual_action_adapter and self.action_chunk_size < 2:
             raise ValueError("Visual action adapter requires chunk outputs")
+        if self.temporal_adapter not in ("none", "mamba3", "attention"):
+            raise ValueError("Unknown temporal adapter")
+        if self.temporal_width < 32 or self.temporal_width % 32:
+            raise ValueError("Temporal width must be a multiple of 32")
+        if self.temporal_adapter != "none" and self.visual_action_adapter:
+            raise ValueError("Choose one action adapter")
         if self.numeric_action_history and not self.visual_action_adapter:
             raise ValueError("Numeric history requires the visual action adapter")
         if len(self.mouse_bins) < 3 or list(self.mouse_bins) != sorted(set(self.mouse_bins)):
@@ -321,6 +329,14 @@ class TrainableStitch(nn.Module):
             for layer in self.laya.encoder.layers[-config.lora_layers :]:
                 layer.attn.Wqkv = LoRALinear(layer.attn.Wqkv, config.lora_rank)
                 layer.attn.Wo = LoRALinear(layer.attn.Wo, config.lora_rank)
+        if config.temporal_adapter != "none":
+            from .temporal_adapter import TemporalActionAdapter
+
+            self.temporal_actions = TemporalActionAdapter(
+                vision.config.out_hidden_size, width, config
+            )
+            self.freeze()
+            self.temporal_actions.unfreeze()
         self.eval()
 
     def encode_frame(self, pixels, grid, age, frame_index):
@@ -344,6 +360,10 @@ class TrainableStitch(nn.Module):
 
     def from_state(self, state, batch, start, patches=None, coordinates=None):
         """Shared Laya path; explicit state input also enables text-oracle audits."""
+        if getattr(self.policy_config, "temporal_adapter", "none") != "none":
+            raise ValueError(
+                "Temporal checkpoints require TemporalRuntime and explicit session state"
+            )
         h, choices = self.encode_state(state, batch, start)
         actions = self.actions(h[:, 0], h)
         if self.policy_config.visual_action_adapter:
@@ -611,6 +631,10 @@ class TrainableRuntime:
         return result
 
     def predict(self, row):
+        if self.module.policy_config.temporal_adapter != "none":
+            raise ValueError(
+                "Temporal checkpoints require TemporalRuntime and explicit session state"
+            )
         started = time.perf_counter()
         output = self.module(self.frames(row), *self.prepare(row))
         mx.eval(output)

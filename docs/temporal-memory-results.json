@@ -1,0 +1,2315 @@
+{
+  "hardware": "Apple M3 Max, 48 GiB",
+  "scope": "Offline recorded gameplay; zero OS input events; no live Hordes validation",
+  "experiments": {
+    "temporal-memory-001/mamba3": {
+      "source": "artifacts/temporal-memory-001/mamba3/report.json",
+      "source_sha256": "34e2e1ae8ac52985c554e4160d6020cfdb5143d4dc9f78d7858bc50b31a6614c",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "mamba3",
+        "seed": 83,
+        "steps": 1500,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.1,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764746601,
+        "trainable": 1034501,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.5126320624712908,
+            "button_exact_match": 0.4546875,
+            "transition_exact": 0.23293172690763053,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 26.577731092436974,
+            "moving_direction_accuracy": 0.6533613445378151,
+            "mouse_mae_px": 11.312109375,
+            "future_delta_standardized_mse": 1.1104235649108887,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.4489795918367347,
+                "button_exact_match": 0.3046875,
+                "transition_exact": 0.21348314606741572,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 33.74050632911393,
+                "moving_direction_accuracy": 0.6234177215189873,
+                "mouse_mae_px": 22.853515625
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.5520833333333334,
+                "button_exact_match": 0.4296875,
+                "transition_exact": 0.16666666666666666,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 16.86,
+                "moving_direction_accuracy": 0.64,
+                "mouse_mae_px": 12.62109375
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.7896678966789668,
+                "button_exact_match": 0.6015625,
+                "transition_exact": 0.45161290322580644,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.24299065420560748,
+                "button_exact_match": 0.74609375,
+                "transition_exact": 0.375,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.343801652892562,
+                "button_exact_match": 0.19140625,
+                "transition_exact": 0.16901408450704225,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 28.517857142857142,
+                "moving_direction_accuracy": 0.6934523809523809,
+                "mouse_mae_px": 21.0859375
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.444022770398482,
+            "button_exact_match": 0.453125,
+            "transition_exact": 0.23694779116465864,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 54.766806722689076,
+            "moving_direction_accuracy": 0.5315126050420168,
+            "mouse_mae_px": 23.796484375
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.7697368421052632,
+            "button_exact_match": 0.69140625,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.99285714285714,
+            "moving_direction_accuracy": 0.26071428571428573,
+            "mouse_mae_px": 18.9677734375,
+            "future_delta_standardized_mse": 0.9924674034118652,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.553763440860215,
+                "button_exact_match": 0.5546875,
+                "transition_exact": 0.041666666666666664,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 51.99285714285714,
+                "moving_direction_accuracy": 0.26071428571428573,
+                "mouse_mae_px": 34.044921875
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.9185185185185185,
+                "button_exact_match": 0.828125,
+                "transition_exact": 0.3333333333333333,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 3.890625
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.7697368421052632,
+            "button_exact_match": 0.69140625,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.99285714285714,
+            "moving_direction_accuracy": 0.26071428571428573,
+            "mouse_mae_px": 18.9716796875
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.706855791962175,
+            "button_exact_match": 0.615234375,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 52.65,
+            "moving_direction_accuracy": 0.26785714285714285,
+            "mouse_mae_px": 22.4873046875
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.7686116700201208,
+            "button_exact_match": 0.62109375,
+            "transition_exact": 0.2,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 55.207142857142856,
+            "moving_direction_accuracy": 0.34285714285714286,
+            "mouse_mae_px": 18.9619140625
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.7742639040348964,
+            "button_exact_match": 0.693359375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 50.871428571428574,
+            "moving_direction_accuracy": 0.26785714285714285,
+            "mouse_mae_px": 18.4814453125
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.7697368421052632,
+            "button_exact_match": 0.69140625,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.99285714285714,
+            "moving_direction_accuracy": 0.26071428571428573,
+            "mouse_mae_px": 18.9716796875
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.7555066079295154,
+            "button_exact_match": 0.5052083333333334,
+            "transition_exact": 0.42105263157894735,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 19.690594059405942,
+            "moving_direction_accuracy": 0.3069306930693069,
+            "mouse_mae_px": 7.15625,
+            "future_delta_standardized_mse": 1.2116318941116333,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.6911196911196911,
+                "button_exact_match": 0.51953125,
+                "transition_exact": 0.46153846153846156,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 25.936507936507937,
+                "moving_direction_accuracy": 0.4126984126984127,
+                "mouse_mae_px": 8.947265625
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.835236541598695,
+                "button_exact_match": 0.60546875,
+                "transition_exact": 0.4782608695652174,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 2.0859375
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.7328467153284671,
+                "button_exact_match": 0.390625,
+                "transition_exact": 0.3888888888888889,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 16.859712230215827,
+                "moving_direction_accuracy": 0.2589928057553957,
+                "mouse_mae_px": 10.435546875
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.7555066079295154,
+            "button_exact_match": 0.5052083333333334,
+            "transition_exact": 0.42105263157894735,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 19.690594059405942,
+            "moving_direction_accuracy": 0.3069306930693069,
+            "mouse_mae_px": 7.158854166666667
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.6428145497912939,
+            "button_exact_match": 0.3958333333333333,
+            "transition_exact": 0.32894736842105265,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 33.68069306930693,
+            "moving_direction_accuracy": 0.3094059405940594,
+            "mouse_mae_px": 12.119791666666666
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.7506909894969597,
+            "button_exact_match": 0.4986979166666667,
+            "transition_exact": 0.40131578947368424,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 18.452970297029704,
+            "moving_direction_accuracy": 0.3069306930693069,
+            "mouse_mae_px": 7.359375
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.7548209366391184,
+            "button_exact_match": 0.5052083333333334,
+            "transition_exact": 0.42105263157894735,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 19.556930693069308,
+            "moving_direction_accuracy": 0.32425742574257427,
+            "mouse_mae_px": 7.1015625
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.7555066079295154,
+            "button_exact_match": 0.5052083333333334,
+            "transition_exact": 0.42105263157894735,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 19.690594059405942,
+            "moving_direction_accuracy": 0.3069306930693069,
+            "mouse_mae_px": 7.15625
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 82.39295799285173,
+        "p95_ms": 138.97332497872412,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    },
+    "temporal-memory-001/attention": {
+      "source": "artifacts/temporal-memory-001/attention/report.json",
+      "source_sha256": "0873384b78f08ed66eb8b9fd181db53b44dcdecae28c0a5e6a6fd991410d246f",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "attention",
+        "seed": 83,
+        "steps": 1500,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.1,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764701593,
+        "trainable": 989493,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.5847494553376906,
+            "button_exact_match": 0.503125,
+            "transition_exact": 0.3132530120481928,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 13.373949579831933,
+            "moving_direction_accuracy": 0.8287815126050421,
+            "mouse_mae_px": 6.126953125,
+            "future_delta_standardized_mse": 1.1106559038162231,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.5008635578583766,
+                "button_exact_match": 0.33984375,
+                "transition_exact": 0.24719101123595505,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 14.462025316455696,
+                "moving_direction_accuracy": 0.8734177215189873,
+                "mouse_mae_px": 10.978515625
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.5628415300546448,
+                "button_exact_match": 0.453125,
+                "transition_exact": 0.40476190476190477,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 8.253333333333334,
+                "moving_direction_accuracy": 0.7966666666666666,
+                "mouse_mae_px": 6.44921875
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.7918968692449355,
+                "button_exact_match": 0.60546875,
+                "transition_exact": 0.45161290322580644,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.18181818181818182,
+                "button_exact_match": 0.84765625,
+                "transition_exact": 0.1875,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.5398936170212766,
+                "button_exact_match": 0.26953125,
+                "transition_exact": 0.30985915492957744,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 16.922619047619047,
+                "moving_direction_accuracy": 0.8154761904761905,
+                "mouse_mae_px": 13.20703125
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.576068376068376,
+            "button_exact_match": 0.48984375,
+            "transition_exact": 0.2891566265060241,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 19.42016806722689,
+            "moving_direction_accuracy": 0.7741596638655462,
+            "mouse_mae_px": 8.423828125
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.7106382978723405,
+            "button_exact_match": 0.587890625,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 50.17857142857143,
+            "moving_direction_accuracy": 0.16428571428571428,
+            "mouse_mae_px": 14.9287109375,
+            "future_delta_standardized_mse": 0.9837924242019653,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.41116751269035534,
+                "button_exact_match": 0.33203125,
+                "transition_exact": 0.041666666666666664,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 50.17857142857143,
+                "moving_direction_accuracy": 0.16428571428571428,
+                "mouse_mae_px": 29.333984375
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.9267399267399268,
+                "button_exact_match": 0.84375,
+                "transition_exact": 0.3333333333333333,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.5234375
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.7109207708779444,
+            "button_exact_match": 0.583984375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.6,
+            "moving_direction_accuracy": 0.14285714285714285,
+            "mouse_mae_px": 15.2705078125
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.7061310782241015,
+            "button_exact_match": 0.57421875,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.6,
+            "moving_direction_accuracy": 0.175,
+            "mouse_mae_px": 14.3994140625
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.7416934619506966,
+            "button_exact_match": 0.6015625,
+            "transition_exact": 0.2,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.82142857142857,
+            "moving_direction_accuracy": 0.175,
+            "mouse_mae_px": 15.6357421875
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.7098831030818279,
+            "button_exact_match": 0.583984375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 50.25,
+            "moving_direction_accuracy": 0.15714285714285714,
+            "mouse_mae_px": 15.0419921875
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.7127659574468085,
+            "button_exact_match": 0.58203125,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.77857142857143,
+            "moving_direction_accuracy": 0.15,
+            "mouse_mae_px": 15.4833984375
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.6680584551148225,
+            "button_exact_match": 0.3997395833333333,
+            "transition_exact": 0.35526315789473684,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 24.769801980198018,
+            "moving_direction_accuracy": 0.38613861386138615,
+            "mouse_mae_px": 12.265625,
+            "future_delta_standardized_mse": 1.3834352493286133,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.59375,
+                "button_exact_match": 0.421875,
+                "transition_exact": 0.358974358974359,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 23.714285714285715,
+                "moving_direction_accuracy": 0.36507936507936506,
+                "mouse_mae_px": 9.712890625
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.7684729064039408,
+                "button_exact_match": 0.48046875,
+                "transition_exact": 0.5217391304347826,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 4.9609375
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.6389937106918239,
+                "button_exact_match": 0.296875,
+                "transition_exact": 0.3111111111111111,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 25.24820143884892,
+                "moving_direction_accuracy": 0.39568345323741005,
+                "mouse_mae_px": 22.123046875
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.6554621848739496,
+            "button_exact_match": 0.390625,
+            "transition_exact": 0.32894736842105265,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.824257425742573,
+            "moving_direction_accuracy": 0.349009900990099,
+            "mouse_mae_px": 13.243489583333334
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.6064220183486239,
+            "button_exact_match": 0.3580729166666667,
+            "transition_exact": 0.3223684210526316,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 28.814356435643564,
+            "moving_direction_accuracy": 0.3910891089108911,
+            "mouse_mae_px": 13.625
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.6514047866805411,
+            "button_exact_match": 0.3932291666666667,
+            "transition_exact": 0.2894736842105263,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 25.111386138613863,
+            "moving_direction_accuracy": 0.33910891089108913,
+            "mouse_mae_px": 12.954427083333334
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.6614664586583463,
+            "button_exact_match": 0.3997395833333333,
+            "transition_exact": 0.32894736842105265,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 24.25,
+            "moving_direction_accuracy": 0.39603960396039606,
+            "mouse_mae_px": 12.0
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.6486761710794298,
+            "button_exact_match": 0.3802083333333333,
+            "transition_exact": 0.35526315789473684,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 29.175742574257427,
+            "moving_direction_accuracy": 0.36386138613861385,
+            "mouse_mae_px": 13.197916666666666
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 73.57833394780755,
+        "p95_ms": 112.7132585505023,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    },
+    "temporal-memory-noaux-001/mamba3": {
+      "source": "artifacts/temporal-memory-noaux-001/mamba3/report.json",
+      "source_sha256": "44b9cb555b5a4ceec0a8bf876514e35784431bb99092c2561c0b2339c7b478b5",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "mamba3",
+        "seed": 83,
+        "steps": 1500,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.0,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764746601,
+        "trainable": 1034501,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.5618374558303887,
+            "button_exact_match": 0.50078125,
+            "transition_exact": 0.26104417670682734,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.58823529411765,
+            "moving_direction_accuracy": 0.6302521008403361,
+            "mouse_mae_px": 9.286328125,
+            "future_delta_standardized_mse": 211.97811889648438,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.4742647058823529,
+                "button_exact_match": 0.33984375,
+                "transition_exact": 0.24719101123595505,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 24.930379746835442,
+                "moving_direction_accuracy": 0.6550632911392406,
+                "mouse_mae_px": 19.033203125
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.5835411471321695,
+                "button_exact_match": 0.4453125,
+                "transition_exact": 0.2857142857142857,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 12.973333333333333,
+                "moving_direction_accuracy": 0.6366666666666667,
+                "mouse_mae_px": 9.0546875
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.8113207547169812,
+                "button_exact_match": 0.65234375,
+                "transition_exact": 0.45161290322580644,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.08,
+                "button_exact_match": 0.84375,
+                "transition_exact": 0.375,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.46820027063599456,
+                "button_exact_match": 0.22265625,
+                "transition_exact": 0.15492957746478872,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 26.136904761904763,
+                "moving_direction_accuracy": 0.6011904761904762,
+                "mouse_mae_px": 18.34375
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.3973192915270464,
+            "button_exact_match": 0.41796875,
+            "transition_exact": 0.1927710843373494,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 46.6764705882353,
+            "moving_direction_accuracy": 0.5105042016806722,
+            "mouse_mae_px": 22.806640625
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.6517094017094017,
+            "button_exact_match": 0.462890625,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.52857142857143,
+            "moving_direction_accuracy": 0.3357142857142857,
+            "mouse_mae_px": 19.8583984375,
+            "future_delta_standardized_mse": 226.23837280273438,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.5421412300683371,
+                "button_exact_match": 0.390625,
+                "transition_exact": 0.041666666666666664,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 51.52857142857143,
+                "moving_direction_accuracy": 0.3357142857142857,
+                "mouse_mae_px": 31.208984375
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.7484909456740443,
+                "button_exact_match": 0.53515625,
+                "transition_exact": 0.16666666666666666,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 8.5078125
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.6524064171122995,
+            "button_exact_match": 0.462890625,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.871428571428574,
+            "moving_direction_accuracy": 0.30714285714285716,
+            "mouse_mae_px": 19.4443359375
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.47859495060373214,
+            "button_exact_match": 0.296875,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.02142857142857,
+            "moving_direction_accuracy": 0.2571428571428571,
+            "mouse_mae_px": 27.2646484375
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.5621145374449339,
+            "button_exact_match": 0.470703125,
+            "transition_exact": 0.13333333333333333,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.75714285714286,
+            "moving_direction_accuracy": 0.24285714285714285,
+            "mouse_mae_px": 20.3193359375
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.647739221871714,
+            "button_exact_match": 0.45703125,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 53.05,
+            "moving_direction_accuracy": 0.30357142857142855,
+            "mouse_mae_px": 19.6669921875
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.6524064171122995,
+            "button_exact_match": 0.462890625,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.68571428571428,
+            "moving_direction_accuracy": 0.32142857142857145,
+            "mouse_mae_px": 19.7763671875
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.5360230547550432,
+            "button_exact_match": 0.2708333333333333,
+            "transition_exact": 0.26973684210526316,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.512376237623762,
+            "moving_direction_accuracy": 0.25742574257425743,
+            "mouse_mae_px": 19.529947916666668,
+            "future_delta_standardized_mse": 225.9243927001953,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.2026431718061674,
+                "button_exact_match": 0.109375,
+                "transition_exact": 0.1794871794871795,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 28.746031746031747,
+                "moving_direction_accuracy": 0.2857142857142857,
+                "mouse_mae_px": 13.439453125
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.7258064516129032,
+                "button_exact_match": 0.453125,
+                "transition_exact": 0.4782608695652174,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 24.265625
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.5869894099848714,
+                "button_exact_match": 0.25,
+                "transition_exact": 0.25555555555555554,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 25.5,
+                "moving_direction_accuracy": 0.2446043165467626,
+                "mouse_mae_px": 20.884765625
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.5320994794679005,
+            "button_exact_match": 0.2721354166666667,
+            "transition_exact": 0.2631578947368421,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.383663366336634,
+            "moving_direction_accuracy": 0.25495049504950495,
+            "mouse_mae_px": 19.389322916666668
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.35738068812430634,
+            "button_exact_match": 0.14453125,
+            "transition_exact": 0.19078947368421054,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 23.82920792079208,
+            "moving_direction_accuracy": 0.25,
+            "mouse_mae_px": 39.412760416666664
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.34822451317296677,
+            "button_exact_match": 0.2591145833333333,
+            "transition_exact": 0.23684210526315788,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 24.40841584158416,
+            "moving_direction_accuracy": 0.2103960396039604,
+            "mouse_mae_px": 16.958333333333332
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.513679508654383,
+            "button_exact_match": 0.2643229166666667,
+            "transition_exact": 0.24342105263157895,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 25.83910891089109,
+            "moving_direction_accuracy": 0.2747524752475248,
+            "mouse_mae_px": 19.529947916666668
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.5330269959793222,
+            "button_exact_match": 0.26953125,
+            "transition_exact": 0.26973684210526316,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.611386138613863,
+            "moving_direction_accuracy": 0.25,
+            "mouse_mae_px": 19.545572916666668
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 54.355959058739245,
+        "p95_ms": 61.62208365276456,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    },
+    "temporal-memory-noaux-001/attention": {
+      "source": "artifacts/temporal-memory-noaux-001/attention/report.json",
+      "source_sha256": "d151790781f1bbcb0e32a1b748923822d00ae7bfe544f2854d0b43a5a6659fbc",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "attention",
+        "seed": 83,
+        "steps": 1500,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.0,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764701593,
+        "trainable": 989493,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.6400671986560269,
+            "button_exact_match": 0.52734375,
+            "transition_exact": 0.321285140562249,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 7.901260504201681,
+            "moving_direction_accuracy": 0.9065126050420168,
+            "mouse_mae_px": 3.522265625,
+            "future_delta_standardized_mse": 275.0377197265625,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.5808695652173913,
+                "button_exact_match": 0.35546875,
+                "transition_exact": 0.2808988764044944,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 8.80379746835443,
+                "moving_direction_accuracy": 0.9018987341772152,
+                "mouse_mae_px": 6.232421875
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.6153846153846154,
+                "button_exact_match": 0.5078125,
+                "transition_exact": 0.35714285714285715,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 4.6,
+                "moving_direction_accuracy": 0.9133333333333333,
+                "mouse_mae_px": 3.8203125
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.7918968692449355,
+                "button_exact_match": 0.60546875,
+                "transition_exact": 0.45161290322580644,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.0,
+                "button_exact_match": 0.83984375,
+                "transition_exact": 0.3125,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.6295399515738499,
+                "button_exact_match": 0.328125,
+                "transition_exact": 0.29577464788732394,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 10.0,
+                "moving_direction_accuracy": 0.9047619047619048,
+                "mouse_mae_px": 7.55859375
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.6381578947368421,
+            "button_exact_match": 0.509375,
+            "transition_exact": 0.2971887550200803,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 15.502100840336135,
+            "moving_direction_accuracy": 0.8067226890756303,
+            "mouse_mae_px": 6.978515625
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.753061224489796,
+            "button_exact_match": 0.595703125,
+            "transition_exact": 0.3,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 47.3,
+            "moving_direction_accuracy": 0.30714285714285716,
+            "mouse_mae_px": 16.3505859375,
+            "future_delta_standardized_mse": 294.22784423828125,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.5555555555555556,
+                "button_exact_match": 0.37109375,
+                "transition_exact": 0.2916666666666667,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 47.3,
+                "moving_direction_accuracy": 0.30714285714285716,
+                "mouse_mae_px": 28.677734375
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.9087591240875912,
+                "button_exact_match": 0.8203125,
+                "transition_exact": 0.3333333333333333,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 4.0234375
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.7325702393340271,
+            "button_exact_match": 0.568359375,
+            "transition_exact": 0.3,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.785714285714285,
+            "moving_direction_accuracy": 0.2571428571428571,
+            "mouse_mae_px": 18.7568359375
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.744,
+            "button_exact_match": 0.58203125,
+            "transition_exact": 0.2,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 47.714285714285715,
+            "moving_direction_accuracy": 0.26071428571428573,
+            "mouse_mae_px": 15.2470703125
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.7631851085832472,
+            "button_exact_match": 0.625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.65714285714286,
+            "moving_direction_accuracy": 0.35714285714285715,
+            "mouse_mae_px": 17.4228515625
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.7510373443983402,
+            "button_exact_match": 0.591796875,
+            "transition_exact": 0.3,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 48.2,
+            "moving_direction_accuracy": 0.3142857142857143,
+            "mouse_mae_px": 17.1513671875
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.7545638945233266,
+            "button_exact_match": 0.59375,
+            "transition_exact": 0.3,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 53.27857142857143,
+            "moving_direction_accuracy": 0.25,
+            "mouse_mae_px": 18.3955078125
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.596964586846543,
+            "button_exact_match": 0.296875,
+            "transition_exact": 0.34210526315789475,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 23.51732673267327,
+            "moving_direction_accuracy": 0.35396039603960394,
+            "mouse_mae_px": 19.82421875,
+            "future_delta_standardized_mse": 291.48553466796875,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.6181172291296625,
+                "button_exact_match": 0.4140625,
+                "transition_exact": 0.4358974358974359,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 30.174603174603174,
+                "moving_direction_accuracy": 0.42063492063492064,
+                "mouse_mae_px": 15.384765625
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.4106776180698152,
+                "button_exact_match": 0.10546875,
+                "transition_exact": 0.13043478260869565,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 26.1796875
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.7050754458161865,
+                "button_exact_match": 0.37109375,
+                "transition_exact": 0.35555555555555557,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 20.5,
+                "moving_direction_accuracy": 0.3237410071942446,
+                "mouse_mae_px": 17.908203125
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.5251009809578765,
+            "button_exact_match": 0.2604166666666667,
+            "transition_exact": 0.3157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 27.081683168316832,
+            "moving_direction_accuracy": 0.30198019801980197,
+            "mouse_mae_px": 23.946614583333332
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.5601317957166392,
+            "button_exact_match": 0.2760416666666667,
+            "transition_exact": 0.34868421052631576,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 19.903465346534652,
+            "moving_direction_accuracy": 0.34405940594059403,
+            "mouse_mae_px": 20.97265625
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.6306913996627319,
+            "button_exact_match": 0.3463541666666667,
+            "transition_exact": 0.3618421052631579,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.883663366336634,
+            "moving_direction_accuracy": 0.33910891089108913,
+            "mouse_mae_px": 17.889322916666668
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.5932203389830508,
+            "button_exact_match": 0.2955729166666667,
+            "transition_exact": 0.34868421052631576,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 22.952970297029704,
+            "moving_direction_accuracy": 0.35396039603960394,
+            "mouse_mae_px": 19.139322916666668
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.5331107401224263,
+            "button_exact_match": 0.2630208333333333,
+            "transition_exact": 0.34210526315789475,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 32.76980198019802,
+            "moving_direction_accuracy": 0.24752475247524752,
+            "mouse_mae_px": 27.1328125
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 53.28083306085318,
+        "p95_ms": 58.60780898947269,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    },
+    "temporal-memory-002/mamba3": {
+      "source": "artifacts/temporal-memory-002/mamba3/report.json",
+      "source_sha256": "0c78de00f094ed0eb7faae1a90fe6243ceb6d2e851697ffb7f5117c171ae00a8",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "mamba3",
+        "seed": 83,
+        "steps": 6000,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.1,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764746601,
+        "trainable": 1034501,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.9274708756106727,
+            "button_exact_match": 0.85625,
+            "transition_exact": 0.7911646586345381,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 5.773109243697479,
+            "moving_direction_accuracy": 0.9159663865546218,
+            "mouse_mae_px": 2.268359375,
+            "future_delta_standardized_mse": 0.6885258555412292,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.9104938271604939,
+                "button_exact_match": 0.796875,
+                "transition_exact": 0.8089887640449438,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 7.2784810126582276,
+                "moving_direction_accuracy": 0.9208860759493671,
+                "mouse_mae_px": 4.662109375
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.8863109048723898,
+                "button_exact_match": 0.80859375,
+                "transition_exact": 0.6904761904761905,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 3.18,
+                "moving_direction_accuracy": 0.9266666666666666,
+                "mouse_mae_px": 2.12890625
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.9560632688927944,
+                "button_exact_match": 0.90234375,
+                "transition_exact": 0.8709677419354839,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.7560975609756098,
+                "button_exact_match": 0.9296875,
+                "transition_exact": 0.625,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.9559613319011815,
+                "button_exact_match": 0.84375,
+                "transition_exact": 0.8309859154929577,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 6.6726190476190474,
+                "moving_direction_accuracy": 0.9017857142857143,
+                "mouse_mae_px": 4.55078125
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.5953202915228232,
+            "button_exact_match": 0.4734375,
+            "transition_exact": 0.2931726907630522,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 39.30252100840336,
+            "moving_direction_accuracy": 0.5283613445378151,
+            "mouse_mae_px": 17.786328125
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.5675446049277825,
+            "button_exact_match": 0.33984375,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 53.16428571428571,
+            "moving_direction_accuracy": 0.18571428571428572,
+            "mouse_mae_px": 17.7236328125,
+            "future_delta_standardized_mse": 1.8063316345214844,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.4114285714285714,
+                "button_exact_match": 0.24609375,
+                "transition_exact": 0.041666666666666664,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 53.16428571428571,
+                "moving_direction_accuracy": 0.18571428571428572,
+                "mouse_mae_px": 31.658203125
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.6932515337423313,
+                "button_exact_match": 0.43359375,
+                "transition_exact": 0.16666666666666666,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 3.7890625
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.5546075085324232,
+            "button_exact_match": 0.326171875,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 54.07857142857143,
+            "moving_direction_accuracy": 0.17142857142857143,
+            "mouse_mae_px": 18.0048828125
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.4836272040302267,
+            "button_exact_match": 0.333984375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.32857142857143,
+            "moving_direction_accuracy": 0.18928571428571428,
+            "mouse_mae_px": 18.7841796875
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.5362776025236593,
+            "button_exact_match": 0.240234375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 51.23571428571429,
+            "moving_direction_accuracy": 0.29285714285714287,
+            "mouse_mae_px": 18.7744140625
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.553125,
+            "button_exact_match": 0.271484375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 53.9,
+            "moving_direction_accuracy": 0.18928571428571428,
+            "mouse_mae_px": 19.4111328125
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.5567703952901598,
+            "button_exact_match": 0.31640625,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 54.72857142857143,
+            "moving_direction_accuracy": 0.16071428571428573,
+            "mouse_mae_px": 18.2919921875
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.5798816568047337,
+            "button_exact_match": 0.3567708333333333,
+            "transition_exact": 0.23026315789473684,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.730198019801982,
+            "moving_direction_accuracy": 0.28465346534653463,
+            "mouse_mae_px": 14.415364583333334,
+            "future_delta_standardized_mse": 2.2583205699920654,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.43399638336347196,
+                "button_exact_match": 0.265625,
+                "transition_exact": 0.28205128205128205,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 30.825396825396826,
+                "moving_direction_accuracy": 0.2857142857142857,
+                "mouse_mae_px": 20.279296875
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.7910447761194029,
+                "button_exact_match": 0.60546875,
+                "transition_exact": 0.30434782608695654,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 5.7421875
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.5043478260869565,
+                "button_exact_match": 0.19921875,
+                "transition_exact": 0.18888888888888888,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 24.87410071942446,
+                "moving_direction_accuracy": 0.2841726618705036,
+                "mouse_mae_px": 17.224609375
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.5609876543209876,
+            "button_exact_match": 0.34375,
+            "transition_exact": 0.21710526315789475,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 27.16089108910891,
+            "moving_direction_accuracy": 0.2722772277227723,
+            "mouse_mae_px": 14.337239583333334
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.46338912133891214,
+            "button_exact_match": 0.2760416666666667,
+            "transition_exact": 0.19078947368421054,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 35.353960396039604,
+            "moving_direction_accuracy": 0.32673267326732675,
+            "mouse_mae_px": 17.044270833333332
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.6139759036144579,
+            "button_exact_match": 0.3046875,
+            "transition_exact": 0.23026315789473684,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 24.29950495049505,
+            "moving_direction_accuracy": 0.30445544554455445,
+            "mouse_mae_px": 13.08984375
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.5666347075743049,
+            "button_exact_match": 0.3489583333333333,
+            "transition_exact": 0.21710526315789475,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 27.952970297029704,
+            "moving_direction_accuracy": 0.2995049504950495,
+            "mouse_mae_px": 14.091145833333334
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.563297350343474,
+            "button_exact_match": 0.3502604166666667,
+            "transition_exact": 0.21710526315789475,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.834158415841586,
+            "moving_direction_accuracy": 0.28465346534653463,
+            "mouse_mae_px": 13.962239583333334
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 45.86491594091058,
+        "p95_ms": 46.17636678740382,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    },
+    "temporal-memory-002/attention": {
+      "source": "artifacts/temporal-memory-002/attention/report.json",
+      "source_sha256": "7701802a0315b2343ddfd6f5a3da859a1e067057136e166fe013105cececd929",
+      "protocol": {
+        "parent": "artifacts/p2p-pilot-004/bundle",
+        "kind": "attention",
+        "seed": 83,
+        "steps": 6000,
+        "batch_sequences": 2,
+        "sequence_length": 32,
+        "learning_rate": 0.0003,
+        "auxiliary_weight": 0.1,
+        "history_dropout": 0.5,
+        "button_transition_loss_weight": 3,
+        "manifest_digests": {
+          "train": "e35065826d2329e37cc78cb6a9a18544a85f75b773e9b55dd6291dfbff31fb1e",
+          "validation": "179a44f9771592fd3a9188be5db792a13ba427a04944c5714ec969ea9a252c6a",
+          "test": "73dd3e1d5fc9b4fb5578ac84dd1c64fec92716753f0e6fe16bee6374307de2c7"
+        },
+        "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
+        "goal_source": "Retrospective weak P2P label or generic continuation, fixed per clip",
+        "memory_placement": "After frozen Qwen vision and goal-conditioned Laya contexts; learned moment pooling feeds temporal blocks",
+        "inference": "One checkpoint, one current screenshot, goal, previous applied action, explicit causal memory",
+        "scope": "50 ms first-step physical buttons and relative mouse; no pointer coordinates",
+        "split": "recording validation, held-out experiences test; reused developmental data; not player independent",
+        "deployment_eligible": false,
+        "input_events_sent": 0,
+        "qualification_passed": false
+      },
+      "parameters": {
+        "total": 764701593,
+        "trainable": 989493,
+        "trainable_roots": [
+          "temporal_actions"
+        ]
+      },
+      "qualification_passed": false,
+      "frozen_parent_unchanged": true,
+      "checkpoint_reload_actions_match": true,
+      "results": {
+        "train": {
+          "actual": {
+            "examples": 1280,
+            "button_micro_f1": 0.9851961509992598,
+            "button_exact_match": 0.971875,
+            "transition_exact": 0.9477911646586346,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 5.7478991596638656,
+            "moving_direction_accuracy": 0.9159663865546218,
+            "mouse_mae_px": 2.228515625,
+            "future_delta_standardized_mse": 0.5501673221588135,
+            "zero_delta_standardized_mse": 1.0,
+            "by_game": {
+              "doom": {
+                "examples": 256,
+                "button_micro_f1": 0.996996996996997,
+                "button_exact_match": 0.9921875,
+                "transition_exact": 1.0,
+                "button_transition_examples": 89,
+                "moving_mouse_mae_px": 7.265822784810126,
+                "moving_direction_accuracy": 0.9208860759493671,
+                "mouse_mae_px": 4.654296875
+              },
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.9748283752860412,
+                "button_exact_match": 0.97265625,
+                "transition_exact": 0.9047619047619048,
+                "button_transition_examples": 42,
+                "moving_mouse_mae_px": 3.0533333333333332,
+                "moving_direction_accuracy": 0.94,
+                "mouse_mae_px": 1.9609375
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.9982608695652174,
+                "button_exact_match": 0.99609375,
+                "transition_exact": 1.0,
+                "button_transition_examples": 31,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/blade-ball": {
+                "examples": 256,
+                "button_micro_f1": 0.9010989010989011,
+                "button_exact_match": 0.96484375,
+                "transition_exact": 0.75,
+                "button_transition_examples": 16,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 0.0
+              },
+              "roblox/hypershot": {
+                "examples": 256,
+                "button_micro_f1": 0.9817792068595927,
+                "button_exact_match": 0.93359375,
+                "transition_exact": 0.9295774647887324,
+                "button_transition_examples": 71,
+                "moving_mouse_mae_px": 6.726190476190476,
+                "moving_direction_accuracy": 0.8898809523809523,
+                "mouse_mae_px": 4.52734375
+              }
+            }
+          },
+          "reset_each_frame": {
+            "examples": 1280,
+            "button_micro_f1": 0.7973568281938326,
+            "button_exact_match": 0.66953125,
+            "transition_exact": 0.5020080321285141,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 18.676470588235293,
+            "moving_direction_accuracy": 0.6691176470588235,
+            "mouse_mae_px": 7.954296875
+          },
+          "repeat_previous_action": {
+            "examples": 1280,
+            "button_micro_f1": 0.8988598749540272,
+            "button_exact_match": 0.80546875,
+            "transition_exact": 0.0,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 21.60189075630252,
+            "moving_direction_accuracy": 0.7930672268907563,
+            "mouse_mae_px": 8.721484375
+          },
+          "no_input": {
+            "examples": 1280,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.28046875,
+            "transition_exact": 0.11244979919678715,
+            "button_transition_examples": 249,
+            "moving_mouse_mae_px": 31.36764705882353,
+            "moving_direction_accuracy": 0.07668067226890757,
+            "mouse_mae_px": 11.773828125
+          }
+        },
+        "validation": {
+          "actual": {
+            "examples": 512,
+            "button_micro_f1": 0.6467181467181468,
+            "button_exact_match": 0.4765625,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 50.06428571428572,
+            "moving_direction_accuracy": 0.13214285714285715,
+            "mouse_mae_px": 24.3037109375,
+            "future_delta_standardized_mse": 1.9488648176193237,
+            "zero_delta_standardized_mse": 0.883573055267334,
+            "by_game": {
+              "left-4-dead-2": {
+                "examples": 256,
+                "button_micro_f1": 0.3523809523809524,
+                "button_exact_match": 0.2734375,
+                "transition_exact": 0.041666666666666664,
+                "button_transition_examples": 24,
+                "moving_mouse_mae_px": 50.06428571428572,
+                "moving_direction_accuracy": 0.13214285714285715,
+                "mouse_mae_px": 45.794921875
+              },
+              "roblox/be-a-tornado": {
+                "examples": 256,
+                "button_micro_f1": 0.8474025974025974,
+                "button_exact_match": 0.6796875,
+                "transition_exact": 0.16666666666666666,
+                "button_transition_examples": 6,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 2.8125
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 512,
+            "button_micro_f1": 0.58743961352657,
+            "button_exact_match": 0.41796875,
+            "transition_exact": 0.03333333333333333,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 52.15,
+            "moving_direction_accuracy": 0.10714285714285714,
+            "mouse_mae_px": 25.0615234375
+          },
+          "reset_each_frame": {
+            "examples": 512,
+            "button_micro_f1": 0.5960637300843487,
+            "button_exact_match": 0.37109375,
+            "transition_exact": 0.1,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.47857142857143,
+            "moving_direction_accuracy": 0.09642857142857143,
+            "mouse_mae_px": 15.5732421875
+          },
+          "shuffled_observations": {
+            "examples": 512,
+            "button_micro_f1": 0.689161554192229,
+            "button_exact_match": 0.513671875,
+            "transition_exact": 0.23333333333333334,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 55.01428571428571,
+            "moving_direction_accuracy": 0.22857142857142856,
+            "mouse_mae_px": 18.0556640625
+          },
+          "shuffled_history": {
+            "examples": 512,
+            "button_micro_f1": 0.6471774193548387,
+            "button_exact_match": 0.501953125,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 50.457142857142856,
+            "moving_direction_accuracy": 0.125,
+            "mouse_mae_px": 16.6103515625
+          },
+          "self_fed_controls": {
+            "examples": 512,
+            "button_micro_f1": 0.6017191977077364,
+            "button_exact_match": 0.421875,
+            "transition_exact": 0.06666666666666667,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 52.22857142857143,
+            "moving_direction_accuracy": 0.09285714285714286,
+            "mouse_mae_px": 24.9384765625
+          },
+          "repeat_previous_action": {
+            "examples": 512,
+            "button_micro_f1": 0.9709302325581395,
+            "button_exact_match": 0.94140625,
+            "transition_exact": 0.0,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 21.982142857142858,
+            "moving_direction_accuracy": 0.8785714285714286,
+            "mouse_mae_px": 6.37109375
+          },
+          "no_input": {
+            "examples": 512,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.15625,
+            "transition_exact": 0.16666666666666666,
+            "button_transition_examples": 30,
+            "moving_mouse_mae_px": 49.57857142857143,
+            "moving_direction_accuracy": 0.014285714285714285,
+            "mouse_mae_px": 13.6083984375
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 768,
+            "button_micro_f1": 0.5783132530120482,
+            "button_exact_match": 0.26171875,
+            "transition_exact": 0.25,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.93811881188119,
+            "moving_direction_accuracy": 0.31435643564356436,
+            "mouse_mae_px": 14.8828125,
+            "future_delta_standardized_mse": 2.8258278369903564,
+            "zero_delta_standardized_mse": 1.1032357215881348,
+            "by_game": {
+              "roblox/a-dusty-trip": {
+                "examples": 256,
+                "button_micro_f1": 0.5944055944055944,
+                "button_exact_match": 0.34765625,
+                "transition_exact": 0.38461538461538464,
+                "button_transition_examples": 39,
+                "moving_mouse_mae_px": 24.015873015873016,
+                "moving_direction_accuracy": 0.3253968253968254,
+                "mouse_mae_px": 9.947265625
+              },
+              "roblox/be-a-snake": {
+                "examples": 256,
+                "button_micro_f1": 0.5482625482625483,
+                "button_exact_match": 0.2265625,
+                "transition_exact": 0.17391304347826086,
+                "button_transition_examples": 23,
+                "moving_mouse_mae_px": null,
+                "moving_direction_accuracy": null,
+                "mouse_mae_px": 8.1328125
+              },
+              "roblox/evade": {
+                "examples": 256,
+                "button_micro_f1": 0.595797280593325,
+                "button_exact_match": 0.2109375,
+                "transition_exact": 0.2111111111111111,
+                "button_transition_examples": 90,
+                "moving_mouse_mae_px": 28.262589928057555,
+                "moving_direction_accuracy": 0.30935251798561153,
+                "mouse_mae_px": 26.568359375
+              }
+            }
+          },
+          "no_previous_actions": {
+            "examples": 768,
+            "button_micro_f1": 0.5074766355140187,
+            "button_exact_match": 0.20703125,
+            "transition_exact": 0.19736842105263158,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 27.74009900990099,
+            "moving_direction_accuracy": 0.297029702970297,
+            "mouse_mae_px": 15.368489583333334
+          },
+          "reset_each_frame": {
+            "examples": 768,
+            "button_micro_f1": 0.5325803649000869,
+            "button_exact_match": 0.21875,
+            "transition_exact": 0.20394736842105263,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 27.616336633663366,
+            "moving_direction_accuracy": 0.3193069306930693,
+            "mouse_mae_px": 12.971354166666666
+          },
+          "shuffled_observations": {
+            "examples": 768,
+            "button_micro_f1": 0.5876037091264031,
+            "button_exact_match": 0.2955729166666667,
+            "transition_exact": 0.24342105263157895,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 32.71534653465346,
+            "moving_direction_accuracy": 0.32425742574257427,
+            "mouse_mae_px": 16.083333333333332
+          },
+          "shuffled_history": {
+            "examples": 768,
+            "button_micro_f1": 0.5926953305594083,
+            "button_exact_match": 0.2682291666666667,
+            "transition_exact": 0.27631578947368424,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 22.972772277227723,
+            "moving_direction_accuracy": 0.3465346534653465,
+            "mouse_mae_px": 13.94140625
+          },
+          "self_fed_controls": {
+            "examples": 768,
+            "button_micro_f1": 0.5314232902033271,
+            "button_exact_match": 0.22005208333333334,
+            "transition_exact": 0.2236842105263158,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 26.443069306930692,
+            "moving_direction_accuracy": 0.2995049504950495,
+            "mouse_mae_px": 16.0390625
+          },
+          "repeat_previous_action": {
+            "examples": 768,
+            "button_micro_f1": 0.926829268292683,
+            "button_exact_match": 0.8020833333333334,
+            "transition_exact": 0.0,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 8.824257425742575,
+            "moving_direction_accuracy": 0.7722772277227723,
+            "mouse_mae_px": 2.6979166666666665
+          },
+          "no_input": {
+            "examples": 768,
+            "button_micro_f1": 0.0,
+            "button_exact_match": 0.049479166666666664,
+            "transition_exact": 0.013157894736842105,
+            "button_transition_examples": 152,
+            "moving_mouse_mae_px": 14.849009900990099,
+            "moving_direction_accuracy": 0.08415841584158416,
+            "mouse_mae_px": 4.002604166666667
+          }
+        }
+      },
+      "initial_latency": {
+        "samples": 29,
+        "warmup_frames": 3,
+        "p50_ms": 45.58433289639652,
+        "p95_ms": 46.123941196128726,
+        "includes": "disk image load, current vision, prompt preparation, Laya, memory, action decode",
+        "excludes": "screenshot capture, event posting, game response/contention",
+        "fresh_image_streaming_actions_match_cached_graph": true
+      }
+    }
+  },
+  "dedicated_latency": {
+    "mamba3": {
+      "bundle": "artifacts/temporal-memory-002/mamba3/bundle",
+      "samples": 128,
+      "sequences": [
+        "p2p-seq-019a4b12-28e2-7553-b1d8-5d0338319981-1679",
+        "p2p-seq-019a4b12-28e2-7553-b1d8-5d0338319981-3961",
+        "p2p-seq-01991a4f-bc55-7c13-b3ee-1b2148c63cf5-3347",
+        "p2p-seq-01991a4f-bc55-7c13-b3ee-1b2148c63cf5-5765"
+      ],
+      "games": [
+        "left-4-dead-2",
+        "roblox/be-a-tornado"
+      ],
+      "warmups": 3,
+      "scope": "Offline. Complete path includes fresh disk image, current vision, Laya, memory and decode; excludes capture/input/game. Per-stage fences add overhead.",
+      "stages": {
+        "complete_fresh_image_path": {
+          "p50_ms": 44.46066700620577,
+          "p95_ms": 45.48034952022135
+        },
+        "image_load_preprocess": {
+          "p50_ms": 1.8858539988286793,
+          "p95_ms": 2.010516618611291
+        },
+        "vision": {
+          "p50_ms": 29.21089547453448,
+          "p95_ms": 29.531400109408423
+        },
+        "prompt": {
+          "p50_ms": 0.18643797375261784,
+          "p95_ms": 0.2462017349898815
+        },
+        "connector_laya": {
+          "p50_ms": 12.599708512425423,
+          "p95_ms": 12.878181162523106
+        },
+        "spatial_pool": {
+          "p50_ms": 0.2711875131353736,
+          "p95_ms": 0.36950620124116523
+        },
+        "temporal_adapter": {
+          "p50_ms": 0.7642710115760565,
+          "p95_ms": 0.9093921806197612
+        }
+      }
+    },
+    "attention": {
+      "bundle": "artifacts/temporal-memory-002/attention/bundle",
+      "samples": 128,
+      "sequences": [
+        "p2p-seq-019a4b12-28e2-7553-b1d8-5d0338319981-1679",
+        "p2p-seq-019a4b12-28e2-7553-b1d8-5d0338319981-3961",
+        "p2p-seq-01991a4f-bc55-7c13-b3ee-1b2148c63cf5-3347",
+        "p2p-seq-01991a4f-bc55-7c13-b3ee-1b2148c63cf5-5765"
+      ],
+      "games": [
+        "left-4-dead-2",
+        "roblox/be-a-tornado"
+      ],
+      "warmups": 3,
+      "scope": "Offline. Complete path includes fresh disk image, current vision, Laya, memory and decode; excludes capture/input/game. Per-stage fences add overhead.",
+      "stages": {
+        "complete_fresh_image_path": {
+          "p50_ms": 45.62406201148406,
+          "p95_ms": 46.34900409728289
+        },
+        "image_load_preprocess": {
+          "p50_ms": 1.785270986147225,
+          "p95_ms": 2.1810770849697274
+        },
+        "vision": {
+          "p50_ms": 30.288166482932866,
+          "p95_ms": 30.597420531557873
+        },
+        "prompt": {
+          "p50_ms": 0.1689795171841979,
+          "p95_ms": 0.2385369676630944
+        },
+        "connector_laya": {
+          "p50_ms": 12.9593750461936,
+          "p95_ms": 13.186662382213399
+        },
+        "spatial_pool": {
+          "p50_ms": 0.3145625232718885,
+          "p95_ms": 0.36500174901448185
+        },
+        "temporal_adapter": {
+          "p50_ms": 0.6479165167547762,
+          "p95_ms": 0.7376579160336404
+        }
+      }
+    }
+  },
+  "parent_weights_sha256": "cae7eadd59bf77eefaf63e14602b4efdb9ef9b111b8ec1cce42d5ab3fe372659"
+}

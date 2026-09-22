@@ -1,0 +1,12 @@
+Mamba-3 SISO equations in laya_vision_stitch/temporal_memory.py are adapted to MLX from:
+https://github.com/state-spaces/mamba
+Revision: e9594ce1c732d97440f0332fdc43170a2294dbfa
+Copyright (c) 2026, Dao AI Lab, Goombalab. Apache-2.0 (mamba3.LICENSE).
+Sources: mamba_ssm/modules/mamba3.py and ops/triton/mamba3/mamba3_siso_step.py.
+Changes: functional float32 MLX scan, combined previous B*x state, no CUDA,
+no MIMO, no pretrained Mamba weights. Numerical tests use independent NumPy equations;
+CUDA kernel parity has not been measured on this Mac.
+
+The community mlx-mamba3 revision c4e50f5d5f04630fe474c24db28b5387e9424557
+was inspected but not copied: its decay, angle and trapezoidal equations differ
+from the official recurrence. No compatibility with that port's weights is claimed.
