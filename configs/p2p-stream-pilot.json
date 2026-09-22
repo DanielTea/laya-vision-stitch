@@ -1,0 +1,56 @@
+{
+  "seed": 71,
+  "selection": "First eligible complete recordings from bounded archive prefixes; recurring games supply separate-recording validation; three experiences held out. Not a player-independent split.",
+  "recordings": [
+    {
+      "recording": "019a4b10-11b0-76b3-8112-bd6f0a3e3dff",
+      "split": "train",
+      "count": 128
+    },
+    {
+      "recording": "019a4b11-d29d-7be0-9c47-9ce4da72cedc",
+      "split": "train",
+      "count": 128
+    },
+    {
+      "recording": "019a4b0d-39c2-7440-8654-f2190fb3015e",
+      "split": "train",
+      "count": 128
+    },
+    {
+      "recording": "019a4b12-28e2-7553-b1d8-5d0338319981",
+      "split": "validation",
+      "count": 128
+    },
+    {
+      "recording": "01991a4f-acbb-7b61-a831-89c58f038d59",
+      "split": "train",
+      "count": 128
+    },
+    {
+      "recording": "01991a4f-bc55-7c13-b3ee-1b2148c63cf5",
+      "split": "validation",
+      "count": 128
+    },
+    {
+      "recording": "01991a4a-5a07-7f33-9b05-aff2144a7f58",
+      "split": "test",
+      "count": 96
+    },
+    {
+      "recording": "01991a45-382a-73f1-9936-1f6e5ea59655",
+      "split": "train",
+      "count": 128
+    },
+    {
+      "recording": "01981a4b-bd07-7e10-be67-c2123935befe",
+      "split": "test",
+      "count": 96
+    },
+    {
+      "recording": "01981a1c-4fa2-7fb2-98c1-024129a263b3",
+      "split": "test",
+      "count": 96
+    }
+  ]
+}

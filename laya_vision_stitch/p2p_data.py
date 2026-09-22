@@ -99,13 +99,20 @@ def instructions(annotation):
     return goals
 
 
-def candidates(annotation, stride=10):
+def candidates(annotation, stride=10, include_unlabelled=False):
     if annotation.metadata.frames_per_second != 20:
         raise ValueError("This importer requires 20 FPS")
     goals, rows, excluded = instructions(annotation), [], Counter()
     for i in range(4, len(goals) - 1, stride):
         goal = goals[i]
-        if not goal or i + 1 >= goal["end"] or goals[i + 1] != goal:
+        if goal is None and include_unlabelled:
+            goal = {
+                "text": "Continue the current activity.",
+                "start": i,
+                "end": i + 2,
+                "annotator": None,
+            }
+        elif not goal or i + 1 >= goal["end"] or goals[i + 1] != goal:
             excluded["no_active_instruction"] += 1
             continue
         try:
@@ -129,13 +136,28 @@ def candidates(annotation, stride=10):
     return rows, dict(excluded)
 
 
-def extract_frames(video, indices, destination, expected_count):
+def frame_timing(stamps):
+    """Audit mux timestamps; index alignment still requires exact annotation counts."""
+    stamps = np.asarray(stamps)
+    gaps = np.diff(stamps)
+    if len(gaps) and (not np.isfinite(stamps).all() or (gaps <= 0).any()):
+        raise ValueError("Invalid or nonmonotonic video timestamps")
+    if len(gaps) and not 0 < gaps[0] <= 0.052:
+        raise ValueError("Invalid first video frame interval")
+    # A shortened initial mux frame is normal. Internal jitter is audited and
+    # excluded across the entire observation/history/target span by the importer.
+    irregular = (np.flatnonzero(np.abs(gaps[1:] - 0.05) > 0.002) + 2).tolist()
+    return {"timestamps": stamps.tolist(), "irregular_intervals": irregular}
+
+
+def extract_frames(video, indices, destination, expected_count, timing=None):
     import av
 
     destination.mkdir(parents=True, exist_ok=True)
-    wanted, count, first_pts = set(indices), 0, None
+    wanted, count, stamps = set(indices), 0, []
     with av.open(str(video)) as container:
         stream = container.streams.video[0]
+        stream.thread_type = "AUTO"
         if abs(float(stream.average_rate) - 20) > 0.01:
             raise ValueError("Video is not 20 FPS")
         for i, frame in enumerate(container.decode(stream)):
@@ -143,18 +165,18 @@ def extract_frames(video, indices, destination, expected_count):
             if frame.pts is None:
                 raise ValueError("Missing video PTS")
             stamp = float(frame.pts * stream.time_base)
-            if first_pts is None:
-                first_pts = stamp
-            # Source MP4s have a 4.5 ms first-frame mux offset, then
-            # exact 50 ms spacing. Never tolerate a dropped/duplicated frame.
-            if abs((stamp - first_pts) - i / 20) > 0.005:
-                raise ValueError("Nonuniform video timing; index alignment unsafe")
+            stamps.append(stamp)
             if i in wanted:
                 image = frame.to_image().convert("RGB")
                 image.thumbnail((320, 320))
                 image.save(destination / f"{i:07d}.png")
     if count != expected_count or (wanted and max(wanted) >= count):
         raise ValueError(f"Annotation/video count mismatch: {expected_count}/{count}")
+    audit = frame_timing(stamps)
+    if timing is not None:
+        timing.update(audit)
+    elif audit["irregular_intervals"]:
+        raise ValueError("Nonuniform video timing; index alignment unsafe")
     return count
 
 

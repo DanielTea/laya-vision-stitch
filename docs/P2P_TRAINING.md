@@ -1,5 +1,9 @@
 # Public gameplay data: P2P pilot
 
+Follow-up: [visual action residuals, numeric history and ten more public
+recordings](VISUAL_ACTION_ADAPTER.md). That experiment improves offline button
+prediction but still fails visual/camera qualification.
+
 This experiment imports [Elefant AI's public P2P sample](https://huggingface.co/datasets/elefantai/p2p-toy-examples)
 into the existing Qwen-vision → connector → Laya → action model. It adds human
 mouse-delta supervision alongside physical buttons. It does not use Qwen language
@@ -183,8 +187,9 @@ gameplay qualification.
 
 The full dataset is packaged in 545 compressed archives; the smallest inspected
 archive is approximately 5.60 GB. Its metadata identifies games and recordings,
-but does not map recordings to archives. This pilot downloads only the small
-public sample; it does not silently fetch the 20 TB collection. Meaningful scaling
+but does not map recordings to archives. This original pilot downloads only the small
+public sample. The follow-up uses explicitly bounded archive prefixes rather than
+fetching the 20 TB collection. Meaningful scaling
 requires more independent sessions, attack/camera/interaction coverage, and
 separate validation recordings, not more adjacent frames from the same clips.
 

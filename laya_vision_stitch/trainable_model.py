@@ -35,6 +35,8 @@ class PolicyConfig:
     action_chunk_size: int = 1
     normalize_action_context: bool = False
     action_context_source: str = "decision"
+    visual_action_adapter: bool = False
+    numeric_action_history: bool = False
     mouse_bins: tuple = (
         -1.0,
         -0.5,
@@ -72,6 +74,10 @@ class PolicyConfig:
             raise ValueError("Invalid action chunk size")
         if self.action_context_source not in ("decision", "encoder"):
             raise ValueError("Unknown action context source")
+        if self.visual_action_adapter and self.action_chunk_size < 2:
+            raise ValueError("Visual action adapter requires chunk outputs")
+        if self.numeric_action_history and not self.visual_action_adapter:
+            raise ValueError("Numeric history requires the visual action adapter")
         if len(self.mouse_bins) < 3 or list(self.mouse_bins) != sorted(set(self.mouse_bins)):
             raise ValueError("Mouse bins must be distinct and ascending")
         if any(not np.isfinite(x) or not -1 <= x <= 1 for x in self.mouse_bins):
@@ -303,6 +309,10 @@ class TrainableStitch(nn.Module):
         }[config.connector_type]
         self.connector = connector_class(vision.config.out_hidden_size, width, config)
         self.actions = ActionHeads(width, config)
+        if config.visual_action_adapter:
+            from .visual_action_adapter import VisualActionAdapter
+
+            self.visual_actions = VisualActionAdapter(vision.config.out_hidden_size, width, config)
         self.vision.freeze()
         self.laya.freeze()
         if config.lora_rank:
@@ -330,15 +340,22 @@ class TrainableStitch(nn.Module):
         encoder = self.laya.encoder
         goal = encoder.embeddings.tok_embeddings(goal_ids)
         state = self.connector(patches, coordinates, goal)
-        return self.from_state(state, batch, start)
+        return self.from_state(state, batch, start, patches, coordinates)
 
-    def from_state(self, state, batch, start):
+    def from_state(self, state, batch, start, patches=None, coordinates=None):
         """Shared Laya path; explicit state input also enables text-oracle audits."""
         h, choices = self.encode_state(state, batch, start)
+        actions = self.actions(h[:, 0], h)
+        if self.policy_config.visual_action_adapter:
+            if patches is None or coordinates is None:
+                raise ValueError("Visual action adapter requires raw visual features")
+            actions = self.visual_actions.fuse(
+                actions, patches, coordinates, h, batch.get("numeric_action_history")
+            )
         return {
             "choices": choices,
             "visual_state": state.astype(mx.float32),
-            **self.actions(h[:, 0], h),
+            **actions,
         }
 
     def action_context(self, patches, coordinates, batch, goal_ids, start):
@@ -413,6 +430,23 @@ def decode_action_chunk(output, config):
         }
         for i in range(len(probabilities))
     ]
+
+
+def apply_supervision_scope(result, metadata):
+    """Do not expose unsupervised chunk/pointer heads as usable pilot actions."""
+    if not metadata.get("visual_adapter_experiment"):
+        return result
+    result = dict(result)
+    result.pop("pointer_xy_normalized", None)
+    result.pop("pointer_active_probability", None)
+    result["action_chunk"] = result["action_chunk"][:1]
+    result["chunk_step_seconds"] = 0.05
+    # The dataset supplies this fixed control interval, not a duration target.
+    result["duration_seconds"] = 0.05
+    result["duration_source"] = "fixed_training_interval"
+    result["supervised_outputs"] = ["first_step_buttons", "first_step_relative_mouse"]
+    result["deployment_eligible"] = False
+    return result
 
 
 class TrainableRuntime:
@@ -539,6 +573,10 @@ class TrainableRuntime:
             k: mx.array(v) for k, v in collate_items([item], self.agent.tok.pad_token_id).items()
         }
         goal_ids = mx.array([self.agent.tok(context)["input_ids"]])
+        if self.module.policy_config.numeric_action_history:
+            from .visual_action_adapter import encode_action_history
+
+            batch["numeric_action_history"] = encode_action_history(row, self.module.policy_config)
         return batch, goal_ids, start
 
     def frames(self, row):
@@ -599,7 +637,7 @@ class TrainableRuntime:
             result["choice_probabilities"] = dict(
                 zip(row["choices"], np.asarray(probs).tolist(), strict=True)
             )
-        return result
+        return apply_supervision_scope(result, self.metadata)
 
     def parameter_counts(self):
         return {

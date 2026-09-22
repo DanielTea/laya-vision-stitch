@@ -53,8 +53,8 @@ def main():
     button_disagreements = defaultdict(int)
 
     @mx.compile
-    def compiled_actions(state, batch, start):
-        output = model.from_state(state, batch, start)
+    def compiled_actions(state, batch, start, patches, coordinates):
+        output = model.from_state(state, batch, start, patches, coordinates)
         return {key: value for key, value in output.items() if key != "choices"}
 
     def timed(name, fn):
@@ -102,12 +102,17 @@ def main():
                 patches, coordinates, model.laya.encoder.embeddings.tok_embeddings(goal_ids)
             ),
         )
-        timed("laya_and_all_heads", lambda: model.from_state(state, batch, start_token))
+        timed(
+            "laya_and_all_heads",
+            lambda: model.from_state(state, batch, start_token, patches, coordinates),
+        )
         timed(
             "laya_actions_without_choice_head",
             lambda: {
                 k: v
-                for k, v in model.from_state(state, batch, start_token).items()
+                for k, v in model.from_state(
+                    state, batch, start_token, patches, coordinates
+                ).items()
                 if k != "choices"
             },
         )
@@ -129,7 +134,7 @@ def main():
                 state = model.connector(
                     features, coords, model.laya.encoder.embeddings.tok_embeddings(goal_ids)
                 )
-                output = compiled_actions(state, batch, start_token)
+                output = compiled_actions(state, batch, start_token, features, coords)
             elif label == "cached_history_action_only":
                 output = action_only(features, coords, prepared)
             else:

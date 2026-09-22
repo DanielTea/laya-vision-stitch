@@ -460,6 +460,7 @@ data = [
     { name = "huggingface-hub" },
     { name = "mcap" },
     { name = "protobuf" },
+    { name = "requests" },
     { name = "zstandard" },
 ]
 models = [
@@ -487,6 +488,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=2" },
     { name = "pillow", specifier = ">=12" },
     { name = "protobuf", marker = "extra == 'data'", specifier = ">=5,<8" },
+    { name = "requests", marker = "extra == 'data'", specifier = ">=2.32,<3" },
     { name = "zstandard", marker = "extra == 'data'", specifier = ">=0.23,<1" },
 ]
 provides-extras = ["models", "stitch", "data"]

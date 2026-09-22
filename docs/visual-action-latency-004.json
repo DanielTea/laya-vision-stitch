@@ -1,0 +1,81 @@
+{
+  "bundle": "artifacts/visual-action-adapter-004/bundle",
+  "samples": 32,
+  "warmup": 3,
+  "variants": {
+    "original_disk": {
+      "n": 32,
+      "p50_ms": 79.76068748394027,
+      "p95_ms": 81.36829587165266
+    },
+    "two_frames_memory": {
+      "n": 32,
+      "p50_ms": 78.01975001348183,
+      "p95_ms": 80.07054585032165
+    },
+    "cached_history": {
+      "n": 32,
+      "p50_ms": 45.76991655630991,
+      "p95_ms": 47.12901433231309
+    },
+    "cached_history_action_only": {
+      "n": 32,
+      "p50_ms": 44.86731253564358,
+      "p95_ms": 45.66673751687631
+    },
+    "cached_history_compiled_laya": {
+      "n": 32,
+      "p50_ms": 44.82662444934249,
+      "p95_ms": 48.441491031553596
+    }
+  },
+  "stages_with_sync_fences": {
+    "tokenize": {
+      "n": 32,
+      "p50_ms": 0.26568706380203366,
+      "p95_ms": 0.37557846517302096
+    },
+    "preprocess_two_frames": {
+      "n": 32,
+      "p50_ms": 1.9414169946685433,
+      "p95_ms": 2.0572957873810083
+    },
+    "vision_old_frame": {
+      "n": 32,
+      "p50_ms": 30.330270528793335,
+      "p95_ms": 30.729997949674726
+    },
+    "vision_current_frame": {
+      "n": 32,
+      "p50_ms": 29.802540957462043,
+      "p95_ms": 30.615102051524445
+    },
+    "connector": {
+      "n": 32,
+      "p50_ms": 0.8675209828652442,
+      "p95_ms": 1.0178020398598164
+    },
+    "laya_and_all_heads": {
+      "n": 32,
+      "p50_ms": 14.75547906011343,
+      "p95_ms": 15.16496489639394
+    },
+    "laya_actions_without_choice_head": {
+      "n": 32,
+      "p50_ms": 13.67637503426522,
+      "p95_ms": 14.398000040091574
+    }
+  },
+  "output_max_abs_error": {
+    "cached_history": 0.0,
+    "cached_history_action_only": 0.0,
+    "cached_history_compiled_laya": 0.0
+  },
+  "button_threshold_disagreements": {
+    "cached_history": 0,
+    "cached_history_action_only": 0,
+    "cached_history_compiled_laya": 0
+  },
+  "input_events_sent": 0,
+  "scope": "Offline recorded frames; excludes capture, HTTP, decoding and input posting. Not a game-running contention test. Cache variants reuse prompt tokens and one previously encoded historical frame; current frame is always encoded."
+}

@@ -5,11 +5,14 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Current status:** the public P2P pilot trains on human button/camera recordings
-from two games and tests on a withheld Roblox recording. The revised model reaches
-76.2% button F1, below the 90.4% previous-action baseline. Camera transfer fails,
-and the visual contribution remains weak. It is **not a playable general game agent**.
-The data importer, staged training, ablations and checkpoint checks are implemented.
+**Current status:** a new visual action adapter with numeric control history improves
+button F1 from 72.5% to **82.0%** on separate validation recordings and from 79.8%
+to **84.4%** on withheld experiences. It trains 3.61M parameters (~0.47%) while
+preserving the whole parent model. Cached-frame inference measures **44.9 ms median**
+on an M3 Max; this excludes capture, input posting and game contention.
+The model still loses to repeating the previous action, gains little from correct
+screenshots, and fails camera transfer. It is **not a playable Hordes/general game agent**.
+[Latest adapter, expanded data, results and architecture](docs/VISUAL_ACTION_ADAPTER.md) ·
 [Recorded-action results](docs/GAMEPLAY_BUTTONS.md) ·
 [Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md) ·
 [Full-Qwen teacher and reasoning-transfer experiment](docs/REASONING_TRANSFER.md) ·
@@ -67,7 +70,7 @@ to 82% exact action match on separate sessions. Balanced accuracy is 71%, and
 reworded goals score 34%; its strict gates still fail. This is progress in action
 decoding, not validated gameplay. The checkpoint remains experimental.
 
-The latest continuation corrects saturated action attention, reads Laya encoder
+An earlier continuation corrects saturated action attention, reads Laya encoder
 features directly, and runs seven wording experiments plus four recorded-button
 experiments. Small-adapter training fixes the 64-clip button-fitting failure;
 neither instruction robustness nor gameplay transfer passes. New-game scoring

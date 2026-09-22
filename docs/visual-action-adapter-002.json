@@ -1,0 +1,227 @@
+{
+  "protocol": {
+    "source": "artifacts/p2p-pilot-004/bundle",
+    "steps": 2000,
+    "learning_rate": 0.0001,
+    "history_dropout": 0.5,
+    "seed": 53,
+    "trainable": "Independent visual button/camera residuals only",
+    "sampling": "buttons half natural/half game-action strata; camera natural",
+    "manifest_digests": {
+      "train": "7ca62615823a828547d398e493827fde520f064b9750959c1c792966b994b842",
+      "validation": "e7b7203c0589f070ed9a73a45add8848564d75ed704fb2d7e8ee93d6bcfe8ab6"
+    },
+    "exploratory_reused_development_game": true,
+    "holdout_used_for_training_or_checkpoint_selection": false,
+    "deployment_eligible": false,
+    "scope": "First-step buttons and camera, no future chunks/pointer supervision"
+  },
+  "parameters": {
+    "total": 767163833,
+    "trainable": 3451733,
+    "trainable_roots": [
+      "visual_actions"
+    ]
+  },
+  "conversion_actions_match": true,
+  "conversion_max_abs_error": {
+    "buttons": 5.7220458984375e-06,
+    "chunk_mouse": 0.0
+  },
+  "after": {
+    "train": {
+      "actual": {
+        "examples": 340,
+        "button_exact_match": 0.888235294117647,
+        "button_micro_f1": 0.9442970822281167,
+        "action_set_balanced_exact": 0.9490398402450767,
+        "empty_prediction_rate": 0.19117647058823528,
+        "mouse_mae_px": 5.002941176470588,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 10.733812949640289,
+        "moving_direction_accuracy": 0.5503597122302158,
+        "button_transition_examples": 60,
+        "transition_exact": 0.48333333333333334
+      },
+      "shuffled_vision": {
+        "examples": 340,
+        "button_exact_match": 0.7676470588235295,
+        "button_micro_f1": 0.8734693877551021,
+        "action_set_balanced_exact": 0.7567132026718606,
+        "empty_prediction_rate": 0.24705882352941178,
+        "mouse_mae_px": 12.73235294117647,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 22.66906474820144,
+        "moving_direction_accuracy": 0.20863309352517986,
+        "button_transition_examples": 60,
+        "transition_exact": 0.3333333333333333
+      },
+      "zero_vision": {
+        "examples": 340,
+        "button_exact_match": 0.25882352941176473,
+        "button_micro_f1": 0.2678185745140389,
+        "action_set_balanced_exact": 0.1006718204961641,
+        "empty_prediction_rate": 0.7794117647058824,
+        "mouse_mae_px": 9.820588235294117,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 23.762589928057555,
+        "moving_direction_accuracy": 0.11151079136690648,
+        "button_transition_examples": 60,
+        "transition_exact": 0.15
+      },
+      "shuffled_goals": {
+        "examples": 340,
+        "button_exact_match": 0.6823529411764706,
+        "button_micro_f1": 0.8005698005698005,
+        "action_set_balanced_exact": 0.24772709228816994,
+        "empty_prediction_rate": 0.25588235294117645,
+        "mouse_mae_px": 12.473529411764705,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 29.27338129496403,
+        "moving_direction_accuracy": 0.2949640287769784,
+        "button_transition_examples": 60,
+        "transition_exact": 0.26666666666666666
+      },
+      "no_previous_actions": {
+        "examples": 340,
+        "button_exact_match": 0.4,
+        "button_micro_f1": 0.6088193456614509,
+        "action_set_balanced_exact": 0.2908416711734367,
+        "empty_prediction_rate": 0.3235294117647059,
+        "mouse_mae_px": 9.25294117647059,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 22.0431654676259,
+        "moving_direction_accuracy": 0.2733812949640288,
+        "button_transition_examples": 60,
+        "transition_exact": 0.3
+      },
+      "repeat_previous_action": {
+        "examples": 340,
+        "button_exact_match": 0.8235294117647058,
+        "button_micro_f1": 0.9145860709592641,
+        "action_set_balanced_exact": 0.5987985223646063,
+        "empty_prediction_rate": 0.18529411764705883,
+        "mouse_mae_px": 5.791176470588235,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 12.485611510791367,
+        "moving_direction_accuracy": 0.802158273381295,
+        "button_transition_examples": 60,
+        "transition_exact": 0.0
+      },
+      "no_input": {
+        "examples": 340,
+        "button_exact_match": 0.18235294117647058,
+        "button_micro_f1": 0.0,
+        "action_set_balanced_exact": 0.05555555555555555,
+        "empty_prediction_rate": 1.0,
+        "mouse_mae_px": 9.823529411764707,
+        "moving_examples": 139,
+        "moving_mouse_mae_px": 23.798561151079138,
+        "moving_direction_accuracy": 0.09352517985611511,
+        "button_transition_examples": 60,
+        "transition_exact": 0.1
+      }
+    },
+    "validation": {
+      "actual": {
+        "examples": 192,
+        "button_exact_match": 0.6979166666666666,
+        "button_micro_f1": 0.7516778523489933,
+        "action_set_balanced_exact": 0.1924019607843137,
+        "empty_prediction_rate": 0.4010416666666667,
+        "mouse_mae_px": 6.549479166666667,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.541666666666664,
+        "moving_direction_accuracy": 0.06944444444444445,
+        "button_transition_examples": 29,
+        "transition_exact": 0.1724137931034483
+      },
+      "shuffled_vision": {
+        "examples": 192,
+        "button_exact_match": 0.7083333333333334,
+        "button_micro_f1": 0.7609427609427609,
+        "action_set_balanced_exact": 0.20147058823529412,
+        "empty_prediction_rate": 0.40625,
+        "mouse_mae_px": 6.6328125,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.541666666666664,
+        "moving_direction_accuracy": 0.06944444444444445,
+        "button_transition_examples": 29,
+        "transition_exact": 0.20689655172413793
+      },
+      "zero_vision": {
+        "examples": 192,
+        "button_exact_match": 0.3489583333333333,
+        "button_micro_f1": 0.12290502793296089,
+        "action_set_balanced_exact": 0.06437908496732025,
+        "empty_prediction_rate": 0.9270833333333334,
+        "mouse_mae_px": 6.528645833333333,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.541666666666664,
+        "moving_direction_accuracy": 0.06944444444444445,
+        "button_transition_examples": 29,
+        "transition_exact": 0.10344827586206896
+      },
+      "shuffled_goals": {
+        "examples": 192,
+        "button_exact_match": 0.6875,
+        "button_micro_f1": 0.7465753424657534,
+        "action_set_balanced_exact": 0.17189542483660133,
+        "empty_prediction_rate": 0.4166666666666667,
+        "mouse_mae_px": 6.528645833333333,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.541666666666664,
+        "moving_direction_accuracy": 0.06944444444444445,
+        "button_transition_examples": 29,
+        "transition_exact": 0.20689655172413793
+      },
+      "no_previous_actions": {
+        "examples": 192,
+        "button_exact_match": 0.296875,
+        "button_micro_f1": 0.23904382470119523,
+        "action_set_balanced_exact": 0.05580065359477124,
+        "empty_prediction_rate": 0.59375,
+        "mouse_mae_px": 6.518229166666667,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.486111111111114,
+        "moving_direction_accuracy": 0.08333333333333333,
+        "button_transition_examples": 29,
+        "transition_exact": 0.1724137931034483
+      },
+      "repeat_previous_action": {
+        "examples": 192,
+        "button_exact_match": 0.8489583333333334,
+        "button_micro_f1": 0.9040247678018576,
+        "action_set_balanced_exact": 0.693218954248366,
+        "empty_prediction_rate": 0.3333333333333333,
+        "mouse_mae_px": 3.0651041666666665,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 15.48611111111111,
+        "moving_direction_accuracy": 0.8194444444444444,
+        "button_transition_examples": 29,
+        "transition_exact": 0.0
+      },
+      "no_input": {
+        "examples": 192,
+        "button_exact_match": 0.3125,
+        "button_micro_f1": 0.0,
+        "action_set_balanced_exact": 0.058823529411764705,
+        "empty_prediction_rate": 1.0,
+        "mouse_mae_px": 6.528645833333333,
+        "moving_examples": 36,
+        "moving_mouse_mae_px": 34.541666666666664,
+        "moving_direction_accuracy": 0.06944444444444445,
+        "button_transition_examples": 29,
+        "transition_exact": 0.13793103448275862
+      }
+    }
+  },
+  "entire_parent_policy_unchanged": true,
+  "qualification_passed": false,
+  "reload_max_abs_error": {
+    "buttons": 0.0,
+    "chunk_mouse": 0.0
+  },
+  "reload_matches": true,
+  "live_inputs_sent": 0
+}
