@@ -1,5 +1,57 @@
 # Laya Vision Stitch
 
+Research toward a fast, local visual decision model that retains **Laya** and
+requires **no new training or connector fitting**. The active experiment combines
+Qwen's frozen vision tower, a fixed lexical bridge and frozen Laya in one MLX
+module and one weights file. Qwen's language decoder is excluded.
+
+**Current result: fast, but not visually competent.** The exported model measured
+46 ms median on small synthetic probes, but scored 50%—the same as blank-image
+and scrambled-correspondence controls. It is not a working general game agent.
+See [architecture, results and limitations](docs/LEXICAL_STITCH.md).
+
+## Active no-training experiment
+
+Use native arm64 Python 3.13 on Apple Silicon:
+
+```bash
+uv sync --extra models --extra stitch --python /path/to/arm64/python3.13
+uv run --no-sync hf download mlx-community/Qwen3.5-4B-4bit --revision 0e7ffd5c629ef7719d4cbc04069232580bfa9d9c
+uv run --no-sync hf download aac6fef/laya-multilingual-mlx --revision f2b4faf51023039425946074e2cf1361d2db11d5
+```
+
+Prepare a JSON object of choice labels and descriptions, for example
+`{"left": "The object is on the left.", "right": "The object is on the right."}`.
+Build and save the frozen model from cached checkpoints:
+
+```bash
+uv run --no-sync python -m laya_vision_stitch.lexical_stitch \
+  --image /path/to/image.png --question 'Which side contains the object?' \
+  --choices /path/to/choices.json --save artifacts/my-stitch
+```
+
+Future inference loads that single stitched checkpoint:
+
+```bash
+uv run --no-sync python -m laya_vision_stitch.lexical_stitch \
+  --bundle artifacts/my-stitch --image /path/to/image.png \
+  --question 'Which side contains the object?' --choices /path/to/choices.json
+
+uv run --no-sync python -m laya_vision_stitch.lexical_probe \
+  --bundle artifacts/my-stitch --output artifacts/my-probe
+```
+
+These commands output scores only. There is no live capture, keyboard/mouse
+execution, OCR, game-state detector, optimizer or action policy outside the model.
+Choices and instructions are caller inputs, not a built-in Hordes action set.
+No generalization claim follows from packaging the components together.
+
+## Historical fitted experiment
+
+The earlier ridge-regression pilot below predates the no-training constraint. It
+is retained for reproducibility and is **not the active approach**. Its fitted
+connector and scripts are not used by `lexical_stitch`.
+
 An offline research experiment connecting frozen Qwen visual features directly to
 frozen Laya input embeddings. A ridge-regression connector is fitted from paired
 screenshots and text state. Neither model's weights are updated. This is **not**

@@ -1,0 +1,178 @@
+{
+  "claim": "Synthetic visual probes only; no game-playing or cross-game capability established.",
+  "new_training": false,
+  "connector_fitting": false,
+  "qwen_decoder_layers_executed": 0,
+  "generated_tokens": 0,
+  "trainable_tensor_count": 0,
+  "word_count": 86547,
+  "load_seconds": 1.213561458978802,
+  "first_call_ms": 87.57904201047495,
+  "warm_p50_ms": 46.142520499415696,
+  "warm_p95_ms": 47.10494595638011,
+  "parity_max_error": 0.0,
+  "metrics": {
+    "stitched": {
+      "color": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "red": 14,
+          "blue": 2
+        }
+      },
+      "position": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "right": 8,
+          "left": 8
+        }
+      },
+      "shape": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "circle": 16
+        }
+      },
+      "all": {
+        "accuracy": 0.5,
+        "n": 48,
+        "predictions": {
+          "red": 14,
+          "right": 8,
+          "left": 8,
+          "circle": 16,
+          "blue": 2
+        }
+      }
+    },
+    "blank_image": {
+      "color": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "blue": 8,
+          "red": 8
+        }
+      },
+      "position": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "right": 8,
+          "left": 8
+        }
+      },
+      "shape": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "circle": 16
+        }
+      },
+      "all": {
+        "accuracy": 0.5,
+        "n": 48,
+        "predictions": {
+          "blue": 8,
+          "red": 8,
+          "right": 8,
+          "left": 8,
+          "circle": 16
+        }
+      }
+    },
+    "text_oracle": {
+      "color": {
+        "accuracy": 1.0,
+        "n": 16,
+        "predictions": {
+          "red": 8,
+          "blue": 8
+        }
+      },
+      "position": {
+        "accuracy": 0.625,
+        "n": 16,
+        "predictions": {
+          "right": 10,
+          "left": 6
+        }
+      },
+      "shape": {
+        "accuracy": 1.0,
+        "n": 16,
+        "predictions": {
+          "square": 8,
+          "circle": 8
+        }
+      },
+      "all": {
+        "accuracy": 0.875,
+        "n": 48,
+        "predictions": {
+          "red": 8,
+          "right": 10,
+          "left": 6,
+          "square": 8,
+          "circle": 8,
+          "blue": 8
+        }
+      }
+    },
+    "reversed_word_pairs": {
+      "color": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "red": 16
+        }
+      },
+      "position": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "right": 16
+        }
+      },
+      "shape": {
+        "accuracy": 0.5,
+        "n": 16,
+        "predictions": {
+          "circle": 16
+        }
+      },
+      "all": {
+        "accuracy": 0.5,
+        "n": 48,
+        "predictions": {
+          "red": 16,
+          "right": 16,
+          "circle": 16
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Eight synthetic images; questions and reversed choices are correlated trials.",
+    "No hyperparameters selected against these labels.",
+    "Fixed temperature and top-k are design choices, not learned weights.",
+    "Only a single screenshot is supported; no temporal memory.",
+    "Raw token embeddings need not align with pre-decoder visual features."
+  ],
+  "recorded_frame_replay": {
+    "note": "Single recorded Hordes image, repeated. No action correctness labels or game input.",
+    "warm_p50_ms": 70.11420853086747,
+    "reload_max_score_error": 0.0,
+    "parameter_roots": [
+      "bridge",
+      "laya",
+      "vision"
+    ],
+    "trainable_tensor_count": 0,
+    "warm_repetitions": 4
+  },
+  "checkpoint_bytes": 2463010482
+}

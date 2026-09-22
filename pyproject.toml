@@ -1,12 +1,15 @@
 [project]
 name = "laya-vision-stitch"
 version = "0.1.0"
-description = "Offline experiments connecting frozen visual features to frozen Laya through fitted latent mappings"
+description = "Offline research connecting frozen visual features to Laya, including a no-training lexical stitch"
 requires-python = ">=3.11,<3.14"
 dependencies = ["numpy>=2", "pillow>=12"]
 
 [project.optional-dependencies]
 models = ["mlx-vlm==0.7.1", "laya-coreml==0.1.0"]
+stitch = [
+    "laya-mlx==0.2.0",
+]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff==0.15.12"]

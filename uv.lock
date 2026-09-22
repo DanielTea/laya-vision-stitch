@@ -395,6 +395,21 @@ wheels = [
 ]
 
 [[package]]
+name = "laya-mlx"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "mlx", marker = "platform_machine == 'arm64' and sys_platform == 'darwin'" },
+    { name = "numpy" },
+    { name = "tokenizers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4c/4c/2b67e41023ee51bf06af9ac4fb4a2b2e015cc3e8af7d779a989fb2332991/laya_mlx-0.2.0.tar.gz", hash = "sha256:d51c2366c3bbccaa1aee87862728b9b51704547ffce5027de37e44756fbf8251", size = 53854, upload-time = "2026-09-22T06:02:22.566Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/21/89b7f030fcbfb6327f1fc553480fbeaa2aae7408338ee422c2cf37746e66/laya_mlx-0.2.0-py3-none-any.whl", hash = "sha256:1a80a0cc79c55be808de0b1208a172566209b5780d796b98d86235e9cf335187", size = 63524, upload-time = "2026-09-22T06:02:20.61Z" },
+]
+
+[[package]]
 name = "laya-vision-stitch"
 version = "0.1.0"
 source = { virtual = "." }
@@ -408,6 +423,9 @@ models = [
     { name = "laya-coreml" },
     { name = "mlx-vlm" },
 ]
+stitch = [
+    { name = "laya-mlx" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -418,11 +436,12 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "laya-coreml", marker = "extra == 'models'", specifier = "==0.1.0" },
+    { name = "laya-mlx", marker = "extra == 'stitch'", specifier = "==0.2.0" },
     { name = "mlx-vlm", marker = "extra == 'models'", specifier = "==0.7.1" },
     { name = "numpy", specifier = ">=2" },
     { name = "pillow", specifier = ">=12" },
 ]
-provides-extras = ["models"]
+provides-extras = ["models", "stitch"]
 
 [package.metadata.requires-dev]
 dev = [
