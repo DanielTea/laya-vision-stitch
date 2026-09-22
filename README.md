@@ -5,13 +5,17 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Current status:** implemented and trained two streaming memory adapters: Mamba-3
-SISO plus local attention, and a causal transformer. Qwen and Laya remain frozen;
-only about **0.13%** of parameters train. Fresh-image inference measured **44.5–45.6 ms
-median** on an M3 Max over 128 recorded frames, excluding capture and game contention.
-Both models fit the training clips but **fail transfer and visual-dependence checks**.
-They are not playable Hordes agents and have not replaced the default model.
-[Temporal architecture, six experiments, results and streaming usage](docs/TEMPORAL_MEMORY.md).
+**Current status:** expanded temporal training to **7,520 frames across nine games
+and 38 goals**, with random sequence crops, visual-token masking and validation-based
+checkpoint selection. A regularized attention adapter improves button F1 on newly
+held-out recordings from **16.2% to 32.2%**, but regresses on the previous held-out
+experiences from **57.8% to 43.0%**. Goal-swap tests change no actions. It is still
+**not a validated Hordes/general-game agent** and has not replaced the default model.
+
+Fresh-image inference measures **49.9 ms median** on an M3 Max, excluding capture
+and game contention. Qwen and Laya remain frozen; about 0.13% of parameters train.
+[Expanded data, comparisons and limitations](docs/TEMPORAL_EXPANSION.md) ·
+[Temporal architecture and streaming usage](docs/TEMPORAL_MEMORY.md).
 
 The earlier visual action adapter with numeric control history reached **82.0%**
 validation button F1 and **84.4%** on withheld experiences on a different sample

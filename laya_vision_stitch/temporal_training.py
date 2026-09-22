@@ -5,12 +5,14 @@ import hashlib
 import json
 import time
 from dataclasses import asdict, replace
+from itertools import combinations
 from pathlib import Path
 
 import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
 import numpy as np
+from mlx.utils import tree_flatten
 
 from .p2p_training import metrics
 from .policy_data import check_separation, manifest_digest, read_manifest
@@ -22,9 +24,13 @@ from .visual_action_adapter import encode_action_history
 
 
 def read_sequences(data, config):
-    rows = {s: read_manifest(data / f"{s}.jsonl", config) for s in ("train", "validation", "test")}
-    for a, b in (("train", "validation"), ("train", "test"), ("validation", "test")):
-        check_separation(rows[a], rows[b], holdout_games=b == "test")
+    splits = ["train", "validation", "test"]
+    if (data / "fresh_test.jsonl").exists():
+        splits.append("fresh_test")
+    pairs = list(combinations(splits, 2))
+    rows = {s: read_manifest(data / f"{s}.jsonl", config) for s in splits}
+    for a, b in pairs:
+        check_separation(rows[a], rows[b], holdout_games=b in {"test", "fresh_test"})
     result, hashes = {}, {}
     for split, examples in rows.items():
         groups, hashes[split] = {}, set()
@@ -56,10 +62,7 @@ def read_sequences(data, config):
                 ):
                     raise ValueError("Future-target alignment differs from next current frame")
         result[split] = list(groups.values())
-    if any(
-        hashes[a] & hashes[b]
-        for a, b in (("train", "validation"), ("train", "test"), ("validation", "test"))
-    ):
+    if any(hashes[a] & hashes[b] for a, b in pairs):
         raise ValueError("Current/future image leakage across splits")
     return rows, result
 
@@ -173,25 +176,80 @@ def loss_terms(model, batch, stats, config, aux_weight):
     expected_error = (
         (mx.softmax(output["camera"], -1) * mx.abs(bins - batch["mouse"][..., None])).sum(-1).mean()
     )
+    control_loss = buttons + camera + 4 * expected_error
+    if aux_weight == 0:
+        return control_loss
     action = mx.concatenate([batch["buttons"], batch["mouse"]], -1)
     prediction = model.future_delta(output["hidden"], action)
     dynamics = mx.mean(((prediction - batch["future_delta"]) / stats["delta_scale"]) ** 2)
-    return buttons + camera + 4 * expected_error + aux_weight * dynamics
+    return control_loss + aux_weight * dynamics
 
 
-def train(adapter, data, config, steps, lr, seed, stats, output, aux_weight):
+def augmented_batch(data, selected, rng, regularize, augmentation_rng=None):
+    batch = {k: mx.stack([data[i][k] for i in selected]) for k in data[0]}
+    keep = mx.array((rng.random((len(selected), 1, 1)) >= 0.5).astype(np.float32))
+    batch["history"] = batch["history"] * keep
+    if regularize:
+        augmentation_rng = rng if augmentation_rng is None else augmentation_rng
+        length = batch["visual"].shape[1]
+        crop = max(2, length * 3 // 4)
+        offsets = augmentation_rng.integers(length - crop + 1, size=len(selected))
+        batch = {
+            k: mx.stack(
+                [v[i, int(offset) : int(offset) + crop] for i, offset in enumerate(offsets)]
+            )
+            for k, v in batch.items()
+        }
+        # Same missing spatial tokens across time: no invented motion cues.
+        mask = mx.array(
+            (augmentation_rng.random((len(selected), 1, 16, 1)) >= 0.1).astype(np.float32)
+        )
+        batch["visual"] = batch["visual"] * mask
+    return batch
+
+
+def selection_loss(adapter, data, stats, config):
+    # Select by supervised controls only. Neither test set nor future targets selects weights.
+    total, count = 0.0, 0
+    for item in data:
+        batch = {k: v[None] for k, v in item.items() if k != "future_delta"}
+        value = loss_terms(adapter, batch, stats, config, 0.0)
+        total += float(value) * item["buttons"].shape[0]
+        count += item["buttons"].shape[0]
+    return total / count
+
+
+def train(
+    adapter,
+    data,
+    config,
+    steps,
+    lr,
+    seed,
+    stats,
+    output,
+    aux_weight,
+    validation=None,
+    validation_every=0,
+    regularize=False,
+):
     rng = np.random.default_rng(seed)
+    augmentation_rng = np.random.default_rng(seed + 1)
     optimizer = optim.AdamW(learning_rate=lr, weight_decay=0.01)
     gradient = nn.value_and_grad(
         adapter, lambda m, batch: loss_terms(m, batch, stats, config, aux_weight)
     )
+    selection = {
+        "criterion": "validation control loss (no auxiliary target)",
+        "checks": [],
+        "selected_step": steps,
+    }
+    best, best_weights = float("inf"), None
     with (output / "steps.jsonl").open("x") as log:
         for step in range(steps):
             started = time.perf_counter()
             selected = rng.integers(len(data), size=2)
-            batch = {k: mx.stack([data[i][k] for i in selected]) for k in data[0]}
-            keep = mx.array((rng.random((2, 1, 1)) >= 0.5).astype(np.float32))
-            batch["history"] = batch["history"] * keep
+            batch = augmented_batch(data, selected, rng, regularize, augmentation_rng)
             value, grads = gradient(adapter, batch)
             grads, norm = optim.clip_grad_norm(grads, 1.0)
             mx.eval(value, norm)
@@ -209,6 +267,23 @@ def train(adapter, data, config, steps, lr, seed, stats, output, aux_weight):
             if step == 0 or (step + 1) % 100 == 0:
                 log.flush()
                 print(json.dumps(item), flush=True)
+            if validation_every and ((step + 1) % validation_every == 0 or step + 1 == steps):
+                score = selection_loss(adapter, validation, stats, config)
+                if not np.isfinite(score):
+                    raise FloatingPointError("Nonfinite validation loss")
+                selection["checks"].append({"step": step + 1, "loss": score})
+                print(json.dumps({"validation_step": step + 1, "control_loss": score}), flush=True)
+                if score < best:
+                    best = score
+                    best_weights = [
+                        (k, mx.stop_gradient(v)) for k, v in tree_flatten(adapter.parameters())
+                    ]
+                    mx.eval([v for _, v in best_weights])
+                    selection["selected_step"] = step + 1
+    if best_weights is not None:
+        adapter.load_weights(best_weights, strict=True)
+    selection["selected_loss"] = best if best_weights is not None else None
+    return selection
 
 
 def predict_sequence(adapter, data, config, variant="actual"):
@@ -372,6 +447,9 @@ def run(args):
             "learning_rate": args.learning_rate,
             "auxiliary_weight": args.auxiliary_weight,
             "history_dropout": 0.5,
+            "random_crop_and_spatial_masking": args.regularize,
+            "validation_every": args.validation_every,
+            "test_used_for_selection": False,
             "button_transition_loss_weight": 3,
             "manifest_digests": {s: manifest_digest(r) for s, r in rows.items()},
             "training_only_future_target": "normalized frozen spatial features at t+1 minus t, 64 dimensions",
@@ -386,7 +464,7 @@ def run(args):
         runtime.metadata["temporal_experiment"] = protocol
         report = {"protocol": protocol, "parameters": runtime.parameter_counts()}
         (outdir / "protocol.json").write_text(json.dumps(report, indent=2) + "\n")
-        train(
+        report["checkpoint_selection"] = train(
             adapter,
             data["train"],
             config,
@@ -396,7 +474,13 @@ def run(args):
             stats,
             outdir,
             args.auxiliary_weight,
+            validation=data["validation"],
+            validation_every=args.validation_every,
+            regularize=args.regularize,
         )
+        runtime.metadata["temporal_experiment"]["checkpoint_selection"] = report[
+            "checkpoint_selection"
+        ]
         report["results"] = {}
         for split in data:
             variants = [
@@ -488,13 +572,20 @@ def main():
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--steps", type=int, default=1500)
     p.add_argument("--width", type=int, default=128)
+    p.add_argument("--validation-every", type=int, default=0)
+    p.add_argument("--regularize", action="store_true")
     p.add_argument("--learning-rate", type=float, default=3e-4)
     p.add_argument("--auxiliary-weight", type=float, default=0.1)
     p.add_argument(
         "--kinds", nargs="+", choices=("mamba3", "attention"), default=["mamba3", "attention"]
     )
     args = p.parse_args()
-    if args.steps < 1 or args.learning_rate <= 0 or args.auxiliary_weight < 0:
+    if (
+        args.steps < 1
+        or args.learning_rate <= 0
+        or args.auxiliary_weight < 0
+        or args.validation_every < 0
+    ):
         p.error("Invalid training settings")
     run(args)
 

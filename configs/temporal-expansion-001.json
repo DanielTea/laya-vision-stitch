@@ -1,0 +1,138 @@
+{
+  "seed": 97,
+  "length": 32,
+  "preserve_evaluation": "artifacts/temporal-data-001",
+  "selection": "Existing training recordings plus two additional games and instruction-bearing COD/GTA; entire newly acquired Doom2 and Natural Disaster Survival recordings reserved as fresh game holdout. No selection by model outcomes.",
+  "recordings": [
+    {
+      "source": "artifacts/p2p-stream-combined",
+      "recording": "019a4b10-11b0-76b3-8112-bd6f0a3e3dff",
+      "split": "train",
+      "sequences": 20,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "aff523f8aaf6da4b246e45e411f0f914c68bad76a67f37c73d8d026735f4b88f",
+      "video_sha256": "6e2a355de4cb906525a574028f64c788975ba9da32b1d9c8b750c04f5d1bfc9b"
+    },
+    {
+      "source": "artifacts/p2p-stream-combined",
+      "recording": "019a4b11-d29d-7be0-9c47-9ce4da72cedc",
+      "split": "train",
+      "sequences": 20,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "f6eb03d719720fb909314171be2b1e6a4ea72048b993052c339b67bf1a03dafb",
+      "video_sha256": "0547766c2ead37dae6d9cc4cb005b67bd91dc9d2da22b081c2c66660d6342d2d"
+    },
+    {
+      "source": "artifacts/p2p-stream-combined",
+      "recording": "019a4b0d-39c2-7440-8654-f2190fb3015e",
+      "split": "train",
+      "sequences": 20,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "21f01f95a35083d33a5d83f1b254aaacbf8766741c02580f972512fc179e6304",
+      "video_sha256": "8864315a854f6d3251b5df9b2d29c75b4f05aa635fc4d8ee0f64b796688cb795"
+    },
+    {
+      "source": "artifacts/p2p-stream-combined",
+      "recording": "01991a4f-acbb-7b61-a831-89c58f038d59",
+      "split": "train",
+      "sequences": 20,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "19f9e7e161a5a6209906275a35b7aa6d86718a501ee0194dafcb6897a4adf6eb",
+      "video_sha256": "0de58413bba99c1ab5285a11cde223d9e5bbc9042e002ca227d36e7088d3e98b"
+    },
+    {
+      "source": "artifacts/p2p-stream-combined",
+      "recording": "01991a45-382a-73f1-9936-1f6e5ea59655",
+      "split": "train",
+      "sequences": 20,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "0190890284234f48685fea8129b501b3660af0016c87c0fdbdabdb7ee2c7ce89",
+      "video_sha256": "396e903331b74f2a95132d375002ed097555be0b66894b131959b8d1a6684faf"
+    },
+    {
+      "source": "artifacts/p2p-stream-450",
+      "recording": "0199eaac-bbe9-7a10-9a87-4e0bee2afcd9",
+      "split": "train",
+      "sequences": 32,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "887e1954f12916fbb4d3d041bbed74c31bac8795af5e8f733fe603da09075447",
+      "video_sha256": "d21761fe3884eb28aa2a0ab7e72f0e9ee7ef360bea71fb9c2cdf7acb0eb14b3c"
+    },
+    {
+      "source": "artifacts/p2p-stream-545",
+      "recording": "019abb71-3619-78d2-9db9-3f26aeadc292",
+      "split": "train",
+      "sequences": 32,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "b4ed1824ada380f29da7b7be58837c30cb1f398f507e4e1f0dba1c5ed2c74256",
+      "video_sha256": "dca04440020e2831e09f4dd0ccd4ee2dd610db81a766551b31cf239956694051"
+    },
+    {
+      "source": "artifacts/p2p-stream-499",
+      "recording": "019a4a3f-b589-7973-88d7-a3b716c59381",
+      "split": "fresh_test",
+      "sequences": 8,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "986818401fb589f1f5987fffe631b20c196b4467b2d69c803f87bfc69a991b36",
+      "video_sha256": "83ac255b1d29df4faae412b04e497b2150c96ee392c19a4e54aa691f3941bf81"
+    },
+    {
+      "source": "artifacts/p2p-stream-499",
+      "recording": "019a4a40-27da-7011-b7ad-c654362b5728",
+      "split": "fresh_test",
+      "sequences": 8,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "8c1ee6f94916f863db775d289884078c9af6f4d2741890c0e911ca4c195d6cbf",
+      "video_sha256": "f0c610990550fd3436b32b761aaf48f957f0922273a1fb075155c223fddc3759"
+    },
+    {
+      "source": "artifacts/p2p-stream-499",
+      "recording": "019a4a42-9cbc-7270-9db2-065df15c5462",
+      "split": "fresh_test",
+      "sequences": 8,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "4855fe29303674d26e80ace87e9a6fead6c1c53b32701e76a531b8c07665b0ad",
+      "video_sha256": "8ce50be4bb3e4864eb17c733b3e1fa608a486e86e3235d57c0b3f94ae24d440f"
+    },
+    {
+      "source": "artifacts/p2p-stream-499",
+      "recording": "019a4a42-acb1-7d73-a248-0e8ace1f9ee0",
+      "split": "fresh_test",
+      "sequences": 8,
+      "repository": "elefantai/p2p-full-data",
+      "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+      "annotation_sha256": "a347609747d1a5cd59f90f26dd0e2ae0b6d886a1964a654e7dd205996285029f",
+      "video_sha256": "6c85b5719de5d1aedaf0f4e100de3006ca4a3aee03fda82a7f83aea8d1c0a86e"
+    },
+    {
+      "source": "artifacts/p2p-source",
+      "recording": "01993060-06a0-7352-ac0b-d77d50a1aba7",
+      "split": "train",
+      "sequences": 24,
+      "repository": "elefantai/p2p-toy-examples",
+      "revision": "305ebc891474580f2da295b42ed46ddfad053d96",
+      "annotation_sha256": "bdf91173b5879f2fa5715418411514bcf094b93340bc56ada27cec7846ecce9f",
+      "video_sha256": "d395752f84ceeb3b6d0d33c1bc46994509b145d647788ada46058785b39d1cb1"
+    },
+    {
+      "source": "artifacts/p2p-source",
+      "recording": "01993bb8-12e7-78a1-b661-0c0c3a258e21",
+      "split": "train",
+      "sequences": 48,
+      "repository": "elefantai/p2p-toy-examples",
+      "revision": "305ebc891474580f2da295b42ed46ddfad053d96",
+      "annotation_sha256": "8761c32225286121a843a773d8600806c40df12d7325b8f83dd4ae5e2fcd5208",
+      "video_sha256": "44e30407df52365b3de570fc894bf2ea6fea929a2535389c32db82e13f44018c"
+    }
+  ]
+}

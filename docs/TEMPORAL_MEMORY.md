@@ -1,5 +1,8 @@
 # Temporal action adapters
 
+For the subsequent data expansion, regularization and new-game comparison, see
+[Broader temporal training and goal coverage](TEMPORAL_EXPANSION.md).
+
 This experiment adds learned memory to the single-checkpoint Qwen-vision/Laya
 policy. It compares a **Mamba-3 SISO block plus local attention** against **two
 causal attention blocks**, using the same demonstration windows, action-head

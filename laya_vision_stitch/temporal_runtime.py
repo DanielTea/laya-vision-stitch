@@ -17,6 +17,11 @@ def frame_inputs(runtime, row):
     if len(row["frames"]) != 1 or row["frames"][0]["age_seconds"] != 0:
         raise ValueError("Streaming input requires exactly one current screenshot")
     patches, coords = runtime.features({"frames": row["frames"]})
+    return spatial_pool(patches, coords), language_context(runtime, patches, coords, row)
+
+
+def language_context(runtime, patches, coords, row):
+    """Goal intervention recomputes connector and Laya on identical visual features."""
     prompt = {k: row[k] for k in ("goal", "controls", "choices") if k in row}
     prepared = runtime.prepare({**prompt, "previous_actions": []})
     context, _ = runtime.module.action_context(patches, coords, *prepared)
@@ -29,7 +34,7 @@ def frame_inputs(runtime, row):
         ],
         1,
     )[0]
-    return spatial_pool(patches, coords), language.astype(mx.float32)
+    return language.astype(mx.float32)
 
 
 def decode(output, config):
