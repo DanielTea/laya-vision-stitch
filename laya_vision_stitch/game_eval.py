@@ -9,7 +9,7 @@ import numpy as np
 
 from .policy_data import check_separation, read_manifest
 from .policy_training import cache_examples
-from .trainable_model import TrainableRuntime
+from .trainable_model import TrainableRuntime, decode_action_chunk
 
 
 def metrics(rows, predictions, buttons):
@@ -64,19 +64,7 @@ def infer(runtime, examples, variant):
             inputs = (*inputs[:2], *runtime.prepare(changed))
         result = runtime.module.from_features(*inputs)
         mx.eval(result)
-        probabilities = np.asarray(mx.sigmoid(result["buttons"][0]))
-        output.append(
-            {
-                "buttons": [
-                    b
-                    for b, p in zip(
-                        runtime.module.policy_config.buttons, probabilities, strict=True
-                    )
-                    if p >= 0.5
-                ],
-                "mouse_delta": np.asarray(result["mouse"][0]).tolist(),
-            }
-        )
+        output.append(decode_action_chunk(result, runtime.module.policy_config)[0])
     return output
 
 

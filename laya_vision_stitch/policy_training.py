@@ -59,6 +59,28 @@ def loss_terms(output, row, config):
         )
         if active:
             terms["pointer"] = mx.mean((output["pointer"] - mx.array([action["pointer_xy"]])) ** 2)
+    if config.action_chunk_size > 1 and "action_chunk" in row:
+        chunks = row["action_chunk"]
+        target = mx.array([[[float(b in a["buttons"]) for b in config.buttons] for a in chunks]])
+        logits = output["chunk_buttons"][:, 1:]
+        weights = mx.array(row.get("_button_positive_weights", [1.0] * len(config.buttons)))
+        terms["future_buttons"] = mx.mean(
+            target[:, 1:] * weights * mx.logaddexp(0, -logits)
+            + (1 - target[:, 1:]) * mx.logaddexp(0, logits)
+        )
+        mouse = mx.array([[a["mouse_delta"] for a in chunks]])
+        labels = mx.argmin(mx.abs(mouse[..., None] - mx.array(config.mouse_bins)), axis=-1)
+        terms["chunk_mouse"] = nn.losses.cross_entropy(
+            output["chunk_mouse"], labels, reduction="mean"
+        )
+    elif config.action_chunk_size > 1 and "action" in row:
+        # Single-step demonstrations and replay must supervise the decoder that
+        # inference actually uses, not only its legacy continuous auxiliary head.
+        mouse = mx.array([row["action"]["mouse_delta"]])
+        labels = mx.argmin(mx.abs(mouse[..., None] - mx.array(config.mouse_bins)), axis=-1)
+        terms["chunk_mouse"] = nn.losses.cross_entropy(
+            output["chunk_mouse"][:, 0], labels, reduction="mean"
+        )
     return terms
 
 
@@ -77,6 +99,26 @@ def fingerprint(module, frozen_only=False):
 
 def supervised_terms(model, output, row):
     terms = loss_terms(output, row, model.policy_config)
+    if "_preserve_buttons" in row:
+        count = len(row["_preserve_buttons"])
+        terms["preserve_buttons"] = nn.losses.binary_cross_entropy(
+            output["buttons"][:, :count],
+            mx.array([row["_preserve_buttons"]]),
+            with_logits=True,
+            reduction="mean",
+        )
+        terms["preserve_mouse"] = mx.mean(
+            (output["mouse"] - mx.array([row["_preserve_mouse"]])) ** 2
+        )
+        student = output["choices"]
+        target = mx.array([row["_preserve_choices"]])
+        terms["preserve_choices"] = -mx.sum(
+            target * (student - mx.logsumexp(student, axis=-1, keepdims=True))
+        )
+        state_target = mx.array(row["_preserve_state"])
+        terms["preserve_state"] = mx.mean(
+            (output["visual_state"] - state_target) ** 2
+        ) / mx.maximum(mx.mean(state_target**2), 1e-6)
     if "_alignment_ids" in row:
         target = model.laya.encoder.embeddings.tok_embeddings(
             mx.array([row["_alignment_ids"]])
@@ -112,6 +154,8 @@ def cache_examples(runtime, rows, directory=None):
 
 
 def evaluate(runtime, examples, zero_visual=False):
+    from .trainable_model import decode_action_chunk
+
     correct, labelled, button_matches, actions, mse = 0, 0, 0, 0, []
     losses, predictions = [], []
     for row, inputs in examples:
@@ -136,8 +180,11 @@ def evaluate(runtime, examples, zero_visual=False):
             )
             button_matches += bool(np.array_equal(p, expected))
             actions += 1
+            predicted_mouse = decode_action_chunk(output, runtime.module.policy_config)[0][
+                "mouse_delta"
+            ]
             mse.append(
-                float(np.mean((np.asarray(output["mouse"][0]) - row["action"]["mouse_delta"]) ** 2))
+                float(np.mean((np.asarray(predicted_mouse) - row["action"]["mouse_delta"]) ** 2))
             )
         predictions.append(item)
     by_scene = {}

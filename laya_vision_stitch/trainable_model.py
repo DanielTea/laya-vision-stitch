@@ -32,6 +32,26 @@ class PolicyConfig:
     lora_rank: int = 0
     lora_layers: int = 2
     connector_type: str = "queries"
+    action_chunk_size: int = 1
+    mouse_bins: tuple = (
+        -1.0,
+        -0.5,
+        -0.25,
+        -0.125,
+        -0.0625,
+        -0.03125,
+        -0.015625,
+        -0.0078125,
+        0.0,
+        0.0078125,
+        0.015625,
+        0.03125,
+        0.0625,
+        0.125,
+        0.25,
+        0.5,
+        1.0,
+    )
     buttons: tuple = ("w", "a", "s", "d", "space", "mouse_left", "mouse_right")
     durations: tuple = (0.05, 0.1, 0.2, 0.4)
 
@@ -44,8 +64,14 @@ class PolicyConfig:
             raise ValueError("image_width must be in 128..1024")
         if not 0 <= self.lora_rank <= 64 or self.lora_layers < 1:
             raise ValueError("Invalid LoRA rank/layer count")
-        if self.connector_type not in ("queries", "spatial", "aligned"):
+        if self.connector_type not in ("queries", "spatial", "aligned", "temporal"):
             raise ValueError("Unknown connector type")
+        if not 1 <= self.action_chunk_size <= 8:
+            raise ValueError("Invalid action chunk size")
+        if len(self.mouse_bins) < 3 or list(self.mouse_bins) != sorted(set(self.mouse_bins)):
+            raise ValueError("Mouse bins must be distinct and ascending")
+        if any(not np.isfinite(x) or not -1 <= x <= 1 for x in self.mouse_bins):
+            raise ValueError("Mouse bins must be finite in [-1, 1]")
         if (
             self.connector_type == "spatial"
             and int(self.visual_slots**0.5) ** 2 != self.visual_slots
@@ -163,6 +189,51 @@ class AlignedConnector(nn.Module):
         return self.anchors[None] + self.output(state).reshape(1, self.slots, self.width)
 
 
+class TemporalConnector(nn.Module):
+    """Keep spatial tokens separate by frame before learned temporal attention.
+
+    An initially zero residual preserves the source connector on conversion.
+    Everything is learned from pixels/text; no game-state features are inputs.
+    """
+
+    def __init__(self, visual_width, language_width, config):
+        super().__init__()
+        self.base = AlignedConnector(visual_width, language_width, config)
+        d = config.connector_width
+        self.norm = nn.LayerNorm(visual_width)
+        self.visual = nn.Linear(visual_width + 4, d)
+        self.temporal_norm = nn.LayerNorm(d)
+        self.temporal = nn.MultiHeadAttention(d, config.heads)
+        self.ffn = nn.Sequential(nn.Linear(d, 2 * d), nn.GELU(), nn.Linear(2 * d, d))
+        self.queries = mx.random.normal((config.visual_slots, d)) * 0.02
+        self.goal = nn.Linear(language_width, d, bias=False)
+        self.read = nn.MultiHeadAttention(d, config.heads)
+        self.output = nn.Linear(d, language_width)
+        self.output.weight = mx.zeros_like(self.output.weight)
+        self.output.bias = mx.zeros_like(self.output.bias)
+
+    def __call__(self, patches, coordinates, goal_embeddings):
+        axis = mx.linspace(-1, 1, 4)
+        yy, xx = mx.meshgrid(axis, axis, indexing="ij")
+        centers = mx.stack([xx.reshape(-1), yy.reshape(-1)], axis=-1)
+        # Coordinates are input metadata, never trainable tensors. Preserve all
+        # observed frame identities rather than averaging them on one lattice.
+        orders = mx.array(np.unique(np.asarray(coordinates[:, 3])))
+        distance = mx.sum((centers[:, None] - coordinates[None, :, :2]) ** 2, axis=-1)
+        mask = orders[:, None, None] == coordinates[None, None, :, 3]
+        weights = mx.softmax(mx.where(mask, -16 * distance[None], -1e9), axis=-1)
+        values = self.visual(mx.concatenate([self.norm(patches), coordinates], axis=-1))
+        tokens = (weights @ values).reshape(1, -1, values.shape[-1])
+        normalized = self.temporal_norm(tokens)
+        tokens = tokens + self.temporal(normalized, normalized, normalized)
+        tokens = tokens + self.ffn(self.temporal_norm(tokens))
+        queries = (
+            self.queries[None] + self.goal(goal_embeddings.astype(mx.float32).mean(axis=1))[:, None]
+        )
+        residual = self.output(self.read(queries, tokens, tokens))
+        return self.base(patches, coordinates, goal_embeddings) + residual
+
+
 class ActionHeads(nn.Module):
     def __init__(self, width, config):
         super().__init__()
@@ -172,16 +243,40 @@ class ActionHeads(nn.Module):
         self.pointer = nn.Linear(width, 2)
         self.pointer_active = nn.Linear(width, 1)
         self.duration = nn.Linear(width, len(config.durations))
+        self.chunk_size, self.button_count = config.action_chunk_size, len(config.buttons)
+        self.bin_count = len(config.mouse_bins)
+        if self.chunk_size > 1:
+            d = config.connector_width
+            self.action_queries = mx.random.normal((self.chunk_size, d)) * 0.02
+            self.context = nn.Linear(width, d)
+            self.attention = nn.MultiHeadAttention(d, config.heads)
+            self.readout = nn.Linear(d, width)
+            self.readout.weight = mx.zeros_like(self.readout.weight)
+            self.readout.bias = mx.zeros_like(self.readout.bias)
+            self.chunk_mouse = nn.Linear(width, 2 * self.bin_count)
 
-    def __call__(self, state):
-        state = self.norm(state.astype(mx.float32))
-        return {
+    def __call__(self, state, tokens=None):
+        if self.chunk_size > 1:
+            context = self.context(tokens.astype(mx.float32))
+            queries = self.action_queries[None] + self.context(state.astype(mx.float32))[:, None]
+            states = state[:, None] + self.readout(self.attention(queries, context, context))
+            states = self.norm(states.astype(mx.float32))
+            state = states[:, 0]
+        else:
+            state = self.norm(state.astype(mx.float32))
+        result = {
             "buttons": self.buttons(state),
             "mouse": mx.tanh(self.mouse(state)),
             "pointer": mx.sigmoid(self.pointer(state)),
             "pointer_active": self.pointer_active(state).squeeze(-1),
             "duration": self.duration(state),
         }
+        if self.chunk_size > 1:
+            result["chunk_buttons"] = self.buttons(states)
+            result["chunk_mouse"] = self.chunk_mouse(states).reshape(
+                -1, self.chunk_size, 2, self.bin_count
+            )
+        return result
 
 
 class TrainableStitch(nn.Module):
@@ -194,6 +289,7 @@ class TrainableStitch(nn.Module):
             "spatial": SpatialConnector,
             "queries": GoalConnector,
             "aligned": AlignedConnector,
+            "temporal": TemporalConnector,
         }[config.connector_type]
         self.connector = connector_class(vision.config.out_hidden_size, width, config)
         self.actions = ActionHeads(width, config)
@@ -249,7 +345,7 @@ class TrainableStitch(nn.Module):
         return {
             "choices": choices,
             "visual_state": state.astype(mx.float32),
-            **self.actions(h[:, 0]),
+            **self.actions(h[:, 0], h),
         }
 
     def __call__(self, frames, batch, goal_ids, start):
@@ -268,6 +364,32 @@ def context_text(row):
         f"Goal: {row['goal']}\nControls: {row.get('controls', '')}\n"
         f"Previous actions: {json.dumps(row.get('previous_actions', []), ensure_ascii=False)}"
     )
+
+
+def decode_action_chunk(output, config):
+    """Parallel neural outputs only; mouse modes avoid averaging opposite turns."""
+    if "chunk_buttons" in output:
+        probabilities = np.asarray(mx.sigmoid(output["chunk_buttons"][0]))
+        distribution = np.asarray(mx.softmax(output["chunk_mouse"][0], axis=-1))
+        movement = np.asarray(config.mouse_bins)[distribution.argmax(axis=-1)]
+    else:
+        probabilities = np.asarray(mx.sigmoid(output["buttons"]))
+        movement = np.asarray(output["mouse"])
+        distribution = None
+    return [
+        {
+            "buttons": [
+                b for b, p in zip(config.buttons, probabilities[i], strict=True) if p >= 0.5
+            ],
+            "mouse_delta": movement[i].tolist(),
+            **(
+                {"mouse_bin_probabilities": distribution[i].tolist()}
+                if distribution is not None
+                else {}
+            ),
+        }
+        for i in range(len(probabilities))
+    ]
 
 
 class TrainableRuntime:
@@ -291,6 +413,8 @@ class TrainableRuntime:
         """Extend action vocabulary while preserving all existing learned logits."""
         config = self.module.policy_config
         names = tuple(names)
+        if config.action_chunk_size > 1 and names != tuple(config.buttons):
+            raise ValueError("Expand buttons before adding the chunk decoder")
         if len(set(names)) != len(names) or not set(config.buttons) <= set(names):
             raise ValueError("New vocabulary must contain each old button exactly once")
         if any(not isinstance(name, str) or not name.strip() for name in names):
@@ -305,6 +429,22 @@ class TrainableRuntime:
             new.bias[target] = old.bias[index]
         self.module.actions.buttons = new
         config.buttons = names
+        self.metadata["policy_config"] = asdict(config)
+
+    def upgrade_temporal(self):
+        config = self.module.policy_config
+        if config.connector_type != "aligned" or config.action_chunk_size != 1:
+            raise ValueError("Temporal conversion requires an aligned, single-action checkpoint")
+        width = self.module.laya.encoder.config.hidden_size
+        connector = TemporalConnector(self.module.vision.config.out_hidden_size, width, config)
+        connector.base = self.module.connector
+        self.module.connector = connector
+        config.connector_type, config.action_chunk_size = "temporal", 4
+        old = self.module.actions
+        new = ActionHeads(width, config)
+        for name in ("norm", "buttons", "mouse", "pointer", "pointer_active", "duration"):
+            setattr(new, name, getattr(old, name))
+        self.module.actions = new
         self.metadata["policy_config"] = asdict(config)
 
     @classmethod
@@ -405,11 +545,12 @@ class TrainableRuntime:
         mx.eval(output)
         elapsed = (time.perf_counter() - started) * 1000
         config = self.module.policy_config
+        chunk = decode_action_chunk(output, config)
         button_p = np.asarray(mx.sigmoid(output["buttons"][0]))
         result = {
             "button_probabilities": dict(zip(config.buttons, button_p.tolist(), strict=True)),
             "buttons": [b for b, p in zip(config.buttons, button_p, strict=True) if p >= 0.5],
-            "mouse_delta_normalized": np.asarray(output["mouse"][0]).tolist(),
+            "mouse_delta_normalized": chunk[0]["mouse_delta"],
             "pointer_xy_normalized": np.asarray(output["pointer"][0]).tolist(),
             "pointer_active_probability": float(mx.sigmoid(output["pointer_active"][0]).item()),
             "duration_seconds": config.durations[int(mx.argmax(output["duration"][0]).item())],
@@ -417,6 +558,9 @@ class TrainableRuntime:
             "action_heads_trained": self.metadata["action_training_examples"] > 0,
             "input_events_sent": 0,
         }
+        if config.action_chunk_size > 1:
+            result["action_chunk"] = chunk
+            result["chunk_step_seconds"] = 0.1
         if row.get("choices"):
             probs = mx.softmax(output["choices"][0])
             result["choice_probabilities"] = dict(

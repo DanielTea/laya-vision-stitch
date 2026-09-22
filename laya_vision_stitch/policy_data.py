@@ -73,8 +73,19 @@ def read_manifest(path, config, supervised=True):
             temperature = row.get("teacher_temperature", 1.0)
             if not np.isfinite(temperature) or temperature <= 0:
                 raise ValueError("Invalid teacher temperature")
-        if "action" in row:
-            action = row["action"]
+        actions = [row["action"]] if "action" in row else []
+        if "action_chunk" in row:
+            chunk = row["action_chunk"]
+            if not isinstance(chunk, list) or not 1 <= len(chunk) <= 8 or not actions:
+                raise ValueError("Chunks require a first action and 1..8 future steps")
+            if chunk[0] != row["action"]:
+                raise ValueError("Chunk prefix must match the first action")
+            if config.action_chunk_size > 1 and len(chunk) != config.action_chunk_size:
+                raise ValueError("Chunk size differs from the model")
+            if any(a.get("duration_seconds") != 0.1 for a in chunk):
+                raise ValueError("Chunk steps currently use 100 ms intervals")
+            actions.extend(chunk)
+        for action in actions:
             buttons = action.get("buttons")
             if (
                 not isinstance(buttons, list)

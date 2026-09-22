@@ -42,6 +42,12 @@ for repeating the previous action, and shuffling screenshots scored 0.338.
 [Results and failure analysis](docs/REAL_GAME_RESULTS.md). It has not replaced
 the default model below.
 
+A subsequent [learning diagnostic](docs/LEARNING_GATE.md) adds a temporal connector,
+parallel action chunks, reviewed real-image grounding and explicit goal probes.
+**All five diagnostic runs failed the small-fit and separate-session gates.**
+The final checkpoint predicts no buttons; it remains experimental and has not
+replaced the default.
+
 With the locally trained checkpoint available:
 
 ```bash

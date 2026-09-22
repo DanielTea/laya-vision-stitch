@@ -1,0 +1,4 @@
+{
+  "reviewer": "assistant visual inspection",
+  "replacements": [{"split": "train", "excluded_id": "d2e-8335aa90cb71-271", "replacement": "d2e-8335aa90cb71-30", "reason": "Browser/YouTube frame labelled as gameplay"}]
+}

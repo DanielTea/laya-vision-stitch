@@ -1,0 +1,651 @@
+{
+  "definition": "Large game menu overlay, excluding hotbars, quest text and screens inside the 3D world.",
+  "reviewer": "assistant visual inspection of all 128 current frames",
+  "not_human_intent_labels": true,
+  "splits": {
+    "train": [
+      {
+        "id": "d2e-8335aa90cb71-121",
+        "image_sha256": "825e61d368514748d0d920ea887d7bc92b2f5757859a1eaf360c008ed79fe717",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-44",
+        "image_sha256": "6bb2fa992ebd605d5f075d37c2848a86ac0bac7577acb6c110a64a31b226382e",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-70",
+        "image_sha256": "a1425ca2bfa36f3ac9178f92db23ae2a6390ab382e988dafbc51530587721286",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-115",
+        "image_sha256": "39afde71f182606f1fdc7f5dbd7e60c48308cac20c3e2c349d065c7b1bccd809",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-131",
+        "image_sha256": "8fb1f9bf30b345d9cdd382777afe9a338469d42815fc0d64ae8909625245beae",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-190",
+        "image_sha256": "fa4bb01722758c48823ea3d91c4c6598ab90cff6397e2924436f63ffcbd3022a",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-67",
+        "image_sha256": "608deec8d1df7a0c78203fca2090152d615325af8215b3a811d72a025e70eff0",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-112",
+        "image_sha256": "e1607aa8511fed399e4b57d0bab1d5bc9a58280437b4e39105fdd1add23708b0",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-13",
+        "image_sha256": "b5ec75513f5f2fd0408e2950892279a645708921ffdcffbb250827e29e2f46d6",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-93",
+        "image_sha256": "bfa00a680f7ff49029b28284cee0fc45ceba4a7da0b483219df7e4de460cf757",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-98",
+        "image_sha256": "b85600267efa6522917b5ed9ef125202e1408219601092e9d1fb840116179490",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-242",
+        "image_sha256": "a7a21bd88e38a06938d6a3e43915d31e3c14bf0f6f9483d4a3bf95206734254d",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-295",
+        "image_sha256": "82be575b239b46bf9e8c2a5d1200f7f12892c0d52116f7d1722bab22137cd3e2",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-8335aa90cb71-97",
+        "image_sha256": "de70395e9a0ac38baabc3454c89072f7e74ddfb3a1a83d30e154e00585becd28",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-129",
+        "image_sha256": "50c518c0f58b010a5a74d6027a5d6f2e4bcec6507c5ec934b36e3c44049fb882",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-293",
+        "image_sha256": "e7bfb2da92fab17ba3b857616aa4f7105bf89704e4a8df18f5c2f783be6855e1",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-8335aa90cb71-74",
+        "image_sha256": "e96c2772aa9300ade351aaa353a49f2e2d104d482c28d339885ba66e7a8163b6",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-9",
+        "image_sha256": "0bfc933b63322f4bc0503c30a0571714336f8e6f18051de126849b9aab9b84fd",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-42",
+        "image_sha256": "e48295697dc2c51d1af1c8cd9a078538fb2b524cccde36f17ee0638281129154",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-156",
+        "image_sha256": "dab2d7ca4a5f845e1e3d274e80d91a57a1a8de93bff4a8e8c793d0aba10bc4a4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-30",
+        "image_sha256": "0e9797726d57d4e8231e17ae5ab90086d9e0f57e6118c42a02e07a87b6c4c66a",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-8335aa90cb71-41",
+        "image_sha256": "dc74142e242e2f05140c24fc204ebb859d2769a76584aead40765d214942c615",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-244",
+        "image_sha256": "9309db76e0c29e1e59e1546c3262d67ea1a240bfd6014d7e83ecda03ea56d1f1",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-56e110cdf164-190",
+        "image_sha256": "22800e194cae6968df710a26fb7bd7bb372a2114e4d6e7b86c893a78217f4d1a",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-53",
+        "image_sha256": "3076a9dfdeccd128f4625d5e504261896ff3e3fce7383376fb0717e0e20df855",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-106",
+        "image_sha256": "0a39adb903075fb63a928e7f237f3d27a1305d9000f2b18c0b84cf3c62fe8ba6",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-312",
+        "image_sha256": "705bfe7a4977859b4a304ef32ed0795a17b72893656a03e034c52b4b2f4c1887",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-14",
+        "image_sha256": "2286b96bccae1948d99e350e6e31d9aae95804b68c43cffaf8f49fc58634d1b4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-313",
+        "image_sha256": "6ecc88803a0bb37daef0408274dcaecd12afeec775291d85b08f40c54a8d8472",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-172",
+        "image_sha256": "8f4d04a62b65d9814d7cb77350367c816e565e4c02e83c6f7519cae3e28aeab4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-160",
+        "image_sha256": "f2e4b8a243e9b47d1cdc3f9cfe3be6fb2d30eca0e38cac936c09136279824078",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-224",
+        "image_sha256": "8987be22568ef5b74f026a768a9e8b4b8d352a4861be6c121b62b4e70b59f4e6",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-56e110cdf164-82",
+        "image_sha256": "b18fc9208b86ecdd84b0bbc69ed067ea99c714d371a1944751526fd75c1b0bb4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-270",
+        "image_sha256": "1a7674717ffb7393ee0fe85f080a43008f86db955c4a1ac0ea42ce87269486dc",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-56e110cdf164-40",
+        "image_sha256": "8dee30250c6ba71c3c6bf162dd7406ba625acaea6f9dc42ca17e9f32f24f380a",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-217",
+        "image_sha256": "0d24944946e4a2891304098acdd3e862d559dad67b520b3ee5b4d08a1fc29953",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-56e110cdf164-91",
+        "image_sha256": "59889cf0c6e35701581ca6d096ad422de69a5958913ce8dc833000ab013cce98",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-315",
+        "image_sha256": "12913f4bd09d91f6030b8c3ead81a2ab6b1779ca2430c0bd7a48f6f102264655",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-10",
+        "image_sha256": "f82ad80729916aa388deee1ee94771b3fb5fe89743cfcdee4ad174f6df060fd5",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-153",
+        "image_sha256": "c573551151fa15938844bcd1696afca50778bdb9a747f23d82eaf3997cc0b904",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-267",
+        "image_sha256": "30feefbb8b6519db80e861092c2b1a57cb79c7841a4c5edf53329cb1e9dd4a09",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-4",
+        "image_sha256": "a03a747076715f22cd07a9c2cad2b01905153e026a31a5e1ef85f524d6e5cef5",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-56e110cdf164-280",
+        "image_sha256": "50d0ab3dcd28f3fe109f95de2ab9da1cdccd913ebe6122c38b3ca3b8543a5736",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-7",
+        "image_sha256": "aefe65a979262e6f6eded62f7cf68f42103632e6368f7685bfb1b5376d388477",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-45",
+        "image_sha256": "cb75e49850f23b6822c84ac75afcd6dd84d668195aa280befbeeeb0fd047829c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-244",
+        "image_sha256": "fd0063c25d3f24b3bb1b17a5c392f52828254a7a46826d56f58a8051ebd7fc35",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-145",
+        "image_sha256": "4678b4b9430df5ec0e43ff4074701510f0cb35fe16b15e8080c3bcd13da22d95",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-291",
+        "image_sha256": "cbfdb88f588d813f990ef0b373c0a7b95f9219d096a62c8fbaa474d3cb730187",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-188",
+        "image_sha256": "8e9be0ffefb7d005b8f516d49e897864e8581f018f52e0b61f52684f34011205",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-58",
+        "image_sha256": "4d7d44175b8c8b02b806a0c8ec30d14a0ea86d2042edd4fc317349b7c98f1e8c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-114",
+        "image_sha256": "82a89e07d7c934751302d619fe900810e8adbff18260e15609d49225a24a0c33",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-131",
+        "image_sha256": "3ef93e40f3ba46445798da97c6c09c91e6dfd7cb256b73b61f852e81cde54aad",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-161",
+        "image_sha256": "2df6ad02c64cebec5e1de970a864daa05fd6aa578e68e30b1c7a1f0139caad60",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-190",
+        "image_sha256": "93d53e5f85e22dca5ee7777a79c53aa11abc34c623911ee856386c36eead3c5b",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-174",
+        "image_sha256": "e551a683e033d79e2138c9c4e58b5c46d823fa4293f9566b1bd7428cd2f4275d",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-150",
+        "image_sha256": "a4b29f33148f871bd7791e0ded3a5bab65ac7d8dbdf2d9b572ae2c9e3c076f2d",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-152",
+        "image_sha256": "40ee9de0d66502f762f6e3d0cb37f3c598051d90b67cf87b150c47221cc587f9",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-2c1718305d17-252",
+        "image_sha256": "fb2cd044351b57fe3da6649cb8b86608ba94d4d6e1e036b71ef2c2eb6e62e0c0",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-44",
+        "image_sha256": "f1177b1764cba714ffec62896096c1c32fe7e68b338c6c771d4da60288190f4e",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-96",
+        "image_sha256": "d490adfd367d89c01650b4953126cf70e8fecb3cb919a4e0433f4c3396dd11d9",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-60",
+        "image_sha256": "65eaf1e611b471946b18e36ceca75a645ea676eb8c0f8f357b7b6fa944317d26",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-157",
+        "image_sha256": "fdfbe332f3533bbc7786a6fa4174146c7fb0543550471478d530b88ddce708d2",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-293",
+        "image_sha256": "551fc0f2757eee3862c6faa3386aaa341f770e574781ff0ac5a7bb198035856c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-2c1718305d17-167",
+        "image_sha256": "b9eeb5289d45d7c6fdbd0fe75e48b49f1799c32646de46f189c19721ce8d4357",
+        "large_menu_open": false
+      }
+    ],
+    "validation": [
+      {
+        "id": "d2e-1cfb8c6e1efa-174",
+        "image_sha256": "265de6a22726da605bfd19e9c4c7ca3bfc0077ace6e7698c4fb799f240330601",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-304",
+        "image_sha256": "45a607760aa6203cca6920d1e96e9177f43a05daad9367f6cf173d118f585c5e",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-131",
+        "image_sha256": "21c5d01ae6c1ad8176603a692b0a20ec839785aaa59366a51f5f10704508553f",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-124",
+        "image_sha256": "58bd35def0ce7881f7d7a26381449b17182607524136b74eececd22973b59403",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-156",
+        "image_sha256": "e532bea2e760f58eae3a8cc1007d124fedadc5f7e4864f256032915d5255bdff",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-211",
+        "image_sha256": "9be30b23e515b32ed18bfb10b21e199b0e3857ca8c53bb5c8220a1e110bb780a",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-110",
+        "image_sha256": "b10357c4afabe732f83d5f89948095c144b97bc645c5b46a466de8a321071d7e",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-224",
+        "image_sha256": "761470069cbace4f9019e5c494011cd1e0feb5d6e0f5ef5a5a739a7b9908b173",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-126",
+        "image_sha256": "058c0c396a3c6843c48067bd6ac58676d2d5c56d9e260249ac75c4b0534e85a3",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-167",
+        "image_sha256": "f664d21a79cbd4a74fb960f4d72e816de247591dd27c43a31aa6440c6084857d",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-117",
+        "image_sha256": "c05b077c1cec7b6030dd530f3b5a02b4978f15fd1982bbf5b5ec48932b517db9",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-25",
+        "image_sha256": "440c4402545626bf38496a6c930265f53c4e69e222da48dbb4f98ed733f73b84",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-310",
+        "image_sha256": "2872b6df69ea3caf7112fb7010d43680ff6e2f764d4d589e78bcc28c5ed33c54",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-239",
+        "image_sha256": "de99e94edfbf876b767f8c199fd82328068c011388e3e04877687a3724ee8943",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-176",
+        "image_sha256": "0d722fe851962816831076b91bfda6e4d13b148476fda2732614ddf5c9113d84",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-85",
+        "image_sha256": "dfdbf8d08ed8b97b9a9b0755f09df0cbd05a4c68f91e4f8a9d7b2954e44cc139",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-308",
+        "image_sha256": "e4ba5fccf48dfb4d271f9f2fe7e2612566e1160807da70cbfc4496c8f705aa37",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-128",
+        "image_sha256": "83bd01e56f3404c874d1c39fc4091eefdbb66410a9ffec5ccbedc472c4b89b03",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-268",
+        "image_sha256": "c5536036c619ce512151e6e355c1c7937780f792abd575dafdd96f6ec12a2313",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-0",
+        "image_sha256": "3d3e7f3e173bad4e2d9295aca11e42a54ae8269742552ea70630b1996bf12918",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-114",
+        "image_sha256": "41854e942391e029ee9d5e158d2e9aa4858447a1a828538f9faf73e36792b292",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-1cfb8c6e1efa-106",
+        "image_sha256": "ae80889dc1de4a140a212854a536bf2038779ad5618e5def0294c589272f75d4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-298",
+        "image_sha256": "b38681fb9686cd6554c68a4d9ea34839fb425828c095efc630db3d3df74eafd1",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-122",
+        "image_sha256": "40c4ffbcf9c9ce4587e525ad7373984c687749a46116ad7c247965f6cae1cc78",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-182",
+        "image_sha256": "f6193f5b6321b76c8f3a2a44794dbdfca9eb5bd4b3c024d40e89fd07cc264521",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-125",
+        "image_sha256": "03a5b4431ddc9334438fdb7d71ff43d8b85b351d190d822c0410a25f9b44c058",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-44",
+        "image_sha256": "d14bb23522518db974110f2ba4e9d994636d8b6e9ef40b0f553e3ec53b98667e",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-45",
+        "image_sha256": "220532439d02b09f96b5393e3fd83486588bf36c412234b5a064671d0a4c7869",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-167",
+        "image_sha256": "34343c7e51613232bf35020eb2405a709dab9731b7dbcf45f7b8ba3e799a504c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-105",
+        "image_sha256": "5641d372afc2e158ff83401ed248835e43b3a0e11953f4d5f83a86d4c187e334",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-232",
+        "image_sha256": "b13ed239541d63fa01b0af33f36208561b225b3707b24bcc2ae0be644b8d3de5",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-43a1e0645329-48",
+        "image_sha256": "bc0339e0a65ce71c268da8bc997c38d9cb39bee8f3af718459dff77ba5725a58",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-260",
+        "image_sha256": "567d6fd6f195c270bcad1fdfef11abab198c07aed401a1d6f662283814ed53b2",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-43a1e0645329-86",
+        "image_sha256": "aa662b413920e1a4cd363c33b92028c00ecfaf13838ffa7d874bb546a8463ca4",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-47",
+        "image_sha256": "08ed6b985681d95ecd5d4b5557600c7e7bee78358a528c0897fc3cdd944545a1",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-59",
+        "image_sha256": "e58dd9bb051c01c17285af8a71e46d8a9d26eddb0adf3cd58bf0147ffe92db50",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-313",
+        "image_sha256": "1a523585a483985f4b8e8566e657b90bbc663997cfa34f0da10eb1d4c0e848f3",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-174",
+        "image_sha256": "97ddbbfa1a5425d3cc59a9108d9f02f29124f893e7436f83fc4a3109ede6e607",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-166",
+        "image_sha256": "4da92b0ba2018249c92751fa9311d8c73c59aacaf1513fc8afd485d32ada0d7e",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-154",
+        "image_sha256": "f6bad6bc50aa039c0c6c245b1ad378a7b395947658b718a613234eed3dd7a2cd",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-75",
+        "image_sha256": "89e1adc5ab171bef3b5347cb468b014efaad497479f504b14ad9445381516064",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-119",
+        "image_sha256": "09d912133a5f6c0d8264adeef807782da0221850e64200c655c83a6c029e665c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43a1e0645329-20",
+        "image_sha256": "4fade5863cb39bdd5d96d84b6fe2b0937cafb931785ba86986eb8d23787f7a1f",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-298",
+        "image_sha256": "4740ac2b78fe296576e362e5ad8d4c01f08ac1d61e702aed52ba0147716ef415",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-119",
+        "image_sha256": "9cddff2caa3cd34f69683673631da7952ac1abfbf2e41401ba07379a6f2fcce2",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-171",
+        "image_sha256": "af70056bbaebdca9fb36da4e94dea7100f0d7f238b17f5c6e745a56f0e396f38",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-177",
+        "image_sha256": "618dff939c9350a431a86f10a0e3050b41d251f7c88e666292c1bcf9ef62c107",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-56",
+        "image_sha256": "040ccc74346b4cf99ff206e89a8347911b1ae60d510e38c90add2eee83b018fd",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-43b142e976c7-161",
+        "image_sha256": "c515a3622f1ce9694e38cdabc1a124cda70f264a21b9b992fd72eaf75cfadb07",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-64",
+        "image_sha256": "8fd1baf5f441a0c9fa9ac2553d4bdabeec115e6d0afc46174d3a6a10014cf95d",
+        "large_menu_open": true
+      },
+      {
+        "id": "d2e-43b142e976c7-277",
+        "image_sha256": "275574d3b18926ab4caf40ced1b42a5ea2bc875e7588a4614b0084134852e659",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-110",
+        "image_sha256": "bc3d0a51fc918a9ac089c8defd8a7c092dd2f659e00fbb63f1d4aee6b07a5894",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-199",
+        "image_sha256": "c3300b415cf53556cd5aa21d73133a9666161fe7daaf9fa60efef2a3eea12935",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-109",
+        "image_sha256": "2b27119c425eb1651e18f8ba158c33af7a6c0fea5beda66ba0e2bbc00333c6ff",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-157",
+        "image_sha256": "ac16b7e8b0fad6ee9d966da0dcd33641de43e1a20d056ed7987f1da97c724e86",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-187",
+        "image_sha256": "a660b59e43e4c5eb8f80f746298326ef962c48cb2de4ff9553bf30cb513b0d6c",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-251",
+        "image_sha256": "1f449f6b59de0deff0d0ce4ccaa44b78f61ad7835954382786d72b926437dff1",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-126",
+        "image_sha256": "4fefc47178cf5358d163e5e8ed699f1788f34d28f1ac5935f875637b99b2ec23",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-19",
+        "image_sha256": "a8e0d65729cf87aa998aad350dafc0639403b8c247c221cb9ea7de772e1211a2",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-10",
+        "image_sha256": "59a89a01254a3f9833f85d1ffff22f0bed12fefa505e0e91f0c2ce732ea99749",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-129",
+        "image_sha256": "7cc9a131d8e7282e87a68f2b5a8b5e8cead0517f5f2c8117caf6b8edc0eaae30",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-72",
+        "image_sha256": "e9aa3630df297eee3c0e8ae69de5fbb361f34e465866744b310d7ce4da92ac61",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-181",
+        "image_sha256": "52fd4a074944fce5a3946648ae0f28c79e2a0a3cdd8c67eaa06acadccec77324",
+        "large_menu_open": false
+      },
+      {
+        "id": "d2e-43b142e976c7-65",
+        "image_sha256": "cc1fb8585d4ee8d8a6d4c6edbd42b420843ed6aae461750eb704243d8d3af9af",
+        "large_menu_open": false
+      }
+    ]
+  }
+}
