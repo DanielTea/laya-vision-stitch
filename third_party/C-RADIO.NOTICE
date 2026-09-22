@@ -1,0 +1,16 @@
+C-RADIOv3-B pretrained weights and reference validation
+
+Source: https://huggingface.co/nvidia/C-RADIOv3-B
+Pinned revision: 44653a0482cf460bb4f12595fc3cc3dfecc403d1
+Architecture/reference: https://github.com/NVlabs/RADIO
+
+Weights are downloaded separately and are NOT covered by this project's MIT
+license. NVIDIA identifies their license as the NVIDIA Open Model License:
+https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf
+
+laya_vision_stitch/radio_vision.py is an original MLX implementation of the public
+backbone architecture and checkpoint weight mapping. It does not include copied
+upstream Python code or pretrained weights. scripts/profile_radio.py loads the
+separately downloaded pinned reference implementation for numerical validation.
+Exported local stitched checkpoints include the backbone weights and therefore
+retain their upstream model-license conditions.

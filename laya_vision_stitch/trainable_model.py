@@ -39,6 +39,7 @@ class PolicyConfig:
     numeric_action_history: bool = False
     temporal_adapter: str = "none"
     temporal_width: int = 128
+    visual_fusion_layers: int = 0
     mouse_bins: tuple = (
         -1.0,
         -0.5,
@@ -82,6 +83,8 @@ class PolicyConfig:
             raise ValueError("Unknown temporal adapter")
         if self.temporal_width < 32 or self.temporal_width % 32:
             raise ValueError("Temporal width must be a multiple of 32")
+        if not isinstance(self.visual_fusion_layers, int) or self.visual_fusion_layers < 0:
+            raise ValueError("Invalid visual fusion layer count")
         if self.temporal_adapter != "none" and self.visual_action_adapter:
             raise ValueError("Choose one action adapter")
         if self.numeric_action_history and not self.visual_action_adapter:
@@ -303,6 +306,32 @@ class ActionHeads(nn.Module):
         return result
 
 
+class GatedVisualFusion(nn.Module):
+    """Learned dense visual cross-attention inside the pretrained Laya stack.
+
+    A zero-initialized gate preserves the original layer exactly. All visual
+    selection is learned; inputs contain no game-state estimates or action rules.
+    """
+
+    def __init__(self, visual_width, language_width, width=128):
+        super().__init__()
+        self.language_norm = nn.LayerNorm(language_width)
+        self.visual_norm = nn.LayerNorm(visual_width)
+        self.query = nn.Linear(language_width, width)
+        self.visual = nn.Linear(visual_width + 4, width)
+        self.attention = nn.MultiHeadAttention(width, 4)
+        self.output = nn.Linear(width, language_width)
+        self.gate = mx.array(0.0)
+
+    def __call__(self, hidden, patches, coordinates):
+        queries = self.query(self.language_norm(hidden.astype(mx.float32)))
+        visual = self.visual(
+            mx.concatenate([self.visual_norm(patches.astype(mx.float32)), coordinates], -1)
+        )[None]
+        delta = self.output(self.attention(queries, visual, visual))
+        return hidden + (mx.tanh(self.gate) * delta).astype(hidden.dtype)
+
+
 class TrainableStitch(nn.Module):
     def __init__(self, vision, laya, config):
         super().__init__()
@@ -316,6 +345,8 @@ class TrainableStitch(nn.Module):
             "temporal": TemporalConnector,
         }[config.connector_type]
         self.connector = connector_class(vision.config.out_hidden_size, width, config)
+        if config.visual_fusion_layers > len(laya.encoder.layers):
+            raise ValueError("Visual fusion depth exceeds Laya depth")
         self.actions = ActionHeads(width, config)
         if config.visual_action_adapter:
             from .visual_action_adapter import VisualActionAdapter
@@ -329,6 +360,11 @@ class TrainableStitch(nn.Module):
             for layer in self.laya.encoder.layers[-config.lora_layers :]:
                 layer.attn.Wqkv = LoRALinear(layer.attn.Wqkv, config.lora_rank)
                 layer.attn.Wo = LoRALinear(layer.attn.Wo, config.lora_rank)
+        if config.visual_fusion_layers:
+            self.connector.fusion = [
+                GatedVisualFusion(vision.config.out_hidden_size, width)
+                for _ in range(config.visual_fusion_layers)
+            ]
         if config.temporal_adapter != "none":
             from .temporal_adapter import TemporalActionAdapter
 
@@ -340,7 +376,12 @@ class TrainableStitch(nn.Module):
         self.eval()
 
     def encode_frame(self, pixels, grid, age, frame_index):
-        visual, _ = self.vision(pixels.astype(self.vision.patch_embed.proj.weight.dtype), grid)
+        dtype = (
+            self.vision.input_dtype
+            if hasattr(self.vision, "input_dtype")
+            else self.vision.patch_embed.proj.weight.dtype
+        )
+        visual, _ = self.vision(pixels.astype(dtype), grid)
         t, h, w = map(int, np.asarray(grid)[0])
         m = self.vision.spatial_merge_size
         if t != 1:
@@ -364,7 +405,7 @@ class TrainableStitch(nn.Module):
             raise ValueError(
                 "Temporal checkpoints require TemporalRuntime and explicit session state"
             )
-        h, choices = self.encode_state(state, batch, start)
+        h, choices = self.encode_state(state, batch, start, patches, coordinates)
         actions = self.actions(h[:, 0], h)
         if self.policy_config.visual_action_adapter:
             if patches is None or coordinates is None:
@@ -382,9 +423,9 @@ class TrainableStitch(nn.Module):
         """Frozen-context caching for decoder-only experiments, without labels."""
         goal = self.laya.encoder.embeddings.tok_embeddings(goal_ids)
         state = self.connector(patches, coordinates, goal)
-        return self.encode_state(state, batch, start)
+        return self.encode_state(state, batch, start, patches, coordinates)
 
-    def encode_state(self, state, batch, start):
+    def encode_state(self, state, batch, start, patches=None, coordinates=None):
         from laya_mlx.model import attention_masks
 
         encoder = self.laya.encoder
@@ -396,7 +437,12 @@ class TrainableStitch(nn.Module):
         )
         h = encoder.embeddings.norm(h)
         masks = attention_masks(batch["attention_mask"], encoder.config.local_attention)
-        for layer in encoder.layers:
+        fusion_start = len(encoder.layers) - self.policy_config.visual_fusion_layers
+        if self.policy_config.visual_fusion_layers and (patches is None or coordinates is None):
+            raise ValueError("Deep visual fusion requires actual visual features")
+        for index, layer in enumerate(encoder.layers):
+            if index >= fusion_start:
+                h = self.connector.fusion[index - fusion_start](h, patches, coordinates)
             h = layer(h, masks[layer.attention_type])
         h = encoder.final_norm(h) + self.laya.type_emb(batch["qtype"])[:, None, :]
         encoder_context = h
@@ -454,7 +500,7 @@ def decode_action_chunk(output, config):
 
 def apply_supervision_scope(result, metadata):
     """Do not expose unsupervised chunk/pointer heads as usable pilot actions."""
-    if not metadata.get("visual_adapter_experiment"):
+    if not (metadata.get("visual_adapter_experiment") or metadata.get("first_step_control_only")):
         return result
     result = dict(result)
     result.pop("pointer_xy_normalized", None)
@@ -535,15 +581,28 @@ class TrainableRuntime:
         self.metadata["policy_config"] = asdict(config)
 
     @classmethod
-    def build(cls, config=None):
+    def build(cls, config=None, *, radio_source=None):
         config = config or PolicyConfig()
         agent = load_laya("english")
-        qwen = QwenVision(config.image_width)
-        module = TrainableStitch(qwen.model.vision_tower, agent.model, config)
+        if radio_source is not None:
+            from .radio_vision import RADIO_ID, RADIO_REVISION, RadioProcessor, RadioVision
+
+            vision = RadioVision.from_source(radio_source, dtype=mx.float16)
+            processor = RadioProcessor()
+            source_metadata = {
+                "vision_type": "radio_v3",
+                "vision_model": RADIO_ID,
+                "vision_revision": RADIO_REVISION,
+                "vision_precision": "float16",
+            }
+        else:
+            qwen = QwenVision(config.image_width)
+            vision, processor = qwen.model.vision_tower, qwen.processor.image_processor
+            source_metadata = {"qwen_model": QWEN_ID, "qwen_revision": QWEN_REVISION}
+        module = TrainableStitch(vision, agent.model, config)
         metadata = {
             "format": "trainable-stitch-1",
-            "qwen_model": QWEN_ID,
-            "qwen_revision": QWEN_REVISION,
+            **source_metadata,
             "laya_model": LAYA_MODELS["english"][0],
             "laya_revision": LAYA_MODELS["english"][1],
             "vision_config": asdict(module.vision.config),
@@ -557,7 +616,7 @@ class TrainableRuntime:
             "cross_game_capability_established": False,
         }
         mx.eval(module.parameters())
-        return cls(module, agent, qwen.processor.image_processor, metadata)
+        return cls(module, agent, processor, metadata)
 
     def prepare(self, row):
         from laya_mlx.agent import collate_items
@@ -696,8 +755,25 @@ class TrainableRuntime:
         laya = DecisionModel(
             EncoderConfig.from_dict(metadata["encoder_config"]), metadata["agent_config"]
         )
+        if metadata.get("vision_type", "qwen3_5") == "radio_v3":
+            from .radio_vision import RadioConfig, RadioProcessor, RadioVision
+
+            vision = RadioVision(RadioConfig(**metadata["vision_config"]))
+            processor = RadioProcessor()
+            saved = json.loads(
+                (directory / "image_processor" / "preprocessor_config.json").read_text()
+            )
+            if saved != processor.to_dict():
+                raise ValueError("Unsupported RADIO preprocessing")
+        elif metadata.get("vision_type", "qwen3_5") == "qwen3_5":
+            vision = VisionModel(VisionConfig.from_dict(metadata["vision_config"]))
+            processor = Qwen3VLImageProcessor.from_pretrained(
+                directory / "image_processor", local_files_only=True
+            )
+        else:
+            raise ValueError("Unknown vision architecture")
         module = TrainableStitch(
-            VisionModel(VisionConfig.from_dict(metadata["vision_config"])),
+            vision,
             laya,
             PolicyConfig(**metadata["policy_config"]),
         )
@@ -713,8 +789,5 @@ class TrainableRuntime:
             Tokenizer(directory / "tokenizer"),
             directory,
             None,
-        )
-        processor = Qwen3VLImageProcessor.from_pretrained(
-            directory / "image_processor", local_files_only=True
         )
         return cls(module, agent, processor, metadata)

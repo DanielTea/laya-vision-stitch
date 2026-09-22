@@ -20,7 +20,8 @@ combat was not demonstrated. The initial selected target was the player itself.
 | Mouse proposals exceeding the 64 px/axis limit | 16 |
 
 The memory resets include the initial frame and 110 gaps exceeding the runtime's
-100 ms reset threshold. Median speed meets the target, but this temporal
+100 ms reset threshold. Model-only median inference is below 60 ms, but full
+screenshot-to-input reaction exceeds the requested 60 ms budget. This temporal
 discontinuity is an additional live limitation. It does not establish the cause
 of absent ability use. Of 305 nonzero raw mouse proposals, 113 resulted in nonzero
 bounded cursor motion; central-playfield limits restricted the others.

@@ -1,0 +1,1171 @@
+{
+  "status": "Not a working Hordes agent. No sub-60 ms live reaction demonstrated.",
+  "machine": "Apple M3 Max, 48 GiB",
+  "encoder_parity": [
+    {
+      "dtype": "mlx.core.float32",
+      "width": 224,
+      "parity": [
+        {
+          "max_abs_error": 0.0006542205810546875,
+          "mean_abs_error": 3.516555079841055e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        },
+        {
+          "max_abs_error": 0.0005457401275634766,
+          "mean_abs_error": 3.1935644074110314e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999999403953552
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 10.425062500871718,
+      "fresh_image_to_features_p95_ms": 11.064947536215186
+    },
+    {
+      "dtype": "mlx.core.float32",
+      "width": 320,
+      "parity": [
+        {
+          "max_abs_error": 0.0020952224731445312,
+          "mean_abs_error": 3.362149800523184e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        },
+        {
+          "max_abs_error": 0.0006875991821289062,
+          "mean_abs_error": 3.0172303013387136e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 12.705312517937273,
+      "fresh_image_to_features_p95_ms": 13.481391035020351
+    },
+    {
+      "dtype": "mlx.core.float32",
+      "width": 384,
+      "parity": [
+        {
+          "max_abs_error": 0.0009102821350097656,
+          "mean_abs_error": 3.2940166420303285e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        },
+        {
+          "max_abs_error": 0.0017004013061523438,
+          "mean_abs_error": 3.1932853744365275e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 16.379062552005053,
+      "fresh_image_to_features_p95_ms": 17.236573179252446
+    },
+    {
+      "dtype": "mlx.core.float32",
+      "width": 448,
+      "parity": [
+        {
+          "max_abs_error": 0.0014619827270507812,
+          "mean_abs_error": 2.948347719211597e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        },
+        {
+          "max_abs_error": 0.001476287841796875,
+          "mean_abs_error": 3.075985296163708e-05,
+          "mean_cosine": 1.0,
+          "min_cosine": 0.9999998211860657
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 19.570250005926937,
+      "fresh_image_to_features_p95_ms": 20.407325343694538
+    },
+    {
+      "dtype": "mlx.core.float16",
+      "width": 224,
+      "parity": [
+        {
+          "max_abs_error": 0.11905860900878906,
+          "mean_abs_error": 0.006070791743695736,
+          "mean_cosine": 0.9999914169311523,
+          "min_cosine": 0.999971330165863
+        },
+        {
+          "max_abs_error": 0.11670780181884766,
+          "mean_abs_error": 0.005552309099584818,
+          "mean_cosine": 0.9999926686286926,
+          "min_cosine": 0.9999533295631409
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 9.726729476824403,
+      "fresh_image_to_features_p95_ms": 10.654941981192675
+    },
+    {
+      "dtype": "mlx.core.float16",
+      "width": 320,
+      "parity": [
+        {
+          "max_abs_error": 0.10475444793701172,
+          "mean_abs_error": 0.004782124422490597,
+          "mean_cosine": 0.9999939203262329,
+          "min_cosine": 0.9999627470970154
+        },
+        {
+          "max_abs_error": 0.09000277519226074,
+          "mean_abs_error": 0.004370938520878553,
+          "mean_cosine": 0.9999951720237732,
+          "min_cosine": 0.999982476234436
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 12.023542018141598,
+      "fresh_image_to_features_p95_ms": 12.487732974113895
+    },
+    {
+      "dtype": "mlx.core.float16",
+      "width": 384,
+      "parity": [
+        {
+          "max_abs_error": 0.09599018096923828,
+          "mean_abs_error": 0.005459264852106571,
+          "mean_cosine": 0.9999920129776001,
+          "min_cosine": 0.9999340176582336
+        },
+        {
+          "max_abs_error": 0.07279777526855469,
+          "mean_abs_error": 0.004614110570400953,
+          "mean_cosine": 0.9999946355819702,
+          "min_cosine": 0.9999711513519287
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 14.853875036351383,
+      "fresh_image_to_features_p95_ms": 15.627288940595463
+    },
+    {
+      "dtype": "mlx.core.float16",
+      "width": 448,
+      "parity": [
+        {
+          "max_abs_error": 0.08391189575195312,
+          "mean_abs_error": 0.004446026869118214,
+          "mean_cosine": 0.9999951124191284,
+          "min_cosine": 0.9999745488166809
+        },
+        {
+          "max_abs_error": 0.10582971572875977,
+          "mean_abs_error": 0.0043731676414608955,
+          "mean_cosine": 0.9999954104423523,
+          "min_cosine": 0.9999725222587585
+        }
+      ],
+      "fresh_image_to_features_p50_ms": 17.87314552348107,
+      "fresh_image_to_features_p95_ms": 18.564487126423046
+    }
+  ],
+  "fresh_prediction_latency": {
+    "bundle": "artifacts/hordes-radio-smallfit-001/bundle",
+    "manifest": "artifacts/hordes-radio-data-001/validation.jsonl",
+    "samples": 80,
+    "fresh_prediction_p50_ms": 30.969458515755832,
+    "fresh_prediction_p95_ms": 46.82796075358054,
+    "internal_model_p50_ms": 29.82439601328224,
+    "input_events_sent": 0,
+    "scope": "Offline in-memory screenshots; includes preprocessing, fresh vision, prompt tokenization, Laya, actions and Python decoding. Excludes capture, disk image loading, input dispatch and active-game contention. Not screenshot-to-keypress latency."
+  },
+  "attack_label_audit": {
+    "train": {
+      "attack_labels": 71,
+      "complete_followup_windows": 64,
+      "same_named_target_health_drop": 25,
+      "out_of_range_observed": 3,
+      "horizon_seconds": 1.5,
+      "scope": "Observations only. Other players or same-named targets can explain damage; delayed outcomes may be missed. Not successful-attack labels or a runtime policy."
+    },
+    "validation": {
+      "attack_labels": 31,
+      "complete_followup_windows": 29,
+      "same_named_target_health_drop": 3,
+      "out_of_range_observed": 1,
+      "horizon_seconds": 1.5,
+      "scope": "Observations only. Other players or same-named targets can explain damage; delayed outcomes may be missed. Not successful-attack labels or a runtime policy."
+    },
+    "test": {
+      "attack_labels": 29,
+      "complete_followup_windows": 28,
+      "same_named_target_health_drop": 15,
+      "out_of_range_observed": 3,
+      "horizon_seconds": 1.5,
+      "scope": "Observations only. Other players or same-named targets can explain damage; delayed outcomes may be missed. Not successful-attack labels or a runtime policy."
+    }
+  },
+  "experiments": {
+    "hordes-radio-001": {
+      "parameters": {
+        "total": 522043754,
+        "trainable": 2488917,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya"
+        ]
+      },
+      "selected_step": 500,
+      "parent_unchanged": true,
+      "reload_matches": true,
+      "hordes": {
+        "validation": {
+          "actual": {
+            "examples": 237,
+            "button_exact_match": 0.45147679324894513,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.16666666666666666,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          },
+          "shuffled_images": {
+            "examples": 237,
+            "button_exact_match": 0.45147679324894513,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.16666666666666666,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 178,
+            "button_exact_match": 0.5842696629213483,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.2,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          },
+          "shuffled_images": {
+            "examples": 178,
+            "button_exact_match": 0.5842696629213483,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.2,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          }
+        }
+      }
+    },
+    "hordes-radio-balanced-001": {
+      "parameters": {
+        "total": 522043754,
+        "trainable": 2488917,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya"
+        ]
+      },
+      "selected_step": 1500,
+      "parent_unchanged": true,
+      "reload_matches": true,
+      "hordes": {
+        "validation": {
+          "actual": {
+            "examples": 237,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.07372175980975029,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.1308016877637131,
+                "recall": 1.0,
+                "targets": 31,
+                "predictions": 237
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          },
+          "shuffled_images": {
+            "examples": 237,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.07372175980975029,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.1308016877637131,
+                "recall": 1.0,
+                "targets": 31,
+                "predictions": 237
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 178,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.09539473684210527,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.16292134831460675,
+                "recall": 1.0,
+                "targets": 29,
+                "predictions": 178
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          },
+          "shuffled_images": {
+            "examples": 178,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.09539473684210527,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.16292134831460675,
+                "recall": 1.0,
+                "targets": 29,
+                "predictions": 178
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          }
+        }
+      }
+    },
+    "hordes-radio-fusion-001": {
+      "parameters": {
+        "total": 523337837,
+        "trainable": 3783000,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya"
+        ]
+      },
+      "selected_step": 1500,
+      "parent_unchanged": true,
+      "reload_matches": true,
+      "hordes": {
+        "validation": {
+          "actual": {
+            "examples": 237,
+            "button_exact_match": 0.02531645569620253,
+            "button_micro_f1": 0.09365558912386707,
+            "action_set_balanced_exact": 0.03225806451612903,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.1308016877637131,
+                "recall": 1.0,
+                "targets": 31,
+                "predictions": 237
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          },
+          "shuffled_images": {
+            "examples": 237,
+            "button_exact_match": 0.02531645569620253,
+            "button_micro_f1": 0.09365558912386707,
+            "action_set_balanced_exact": 0.03225806451612903,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.1308016877637131,
+                "recall": 1.0,
+                "targets": 31,
+                "predictions": 237
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 178,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.10545454545454545,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.16292134831460675,
+                "recall": 1.0,
+                "targets": 29,
+                "predictions": 178
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 9
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          },
+          "shuffled_images": {
+            "examples": 178,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.11272727272727273,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.16292134831460675,
+                "recall": 1.0,
+                "targets": 29,
+                "predictions": 178
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.2222222222222222,
+                "recall": 0.08695652173913043,
+                "targets": 23,
+                "predictions": 9
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          }
+        }
+      }
+    },
+    "hordes-radio-smallfit-001": {
+      "parameters": {
+        "total": 524569791,
+        "trainable": 5014954,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya",
+          "visual_actions"
+        ]
+      },
+      "selected_step": 500,
+      "parent_unchanged": true,
+      "reload_matches": true,
+      "hordes": {
+        "validation": {
+          "actual": {
+            "examples": 237,
+            "button_exact_match": 0.10126582278481013,
+            "button_micro_f1": 0.03519061583577713,
+            "action_set_balanced_exact": 0.07108025989175698,
+            "empty_prediction_rate": 0.20675105485232068,
+            "buttons": {
+              "tab": {
+                "precision": 0.024096385542168676,
+                "recall": 0.3333333333333333,
+                "targets": 6,
+                "predictions": 83
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 5
+              },
+              "w": {
+                "precision": 0.058823529411764705,
+                "recall": 0.02564102564102564,
+                "targets": 39,
+                "predictions": 17
+              },
+              "mouse_right": {
+                "precision": 0.2727272727272727,
+                "recall": 0.05660377358490566,
+                "targets": 53,
+                "predictions": 11
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          },
+          "shuffled_images": {
+            "examples": 237,
+            "button_exact_match": 0.11814345991561181,
+            "button_micro_f1": 0.04105571847507331,
+            "action_set_balanced_exact": 0.07843963967222652,
+            "empty_prediction_rate": 0.20675105485232068,
+            "buttons": {
+              "tab": {
+                "precision": 0.012048192771084338,
+                "recall": 0.16666666666666666,
+                "targets": 6,
+                "predictions": 83
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 5
+              },
+              "w": {
+                "precision": 0.17647058823529413,
+                "recall": 0.07692307692307693,
+                "targets": 39,
+                "predictions": 17
+              },
+              "mouse_right": {
+                "precision": 0.2727272727272727,
+                "recall": 0.05660377358490566,
+                "targets": 53,
+                "predictions": 11
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 178,
+            "button_exact_match": 0.1404494382022472,
+            "button_micro_f1": 0.028985507246376812,
+            "action_set_balanced_exact": 0.06162207357859532,
+            "empty_prediction_rate": 0.2752808988764045,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 53
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 2
+              },
+              "mouse_right": {
+                "precision": 0.42857142857142855,
+                "recall": 0.13043478260869565,
+                "targets": 23,
+                "predictions": 7
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          },
+          "shuffled_images": {
+            "examples": 178,
+            "button_exact_match": 0.19662921348314608,
+            "button_micro_f1": 0.00966183574879227,
+            "action_set_balanced_exact": 0.07591093117408906,
+            "empty_prediction_rate": 0.2752808988764045,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 53
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.5,
+                "recall": 0.05263157894736842,
+                "targets": 19,
+                "predictions": 2
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 7
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          }
+        }
+      },
+      "small_fit": {
+        "actual": {
+          "all": {
+            "examples": 32,
+            "button_exact_match": 1.0,
+            "button_micro_f1": 1.0,
+            "action_set_balanced_exact": 1.0,
+            "empty_prediction_rate": 0.125,
+            "buttons": {
+              "tab": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "1": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "w": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "mouse_right": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              }
+            },
+            "mouse_mae_px": 0.1875
+          },
+          "Hordes.io": {
+            "examples": 32,
+            "button_exact_match": 1.0,
+            "button_micro_f1": 1.0,
+            "action_set_balanced_exact": 1.0,
+            "empty_prediction_rate": 0.125,
+            "buttons": {
+              "tab": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "1": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "w": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "mouse_right": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "targets": 4,
+                "predictions": 4
+              }
+            },
+            "mouse_mae_px": 0.1875
+          }
+        },
+        "shuffled_images": {
+          "all": {
+            "examples": 32,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.125,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              }
+            },
+            "mouse_mae_px": 3.0625
+          },
+          "Hordes.io": {
+            "examples": 32,
+            "button_exact_match": 0.0,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.0,
+            "empty_prediction_rate": 0.125,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 4,
+                "predictions": 4
+              }
+            },
+            "mouse_mae_px": 3.0625
+          }
+        }
+      }
+    },
+    "hordes-radio-direct-001": {
+      "parameters": {
+        "total": 524569791,
+        "trainable": 5014954,
+        "trainable_roots": [
+          "actions",
+          "connector",
+          "laya",
+          "visual_actions"
+        ]
+      },
+      "selected_step": 250,
+      "parent_unchanged": true,
+      "reload_matches": true,
+      "hordes": {
+        "validation": {
+          "actual": {
+            "examples": 237,
+            "button_exact_match": 0.45147679324894513,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.16666666666666666,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          },
+          "shuffled_images": {
+            "examples": 237,
+            "button_exact_match": 0.45147679324894513,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.16666666666666666,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 6,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 31,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 39,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 53,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 3.8860759493670884
+          }
+        },
+        "test": {
+          "actual": {
+            "examples": 178,
+            "button_exact_match": 0.5842696629213483,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.2,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          },
+          "shuffled_images": {
+            "examples": 178,
+            "button_exact_match": 0.5842696629213483,
+            "button_micro_f1": 0.0,
+            "action_set_balanced_exact": 0.2,
+            "empty_prediction_rate": 1.0,
+            "buttons": {
+              "tab": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 0,
+                "predictions": 0
+              },
+              "1": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 29,
+                "predictions": 0
+              },
+              "w": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 19,
+                "predictions": 0
+              },
+              "mouse_right": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "targets": 23,
+                "predictions": 0
+              }
+            },
+            "mouse_mae_px": 2.3258426966292136
+          }
+        }
+      }
+    }
+  },
+  "p2p_pretrained_encoder_only": {
+    "model": "guaguaa/open-p2p",
+    "revision": "de18b62bc8f9722bda64497600c38c8f7634d86b",
+    "scope": "Image tokenizer only, no Laya or action model. Model parity uses identical tensors; upstream Rust resize parity is not established.",
+    "cases": [
+      {
+        "dtype": "mlx.core.float32",
+        "parity": [
+          {
+            "token_cosine": 0.9999999403953552,
+            "token_max_abs_error": 6.288290023803711e-06,
+            "spatial_max_abs_error": 4.57763671875e-05
+          },
+          {
+            "token_cosine": 1.0,
+            "token_max_abs_error": 5.245208740234375e-06,
+            "spatial_max_abs_error": 4.38690185546875e-05
+          }
+        ],
+        "fresh_encoder_p50_ms": 5.14764548279345,
+        "fresh_encoder_p95_ms": 5.402125342516229,
+        "samples": 80
+      },
+      {
+        "dtype": "mlx.core.bfloat16",
+        "parity": [
+          {
+            "token_cosine": 0.9991748332977295,
+            "token_max_abs_error": 0.1863282173871994,
+            "spatial_max_abs_error": 1.4136908054351807
+          },
+          {
+            "token_cosine": 0.9993229508399963,
+            "token_max_abs_error": 0.1505417823791504,
+            "spatial_max_abs_error": 1.0796399116516113
+          }
+        ],
+        "fresh_encoder_p50_ms": 4.878687497694045,
+        "fresh_encoder_p95_ms": 5.0084819085896015,
+        "samples": 80
+      }
+    ]
+  }
+}

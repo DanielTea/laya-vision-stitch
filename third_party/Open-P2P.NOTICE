@@ -1,0 +1,19 @@
+Open Pixel2Play pretrained image tokenizer
+
+Source code: https://github.com/elefant-ai/open-p2p
+Pretrained release: https://huggingface.co/guaguaa/open-p2p
+Weight revision: de18b62bc8f9722bda64497600c38c8f7634d86b
+Checkpoint: 150M/checkpoint-step=00500000.ckpt
+
+The release model card identifies the pretrained model license as MIT. See
+Open-P2P.LICENSE for the upstream repository license. Weights are downloaded
+separately and are not committed to this repository.
+
+p2p_pretrained_vision.py is an original MLX implementation of the released image
+tokenizer architecture and weight mapping: EfficientNet-B0 stages 0 through 5,
+followed by its learned spatial projection. The reference check constructs the
+architecture using torchvision and loads the actual gameplay checkpoint weights;
+it does not replace them with ImageNet weights.
+
+The pretrained policy transformer and action decoder have not yet been ported.
+The image tokenizer alone is not a playable model or a Laya stitch.

@@ -22,6 +22,34 @@ KEYS = {"w": 13, "a": 0, "s": 1, "d": 2, "space": 49, "tab": 48, "1": 18, "2": 1
 ALLOWED = set(KEYS) | {"mouse_left", "mouse_right"}
 
 
+class LiveRuntime:
+    """Select the checkpoint's trained neural path; no gameplay decisions here."""
+
+    def __init__(self, bundle):
+        from .trainable_model import TrainableRuntime
+
+        model = TrainableRuntime.load(bundle)
+        self.temporal = model.module.policy_config.temporal_adapter != "none"
+        if not self.temporal and not model.metadata.get("first_step_control_only"):
+            raise ValueError("Live runner requires explicitly supervised control outputs")
+        self.model = TemporalRuntime(model) if self.temporal else model
+
+    def reset(self):
+        if self.temporal:
+            self.model.reset()
+
+    def predict(self, row, **session):
+        if self.temporal:
+            return self.model.predict(row, **session)
+        # This model was trained without previous-control inputs.
+        result = self.model.predict({**row, "previous_actions": []})
+        return {
+            **result,
+            "mouse_delta": result["action_chunk"][0]["mouse_delta"],
+            "state_reset": False,
+        }
+
+
 def bounded_action(proposal):
     """Limit transport scope, without substituting or inventing model actions."""
     delta = np.asarray(proposal["mouse_delta"], dtype=float)
@@ -70,14 +98,21 @@ class Pulse:
                 if time.perf_counter() >= deadline:
                     raise RuntimeError("Trial deadline reached")
                 start = time.perf_counter()
+                first_post = None
                 buttons = action["buttons"]
                 for key in buttons:
                     if key in KEYS:
                         target.event(key, True)
+                        if first_post is None:
+                            first_post = time.perf_counter()
                 if "mouse_right" in buttons:
                     target.mouse_event("down", self.point)
+                    if first_post is None:
+                        first_post = time.perf_counter()
                 if "mouse_left" in buttons:
                     target.left_event("down", self.point)
+                    if first_post is None:
+                        first_post = time.perf_counter()
                 dx, dy = [round(v * 512) for v in action["mouse_delta"]]
                 x, y = self.point
                 # Cursor stays within the central playfield, clear of browser/HUD controls.
@@ -112,6 +147,8 @@ class Pulse:
                     Q.CGEventSetIntegerValueField(event, Q.kCGMouseEventDeltaX, dx)
                     Q.CGEventSetIntegerValueField(event, Q.kCGMouseEventDeltaY, dy)
                     Q.CGEventPost(Q.kCGHIDEventTap, event)
+                    if first_post is None:
+                        first_post = time.perf_counter()
                     self.point = (nx, ny)
                     if target.mouse_pressed:
                         target.mouse_point = self.point
@@ -122,7 +159,7 @@ class Pulse:
                     max(0, min(0.05 - elapsed, deadline - time.perf_counter())), self.release
                 )
                 self.timer.start()
-                return start
+                return {"dispatch_start": start, "first_event_posted": first_post}
             except BaseException:
                 target.release()
                 raise
@@ -162,21 +199,21 @@ def run(args):
                 "allowed_buttons": sorted(ALLOWED),
                 "max_delta_px": 64,
                 "pulse_seconds": 0.05,
-                "policy": "temporal checkpoint only",
+                "policy": "checkpoint neural outputs only",
                 "limitations": "Input restrictions logged. Event posting is not game acknowledgement.",
             },
             indent=2,
         )
         + "\n"
     )
-    print("Loading experimental temporal checkpoint...", flush=True)
-    runtime = TemporalRuntime.load(args.bundle)
+    print("Loading experimental stitched checkpoint...", flush=True)
+    runtime = LiveRuntime(args.bundle)
     from PIL import Image
 
     warm_row = {
         "frames": [{"image": Image.open(args.reference).convert("RGB"), "age_seconds": 0}],
         "goal": args.goal,
-        "controls": CONTROLS,
+        "controls": args.controls,
         "previous_actions": [],
     }
     for i in range(3):
@@ -231,7 +268,7 @@ def run(args):
                         {
                             "frames": [{"image": image, "age_seconds": 0}],
                             "goal": args.goal,
-                            "controls": CONTROLS,
+                            "controls": args.controls,
                             "previous_actions": previous,
                         },
                         session_id=str(args.output),
@@ -261,8 +298,17 @@ def run(args):
                         "bounded_action": action,
                         "applied": applied,
                         "frame_age_after_inference_ms": age,
-                        "screenshot_to_dispatch_start_ms": (posted - frame.captured_at) * 1000
+                        "screenshot_to_dispatch_start_ms": (
+                            posted["dispatch_start"] - frame.captured_at
+                        )
+                        * 1000
                         if posted
+                        else None,
+                        "screenshot_to_first_event_ms": (
+                            posted["first_event_posted"] - frame.captured_at
+                        )
+                        * 1000
+                        if posted and posted["first_event_posted"] is not None
                         else None,
                     }
                     events.append(record)
@@ -291,6 +337,11 @@ def run(args):
                 future.result()
     inference = [e["proposal"]["image_to_outputs_ms"] for e in events]
     latency = [e["screenshot_to_dispatch_start_ms"] for e in events if e["applied"]]
+    event_latency = [
+        e["screenshot_to_first_event_ms"]
+        for e in events
+        if e["screenshot_to_first_event_ms"] is not None
+    ]
     summary = {
         "stop_reason": stop_reason,
         "observations": len(events),
@@ -310,12 +361,18 @@ def run(args):
         "state_resets": sum(e["proposal"]["state_reset"] for e in events),
         "inference_p50_ms": float(np.median(inference)) if inference else None,
         "inference_p95_ms": float(np.percentile(inference, 95)) if inference else None,
+        "screenshot_to_first_event_p50_ms": float(np.median(event_latency))
+        if event_latency
+        else None,
+        "screenshot_to_first_event_p95_ms": float(np.percentile(event_latency, 95))
+        if event_latency
+        else None,
         "screenshot_to_dispatch_start_p50_ms": float(np.median(latency)) if latency else None,
         "screenshot_to_dispatch_start_p95_ms": float(np.percentile(latency, 95))
         if latency
         else None,
         "gameplay_success": None,
-        "note": "Latency ends at dispatch start, not event posting or game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions.",
+        "note": "Dispatch-start and first-posted-event latency are separate. Idle steps have no event latency. Neither measures game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions.",
     }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2), flush=True)
@@ -334,6 +391,7 @@ def main():
         default="Select a nearby Young Grub with Tab, approach with WASD, and attack with ability 1. Avoid other players. Retreat if health is low.",
     )
     p.add_argument("--execute", action="store_true")
+    p.add_argument("--controls", default=CONTROLS)
     run(p.parse_args())
 
 

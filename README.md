@@ -1,11 +1,18 @@
 # Laya Vision Stitch
 
-One local screenshot-and-goal model combining **Qwen vision, a learned visual
+One local screenshot-and-goal model combining **pretrained vision, a learned visual
 connector, Laya with small LoRA adapters, and action outputs**. It exports as one
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Current status:** expanded temporal training to **7,520 frames across nine games
+**Latest experiment:** a native MLX C-RADIOv3-B visual encoder and learned visual
+action branch reduce full fresh-image prediction to **31.0 ms median** offline.
+A 32-image fitting test passes and fails under image permutation, but held-out
+Hordes gameplay remains unsolved. **No reliable Hordes agent or sub-60 ms live
+reaction has been demonstrated.** [Architecture and evidence](docs/RADIO_STITCH.md) ·
+[Record human demonstrations](docs/HUMAN_DEMONSTRATIONS.md).
+
+**Previous temporal experiment:** expanded training to **7,520 frames across nine games
 and 38 goals**, with random sequence crops, visual-token masking and validation-based
 checkpoint selection. A regularized attention adapter improves button F1 on newly
 held-out recordings from **16.2% to 32.2%**, but regresses on the previous held-out
