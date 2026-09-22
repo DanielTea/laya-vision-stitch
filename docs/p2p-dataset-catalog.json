@@ -1,0 +1,807 @@
+{
+  "repository": "elefantai/p2p-full-data",
+  "revision": "1553d6b8190d270dcd256528ffa2066098225dba",
+  "recordings": 108851,
+  "game_names": 133,
+  "games": {
+    "": {
+      "recordings": 1,
+      "frames": 23542,
+      "human_label_frames": 23542,
+      "system_label_frames": 0
+    },
+    " doom": {
+      "recordings": 21,
+      "frames": 107774,
+      "human_label_frames": 107774,
+      "system_label_frames": 0
+    },
+    " doom2": {
+      "recordings": 13,
+      "frames": 52280,
+      "human_label_frames": 52280,
+      "system_label_frames": 0
+    },
+    " elefant-test": {
+      "recordings": 1,
+      "frames": 21703,
+      "human_label_frames": 21703,
+      "system_label_frames": 0
+    },
+    " goat-simulator": {
+      "recordings": 1,
+      "frames": 24672,
+      "human_label_frames": 24672,
+      "system_label_frames": 0
+    },
+    " left-4-dead-2": {
+      "recordings": 3,
+      "frames": 32986,
+      "human_label_frames": 32986,
+      "system_label_frames": 0
+    },
+    " quake": {
+      "recordings": 4,
+      "frames": 18851,
+      "human_label_frames": 18851,
+      "system_label_frames": 0
+    },
+    " roblox": {
+      "recordings": 32,
+      "frames": 91352,
+      "human_label_frames": 91352,
+      "system_label_frames": 0
+    },
+    "DRL Simulator": {
+      "recordings": 99,
+      "frames": 595234,
+      "human_label_frames": 595234,
+      "system_label_frames": 0
+    },
+    "Drone": {
+      "recordings": 379,
+      "frames": 2891919,
+      "human_label_frames": 2891919,
+      "system_label_frames": 0
+    },
+    "FPVKamikazeDrone": {
+      "recordings": 37,
+      "frames": 558191,
+      "human_label_frames": 558191,
+      "system_label_frames": 0
+    },
+    "League of Legends": {
+      "recordings": 169,
+      "frames": 205329,
+      "human_label_frames": 205329,
+      "system_label_frames": 0
+    },
+    "Left-4-dead-2": {
+      "recordings": 5,
+      "frames": 30742,
+      "human_label_frames": 30742,
+      "system_label_frames": 0
+    },
+    "Liftoff": {
+      "recordings": 16,
+      "frames": 102778,
+      "human_label_frames": 102778,
+      "system_label_frames": 0
+    },
+    "Roblox": {
+      "recordings": 563,
+      "frames": 1550469,
+      "human_label_frames": 1550469,
+      "system_label_frames": 0
+    },
+    "Rocket League": {
+      "recordings": 143,
+      "frames": 992976,
+      "human_label_frames": 992976,
+      "system_label_frames": 0
+    },
+    "Spider Man 2": {
+      "recordings": 7,
+      "frames": 66669,
+      "human_label_frames": 66669,
+      "system_label_frames": 0
+    },
+    "Spider-Man 2": {
+      "recordings": 5,
+      "frames": 19921,
+      "human_label_frames": 19921,
+      "system_label_frames": 0
+    },
+    "Velocidrone": {
+      "recordings": 35,
+      "frames": 387167,
+      "human_label_frames": 387167,
+      "system_label_frames": 0
+    },
+    "a-dusty-trip": {
+      "recordings": 2,
+      "frames": 37215,
+      "human_label_frames": 37215,
+      "system_label_frames": 0
+    },
+    "all-of-duty-black-ops-2": {
+      "recordings": 2,
+      "frames": 31252,
+      "human_label_frames": 31252,
+      "system_label_frames": 0
+    },
+    "apex": {
+      "recordings": 2,
+      "frames": 23102,
+      "human_label_frames": 23102,
+      "system_label_frames": 0
+    },
+    "be-a-shark": {
+      "recordings": 2,
+      "frames": 7697,
+      "human_label_frames": 7697,
+      "system_label_frames": 0
+    },
+    "black-ops-2": {
+      "recordings": 1,
+      "frames": 24638,
+      "human_label_frames": 24638,
+      "system_label_frames": 0
+    },
+    "blade-ball": {
+      "recordings": 1,
+      "frames": 1611,
+      "human_label_frames": 1611,
+      "system_label_frames": 0
+    },
+    "call-of-black-duty-black-ops-2": {
+      "recordings": 1,
+      "frames": 53902,
+      "human_label_frames": 53902,
+      "system_label_frames": 0
+    },
+    "call-of-duty": {
+      "recordings": 1,
+      "frames": 3714,
+      "human_label_frames": 3714,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-op-2": {
+      "recordings": 1,
+      "frames": 38704,
+      "human_label_frames": 38704,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-ops": {
+      "recordings": 1,
+      "frames": 21624,
+      "human_label_frames": 21624,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-ops-": {
+      "recordings": 2,
+      "frames": 48457,
+      "human_label_frames": 48457,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-ops-2": {
+      "recordings": 605,
+      "frames": 20562521,
+      "human_label_frames": 20562521,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-ops-2/zombies": {
+      "recordings": 2,
+      "frames": 43661,
+      "human_label_frames": 43661,
+      "system_label_frames": 0
+    },
+    "call-of-duty-black-ops-3": {
+      "recordings": 112,
+      "frames": 3385283,
+      "human_label_frames": 3385283,
+      "system_label_frames": 0
+    },
+    "call-of-duty-blacks-ops-2": {
+      "recordings": 6,
+      "frames": 89492,
+      "human_label_frames": 89492,
+      "system_label_frames": 0
+    },
+    "call-of-duty-mobile": {
+      "recordings": 1230,
+      "frames": 5767271,
+      "human_label_frames": 5767271,
+      "system_label_frames": 0
+    },
+    "cs2": {
+      "recordings": 11,
+      "frames": 98471,
+      "human_label_frames": 98471,
+      "system_label_frames": 0
+    },
+    "death-ball": {
+      "recordings": 10,
+      "frames": 27336,
+      "human_label_frames": 27336,
+      "system_label_frames": 0
+    },
+    "do-not-upload": {
+      "recordings": 1,
+      "frames": 652,
+      "human_label_frames": 652,
+      "system_label_frames": 0
+    },
+    "doom": {
+      "recordings": 7241,
+      "frames": 35454158,
+      "human_label_frames": 35454158,
+      "system_label_frames": 0
+    },
+    "doom ": {
+      "recordings": 2,
+      "frames": 22847,
+      "human_label_frames": 22847,
+      "system_label_frames": 0
+    },
+    "doom II": {
+      "recordings": 4,
+      "frames": 17975,
+      "human_label_frames": 17975,
+      "system_label_frames": 0
+    },
+    "doom-2": {
+      "recordings": 5,
+      "frames": 44370,
+      "human_label_frames": 44370,
+      "system_label_frames": 0
+    },
+    "doom-eternal": {
+      "recordings": 80,
+      "frames": 2644058,
+      "human_label_frames": 2644058,
+      "system_label_frames": 0
+    },
+    "doom-evilution": {
+      "recordings": 10,
+      "frames": 73019,
+      "human_label_frames": 73019,
+      "system_label_frames": 0
+    },
+    "doom-legacy-of-rust": {
+      "recordings": 29,
+      "frames": 391008,
+      "human_label_frames": 391008,
+      "system_label_frames": 0
+    },
+    "doom-no-rest-for-the-living": {
+      "recordings": 71,
+      "frames": 829623,
+      "human_label_frames": 829623,
+      "system_label_frames": 0
+    },
+    "doom-plutonia": {
+      "recordings": 1,
+      "frames": 6822,
+      "human_label_frames": 6822,
+      "system_label_frames": 0
+    },
+    "doom-sigil": {
+      "recordings": 13,
+      "frames": 77319,
+      "human_label_frames": 77319,
+      "system_label_frames": 0
+    },
+    "doom1": {
+      "recordings": 38,
+      "frames": 157504,
+      "human_label_frames": 157504,
+      "system_label_frames": 0
+    },
+    "doom2": {
+      "recordings": 5855,
+      "frames": 29031599,
+      "human_label_frames": 29031599,
+      "system_label_frames": 0
+    },
+    "doom2-master-levels": {
+      "recordings": 31,
+      "frames": 317200,
+      "human_label_frames": 317200,
+      "system_label_frames": 0
+    },
+    "elefant-fps": {
+      "recordings": 1,
+      "frames": 20478,
+      "human_label_frames": 20478,
+      "system_label_frames": 0
+    },
+    "elefant-test": {
+      "recordings": 1954,
+      "frames": 42802153,
+      "human_label_frames": 42802153,
+      "system_label_frames": 0
+    },
+    "elefant-test ": {
+      "recordings": 6,
+      "frames": 130720,
+      "human_label_frames": 130720,
+      "system_label_frames": 0
+    },
+    "elefant-teste": {
+      "recordings": 1,
+      "frames": 19552,
+      "human_label_frames": 19552,
+      "system_label_frames": 0
+    },
+    "elelfant-test": {
+      "recordings": 1,
+      "frames": 18308,
+      "human_label_frames": 18308,
+      "system_label_frames": 0
+    },
+    "elephant-games": {
+      "recordings": 1,
+      "frames": 18443,
+      "human_label_frames": 18443,
+      "system_label_frames": 0
+    },
+    "elephant-test": {
+      "recordings": 61,
+      "frames": 1491252,
+      "human_label_frames": 1491252,
+      "system_label_frames": 0
+    },
+    "elfant-test": {
+      "recordings": 2,
+      "frames": 36758,
+      "human_label_frames": 36758,
+      "system_label_frames": 0
+    },
+    "euro-truck-simualtor-2": {
+      "recordings": 3,
+      "frames": 60527,
+      "human_label_frames": 60527,
+      "system_label_frames": 0
+    },
+    "euro-truck-simulator": {
+      "recordings": 6,
+      "frames": 238275,
+      "human_label_frames": 238275,
+      "system_label_frames": 0
+    },
+    "euro-truck-simulator-2": {
+      "recordings": 1823,
+      "frames": 51497012,
+      "human_label_frames": 51497012,
+      "system_label_frames": 0
+    },
+    "euro-truck-simulator-3": {
+      "recordings": 2,
+      "frames": 62040,
+      "human_label_frames": 62040,
+      "system_label_frames": 0
+    },
+    "euro-truck-simultaror-2": {
+      "recordings": 2,
+      "frames": 53243,
+      "human_label_frames": 53243,
+      "system_label_frames": 0
+    },
+    "euro-truk-simulator-2": {
+      "recordings": 3,
+      "frames": 88894,
+      "human_label_frames": 88894,
+      "system_label_frames": 0
+    },
+    "euro-tuck-simulator-2": {
+      "recordings": 5,
+      "frames": 90536,
+      "human_label_frames": 90536,
+      "system_label_frames": 0
+    },
+    "evade": {
+      "recordings": 5,
+      "frames": 16120,
+      "human_label_frames": 16120,
+      "system_label_frames": 0
+    },
+    "fornite": {
+      "recordings": 4,
+      "frames": 81253,
+      "human_label_frames": 81253,
+      "system_label_frames": 0
+    },
+    "fortnite": {
+      "recordings": 301,
+      "frames": 5375037,
+      "human_label_frames": 5375037,
+      "system_label_frames": 0
+    },
+    "forza-horizon-5": {
+      "recordings": 3,
+      "frames": 16351,
+      "human_label_frames": 16351,
+      "system_label_frames": 0
+    },
+    "forza-motorsport": {
+      "recordings": 8,
+      "frames": 84574,
+      "human_label_frames": 84574,
+      "system_label_frames": 0
+    },
+    "fpv-kamikaze-drone": {
+      "recordings": 4,
+      "frames": 44002,
+      "human_label_frames": 44002,
+      "system_label_frames": 0
+    },
+    "goat-simulator": {
+      "recordings": 84,
+      "frames": 1932602,
+      "human_label_frames": 1932602,
+      "system_label_frames": 0
+    },
+    "goat-simulator-3": {
+      "recordings": 221,
+      "frames": 6624204,
+      "human_label_frames": 6624204,
+      "system_label_frames": 0
+    },
+    "grand-thedt-auto-san-andreas": {
+      "recordings": 1,
+      "frames": 48432,
+      "human_label_frames": 48432,
+      "system_label_frames": 0
+    },
+    "grand-theft-auto-san-andreas": {
+      "recordings": 270,
+      "frames": 8254577,
+      "human_label_frames": 8254577,
+      "system_label_frames": 0
+    },
+    "grand-theft-auto-v": {
+      "recordings": 907,
+      "frames": 22970789,
+      "human_label_frames": 22970789,
+      "system_label_frames": 0
+    },
+    "grand-theft-auto-vice-city": {
+      "recordings": 4,
+      "frames": 137414,
+      "human_label_frames": 137414,
+      "system_label_frames": 0
+    },
+    "helldivers-2": {
+      "recordings": 722,
+      "frames": 17758989,
+      "human_label_frames": 17758989,
+      "system_label_frames": 0
+    },
+    "house-flipper": {
+      "recordings": 56,
+      "frames": 1084725,
+      "human_label_frames": 1084725,
+      "system_label_frames": 0
+    },
+    "house-flipper-2": {
+      "recordings": 85,
+      "frames": 2461601,
+      "human_label_frames": 2461601,
+      "system_label_frames": 0
+    },
+    "hovercraft": {
+      "recordings": 1,
+      "frames": 36124,
+      "human_label_frames": 36124,
+      "system_label_frames": 0
+    },
+    "hoverracing": {
+      "recordings": 2,
+      "frames": 50372,
+      "human_label_frames": 4,
+      "system_label_frames": 50368
+    },
+    "l4d2": {
+      "recordings": 1,
+      "frames": 8530,
+      "human_label_frames": 8530,
+      "system_label_frames": 0
+    },
+    "lef-4-dead-2": {
+      "recordings": 2,
+      "frames": 23984,
+      "human_label_frames": 23984,
+      "system_label_frames": 0
+    },
+    "left-4-dead": {
+      "recordings": 8,
+      "frames": 80872,
+      "human_label_frames": 80872,
+      "system_label_frames": 0
+    },
+    "left-4-dead-2": {
+      "recordings": 5509,
+      "frames": 45016596,
+      "human_label_frames": 45016596,
+      "system_label_frames": 0
+    },
+    "left-4-dead-2      ": {
+      "recordings": 6,
+      "frames": 43404,
+      "human_label_frames": 43404,
+      "system_label_frames": 0
+    },
+    "left-4-dead=2": {
+      "recordings": 4,
+      "frames": 29149,
+      "human_label_frames": 29149,
+      "system_label_frames": 0
+    },
+    "left-for-dead-2": {
+      "recordings": 5,
+      "frames": 56121,
+      "human_label_frames": 56121,
+      "system_label_frames": 0
+    },
+    "mdos": {
+      "recordings": 7,
+      "frames": 46130,
+      "human_label_frames": 46130,
+      "system_label_frames": 0
+    },
+    "minecraft": {
+      "recordings": 272,
+      "frames": 6226578,
+      "human_label_frames": 6226578,
+      "system_label_frames": 0
+    },
+    "monster-hunter-rise": {
+      "recordings": 4,
+      "frames": 24243,
+      "human_label_frames": 24243,
+      "system_label_frames": 0
+    },
+    "ms-dos": {
+      "recordings": 4,
+      "frames": 14781,
+      "human_label_frames": 14781,
+      "system_label_frames": 0
+    },
+    "msdos": {
+      "recordings": 5401,
+      "frames": 35751172,
+      "human_label_frames": 35570584,
+      "system_label_frames": 180588
+    },
+    "nandin": {
+      "recordings": 2,
+      "frames": 61783,
+      "human_label_frames": 61783,
+      "system_label_frames": 0
+    },
+    "natural-disaster-survival": {
+      "recordings": 28,
+      "frames": 77974,
+      "human_label_frames": 77974,
+      "system_label_frames": 0
+    },
+    "need-for-speed": {
+      "recordings": 31,
+      "frames": 191292,
+      "human_label_frames": 191292,
+      "system_label_frames": 0
+    },
+    "need-for-speed-carbon": {
+      "recordings": 898,
+      "frames": 5342548,
+      "human_label_frames": 5342548,
+      "system_label_frames": 0
+    },
+    "need-for-speed-carbpm": {
+      "recordings": 4,
+      "frames": 24364,
+      "human_label_frames": 24364,
+      "system_label_frames": 0
+    },
+    "need-for-speed-caron": {
+      "recordings": 1,
+      "frames": 9348,
+      "human_label_frames": 9348,
+      "system_label_frames": 0
+    },
+    "need-for-speed-hot-porsuit": {
+      "recordings": 1,
+      "frames": 4520,
+      "human_label_frames": 4520,
+      "system_label_frames": 0
+    },
+    "need-for-speed-hot-pursuit": {
+      "recordings": 67,
+      "frames": 309482,
+      "human_label_frames": 309482,
+      "system_label_frames": 0
+    },
+    "need-for-speed-most-wanted": {
+      "recordings": 1172,
+      "frames": 12441226,
+      "human_label_frames": 12441226,
+      "system_label_frames": 0
+    },
+    "need-for-speed-undergound-2": {
+      "recordings": 96,
+      "frames": 1083256,
+      "human_label_frames": 1083256,
+      "system_label_frames": 0
+    },
+    "need-for-speed-underground": {
+      "recordings": 165,
+      "frames": 905102,
+      "human_label_frames": 905102,
+      "system_label_frames": 0
+    },
+    "need-for-speed-underground-2": {
+      "recordings": 202,
+      "frames": 1757450,
+      "human_label_frames": 1757450,
+      "system_label_frames": 0
+    },
+    "paint": {
+      "recordings": 14,
+      "frames": 92380,
+      "human_label_frames": 3983,
+      "system_label_frames": 88397
+    },
+    "power-wash": {
+      "recordings": 5,
+      "frames": 148414,
+      "human_label_frames": 148414,
+      "system_label_frames": 0
+    },
+    "powerwash": {
+      "recordings": 53,
+      "frames": 1401369,
+      "human_label_frames": 1401369,
+      "system_label_frames": 0
+    },
+    "powewash": {
+      "recordings": 1,
+      "frames": 36569,
+      "human_label_frames": 36569,
+      "system_label_frames": 0
+    },
+    "pubg": {
+      "recordings": 6,
+      "frames": 130443,
+      "human_label_frames": 130443,
+      "system_label_frames": 0
+    },
+    "quake": {
+      "recordings": 6850,
+      "frames": 34190650,
+      "human_label_frames": 34190650,
+      "system_label_frames": 0
+    },
+    "quake ": {
+      "recordings": 3,
+      "frames": 12283,
+      "human_label_frames": 12283,
+      "system_label_frames": 0
+    },
+    "quake  ": {
+      "recordings": 2,
+      "frames": 20917,
+      "human_label_frames": 20917,
+      "system_label_frames": 0
+    },
+    "quake      ": {
+      "recordings": 5,
+      "frames": 14011,
+      "human_label_frames": 14011,
+      "system_label_frames": 0
+    },
+    "quake-2": {
+      "recordings": 4,
+      "frames": 73497,
+      "human_label_frames": 73497,
+      "system_label_frames": 0
+    },
+    "resident-evil-5": {
+      "recordings": 55,
+      "frames": 542584,
+      "human_label_frames": 542584,
+      "system_label_frames": 0
+    },
+    "resident-evil-revelations-2": {
+      "recordings": 199,
+      "frames": 1190056,
+      "human_label_frames": 1190056,
+      "system_label_frames": 0
+    },
+    "roblos": {
+      "recordings": 1,
+      "frames": 51978,
+      "human_label_frames": 51978,
+      "system_label_frames": 0
+    },
+    "roblox": {
+      "recordings": 63164,
+      "frames": 278229073,
+      "human_label_frames": 278146570,
+      "system_label_frames": 82503
+    },
+    "rpblox": {
+      "recordings": 1,
+      "frames": 2689,
+      "human_label_frames": 2689,
+      "system_label_frames": 0
+    },
+    "saint-rows-the-third": {
+      "recordings": 2,
+      "frames": 30745,
+      "human_label_frames": 30745,
+      "system_label_frames": 0
+    },
+    "saints-row-4": {
+      "recordings": 6,
+      "frames": 104956,
+      "human_label_frames": 104956,
+      "system_label_frames": 0
+    },
+    "saints-row-the-third": {
+      "recordings": 103,
+      "frames": 1576006,
+      "human_label_frames": 1576006,
+      "system_label_frames": 0
+    },
+    "sea-of-thieves": {
+      "recordings": 7,
+      "frames": 150949,
+      "human_label_frames": 150949,
+      "system_label_frames": 0
+    },
+    "slap-battle": {
+      "recordings": 1,
+      "frames": 2518,
+      "human_label_frames": 2518,
+      "system_label_frames": 0
+    },
+    "slime-rancher": {
+      "recordings": 1,
+      "frames": 36626,
+      "human_label_frames": 36626,
+      "system_label_frames": 0
+    },
+    "warhammer-boltgun": {
+      "recordings": 61,
+      "frames": 1126463,
+      "human_label_frames": 1126463,
+      "system_label_frames": 0
+    },
+    "warhammer-vermintide": {
+      "recordings": 67,
+      "frames": 1416082,
+      "human_label_frames": 1416082,
+      "system_label_frames": 0
+    },
+    "warhammer-vermintide-2": {
+      "recordings": 880,
+      "frames": 19532905,
+      "human_label_frames": 19532905,
+      "system_label_frames": 0
+    },
+    "warhammer_boltgun": {
+      "recordings": 5,
+      "frames": 99046,
+      "human_label_frames": 99046,
+      "system_label_frames": 0
+    },
+    "world-of-warships": {
+      "recordings": 9,
+      "frames": 72150,
+      "human_label_frames": 72150,
+      "system_label_frames": 0
+    }
+  },
+  "note": "Metadata only; counts do not establish annotation accuracy, instruction coverage or successful gameplay. No recording-to-archive mapping in metadata."
+}

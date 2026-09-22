@@ -6,6 +6,7 @@ They still freshly encode the current frame on every prediction. Stage fences
 add synchronization overhead, so compare end-to-end variants independently.
 """
 
+import argparse
 import json
 import time
 from collections import defaultdict
@@ -15,6 +16,7 @@ import mlx.core as mx
 import numpy as np
 from PIL import Image
 
+from laya_vision_stitch.policy_data import read_manifest
 from laya_vision_stitch.trainable_model import TrainableRuntime
 
 
@@ -27,12 +29,23 @@ def stats(values):
 
 
 def main():
-    bundle = Path("artifacts/gameplay-buttons-002/bundle")
-    rows = [
-        json.loads(line)
-        for line in Path("artifacts/learning-gate-002/validation.jsonl").read_text().splitlines()
-    ][:32]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--bundle", type=Path, default=Path("artifacts/gameplay-buttons-002/bundle")
+    )
+    parser.add_argument(
+        "--manifest", type=Path, default=Path("artifacts/learning-gate-002/validation.jsonl")
+    )
+    parser.add_argument("--output", type=Path, default=Path("artifacts/latency-profile-002"))
+    parser.add_argument("--samples", type=int, default=32)
+    args = parser.parse_args()
+    if args.samples < 1:
+        parser.error("Sample count must be positive")
+    bundle = args.bundle
     runtime = TrainableRuntime.load(bundle)
+    rows = read_manifest(args.manifest, runtime.module.policy_config)[: args.samples]
+    if any(len(r["frames"]) != 2 for r in rows):
+        raise ValueError("This profile requires exactly two frames per example")
     model = runtime.module
     if model.policy_config.action_context_source != "encoder":
         raise ValueError("Skipping choice head requires encoder action context")
@@ -148,7 +161,7 @@ def main():
         "Not a game-running contention test. Cache variants reuse prompt tokens and "
         "one previously encoded historical frame; current frame is always encoded.",
     }
-    target = Path("artifacts/latency-profile-002")
+    target = args.output
     target.mkdir(exist_ok=True)
     (target / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2), flush=True)

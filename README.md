@@ -5,14 +5,16 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Current status:** the corrected model can fit recorded button actions on 64
-real-game clips (95.3% exact / 97.6% button F1), but fails separate-session transfer.
-Expanding to 190 clips and balancing rare keys has not solved that failure.
-Reworded goals also remain unreliable. It is **not a playable general game agent**.
+**Current status:** the public P2P pilot trains on human button/camera recordings
+from two games and tests on a withheld Roblox recording. The revised model reaches
+76.2% button F1, below the 90.4% previous-action baseline. Camera transfer fails,
+and the visual contribution remains weak. It is **not a playable general game agent**.
+The data importer, staged training, ablations and checkpoint checks are implemented.
 [Recorded-action results](docs/GAMEPLAY_BUTTONS.md) ·
 [Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md) ·
 [Full-Qwen teacher and reasoning-transfer experiment](docs/REASONING_TRANSFER.md) ·
-[Local inference profiling](docs/LATENCY_AND_GAMEPLAY.md).
+[Local inference profiling](docs/LATENCY_AND_GAMEPLAY.md) ·
+[Public P2P data and staged button/camera training](docs/P2P_TRAINING.md).
 
 The synthetic-training checkpoint reached its target in **40/40 fresh synthetic sandbox episodes**,
 using its learned A/D button outputs. Warm inference took **58 ms median** on an
@@ -33,7 +35,9 @@ Screenshot → frozen Qwen vision → learned connector → Laya + small LoRA �
                                              goal, controls, recent actions
 ```
 
-Only **6.05M parameters (~0.80%)** are trained. The measured recipe uses 512
+The synthetic recipe trains **6.05M parameters (~0.80%)**. The P2P recipe trains
+about **8.89M (~1.16%)**, keeping original backbone weights frozen.
+The measured synthetic recipe uses 512
 training images, 12,288 examples including different goals/wordings, and 12,000
 optimization steps. Description supervision exists only during training;
 inference receives pixels and the ordinary prompt.
