@@ -1,0 +1,297 @@
+{
+  "claim": "Synthetic grounding experiment, not cross-game gameplay validation.",
+  "reference_images": 36,
+  "evaluation_images": 54,
+  "evaluation_decisions": 324,
+  "new_training": false,
+  "connector_fitting": false,
+  "generated_tokens": 0,
+  "input_events_sent": 0,
+  "trainable_tensors": 0,
+  "build_seconds": 1.192996583005879,
+  "first_call_ms": 605.2569160237908,
+  "warm_p50_ms": 24.19435349293053,
+  "warm_p95_ms": 25.19263380090706,
+  "metrics": {
+    "mixture": {
+      "all": {
+        "accuracy": 0.6790123456790124,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.7824074074074074,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.4722222222222222,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.8333333333333334,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.7777777777777778,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.42592592592592593,
+        "n": 108
+      }
+    },
+    "nearest_laya": {
+      "all": {
+        "accuracy": 0.6851851851851852,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.8055555555555556,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.4444444444444444,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.8333333333333334,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.7962962962962963,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.42592592592592593,
+        "n": 108
+      }
+    },
+    "nearest_reference_fact": {
+      "all": {
+        "accuracy": 0.6851851851851852,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.8055555555555556,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.4444444444444444,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.8333333333333334,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.7962962962962963,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.42592592592592593,
+        "n": 108
+      }
+    },
+    "text_key_mixture": {
+      "all": {
+        "accuracy": 0.6265432098765432,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.7129629629629629,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.4537037037037037,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.9351851851851852,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.6203703703703703,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.32407407407407407,
+        "n": 108
+      }
+    },
+    "blank_image": {
+      "all": {
+        "accuracy": 0.3333333333333333,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.3333333333333333,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.3333333333333333,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.3333333333333333,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.3333333333333333,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.3333333333333333,
+        "n": 108
+      }
+    },
+    "shuffled_correspondence": {
+      "all": {
+        "accuracy": 0.41358024691358025,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.4722222222222222,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.2962962962962963,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 0.23148148148148148,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 0.6296296296296297,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.37962962962962965,
+        "n": 108
+      }
+    },
+    "english_oracle": {
+      "all": {
+        "accuracy": 1.0,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 1.0,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 1.0,
+        "n": 108
+      }
+    },
+    "multilingual_oracle": {
+      "all": {
+        "accuracy": 0.9876543209876543,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 0.9907407407407407,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 0.9814814814814815,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 0.9629629629629629,
+        "n": 108
+      }
+    },
+    "english_oracle_alternate": {
+      "all": {
+        "accuracy": 1.0,
+        "n": 324
+      },
+      "familiar_composition": {
+        "accuracy": 1.0,
+        "n": 216
+      },
+      "novel_composition": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "color": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "shape": {
+        "accuracy": 1.0,
+        "n": 108
+      },
+      "position": {
+        "accuracy": 1.0,
+        "n": 108
+      }
+    }
+  },
+  "limitations": [
+    "Procedurally rendered geometric objects; no natural photos or game footage.",
+    "Questions and reversed options share images and are correlated trials.",
+    "Reference memory covers only its supplied descriptions; no new captions are generated.",
+    "Novel compositions exclude three color-shape pairs, not every attribute.",
+    "Reference similarity and mixture scores are not calibrated action confidence.",
+    "No parameters or reference-temperature settings selected using evaluation labels."
+  ],
+  "checks": {
+    "bootstrap_unit": "image; groups all six correlated questions/options together",
+    "replicates": 5000,
+    "accuracy_intervals_95": {
+      "mixture": [
+        0.6203703703703703,
+        0.7376543209876543
+      ],
+      "nearest_laya": [
+        0.6234567901234566,
+        0.7530864197530861
+      ],
+      "blank_image": [
+        0.2592592592592593,
+        0.4074074074074074
+      ],
+      "shuffled_correspondence": [
+        0.33950617283950624,
+        0.4907407407407407
+      ]
+    },
+    "mixture_minus_control_intervals_95": {
+      "nearest_laya": [
+        -0.04938271604938271,
+        0.037037037037037035
+      ],
+      "blank_image": [
+        0.25000000000000006,
+        0.43518518518518523
+      ],
+      "shuffled_correspondence": [
+        0.18518518518518517,
+        0.345679012345679
+      ]
+    },
+    "bundle_bytes": 1194180213,
+    "reload_check": "Six decisions and reference attention weights reproduced exactly."
+  }
+}

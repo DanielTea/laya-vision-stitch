@@ -1,0 +1,7 @@
+CLIP model and tokenizer code from ml-explore/mlx-examples
+Copyright 2023-2024 Apple Inc.
+MIT license: mlx-examples.LICENSE
+Pinned source revision: 09b641aaa74f9737f747b62ad8c628405e7e25be
+Files: clip/model.py, clip/tokenizer.py
+Local modification: add nn.Module initialization to CLIPModel and Encoder for MLX 0.32 freezing support.
+https://github.com/ml-explore/mlx-examples
