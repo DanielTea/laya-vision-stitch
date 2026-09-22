@@ -18,6 +18,8 @@ def write_json(path, value):
 
 
 def run_training(args, config):
+    if args.train_eval_limit < 0:
+        raise ValueError("Training evaluation limit must be nonnegative")
     if args.bundle:
         # Load config before model allocation so invalid data fails cheaply.
         saved = json.loads((args.bundle / "config.json").read_text())
@@ -32,35 +34,69 @@ def run_training(args, config):
         flush=True,
     )
     runtime = TrainableRuntime.load(args.bundle) if args.bundle else TrainableRuntime.build(config)
+    if args.add_lora_rank:
+        runtime.add_lora(args.add_lora_rank, args.add_lora_layers)
+    if not args.bundle and config.connector_type == "aligned":
+        descriptions = [r["description"] for r in train_rows if r.get("description")]
+        if not descriptions:
+            raise ValueError("Aligned initialization requires training descriptions")
+        vectors = []
+        for description in descriptions:
+            ids = runtime.agent.tok(description, add_special_tokens=False)["input_ids"]
+            if len(ids) > config.visual_slots:
+                raise ValueError("Description exceeds visual slots")
+            ids += [runtime.agent.tok.pad_token_id] * (config.visual_slots - len(ids))
+            vectors.append(
+                runtime.module.laya.encoder.embeddings.tok_embeddings(mx.array(ids)).astype(
+                    mx.float32
+                )
+            )
+        runtime.module.connector.anchors = mx.stack(vectors).mean(axis=0)
+        runtime.metadata["anchor_initialization"] = "mean training-description token embeddings"
     print(json.dumps(runtime.parameter_counts()), flush=True)
     frozen_before = {
         k: fingerprint(getattr(runtime.module, k), frozen_only=True) for k in ("vision", "laya")
     }
     connector_before = fingerprint(runtime.module.connector)
     actions_before = fingerprint(runtime.module.actions)
-    examples = cache_examples(runtime, train_rows)
-    validation = cache_examples(runtime, validation_rows)
-    before = {"train": evaluate(runtime, examples), "validation": evaluate(runtime, validation)}
+    examples = cache_examples(runtime, train_rows, args.feature_cache)
+    validation = cache_examples(runtime, validation_rows, args.feature_cache)
+    training_eval = examples
+    if args.train_eval_limit and len(examples) > args.train_eval_limit:
+        from .policy_training import ExampleSubset
+
+        indices = np.random.default_rng(args.seed + 1).choice(
+            len(examples), args.train_eval_limit, replace=False
+        )
+        training_eval = ExampleSubset(examples, indices)
+    before = {
+        "train": evaluate(runtime, training_eval),
+        "validation": evaluate(runtime, validation),
+    }
     write_json(args.output / "before.json", before)
     with (args.output / "steps.jsonl").open("w") as handle:
 
         def log(record):
             handle.write(json.dumps(record) + "\n")
             handle.flush()
-            if record["step"] == 1 or record["step"] % 5 == 0:
+            if record["step"] == 1 or record["step"] % 100 == 0:
                 print(json.dumps(record), flush=True)
 
-        history = train(runtime, examples, args.steps, args.learning_rate, args.seed, log)
+        history = train(
+            runtime, examples, args.steps, args.learning_rate, args.seed, log, args.shuffle_options
+        )
     frozen_after = {
         k: fingerprint(getattr(runtime.module, k), frozen_only=True) for k in ("vision", "laya")
     }
     if frozen_before != frozen_after:
         raise RuntimeError("Pretrained weights changed; refusing to export")
     after = {
-        "train": evaluate(runtime, examples),
+        "train": evaluate(runtime, training_eval),
         "validation": evaluate(runtime, validation),
         "validation_zero_visual": evaluate(runtime, validation, zero_visual=True),
     }
+    if "training" in runtime.metadata:
+        runtime.metadata.setdefault("training_history", []).append(runtime.metadata["training"])
     runtime.metadata["training"] = {
         "seed": args.seed,
         "learning_rate": args.learning_rate,
@@ -72,6 +108,9 @@ def run_training(args, config):
         "teacher_examples": sum("teacher_probs" in r for r in train_rows),
         "action_examples": sum("action" in r for r in train_rows),
         "optimizer_state_saved": False,
+        "shuffle_options": args.shuffle_options,
+        "train_examples": len(examples),
+        "train_evaluation_examples": len(training_eval),
     }
     runtime.save(args.output / "bundle")
     # Ensure exported checkpoint runs the entire raw-image graph, including vision.
@@ -133,6 +172,24 @@ def main():
     fit.add_argument("--learning-rate", type=float, default=1e-4)
     fit.add_argument("--seed", type=int, default=17)
     fit.add_argument("--holdout-games", action="store_true")
+    fit.add_argument(
+        "--shuffle-options",
+        action="store_true",
+        help="Randomize named choices during training; targets remain keyed by name",
+    )
+    fit.add_argument(
+        "--add-lora-rank", type=int, default=0, help="Add LoRA to an unadapted checkpoint"
+    )
+    fit.add_argument("--add-lora-layers", type=int, default=2)
+    fit.add_argument(
+        "--train-eval-limit",
+        type=int,
+        default=0,
+        help="Bound training-set evaluation; validation remains complete",
+    )
+    fit.add_argument(
+        "--feature-cache", type=Path, help="Persistent frozen features, eight resident histories"
+    )
     teacher = sub.add_parser("teacher", help="Run full Qwen offline to label named choices")
     teacher.add_argument("--manifest", required=True, type=Path)
     teacher.add_argument("--output", required=True, type=Path)

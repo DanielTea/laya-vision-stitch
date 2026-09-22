@@ -1,0 +1,293 @@
+{
+  "checkpoint": "artifacts/scaled-robust-001/bundle",
+  "hardware": "Apple M3 Max, 48 GiB unified memory",
+  "training": {
+    "steps_total": 12000,
+    "unique_images": 512,
+    "examples_final_stage": 12288,
+    "parameters": {
+      "total": 760862486,
+      "trainable": 6054416,
+      "trainable_roots": [
+        "actions",
+        "connector",
+        "laya"
+      ]
+    },
+    "final_stage": {
+      "seed": 17,
+      "learning_rate": 3e-05,
+      "steps_this_run": 4000,
+      "train_digest": "c079d8e11ce0685e1a6f52952ac55da491368401e1cde473e29a4d9f493da673",
+      "validation_digest": "154fe3e8265505d24fd42fa5db099d5134e6896fe860922bb6bcd2c1901a046c",
+      "holdout_games": false,
+      "frozen_sha256": {
+        "vision": "da3b7fff2bad2a16528bdd1e271c14377a58c41215343aa5544c772ec884acb1",
+        "laya": "6f3a46ef38f342fbdee3aee95a30f0ae04d5fea1f37b4886d909b751410cb326"
+      },
+      "teacher_examples": 0,
+      "action_examples": 8192,
+      "optimizer_state_saved": false,
+      "shuffle_options": true,
+      "train_examples": 12288,
+      "train_evaluation_examples": 192
+    },
+    "frozen_weights_unchanged": true,
+    "reload_matches": true
+  },
+  "evaluation": {
+    "generation_seed": 2083,
+    "train_images_and_episodes_disjoint": true,
+    "holdouts": {
+      "validation": {
+        "actual": {
+          "loss": 2.262723223626381,
+          "choice_accuracy": 1.0,
+          "labelled_choices": 128,
+          "button_exact_match": 1.0,
+          "mouse_mse": 0.00026725917779928755,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 1.0
+        },
+        "novel_target_count": 0,
+        "novel_target_accuracy": null,
+        "accuracy_scene_bootstrap_95": [
+          1.0,
+          1.0
+        ],
+        "zero_visual": {
+          "loss": 6.528727257158607,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 128,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0005243968027694188,
+          "examples": 128,
+          "zero_visual": true,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.0
+        },
+        "shuffled_images": {
+          "loss": 7.884383372031152,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 128,
+          "button_exact_match": 0.4921875,
+          "mouse_mse": 0.00043717554519786704,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.09375
+        },
+        "reversed_options": {
+          "loss": 2.5863446154253324,
+          "choice_accuracy": 0.90625,
+          "labelled_choices": 128,
+          "button_exact_match": 0.921875,
+          "mouse_mse": 0.00027050369395916786,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.828125
+        }
+      },
+      "composition_test": {
+        "actual": {
+          "loss": 2.2400169708998874,
+          "choice_accuracy": 1.0,
+          "labelled_choices": 128,
+          "button_exact_match": 1.0,
+          "mouse_mse": 0.0003034950254219832,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 1.0
+        },
+        "novel_target_count": 66,
+        "novel_target_accuracy": 1.0,
+        "accuracy_scene_bootstrap_95": [
+          1.0,
+          1.0
+        ],
+        "zero_visual": {
+          "loss": 6.532808276824653,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 128,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0004729678245221325,
+          "examples": 128,
+          "zero_visual": true,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.0
+        },
+        "shuffled_images": {
+          "loss": 7.764585948549211,
+          "choice_accuracy": 0.515625,
+          "labelled_choices": 128,
+          "button_exact_match": 0.515625,
+          "mouse_mse": 0.0005019056842873158,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.15625
+        },
+        "reversed_options": {
+          "loss": 2.584450122958515,
+          "choice_accuracy": 0.890625,
+          "labelled_choices": 128,
+          "button_exact_match": 0.9765625,
+          "mouse_mse": 0.0002373253477513114,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.78125
+        }
+      },
+      "style_test": {
+        "actual": {
+          "loss": 2.1031794179871213,
+          "choice_accuracy": 1.0,
+          "labelled_choices": 128,
+          "button_exact_match": 1.0,
+          "mouse_mse": 0.00029549449676118496,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 1.0
+        },
+        "novel_target_count": 0,
+        "novel_target_accuracy": null,
+        "accuracy_scene_bootstrap_95": [
+          1.0,
+          1.0
+        ],
+        "zero_visual": {
+          "loss": 6.232897729612887,
+          "choice_accuracy": 0.5,
+          "labelled_choices": 128,
+          "button_exact_match": 0.5,
+          "mouse_mse": 0.0005135169536466101,
+          "examples": 128,
+          "zero_visual": true,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.0
+        },
+        "shuffled_images": {
+          "loss": 7.456868281529751,
+          "choice_accuracy": 0.53125,
+          "labelled_choices": 128,
+          "button_exact_match": 0.515625,
+          "mouse_mse": 0.0004880483980614299,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.140625
+        },
+        "reversed_options": {
+          "loss": 2.4548045246338006,
+          "choice_accuracy": 0.859375,
+          "labelled_choices": 128,
+          "button_exact_match": 0.9921875,
+          "mouse_mse": 0.00036887813110684283,
+          "examples": 128,
+          "zero_visual": false,
+          "goal_counterfactual_groups": 64,
+          "goal_counterfactual_accuracy": 0.71875
+        }
+      }
+    },
+    "questions": {
+      "move_away": {
+        "model_correct": 57,
+        "text_oracle_correct": 56,
+        "zero_visual_correct": 34,
+        "count": 64,
+        "prompt_style": "original",
+        "model_accuracy": 0.890625,
+        "text_oracle_accuracy": 0.875,
+        "zero_visual_accuracy": 0.53125
+      },
+      "left_color": {
+        "model_correct": 64,
+        "text_oracle_correct": 51,
+        "zero_visual_correct": 15,
+        "count": 64,
+        "prompt_style": "original",
+        "model_accuracy": 1.0,
+        "text_oracle_accuracy": 0.796875,
+        "zero_visual_accuracy": 0.234375
+      },
+      "left_shape": {
+        "model_correct": 64,
+        "text_oracle_correct": 62,
+        "zero_visual_correct": 18,
+        "count": 64,
+        "prompt_style": "original",
+        "model_accuracy": 1.0,
+        "text_oracle_accuracy": 0.96875,
+        "zero_visual_accuracy": 0.28125
+      }
+    },
+    "unseen_wording": {
+      "move_away": {
+        "model_correct": 42,
+        "text_oracle_correct": 41,
+        "zero_visual_correct": 33,
+        "count": 64,
+        "prompt_style": "paraphrase",
+        "model_accuracy": 0.65625,
+        "text_oracle_accuracy": 0.640625,
+        "zero_visual_accuracy": 0.515625
+      },
+      "left_color": {
+        "model_correct": 64,
+        "text_oracle_correct": 57,
+        "zero_visual_correct": 15,
+        "count": 64,
+        "prompt_style": "paraphrase",
+        "model_accuracy": 1.0,
+        "text_oracle_accuracy": 0.890625,
+        "zero_visual_accuracy": 0.234375
+      },
+      "left_shape": {
+        "model_correct": 64,
+        "text_oracle_correct": 62,
+        "zero_visual_correct": 18,
+        "count": 64,
+        "prompt_style": "paraphrase",
+        "model_accuracy": 1.0,
+        "text_oracle_accuracy": 0.96875,
+        "zero_visual_accuracy": 0.28125
+      }
+    },
+    "sandbox": {
+      "mode": "buttons",
+      "episodes": 40,
+      "successes": 40,
+      "success_rate": 1.0,
+      "best_constant_direction_success_rate": 0.6,
+      "mean_steps": 3.425,
+      "warm_inference_p50_ms": 57.51585401594639,
+      "warm_inference_p95_ms": 67.98568775411695,
+      "seed": 9406,
+      "os_input_events_sent": 0,
+      "note": "Synthetic one-dimensional target approach; not real-game or combat validation."
+    }
+  },
+  "latency": {
+    "sandbox_warm_p50_ms": 57.51585401594639,
+    "sandbox_warm_p95_ms": 67.98568775411695,
+    "export_reload_benchmark_p50_ms": 74.5326034957543,
+    "export_reload_benchmark_p95_ms": 87.48916859331075,
+    "scope": "Model inference including image processing; excludes screen capture, OS input, game response."
+  },
+  "input_events_sent": 0,
+  "cross_game_capability_established": false,
+  "limitations": [
+    "Synthetic shapes and one-dimensional target approach only",
+    "Unseen retreat wording: 42/64",
+    "Reversed option ordering: 85.94 to 90.63 percent",
+    "Mouse, combat, camera, temporal histories and real-game transfer unvalidated",
+    "Training uses procedural labels, not Qwen language-teacher targets"
+  ]
+}

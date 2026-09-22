@@ -1,0 +1,7 @@
+{
+  "connector_type": "aligned",
+  "connector_width": 256,
+  "visual_slots": 16,
+  "lora_rank": 8,
+  "lora_layers": 2
+}

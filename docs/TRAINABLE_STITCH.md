@@ -4,9 +4,11 @@ This path follows the user's updated requirement: reuse pretrained knowledge and
 allow small-parameter training, without fully fine-tuning the backbones. Earlier
 frozen/retrieval experiments remain reproducible in separate modules.
 
-**Status:** implemented and tested training/inference infrastructure. The first
-synthetic pilots remain at chance on goal-dependent choices. This is not a
-trained general game agent. See [measured results](TRAINING_RESULTS.md).
+**Status:** the original pilots below remained at chance. The subsequent
+[scaling work](SCALING.md) adds aligned initialization, description supervision,
+mixed goals, bounded feature caching and a persistent local API. Use that guide
+for the current recipe. [Original pilot results](TRAINING_RESULTS.md) remain
+available; no cross-game gameplay capability has been established.
 
 ## Model
 
@@ -34,13 +36,20 @@ the frozen Laya encoder and decision head into this connector. Frozen vision
 features are cached in memory during training, separately for each split.
 Caching is an optimization of the same computation; deployment runs vision.
 
+That paragraph describes the original `queries` connector. The active `aligned`
+connector instead preserves a fixed spatial grid and learns scene vectors near
+Laya's text embeddings. Goal conditioning occurs inside Laya. A `description`
+field can supervise these vectors during training; it never enters inference.
+The current configuration has ~6.05M trainable parameters, including small LoRA,
+rather than the smaller counts for the original defaults below.
+
 Default training changes 814,608 of 755,622,678 parameters (~0.108%). Optional
 rank-8 LoRA on QKV and attention-output projections in the last two Laya encoder
 layers adds 98,304 trainable parameters (~0.121% total). Original backbone tensors
 stay frozen. LoRA currently remains as small residual modules in the single
 checkpoint; it is not merged into the original weights.
 
-## Setup and smoke run
+## Setup and historical smoke run
 
 Use a native Apple Silicon Python interpreter. From this repository:
 
@@ -75,8 +84,9 @@ with a saved `.error.json` response instead of guessing a label.
 
 Training sums any available choice cross-entropy, temperature-scaled teacher KL,
 button binary cross-entropy, mouse/pointer MSE, pointer-active binary
-cross-entropy and duration cross-entropy. Loss terms currently have equal weight;
-teacher mistakes can conflict with ground truth. Review teacher quality first.
+cross-entropy and duration cross-entropy. The original loss terms have equal weight. Optional description alignment adds
+a normalized embedding MSE weighted by 10; teacher mistakes can conflict with
+ground truth. Review teacher quality first.
 There is no hidden automated pseudo-label filtering or claimed transfer of all
 Qwen knowledge.
 

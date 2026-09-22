@@ -1,18 +1,56 @@
 # Laya Vision Stitch
 
-Research toward a fast local visual decision model with **Laya retained**.
+One local screenshot-and-goal model combining **Qwen vision, a learned visual
+connector, Laya with small LoRA adapters, and action outputs**. It exports as one
+checkpoint and runs without Qwen language decoding, generated captions or a
+reference-image bank. Original pretrained backbone weights stay frozen.
 
-The current path combines **frozen Qwen vision, a trainable goal-conditioned
-connector, Laya, and keyboard/mouse action outputs**, with optional small LoRA
-adapters. Full Qwen can supply offline teacher targets; it does not decode text
-during deployment. Original backbone weights stay frozen. See the
-[training guide and data format](docs/TRAINABLE_STITCH.md) and
-[initial training results](docs/TRAINING_RESULTS.md).
+The latest model reached its target in **40/40 fresh synthetic sandbox episodes**,
+using its learned A/D button outputs. Warm inference took **58 ms median** on an
+M3 Max. It answered 384/384 standard move-toward questions across fresh scenes,
+withheld object combinations and a withheld visual style; shuffled images
+reduced accuracy to 50–53%.
 
-The pipeline trains and exports a single model, but the initial synthetic pilots
-remain at chance on goal-dependent choices. This is research infrastructure,
-not a trained general game agent. The previous no-training experiments remain
-available below.
+This demonstrates basic visual movement, not general gameplay. Unseen “retreat”
+wording scored 66%, and reversing answer order reduced accuracy to 86–91%.
+Combat, camera control, clicking and transfer to actual games remain unvalidated.
+[Full results and limits](docs/SCALING_RESULTS.md) ·
+[Reproduce training and inference](docs/SCALING.md) ·
+[Training data format](docs/TRAINABLE_STITCH.md).
+
+```text
+Screenshot → frozen Qwen vision → learned connector → Laya + small LoRA → actions
+                                                        ↑
+                                             goal, controls, recent actions
+```
+
+Only **6.05M parameters (~0.80%)** are trained. The measured recipe uses 512
+training images, 12,288 examples including different goals/wordings, and 12,000
+optimization steps. Description supervision exists only during training;
+inference receives pixels and the ordinary prompt.
+
+## Run the current local model
+
+With the locally trained checkpoint available:
+
+```bash
+./scripts/start-model.command --port 8767
+```
+
+This keeps the model loaded at `http://127.0.0.1:8767`. Send screenshots and goals
+to `POST /predict`; see the [Python request example](docs/SCALING.md#persistent-local-api).
+The API returns proposed actions and sends no desktop inputs. Model weights are
+not committed to Git; a fresh checkout needs the [setup and training recipe](docs/SCALING.md#reproduce).
+
+To run the simple screenshot-driven sandbox with a new seed:
+
+```bash
+uv run --no-sync python -m laya_vision_stitch.policy_sandbox \
+  --bundle artifacts/scaled-robust-001/bundle --output artifacts/my-sandbox \
+  --episodes 40 --seed 9501
+```
+
+## Historical no-training experiment
 
 The previous experiment combines frozen CLIP, paired image–description reference
 memory, and frozen Laya in one MLX module and one weights file. No autoregressive
@@ -115,8 +153,8 @@ uv run --no-sync ruff format --check .
 uv run --no-sync pytest -q
 ```
 
-Tests cover frozen pairing, reference/test separation, duplicate rejection,
-value-preserving CLIP weight conversion and the earlier embedding experiments.
+Tests cover training/inference separation, feature caching, held-out data,
+goal augmentation, the persistent API and earlier embedding experiments.
 Large checkpoint tests and measured runs remain local. Model files, references
 and screenshots under `artifacts/` are ignored by Git. ScreenQuest is unchanged.
 
@@ -131,6 +169,8 @@ and screenshots under `artifacts/` are ignored by Git. ScreenQuest is unchanged.
 
 - [Laya](https://github.com/NandhaKishorM/laya) and
   [Laya MLX](https://github.com/mizorewww/laya-mlx).
+- [Qwen3.5](https://github.com/QwenLM/Qwen3.5); the current model uses its vision
+  encoder through MLX VLM, with pinned weights listed in the training guide.
 - [CLIP](https://github.com/openai/CLIP) and
   [Apple MLX CLIP example](https://github.com/ml-explore/mlx-examples/tree/main/clip).
 - [ASIF: paired anchors without parameter training](https://arxiv.org/abs/2210.01738).

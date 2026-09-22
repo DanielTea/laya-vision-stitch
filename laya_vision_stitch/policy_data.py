@@ -59,6 +59,10 @@ def read_manifest(path, config, supervised=True):
                 raise ValueError("Empty choice description")
         if "answer" in row and (not choices or row["answer"] not in choices):
             raise ValueError("Answer must name a supplied choice")
+        if "description" in row and (
+            not isinstance(row["description"], str) or not row["description"].strip()
+        ):
+            raise ValueError("Description must be nonempty text")
         if "teacher_probs" in row:
             if not choices or set(row["teacher_probs"]) != set(choices):
                 raise ValueError("Teacher probabilities must match named choices")
@@ -84,8 +88,12 @@ def read_manifest(path, config, supervised=True):
                 raise ValueError("Action duration must match a configured duration bin")
             if action.get("pointer_xy") is not None:
                 vector(action["pointer_xy"], 2, 0, 1, "normalized pointer position")
-        if supervised and not any(k in row for k in ("answer", "teacher_probs", "action")):
-            raise ValueError("Training examples need answers, teacher targets, or actions")
+        if supervised and not any(
+            k in row for k in ("answer", "teacher_probs", "action", "description")
+        ):
+            raise ValueError(
+                "Training examples need answers, teacher targets, descriptions, or actions"
+            )
         rows.append(row)
     if not rows:
         raise ValueError("Empty manifest")
@@ -106,3 +114,14 @@ def check_separation(train, validation, holdout_games=False):
 
 def manifest_digest(rows):
     return hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest()
+
+
+def mix_manifests(paths, output, config):
+    rows = []
+    for path in paths:
+        rows.extend(read_manifest(path, config))
+    if len({r["id"] for r in rows}) != len(rows):
+        raise ValueError("Mixed manifests contain duplicate IDs")
+    with Path(output).open("x") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, allow_nan=False) + "\n")

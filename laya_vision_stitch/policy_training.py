@@ -1,6 +1,7 @@
 """Small-parameter supervised learning and teacher distillation, native MLX."""
 
 import hashlib
+import json
 import time
 
 import mlx.core as mx
@@ -8,6 +9,17 @@ import mlx.nn as nn
 import mlx.optimizers as optim
 import numpy as np
 from mlx.utils import tree_flatten
+
+
+class ExampleSubset:
+    def __init__(self, examples, indices):
+        self.examples, self.indices = examples, list(indices)
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, index):
+        return self.examples[self.indices[index]]
 
 
 def loss_terms(output, row, config):
@@ -56,10 +68,33 @@ def fingerprint(module, frozen_only=False):
     return digest.hexdigest()
 
 
-def cache_examples(runtime, rows):
+def supervised_terms(model, output, row):
+    terms = loss_terms(output, row, model.policy_config)
+    if "_alignment_ids" in row:
+        target = model.laya.encoder.embeddings.tok_embeddings(
+            mx.array([row["_alignment_ids"]])
+        ).astype(mx.float32)
+        state = output["visual_state"][:, : target.shape[1]]
+        terms["alignment"] = (
+            10 * mx.mean((state - target) ** 2) / mx.maximum(mx.mean(target**2), 1e-6)
+        )
+    return terms
+
+
+def cache_examples(runtime, rows, directory=None):
+    if directory is not None:
+        from .feature_cache import CachedExamples
+
+        return CachedExamples(runtime, rows, directory)
     # Frozen visual features are identical across goals; reuse only within this run.
     features, examples = {}, []
     for index, row in enumerate(rows):
+        if row.get("description"):
+            row = dict(row)
+            ids = runtime.agent.tok(row["description"], add_special_tokens=False)["input_ids"]
+            if len(ids) > runtime.module.policy_config.visual_slots:
+                raise ValueError("Description exceeds visual slots; shorten it or increase slots")
+            row["_alignment_ids"] = ids
         key = tuple((f["sha256"], f["age_seconds"]) for f in row["frames"])
         if key not in features:
             features[key] = runtime.features(row)
@@ -76,7 +111,7 @@ def evaluate(runtime, examples, zero_visual=False):
         if zero_visual:
             inputs = (mx.zeros_like(inputs[0]), *inputs[1:])
         output = runtime.module.from_features(*inputs)
-        terms = loss_terms(output, row, runtime.module.policy_config)
+        terms = supervised_terms(runtime.module, output, row)
         total = sum(terms.values(), mx.array(0.0))
         mx.eval(output, total)
         losses.append(float(total.item()))
@@ -104,6 +139,8 @@ def evaluate(runtime, examples, zero_visual=False):
             key = (
                 tuple((f.get("sha256", f["image"]), f["age_seconds"]) for f in row["frames"]),
                 tuple(row["choices"].items()),
+                row.get("controls", ""),
+                json.dumps(row.get("previous_actions", []), sort_keys=True),
             )
             by_scene.setdefault(key, []).append((row, prediction))
     pairs = [
@@ -129,7 +166,9 @@ def evaluate(runtime, examples, zero_visual=False):
     }
 
 
-def train(runtime, examples, steps=50, learning_rate=1e-4, seed=17, log=None):
+def train(
+    runtime, examples, steps=50, learning_rate=1e-4, seed=17, log=None, shuffle_options=False
+):
     if steps < 1 or not np.isfinite(learning_rate) or learning_rate <= 0:
         raise ValueError("Positive steps and finite learning rate required")
     parameters = tree_flatten(runtime.module.trainable_parameters())
@@ -143,10 +182,10 @@ def train(runtime, examples, steps=50, learning_rate=1e-4, seed=17, log=None):
         raise RuntimeError("Only connector, action heads and optional LoRA may be trained")
     optimizer = optim.AdamW(learning_rate=learning_rate, weight_decay=0)
     rng = np.random.default_rng(seed)
-    config = runtime.module.policy_config
 
     def loss(model, inputs, row):
-        return sum(loss_terms(model.from_features(*inputs), row, config).values(), mx.array(0.0))
+        output = model.from_features(*inputs)
+        return sum(supervised_terms(model, output, row).values(), mx.array(0.0))
 
     value_and_grad = nn.value_and_grad(runtime.module, loss)
     history, order = [], []
@@ -154,6 +193,11 @@ def train(runtime, examples, steps=50, learning_rate=1e-4, seed=17, log=None):
         if not order:
             order = rng.permutation(len(examples)).tolist()
         row, inputs = examples[order.pop()]
+        if shuffle_options and row.get("choices"):
+            labels = list(row["choices"])
+            labels = [labels[i] for i in rng.permutation(len(labels))]
+            row = dict(row, choices={k: row["choices"][k] for k in labels})
+            inputs = (*inputs[:2], *runtime.prepare(row))
         started = time.perf_counter()
         value, grads = value_and_grad(runtime.module, inputs, row)
         grads, norm = optim.clip_grad_norm(grads, 1.0)

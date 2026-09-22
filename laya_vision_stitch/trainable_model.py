@@ -31,6 +31,7 @@ class PolicyConfig:
     image_width: int = 320
     lora_rank: int = 0
     lora_layers: int = 2
+    connector_type: str = "queries"
     buttons: tuple = ("w", "a", "s", "d", "space", "mouse_left", "mouse_right")
     durations: tuple = (0.05, 0.1, 0.2, 0.4)
 
@@ -43,6 +44,13 @@ class PolicyConfig:
             raise ValueError("image_width must be in 128..1024")
         if not 0 <= self.lora_rank <= 64 or self.lora_layers < 1:
             raise ValueError("Invalid LoRA rank/layer count")
+        if self.connector_type not in ("queries", "spatial", "aligned"):
+            raise ValueError("Unknown connector type")
+        if (
+            self.connector_type == "spatial"
+            and int(self.visual_slots**0.5) ** 2 != self.visual_slots
+        ):
+            raise ValueError("Spatial connector requires a square number of slots")
         if not self.buttons or len(set(self.buttons)) != len(self.buttons):
             raise ValueError("Provide unique button names")
         if any(not isinstance(b, str) or not b.strip() for b in self.buttons):
@@ -94,6 +102,67 @@ class GoalConnector(nn.Module):
         return self.output(q)
 
 
+class SpatialConnector(nn.Module):
+    """Preserve a regular spatial lattice instead of initially uniform queries.
+
+    This is generic image tokenization, with no object/color/action rules. Frame
+    time remains a feature; slots aggregate all supplied frames at each location.
+    """
+
+    def __init__(self, visual_width, language_width, config):
+        super().__init__()
+        self.grid_size = int(config.visual_slots**0.5)
+        self.norm = nn.LayerNorm(visual_width)
+        self.project = nn.Sequential(
+            nn.Linear(visual_width + 4, config.connector_width),
+            nn.GELU(),
+            nn.Linear(config.connector_width, language_width),
+        )
+        self.goal = nn.Linear(language_width, language_width, bias=False)
+
+    def __call__(self, patches, coordinates, goal_embeddings):
+        axis = mx.linspace(-1, 1, self.grid_size)
+        yy, xx = mx.meshgrid(axis, axis, indexing="ij")
+        centers = mx.stack([xx.reshape(-1), yy.reshape(-1)], axis=-1)
+        distances = mx.sum((centers[:, None] - coordinates[None, :, :2]) ** 2, axis=-1)
+        weights = mx.softmax(-distances * self.grid_size**2, axis=-1)
+        features = mx.concatenate([self.norm(patches), coordinates], axis=-1)
+        pooled = self.project(weights @ features)[None]
+        goal = self.goal(goal_embeddings.astype(mx.float32).mean(axis=1))[:, None]
+        return pooled * (1 + mx.tanh(goal))
+
+
+class AlignedConnector(nn.Module):
+    """Learn a residual around text-manifold soft tokens; no decoding at inference.
+
+    Anchors are trainable parameters initialized from training descriptions only.
+    They are not a memory of reference images or runtime target descriptions.
+    """
+
+    def __init__(self, visual_width, language_width, config):
+        super().__init__()
+        self.slots, self.width = config.visual_slots, language_width
+        d = config.connector_width
+        self.norm = nn.LayerNorm(visual_width)
+        self.visual = nn.Linear(visual_width + 4, d)
+        self.hidden = nn.Linear(16 * d, d)
+        self.output = nn.Linear(d, self.slots * language_width)
+        self.output.weight = mx.zeros_like(self.output.weight)
+        self.output.bias = mx.zeros_like(self.output.bias)
+        self.anchors = mx.zeros((self.slots, language_width))
+
+    def __call__(self, patches, coordinates, goal_embeddings):
+        axis = mx.linspace(-1, 1, 4)
+        yy, xx = mx.meshgrid(axis, axis, indexing="ij")
+        centers = mx.stack([xx.reshape(-1), yy.reshape(-1)], axis=-1)
+        weights = mx.softmax(
+            -16 * mx.sum((centers[:, None] - coordinates[None, :, :2]) ** 2, axis=-1), axis=-1
+        )
+        local = nn.gelu(self.visual(mx.concatenate([self.norm(patches), coordinates], axis=-1)))
+        state = nn.gelu(self.hidden((weights @ local).reshape(1, -1)))
+        return self.anchors[None] + self.output(state).reshape(1, self.slots, self.width)
+
+
 class ActionHeads(nn.Module):
     def __init__(self, width, config):
         super().__init__()
@@ -121,7 +190,12 @@ class TrainableStitch(nn.Module):
         self.vision, self.laya = vision, laya
         self.policy_config = config
         width = laya.encoder.config.hidden_size
-        self.connector = GoalConnector(vision.config.out_hidden_size, width, config)
+        connector_class = {
+            "spatial": SpatialConnector,
+            "queries": GoalConnector,
+            "aligned": AlignedConnector,
+        }[config.connector_type]
+        self.connector = connector_class(vision.config.out_hidden_size, width, config)
         self.actions = ActionHeads(width, config)
         self.vision.freeze()
         self.laya.freeze()
@@ -147,12 +221,18 @@ class TrainableStitch(nn.Module):
         return mx.stop_gradient(visual.astype(mx.float32)), mx.array(coordinates, mx.float32)
 
     def from_features(self, patches, coordinates, batch, goal_ids, start):
+        encoder = self.laya.encoder
+        goal = encoder.embeddings.tok_embeddings(goal_ids)
+        state = self.connector(patches, coordinates, goal)
+        return self.from_state(state, batch, start)
+
+    def from_state(self, state, batch, start):
+        """Shared Laya path; explicit state input also enables text-oracle audits."""
         from laya_mlx.model import attention_masks
 
         encoder = self.laya.encoder
         original = encoder.embeddings.tok_embeddings(batch["input_ids"])
-        goal = encoder.embeddings.tok_embeddings(goal_ids)
-        state = self.connector(patches, coordinates, goal).astype(original.dtype)
+        state = state.astype(original.dtype)
         h = mx.concatenate(
             [original[:, :start], state, original[:, start + self.policy_config.visual_slots :]],
             axis=1,
@@ -166,7 +246,11 @@ class TrainableStitch(nn.Module):
         markers = h[mx.arange(h.shape[0])[:, None], batch["marker_pos"]]
         choices = self.laya.scorer(markers).squeeze(-1).astype(mx.float32)
         choices = mx.where(batch["marker_mask"], choices, -1e4)
-        return {"choices": choices, **self.actions(h[:, 0])}
+        return {
+            "choices": choices,
+            "visual_state": state.astype(mx.float32),
+            **self.actions(h[:, 0]),
+        }
 
     def __call__(self, frames, batch, goal_ids, start):
         encoded = [self.encode_frame(*frame) for frame in frames]
@@ -189,6 +273,19 @@ def context_text(row):
 class TrainableRuntime:
     def __init__(self, module, agent, processor, metadata):
         self.module, self.agent, self.processor, self.metadata = module, agent, processor, metadata
+
+    def add_lora(self, rank, layers):
+        config = self.module.policy_config
+        if config.lora_rank:
+            raise ValueError("Checkpoint already contains LoRA")
+        if not 1 <= rank <= 64 or not 1 <= layers <= len(self.module.laya.encoder.layers):
+            raise ValueError("Invalid LoRA dimensions")
+        for layer in self.module.laya.encoder.layers[-layers:]:
+            layer.attn.Wqkv = LoRALinear(layer.attn.Wqkv, rank)
+            layer.attn.Wo = LoRALinear(layer.attn.Wo, rank)
+        config.lora_rank, config.lora_layers = rank, layers
+        self.metadata["policy_config"] = asdict(config)
+        self.metadata["laya_lora_enabled"] = True
 
     @classmethod
     def build(cls, config=None):
@@ -257,8 +354,11 @@ class TrainableRuntime:
             raise ValueError("Frame history exceeds configured limit")
         result = []
         for index, frame in enumerate(frames):
-            with Image.open(frame["image"]) as source:
-                image = source.convert("RGB")
+            if isinstance(frame["image"], Image.Image):
+                image = frame["image"].convert("RGB")
+            else:
+                with Image.open(frame["image"]) as source:
+                    image = source.convert("RGB")
             width = self.module.policy_config.image_width
             if image.width > width:
                 image = image.resize((width, max(1, round(image.height * width / image.width))))
