@@ -1,0 +1,393 @@
+{
+  "reviewer": "assistant visual inspection before any model prediction on these games",
+  "definition": "Large menu, inventory or map overlay; excludes ordinary HUD and in-world objects.",
+  "dataset": "open-world-agents/D2E-480p",
+  "revision": "f075f7e25df6f6d385840a836f86bf92dfb877ff",
+  "license": "CC-BY-NC-4.0",
+  "labels": [
+    {
+      "id": "d2e-00349955f915-0",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "0e0a0dc61ebf9ae685561773b842d5f4e84aedfb9408da7bb7fd58a18fe52885",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-1",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "d557e118af737f53a02455faecb7474dc8da4e5c92433b891429661d7d4871be",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-2",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "abda134ff77a0b69a2c3ecef23292ed751777b32a15e860ed49ca80f30829637",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-3",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "efec190e1936e818073c403b9853d965299224d751f11787ed8fe656d5499f6b",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-4",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "fbe42fc5af3a5bc46a7b95889b6af914044d2ee8353e71597b90a788f7ebcb5e",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-5",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "21d1d373267e850d385381aceb07c31d14781c4ed98c37b5adcf3b28e39f6aa0",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-6",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "148b70851d36284e8dc4413b97629d20562f981b6a9f7d220fef7c2a873150a8",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-7",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "a031914c12451d52a90e4810ac711845d936e065c73de6bc372058560cfb9caf",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-8",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "a2613663e3eda3031d698b9ec48b7f3d0a61b5bf6534f60246ab3548ebdc320a",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-9",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "f2688295e97f1db21bde8e7c1fab511407b593e93f710bb95da63ec79eb2500a",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-00349955f915-10",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "ee8f23103660c726bf0e553b762362fe69702571204902b9e90a6a544ce056f4",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-11",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "2262ddc26a8e77943255a9b7e5b878a1c6225039efe4151e2c81f60bed12b656",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-12",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "d97958a66df8fe67b7af25174125ea5196eeb0bdf4922934fb53f0ad1a7bede5",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-13",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "fb672c4f083e0ea34b3bd305f5ddb962ee1c7ff54b6a14a057a745578d6159bf",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-14",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "fc7d8e5c91be75e6ae62f775969d7aa082ad29b1a94c276b0980bb40e3a0722e",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-15",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "0a9316fec97a7900b86856693a239162f0718857252bcbdfd67e7887a7c59c49",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-16",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "40e948784ad50cd64eda2e487fe0516ea548a9877b1fa59f0cebdfa0e481b0a4",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-17",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "fa45e603cb88b652837296422b4694e8f0cc1eda9d646215513c5dfd95b65fc7",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-18",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "7d657f4d9af963dbcd3ce69d9a8ba963b1570076fa72d8790c5cb8e84dd96a53",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-19",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "32112764783ec4870c2f0b47c462cfd3859fa30e7d5c0a5b5e3c587b0df53e0e",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-20",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "edb92a5e1e4b3df0da12a1bd4d1b9f5d8d8e02538bfd7d4914ce9c0d473163d8",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-21",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "291b186781ea389c68f7e1a94d97ce7bc6f9159c20fc8fb4dd0932c6b638ea2a",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-22",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "787f5c2c967592f859a62a5d14809b56310c39146331e21c87a9a523358af719",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-23",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "1bcd621ecf3434b5ae199e0e27e7e7b007ee900eb582ecf89c2b0f2807a05e16",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-24",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "8051d36cf70bc5734f01ef38cbfd0006b7765d4c8d672322e42ab3cff627934b",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-25",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "54b7456d91c1beee01a0b387bb1761ccbc532f9c630b620208e85f08b2c2a4b1",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-26",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "d75956010f12c32a1c0d27d9fa6ae9940224108aebaf9e8590b555ea939f3c77",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-27",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "27c9302cbc4a95c9d068d972f706a1c93fe3eb96922d36f74b7d65f7788a1073",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-28",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "1cf29dff47d720221f8c7b0897bcfda9413383568c248d40e50524c69d50a076",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-29",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "919106f2b9e73e076ae2374645c0e966d981f82a87fe837e4cec2a57d0cfe7e5",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-30",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "299b333a9636bfd4360d3d64ff2c157cfca8446ea83c5bafbc37ed8f52c05c14",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-00349955f915-31",
+      "game": "Monster_Hunter_Wilds",
+      "image_sha256": "79fbd99aa74988c450fcb34c390e977b8a52b8d2deec4b6c418a609ba3d62636",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-0",
+      "game": "Core_Keeper",
+      "image_sha256": "ca69c5703c7b3e20ff17b73e4a0818adbb995207e6615f1004310561b78bfc53",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-1",
+      "game": "Core_Keeper",
+      "image_sha256": "8c1f52a7515a6a969a3bcde3b5d205655eace607db8ac3f1571cb1b78a2b47af",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-1d3c70340018-2",
+      "game": "Core_Keeper",
+      "image_sha256": "63378221caf20858359337209b5a8db117a1059f4c445c02d60d213e3ef3ecc3",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-3",
+      "game": "Core_Keeper",
+      "image_sha256": "d6550e81ccafbb575163d58780a312906345ceb104a322a4b1b4398a5a5c13fa",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-4",
+      "game": "Core_Keeper",
+      "image_sha256": "21d107b955fe2a3e4cd8aa9b78eb80b4d7a0e83c5ed6726bb56f5b9c4d969912",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-5",
+      "game": "Core_Keeper",
+      "image_sha256": "1252e2a8e29e7f33c768cf37e813c502973ff39b40d94c37df4686fc130b5224",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-6",
+      "game": "Core_Keeper",
+      "image_sha256": "7c0f9c6b0c168c51b38d86a246d7519220d426c4cff147afdd8595a902800d98",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-7",
+      "game": "Core_Keeper",
+      "image_sha256": "0e011def8688306228ecc64fd17f83f426c48a87c6aaf9091f81fb03c07e661d",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-8",
+      "game": "Core_Keeper",
+      "image_sha256": "3e8711a6bb661f051fc39ec6c1f13611a8491a46e64a045c958e46812717fdf4",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-9",
+      "game": "Core_Keeper",
+      "image_sha256": "4d732ae5a7ecd3f8f5826dafd682694144abf9a4357686383180db291b01c34d",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-10",
+      "game": "Core_Keeper",
+      "image_sha256": "fa005a6d09cd68ca16eb1fdb26c5da38d9793cf3058cf6d5f75e549fb7732185",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-11",
+      "game": "Core_Keeper",
+      "image_sha256": "987a562534bd4bcc87f555060c5fec47aadc2b62ad17a39693fc2065d1deba0b",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-1d3c70340018-12",
+      "game": "Core_Keeper",
+      "image_sha256": "40a977d6defbdb84537a85e284c5e2ce507a8d4f45cb6a379db5efff655a5fa9",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-13",
+      "game": "Core_Keeper",
+      "image_sha256": "286b2a67f27b14cfef35f8f32f6479d7e880aac78430fa594c52776e3a5006dc",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-1d3c70340018-14",
+      "game": "Core_Keeper",
+      "image_sha256": "c679072dccfd66b612a092b1a8dbbf2e0794bad4e5e49d70eb72218513583f99",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-15",
+      "game": "Core_Keeper",
+      "image_sha256": "aebc79d1ff3bbc497310de47bb061389060ae8fd46447857f30e741d0856f169",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-16",
+      "game": "Core_Keeper",
+      "image_sha256": "91a65856670fc3c5ae5de50de11d6672b61643ea41c43e249af848878a517e6c",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-17",
+      "game": "Core_Keeper",
+      "image_sha256": "323a079dabed62948166b7bf0a689e4198f02bfd91eef61a311f4f71488bb7f8",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-18",
+      "game": "Core_Keeper",
+      "image_sha256": "36c0186971dea3f095b22a52b7b535163ec9dddb95b57e60700e3affcf026bc3",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-19",
+      "game": "Core_Keeper",
+      "image_sha256": "d71ca802ea503339a8060fd0a6ae22e5eefb44e159aba39e02227c40f9cc1549",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-20",
+      "game": "Core_Keeper",
+      "image_sha256": "cfab7ed7763f9e4bafac227ab87af778895c586768c8440748c21e3a3282f56e",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-21",
+      "game": "Core_Keeper",
+      "image_sha256": "0cac589033949843b80d6b7e45320fc5ab888cb9235e587e1ccbded6169c928e",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-22",
+      "game": "Core_Keeper",
+      "image_sha256": "d950d802803f1a0602950fa2507f3a2388aad7e92b998fb2a9b12894ac4f3360",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-23",
+      "game": "Core_Keeper",
+      "image_sha256": "ac09da708b54f50c116f23db9c14896d0dec2175f2c098a8a2d5ab7035acb216",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-24",
+      "game": "Core_Keeper",
+      "image_sha256": "48cda8d50b2628818d688917601eec6ce01a93a7c4af939dfa473f58fa3a6708",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-25",
+      "game": "Core_Keeper",
+      "image_sha256": "8d6c78aa24a652e7744b8d02baa0f0eef60508b59324866538245dfafe99b290",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-26",
+      "game": "Core_Keeper",
+      "image_sha256": "ec2c0ffc1027ab13170ab22183f721b33f9754ef93f2d852d4ab7c946202c809",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-27",
+      "game": "Core_Keeper",
+      "image_sha256": "99e42746af417ad59c67ba287e5e55c548bd9cff9a17e2b37495e6bc5252f0f1",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-28",
+      "game": "Core_Keeper",
+      "image_sha256": "39b9423960867a1db2820c1794c4308a62af0dfe4a899999817f253945aed8d8",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-29",
+      "game": "Core_Keeper",
+      "image_sha256": "fef2fe61e5e2bd29ef9680b4e077779d70690442a86d80a1acdb3169435bf6ba",
+      "large_menu_open": false
+    },
+    {
+      "id": "d2e-1d3c70340018-30",
+      "game": "Core_Keeper",
+      "image_sha256": "f50f7a92bfa1b86c8f91a5849ee14821b4a6b9fa674aec643fa52d85e47e1b46",
+      "large_menu_open": true
+    },
+    {
+      "id": "d2e-1d3c70340018-31",
+      "game": "Core_Keeper",
+      "image_sha256": "3fae76024a95095939a1627c03d926852d790e94900545c163e63fa7ae6aef82",
+      "large_menu_open": true
+    }
+  ]
+}

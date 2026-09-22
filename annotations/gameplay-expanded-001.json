@@ -1,0 +1,774 @@
+{
+  "reviewer": "assistant visual inspection of all 128 current-frame contact-sheet entries",
+  "scope": "Content only, not expert action correctness; preceding frame not separately reviewed",
+  "labels": [
+    {
+      "id": "d2e-8335aa90cb71-25",
+      "image_sha256": "5de9052113f6d28685e3ac1f62d4f61eaa0ebac57bfdb7db43573df54dcbdb65",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-46",
+      "image_sha256": "4e0b2a4f554918ea317909613185127a9fa6af2b71a5dce3ba258042b62aaeca",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-206",
+      "image_sha256": "a462c148488a1dc9fa62d13ac94cab6072e023e6a8c7e2b2330f3298a1f339c5",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-157",
+      "image_sha256": "3aa2316dcb270025677350e4231a9a5475f4d1c7e47a7559d4caf42f5688958a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-69",
+      "image_sha256": "959c918ada9f3f7a25bfedd8d69a490e4dac68bebf0c884efe5ca475aaf8b54f",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-299",
+      "image_sha256": "49f836be1aa94353ba5297053ee1836325d15485206289b6a56c719a27e271b1",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-276",
+      "image_sha256": "36c664537a66addefe73a55ebba33a5b47fc0d4ec298decdaa0fe79c112bf5ae",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-305",
+      "image_sha256": "22e0b055673dc4edc28456f21db590603b077b73878a3ac93f879c396be30e50",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-12",
+      "image_sha256": "17f0b22e7bfc58aef8a04d8c60071bf6e4df582e6b61fad9d132c640cdb5bd2e",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-132",
+      "image_sha256": "c99ddf2b098272e7e26189ad53814695d7f9a10ba0cff699f4c48df6a1224b8d",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-133",
+      "image_sha256": "c6f03152fa892453225c6c93e73485ed29703ca39259972f2c6cf73f7c91a6db",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-159",
+      "image_sha256": "0f9d67433ce9593dfd93ac19e474fca9a25b04841abe3b1a8010d9c07c6f69c9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-211",
+      "image_sha256": "c6b14196f11d251f65721d62210895d55aecfe90bbc902252f07e1d3256930e6",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-114",
+      "image_sha256": "96c7b7669a4c172ae70ba53989636989305d8dfea7a0eafae0fb5b23bf518f27",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-252",
+      "image_sha256": "49b51c1041b6e08f4869c6c063448531acdf316964004dd8e7d1af0f21340b65",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-88",
+      "image_sha256": "766a8b8d920e6e93124786ee6c557d7874ca2e8540376272cf13060c883e617b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-57",
+      "image_sha256": "2c1d63ec84b999f77cde7b9c6840767588fe0a3de740aea857ef1e4b284bb774",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-3",
+      "image_sha256": "6a00b4695ee24eac1599250d43b885804986e6b0cadf129f7a1bb56c62ce52f8",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-89",
+      "image_sha256": "e6bc1195f699d545c3dde5749547f3be5708d558cb9ae7e869c4b4b90afb5eec",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-246",
+      "image_sha256": "3235236bfe4e501e08c4810ae9b6320977d45992c6019d42351d9c101f343eb2",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-60",
+      "image_sha256": "28bb87c67cb3ebe08989def20729ce8ad4f16a39b8bcd383dbcb70575d442590",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-269",
+      "image_sha256": "4c8f767dc6a9a86232b8491f1ae3a1477f94e50d8bd7927db1648d1b3f973691",
+      "game_content": false,
+      "reason": "Browser/YouTube content"
+    },
+    {
+      "id": "d2e-8335aa90cb71-130",
+      "image_sha256": "3555cfa1430ee72d8c9f3b3b1f3d2b60a0991c1886a7e8b9408dc8d3a7acf7b6",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-14",
+      "image_sha256": "8a9f556dd5ca0a21fb01e600787e237e668f3ae26b2d232cac48a8414516f3ad",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-284",
+      "image_sha256": "977bfd9bd9ef95960674905b5bd6af4fbec5bb9f1b3671bcfc49d1a734acb4f9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-108",
+      "image_sha256": "a49481c7bbf7a78a8a4f022525576f17ab7f30c65311d8b51c8eb46301837ddc",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-149",
+      "image_sha256": "862dac2aaa489d51dfa507fc15af9bd8d3329bbca261387edde78a19a3ec9cde",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-294",
+      "image_sha256": "ec113650e34cc24d1a71dd0257b9f0f1e7f4accbaa05411062894e9c7a6827bd",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-251",
+      "image_sha256": "efef076c0b3efc9b989246e57c9dd03b4b60abbb1e22cd0280621fba0ebdbe8a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-254",
+      "image_sha256": "ec6b5b6b750e0001f5bdbe42888526132c2c1834a70da0b8708501f6e30b1aa0",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-117",
+      "image_sha256": "ea53502ba74ba8cf156493fac047361fcf1d80ef03d6c3fcd6a773df7b854328",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-200",
+      "image_sha256": "c7c4af61d0a31f2a5e1489d4084451e630c96b7818cf94a70044a3606ef5f817",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-270",
+      "image_sha256": "3d2e5455eafbe7522246b2e4c1c711ea5d7e4f1374f1372c6c3409bce5c4571d",
+      "game_content": false,
+      "reason": "Browser/YouTube content"
+    },
+    {
+      "id": "d2e-8335aa90cb71-306",
+      "image_sha256": "9a8c78ffb9b22a4b0f6d9454e36ff7bf566f8670fd1f901a1698d758afb0e0e9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-73",
+      "image_sha256": "efdd00e1cb29d7a4b56a1c0e3332f5ef11c6cddf9e60c3ceb7a9918ed4198aad",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-102",
+      "image_sha256": "6cabe22f1769555f5ad2caf50b8a1f9c6a40497122dadc1f24e112f77a9cfb67",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-297",
+      "image_sha256": "156f93357d93c4d1b37e4a45299c1b29ec070f6b4160f56337b70df2030c3160",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-58",
+      "image_sha256": "1885e9827df975fc1f0584ca7bd3369fb7d4a1093aa965c45352698846239503",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-50",
+      "image_sha256": "3d8ddaed168180c3bfc1b599b2c8e986afb45c46fffce08c83d15a7c791d65b0",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-105",
+      "image_sha256": "e53851f1233b4f3378705ec1e700c9f35cbc7d53610f4543a6851034117714e6",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-179",
+      "image_sha256": "0cb31e821d960fd89e974744edfba08f13e9748e3df326899f915231cdfa6486",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-188",
+      "image_sha256": "609036007d43807c05b4764f5f24a2234a186eb77111b9f3dc68a758c7ffa597",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-8335aa90cb71-139",
+      "image_sha256": "579e5072546e028e74f007ec81231b841462bf7305f9a7ff5b531fee61ac4335",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-319",
+      "image_sha256": "83137beffaa32723fcc0e50143edee6736b54e24197dae19e0c9eae81d5604a2",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-271",
+      "image_sha256": "c54a18a3d48f8e48c71e19262e87e9a25e1c494b9cbb59653aa618c80c3444b8",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-223",
+      "image_sha256": "48dd6e4795c3436afd2ff25da1a725f226d2d0a00ae0d2ec48f62ff30658515f",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-145",
+      "image_sha256": "dc275778d17df06fc30cab965796a1661c79cdf09b2c445b5a13dbde0f1b627d",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-247",
+      "image_sha256": "3c16d90661570ebdb6e7c5b6b08ed2a63f4fa5d770c30883f0be9fd2da13cd08",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-241",
+      "image_sha256": "3caa08f8e88aa12932d21195e61de4273d1ca608a97415e78c0cc8de13999bce",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-6",
+      "image_sha256": "96c66df860346e7957d4fd8eabad7c0e781abd608dd69bd9a289b18467142d1b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-184",
+      "image_sha256": "3311f20c15e5fced54f30a4242852b00434c0667ef7b56297ec59a72185019ca",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-182",
+      "image_sha256": "0558c3e70ec040c4637242cd736706373686e292f8e1feb46d6862c108e96054",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-186",
+      "image_sha256": "d7e2ad328427c57be6c052720bc771e1942a3e8e0fe038d83e67c9eafd8f7fd7",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-262",
+      "image_sha256": "71a86fdcb1eb0f11ba0287c56f19e17d969232e2b1e02f138227ca088ccfceff",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-114",
+      "image_sha256": "6bb060ca9df115d18e282fb31f7026e79003d7cf836dde84e2b8ee84adbdb296",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-255",
+      "image_sha256": "860ea9209e5bc25415f49f0043f6a7597fa835159dd9a3ac0cfb3d63ca2019ba",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-298",
+      "image_sha256": "c53965e4bd81331281363881a06efb9247c26ab675cf1d297f54cd52295e8935",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-51",
+      "image_sha256": "5c03641353bc774c2ac0955a00548ad49a230daa19c820dd2dbaa13dca5aaf09",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-286",
+      "image_sha256": "7511fb797c455acc9a0cff677de9ba39d09e15d17858fce82ade854fe68302ae",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-284",
+      "image_sha256": "759a1b1225ec6d1495be9219a76dbe2acb9f07c808ce46b9ef6f0009b793a574",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-201",
+      "image_sha256": "8e3892206c9259af9136e9fe6e56abbe4186faf28e950b7848148d37be24a879",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-265",
+      "image_sha256": "d8fdf9e92ef605a1bf53b638d05bbb557e1e992fc151dc90db9195a50ea9208d",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-193",
+      "image_sha256": "5809fb013e10bb64c0a74995faca53f6d51a88087751439d0d2525c2edba6963",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-30",
+      "image_sha256": "d2325ebf689cb83630fa8f8482181176415dccc5eab3112bf4911d6d270d46e3",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-216",
+      "image_sha256": "bf8ef7d676ccf0d11ccd18be9e1720b81195c759678a9b9124022f2b1726ab1f",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-204",
+      "image_sha256": "00cb630ccb7bfbe2fe5fbf153de65facac6f7efe6342ba780850772054f42d8a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-52",
+      "image_sha256": "6df9a4ff53a9f270f9fbe3857b33f418d4b531466001ed3a1bf288ca48e63020",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-276",
+      "image_sha256": "c5d0c8dd425f4570cc5241e63cf238299b11046f0aab7446039ba76f49d518d5",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-209",
+      "image_sha256": "2c81b3ef7f3ca28990e090ab4eb67421261e3ec9c42c44565c403e392a06f482",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-179",
+      "image_sha256": "ce998f6b00ec0a18e1b9b0a16045649c7505987ccc5de5b802394dc8d8bca196",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-143",
+      "image_sha256": "97dac3abd812b2cc20474af398b1345be6c635096a1bc2122e82c7567bfb0f23",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-58",
+      "image_sha256": "93d7f41283061d24a60d8b56d8539cadb8f563fb44f5c796981556ef92e1e248",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-266",
+      "image_sha256": "59f8df1455202b4a58a6965ab49bed89f772b82221ca89c30f22603210361a5a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-277",
+      "image_sha256": "79b2f960eef382a0182c286eb28bae42ebd923fc965ac85deb48c72b1da54a5d",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-253",
+      "image_sha256": "ca509c4bb741483d03a7bb8b94ee5b396f1af2117c155a9e16fe77de0c03bd3c",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-146",
+      "image_sha256": "5899392df3783e3386820e16a81bf8671a9d3fbeee0b985ed7927bf7b29488f9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-83",
+      "image_sha256": "e4ddaad70df82c78db1ac2b33cde27c25ff65dc2d8e3a64bd4c056c3dd200fc3",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-119",
+      "image_sha256": "092d614bbc7f2f9d04b54d60b44e13c6e5910d57289cd875f165edf95e203f16",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-149",
+      "image_sha256": "849e69ebb860705d99c8f95ce83153bacfec30f72979eee31ed9af4d10fd1652",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-5",
+      "image_sha256": "ed93c5fcb1eaa3df0947522433166507b57d5db71325c4a1ef2a3d9a68f2312b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-1",
+      "image_sha256": "a4ed4d042a5d65570c597b57fc73ef6e913a62a51cf1eacb159cbbf10051f6af",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-200",
+      "image_sha256": "e7f4ba7547cd568b231222fec1eef106369715f2735e6322f26b729c464f3a5a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-177",
+      "image_sha256": "42f8370198752113f573ab598f8bbf31d4a5d689da8509ffd977d05a8c11b9c9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-254",
+      "image_sha256": "0c21aec356f56f1f645ab56b3109eafc4f9acc0653c2d1ab0549eabf3c3d7c91",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-317",
+      "image_sha256": "4a29296d73c16353af2c19527b70c8f6b22946a2c6de27a56ee4e75811ac9f85",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-56e110cdf164-181",
+      "image_sha256": "b466329c139e85544e9adbbdbf53630ce153042a83f9df8b8e9722d1c226494b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-315",
+      "image_sha256": "9850aa274095918501e1d04f4ed63e4a3a4cf3aa0389ecb69085f56b3c37facb",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-274",
+      "image_sha256": "f747564a7a71b7119d8b5a02f5808561af4f7180443ab2573a05541f9a2ce313",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-182",
+      "image_sha256": "2516243d19fde0fc5ede840b9ddd00508d7f0dea9c3c7c98cb268e40b632b06b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-108",
+      "image_sha256": "97b6095cb371003336de1c21fa29ccfb274aed403f1403b1f0674d68e3debeb9",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-266",
+      "image_sha256": "f6f07d8843067f6a10604dca847cec6d0f2ff3a9783de140bbe3a04200c38e66",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-98",
+      "image_sha256": "306dcb77ee3636a5cd24493c1bf002b7956257fea8a4ea7d379a6065ebd689fb",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-53",
+      "image_sha256": "57601ff5a08b558ff13ceb68b9a590b7d0d59eb748d88357821ad0cb0612ddd8",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-283",
+      "image_sha256": "a382f371f457e9bc8c89eb9dc534ebbac23dc4afdaf06d985a9d918ccbbc5b9c",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-54",
+      "image_sha256": "e5360663141b8791ece2376ed36e5483b81330d22627d710070f506085aca29e",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-217",
+      "image_sha256": "630762e8d1c006e4abf4cf628b873fb8d4be2ee4d27eaa089de288213d5b2a7e",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-305",
+      "image_sha256": "33f4f74f121e002959937882f528a86a49ed7cb0303a4769e84376174f56827b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-95",
+      "image_sha256": "245abe3d82d7a3c7a81490d2af68c7ea84adc6dc04b96594dd7c50e237264384",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-74",
+      "image_sha256": "dd53db9cb870baa5c2d615c7bd01f54e8415ebafc5dc755cd918b651d41bda68",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-256",
+      "image_sha256": "bdf8fa654f6aff1a090b4baa429154844f5e034774666b3abb3de396ebbbbcf6",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-4",
+      "image_sha256": "009cc7416350ce1a636cf08631b094ec8f196e0725d56eb3e41cd507255f34fe",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-258",
+      "image_sha256": "49090294d1c819152e586408994446f06cb6b32f99937d975aea8b6ee64dfc6c",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-154",
+      "image_sha256": "4e2cd391524c34d0e8a1a3ff54a8ced74b7077e0d59fc70576b5952ccc9a7495",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-10",
+      "image_sha256": "8fcb377fa60e87da2168d0d8f8122abc56701ac56113bed10f054ef476727ed0",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-78",
+      "image_sha256": "26e0e95c12bbcc1e56bf1f146f9704dba5d26a31c38a27581ef925dfaf8a9406",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-306",
+      "image_sha256": "ad624fc4f375a5d22816134c1f5ad3cb8a87be825bc27a6bc18abd2e5dd95bb6",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-176",
+      "image_sha256": "a10c5e7b42a8a736af4c377d27782839d03b6334f47b7f432128c81ede72f4c4",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-93",
+      "image_sha256": "6301a7744d9d96fc802c4b5c56174705cc4a4d47a2bf1302a831d2c4c260c5f4",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-106",
+      "image_sha256": "c64873f319ffae31db017eaa1857379a1a5178a7f6248bfd85d0b203860ee150",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-198",
+      "image_sha256": "992b25a93611dfce70b94be6eeccfcc93ba918da1359aa7a3b139658adc82f44",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-253",
+      "image_sha256": "aa4362c83a666893cd48594a0e30522645fe224b634acb3742edbb3818b91f2e",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-257",
+      "image_sha256": "49cf3314022d7b72a4e9a983119be4ddf320dc8e9780336130c99c7f36eb149c",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-116",
+      "image_sha256": "66228ab784c2f1e6d9a7c2e33ff6cf0b25ae49d0c955935b5e9af0990c5ea2cc",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-48",
+      "image_sha256": "0b04514aa34448b5e586244f2a122ad79c35c5add8d7a09bec25407944ecf7a5",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-61",
+      "image_sha256": "cfcaf1b87657b822cdb3865bc99e773dfc0b1a647cde7ff5faef5a2722e1af76",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-117",
+      "image_sha256": "8e8de96d2be10979a10bbf1b5bffa687ec0e10b180e8e5ed0f9aa062f3fd90ad",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-109",
+      "image_sha256": "ddda008eb15af0127111e0b2548c109ed41af9d824f047ee9f37ea56dfd83160",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-115",
+      "image_sha256": "49cd41eee42c2995e68029c2e292e3ae8bf23f52880c6ba3af58c8eabb160260",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-144",
+      "image_sha256": "8b318eeee4de98b9de3f2b8dc3bf2399405c186a184563bca7469da35065b96a",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-14",
+      "image_sha256": "c8bc4afba10f942f78bdea4242771d7b1e4cd84ac90d8a0e71b9547dbe816799",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-151",
+      "image_sha256": "d929f596ae408a210d1eb2f695d942c6e1e9854de9fcc473cc3fce94176275ba",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-56",
+      "image_sha256": "0848056ee159aee765be72fd561a0ce3f8072d8b7128856bdf18e23d9bb6c003",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-314",
+      "image_sha256": "5015a18a5cbc405a525b2de1793208b3630d0ac4ba2ce39793a8eb53f50e2683",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-294",
+      "image_sha256": "24d7173779736e97aa0741838b8a109e73d80b3ec3c8c15fd08fcd43f8dc5eb5",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-110",
+      "image_sha256": "84607d9e424a2f2476c04a5dd231a666be908b75ce15827328011fe67048d477",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-196",
+      "image_sha256": "88ce2277ee6ea1b447e4f7f344cfbbf60fbd7b1317afd8725ea1a223e6c3e84f",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-218",
+      "image_sha256": "6fef09707186d08c5610d4ce065a37c88a9a7f5ff9b651f028e49a615a6c380b",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    },
+    {
+      "id": "d2e-2c1718305d17-124",
+      "image_sha256": "63e26cee0d1e9aa9953d7dce926bb2f8d7ff9b313b367728d6bd621f18328edb",
+      "game_content": true,
+      "reason": "Game world or in-game menu visible"
+    }
+  ]
+}

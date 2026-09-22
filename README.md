@@ -5,6 +5,13 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
+**Current status:** the corrected model can fit recorded button actions on 64
+real-game clips (95.3% exact / 97.6% button F1), but fails separate-session transfer.
+Expanding to 190 clips and balancing rare keys has not solved that failure.
+Reworded goals also remain unreliable. It is **not a playable general game agent**.
+[Recorded-action results](docs/GAMEPLAY_BUTTONS.md) ·
+[Instruction robustness and numerical fixes](docs/ROBUST_DECODER.md).
+
 The synthetic-training checkpoint reached its target in **40/40 fresh synthetic sandbox episodes**,
 using its learned A/D button outputs. Warm inference took **58 ms median** on an
 M3 Max. It answered 384/384 standard move-toward questions across fresh scenes,
@@ -53,6 +60,13 @@ visual/language path and improves a two-action, paired-goal diagnostic from 50%
 to 82% exact action match on separate sessions. Balanced accuracy is 71%, and
 reworded goals score 34%; its strict gates still fail. This is progress in action
 decoding, not validated gameplay. The checkpoint remains experimental.
+
+The latest continuation corrects saturated action attention, reads Laya encoder
+features directly, and runs seven wording experiments plus four recorded-button
+experiments. Small-adapter training fixes the 64-clip button-fitting failure;
+neither instruction robustness nor gameplay transfer passes. New-game scoring
+and live control remain gated, and no experimental checkpoint replaces the
+default model below. All experiments remain one neural model at inference.
 
 With the locally trained checkpoint available:
 

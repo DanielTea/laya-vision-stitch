@@ -257,3 +257,232 @@ def test_decoder_button_signal_is_not_diluted_by_unused_keys():
     a, b = gradient(7), gradient(51)
     np.testing.assert_allclose(np.asarray(a)[0, 0], np.asarray(b)[0, 0])
     assert float(a[0, 0]) < 0
+
+
+def test_action_context_normalization_prevents_scale_driven_attention_saturation():
+    from laya_vision_stitch.trainable_model import ActionHeads
+
+    config = PolicyConfig(
+        connector_width=16, heads=2, action_chunk_size=4, normalize_action_context=True
+    )
+    head = ActionHeads(16, config)
+    head.readout.weight = mx.random.normal(head.readout.weight.shape) * 0.1
+    tokens = mx.random.normal((1, 9, 16))
+    small = head(tokens[:, 0], tokens)["buttons"]
+    large = head(tokens[:, 0] * 1000, tokens * 1000)["buttons"]
+    np.testing.assert_allclose(np.asarray(small), np.asarray(large), atol=1e-3)
+    _, gradients = nn.value_and_grad(
+        head, lambda h: mx.mean(h(tokens[:, 0] * 1000, tokens * 1000)["buttons"] ** 2)
+    )(head)
+    relevant = [v for k, v in tree_flatten(gradients) if k.startswith("attention.query_proj")]
+    assert relevant
+    assert sum(float(mx.abs(v).sum()) for v in relevant) > 1e-6
+    assert all(np.isfinite(np.asarray(v)).all() for _, v in tree_flatten(gradients))
+
+
+def test_goal_curriculum_keeps_labels_out_of_inputs(tmp_path):
+    import hashlib
+
+    from laya_vision_stitch.goal_curriculum import DEVELOPMENT, SEALED, TRAIN, expand
+    from laya_vision_stitch.trainable_model import context_text
+
+    assert not (
+        set(TRAIN) & set(DEVELOPMENT) or set(TRAIN) & set(SEALED) or set(DEVELOPMENT) & set(SEALED)
+    )
+    image = tmp_path / "reviewed.png"
+    image.write_bytes(b"reviewed")
+    source = {
+        "id": "one",
+        "game": "a",
+        "episode": "e",
+        "frames": [{"image": str(image), "age_seconds": 0}],
+        "provenance": {},
+        "description": "SECRET",
+        "answer": "SECRET",
+        "previous_actions": ["SECRET"],
+        "action": {"buttons": ["SECRET"]},
+    }
+    labels = {
+        "one": {
+            "large_menu_open": True,
+            "image_sha256": hashlib.sha256(image.read_bytes()).hexdigest(),
+        }
+    }
+    rows = expand([source], labels, [("train-0", TRAIN[0])])
+    assert len(rows) == 4
+    assert rows[0]["action"]["buttons"] == [] and rows[1]["action"]["buttons"] == ["w"]
+    assert list(rows[0]["choices"]) == list(reversed(rows[2]["choices"]))
+    assert all("SECRET" not in context_text(r) and "answer" not in r for r in rows)
+    assert all(
+        "menu_state" not in context_text(r) and "_sampling_stratum" not in context_text(r)
+        for r in rows
+    )
+
+
+def test_encoder_action_context_keeps_choice_predictions_unchanged():
+    model, inputs = small_model(lora_rank=2)
+    decision_context, choices = model.action_context(*inputs)
+    model.policy_config.action_context_source = "encoder"
+    encoder_context, second_choices = model.action_context(*inputs)
+    np.testing.assert_array_equal(np.asarray(choices), np.asarray(second_choices))
+    assert not np.allclose(np.asarray(decision_context), np.asarray(encoder_context))
+    direct = model.from_features(*inputs)
+    cached = model.actions(encoder_context[:, 0], encoder_context)
+    np.testing.assert_array_equal(np.asarray(direct["buttons"]), np.asarray(cached["buttons"]))
+
+
+@pytest.mark.parametrize("batch_size", [None, 4])
+def test_single_objective_adapter_training_protects_base_weights(batch_size):
+    import io
+
+    from laya_vision_stitch.adapter_buttons import train_adapter_buttons
+
+    model, inputs = small_model(lora_rank=2)
+    runtime = SimpleNamespace(
+        module=model, metadata={"training_steps": 0, "action_training_examples": 0}
+    )
+    before = {k: fingerprint(getattr(model, k), frozen_only=True) for k in ("vision", "laya")}
+    connector_before = fingerprint(model.connector)
+    examples = [
+        ({"goal": "Hold W.", "action": {"buttons": ["w"]}}, inputs),
+        ({"goal": "Release W.", "action": {"buttons": []}}, (inputs[0] + 1, *inputs[1:])),
+    ]
+    train_adapter_buttons(runtime, examples, 3, 0.0001, 17, io.StringIO(), batch_size=batch_size)
+    assert before == {k: fingerprint(getattr(model, k), frozen_only=True) for k in before}
+    assert connector_before != fingerprint(model.connector)
+    assert runtime.metadata["action_training_examples"] == 3 * (batch_size or 2)
+
+
+def test_fresh_game_audit_requires_every_wording_to_pass():
+    from laya_vision_stitch.game_goal_audit import wording_passed
+
+    good = {
+        "button_exact_match": 0.9,
+        "balanced_button_exact_match": 0.9,
+        "both_goals_correct": 0.9,
+    }
+    assert not wording_passed("Not evaluated")
+    assert not wording_passed({"by_template": {}})
+    assert wording_passed({"by_template": {"one": good}})
+    assert not wording_passed(
+        {"by_template": {"one": good, "two": {**good, "both_goals_correct": 0.5}}}
+    )
+
+
+def test_clause_order_curriculum_retains_disjoint_new_wording():
+    from laya_vision_stitch.goal_curriculum import (
+        DEVELOPMENT,
+        INVERSE_TRAIN,
+        LOGIC_TRAIN,
+        SEALED,
+        SEALED_V2,
+        TRAIN,
+    )
+
+    assert len(INVERSE_TRAIN) == len(TRAIN)
+    assert all(
+        text.index("{opposite}") < text.index("{state}") if "{state}" in text else True
+        for text in INVERSE_TRAIN
+    )
+    assert not set(TRAIN + INVERSE_TRAIN + LOGIC_TRAIN) & set(DEVELOPMENT + SEALED + SEALED_V2)
+    assert not set(SEALED_V2) & set(DEVELOPMENT + SEALED)
+
+
+def test_matched_sampling_holds_scene_and_wording_constant_across_opposing_goals():
+    from laya_vision_stitch.adapter_buttons import matched_quartets
+
+    rows = [
+        {
+            "_sampling_stratum": [state, goal],
+            "_pair_variant": wording,
+            "frames": [{"sha256": f"scene-{state}-{scene}", "age_seconds": 0}],
+        }
+        for wording in ("a", "b")
+        for state in (0, 1)
+        for scene in (0, 1)
+        for goal in (0, 1)
+    ]
+    variants = matched_quartets(rows)
+    assert len(variants) == 2
+    for states in variants:
+        all_indices = [i for pairs in states for pair in pairs for i in pair]
+        assert len({rows[i]["_pair_variant"] for i in all_indices}) == 1
+        for state, pairs in enumerate(states):
+            for a, b in pairs:
+                assert rows[a]["frames"] == rows[b]["frames"]
+                assert rows[a]["_sampling_stratum"] == [state, 0]
+                assert rows[b]["_sampling_stratum"] == [state, 1]
+    with pytest.raises(ValueError, match="both goals"):
+        matched_quartets(rows[1:])
+    with pytest.raises(ValueError, match="Duplicate"):
+        matched_quartets(rows + rows[:1])
+
+
+def test_gameplay_button_metrics_distinguish_empty_majority_from_action_learning():
+    from laya_vision_stitch.gameplay_buttons import button_metrics
+
+    rows = [{"action": {"buttons": []}} for _ in range(3)] + [
+        {"action": {"buttons": ["w", "shift"]}}
+    ]
+    empty = button_metrics(rows, [[], [], [], []], ["w", "shift"])
+    assert empty["button_exact_match"] == 0.75
+    assert empty["button_micro_f1"] == 0
+    assert empty["action_set_balanced_exact"] == 0.5
+    perfect = button_metrics(rows, [[], [], [], ["w", "shift"]], ["w", "shift"])
+    assert perfect["button_exact_match"] == perfect["button_micro_f1"] == 1
+
+
+def test_text_oracle_is_balanced_and_keeps_reserved_wording_unconsumed():
+    from laya_vision_stitch.goal_curriculum import SEALED, SEALED_V2
+    from laya_vision_stitch.goal_oracle import cases
+
+    rows = list(cases())
+    assert len(rows) == 72
+    assert sum(r["expected"] == "hold" for r in rows) == 36
+    reserved = {
+        t.format(state=s, opposite=o)
+        for t in SEALED + SEALED_V2
+        for s, o in (("open", "closed"), ("closed", "open"))
+    }
+    assert not {r["goal"] for r in rows} & reserved
+
+
+def test_positive_weights_balance_rare_key_gradients_under_stratum_sampler():
+    from laya_vision_stitch.decoder_probe import button_loss, stratum_positive_weights
+
+    # Three equiprobable strata; W appears in one. Repeating rows in another
+    # stratum must not change weighting because strata, not rows, are sampled.
+    rows = [
+        {"goal": goal, "action": {"buttons": buttons}}
+        for goal, buttons in (("one", ["w"]), ("two", []), ("three", []))
+    ]
+    weights = stratum_positive_weights(rows, ["w", "unused"])
+    np.testing.assert_allclose(weights, [2, 1])
+    np.testing.assert_array_equal(
+        weights, stratum_positive_weights(rows + rows[1:2] * 10, ["w", "unused"])
+    )
+    target = [mx.array([[float(i == 0), 0]]) for i in range(3)]
+    gradient = mx.grad(
+        lambda logits: (
+            sum(button_loss(logits, t, [True, False], mx.array(weights)) for t in target) / 3
+        )
+    )(mx.zeros((1, 2)))
+    assert abs(float(gradient[0, 0])) < 1e-7
+    assert float(gradient[0, 1]) > 0
+
+
+def test_gameplay_content_review_rejects_missing_duplicate_and_stale_labels():
+    from laya_vision_stitch.gameplay_data import reviewed_candidates
+
+    rows = [{"id": name, "frames": [{"sha256": name}]} for name in ("game", "browser")]
+    labels = [
+        {"id": r["id"], "image_sha256": r["id"], "game_content": r["id"] == "game"} for r in rows
+    ]
+    accepted, rejected = reviewed_candidates(rows, {"labels": labels})
+    assert accepted == rows[:1] and rejected == rows[1:]
+    for changed in (labels[:1], labels + labels[:1]):
+        with pytest.raises(ValueError, match="exactly one"):
+            reviewed_candidates(rows, {"labels": changed})
+    labels[0]["image_sha256"] = "changed"
+    with pytest.raises(ValueError, match="changed"):
+        reviewed_candidates(rows, {"labels": labels})

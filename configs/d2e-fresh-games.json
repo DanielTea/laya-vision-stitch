@@ -1,0 +1,29 @@
+{
+  "repo_id": "open-world-agents/D2E-480p",
+  "revision": "f075f7e25df6f6d385840a836f86bf92dfb877ff",
+  "license": "CC-BY-NC-4.0",
+  "seed": 71402,
+  "history_seconds": 0.2,
+  "horizon_seconds": 0.1,
+  "mouse_scale": 512,
+  "per_recording": {
+    "test": 32
+  },
+  "recordings": [
+    {
+      "split": "test",
+      "game": "Monster_Hunter_Wilds",
+      "video": "Monster_Hunter_Wilds/recording_20250831_142517__e47dac8b_split_07.mkv",
+      "bytes": 15439417,
+      "session": "Monster_Hunter_Wilds/recording_20250831_142517__e47dac8b"
+    },
+    {
+      "split": "test",
+      "game": "Core_Keeper",
+      "video": "Core_Keeper/recording_20250903_201326__8c6666e7_split_00.mkv",
+      "bytes": 31005771,
+      "session": "Core_Keeper/recording_20250903_201326__8c6666e7"
+    }
+  ],
+  "selection": "Two untrained games, file sizes fixed before any model scoring; clips uniformly sampled in time."
+}

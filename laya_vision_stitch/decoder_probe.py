@@ -28,13 +28,15 @@ def freeze_decoder_only(runtime):
         raise RuntimeError("Only the action decoder may train")
 
 
-def button_loss(logits, target, varying):
+def button_loss(logits, target, varying, positive_weights=None):
     """Equal weight to demonstrated keys and suppressing unrelated keys.
 
     Prevent 50 always-off keys from diluting the supervised changing key.
     This uses training labels to weight the loss, never an inference rule.
     """
     loss = nn.losses.binary_cross_entropy(logits, target, with_logits=True, reduction="none")
+    if positive_weights is not None:
+        loss = loss * (1 + target * (positive_weights - 1))
     active = mx.array(varying, mx.float32)[None]
     other = 1 - active
     return (
@@ -46,8 +48,21 @@ def button_loss(logits, target, varying):
 def groups(rows):
     result = {}
     for i, row in enumerate(rows):
-        result.setdefault((row["goal"], tuple(row["action"]["buttons"])), []).append(i)
+        key = (
+            tuple(row["_sampling_stratum"])
+            if "_sampling_stratum" in row
+            else (row["goal"], tuple(row["action"]["buttons"]))
+        )
+        result.setdefault(key, []).append(i)
     return list(result.values())
+
+
+def stratum_positive_weights(rows, buttons):
+    """Balance key-on/off loss under this trainer's uniform-stratum sampling."""
+    truth = np.array([[b in r["action"]["buttons"] for b in buttons] for r in rows])
+    frequency = np.mean([truth[g].mean(0) for g in groups(rows)], axis=0)
+    varying = (frequency > 0) & (frequency < 1)
+    return np.where(varying, (1 - frequency) / np.maximum(frequency, 1e-12), 1)
 
 
 def prepare(runtime, rows, cache, variant="actual"):
@@ -56,7 +71,7 @@ def prepare(runtime, rows, cache, variant="actual"):
     if variant == "shuffled_vision":
         by_game = {}
         for i, row in enumerate(rows):
-            by_game.setdefault(row["game"], []).append(i)
+            by_game.setdefault((row["game"], row.get("_pair_variant", "")), []).append(i)
         for group in by_game.values():
             offset = max(2, len(group) // 4 * 2)
             for j, i in enumerate(group):
@@ -90,7 +105,10 @@ def audit(runtime, rows, contexts, choices):
     tp, fp, fn = (truth & pred).sum(), (~truth & pred).sum(), (truth & ~pred).sum()
     paired = {}
     for i, row in enumerate(rows):
-        key = tuple((f["sha256"], f["age_seconds"]) for f in row["frames"])
+        key = (
+            tuple((f["sha256"], f["age_seconds"]) for f in row["frames"]),
+            row.get("_pair_variant", ""),
+        )
         paired.setdefault(key, []).append(i)
     pairs = list(paired.values())
     if any(len(p) != 2 or np.array_equal(truth[p[0]], truth[p[1]]) for p in pairs):
@@ -104,8 +122,14 @@ def audit(runtime, rows, contexts, choices):
         "opposing_actions_rate": float(
             np.mean([not np.array_equal(pred[g[0]], pred[g[1]]) for g in pairs])
         ),
-        "frozen_choice_accuracy": float(
-            np.mean([c == r["answer"] for r, c in zip(rows, choices, strict=True)])
+        "frozen_choice_accuracy": (
+            float(
+                np.mean(
+                    [c == r["answer"] for r, c in zip(rows, choices, strict=True) if "answer" in r]
+                )
+            )
+            if any("answer" in r for r in rows)
+            else None
         ),
         "predictions": [
             {
@@ -121,7 +145,9 @@ def audit(runtime, rows, contexts, choices):
     }
 
 
-def train_decoder(runtime, rows, contexts, steps, learning_rate, seed, log, batch_size=1):
+def train_decoder(
+    runtime, rows, contexts, steps, learning_rate, seed, log, batch_size=1, positive_weights=None
+):
     heads = runtime.module.actions
     truth = np.array(
         [[b in r["action"]["buttons"] for b in runtime.module.policy_config.buttons] for r in rows]
@@ -137,7 +163,8 @@ def train_decoder(runtime, rows, contexts, steps, learning_rate, seed, log, batc
 
     def loss(model, items):
         return sum(
-            button_loss(model(h[:, 0], h)["buttons"], target, varying) for h, target in items
+            button_loss(model(h[:, 0], h)["buttons"], target, varying, positive_weights)
+            for h, target in items
         ) / len(items)
 
     update = nn.value_and_grad(heads, loss)

@@ -33,6 +33,8 @@ class PolicyConfig:
     lora_layers: int = 2
     connector_type: str = "queries"
     action_chunk_size: int = 1
+    normalize_action_context: bool = False
+    action_context_source: str = "decision"
     mouse_bins: tuple = (
         -1.0,
         -0.5,
@@ -68,6 +70,8 @@ class PolicyConfig:
             raise ValueError("Unknown connector type")
         if not 1 <= self.action_chunk_size <= 8:
             raise ValueError("Invalid action chunk size")
+        if self.action_context_source not in ("decision", "encoder"):
+            raise ValueError("Unknown action context source")
         if len(self.mouse_bins) < 3 or list(self.mouse_bins) != sorted(set(self.mouse_bins)):
             raise ValueError("Mouse bins must be distinct and ascending")
         if any(not np.isfinite(x) or not -1 <= x <= 1 for x in self.mouse_bins):
@@ -245,6 +249,8 @@ class ActionHeads(nn.Module):
         self.duration = nn.Linear(width, len(config.durations))
         self.chunk_size, self.button_count = config.action_chunk_size, len(config.buttons)
         self.bin_count = len(config.mouse_bins)
+        if config.normalize_action_context:
+            self.input_norm = nn.LayerNorm(width)
         if self.chunk_size > 1:
             d = config.connector_width
             self.action_queries = mx.random.normal((self.chunk_size, d)) * 0.02
@@ -256,6 +262,10 @@ class ActionHeads(nn.Module):
             self.chunk_mouse = nn.Linear(width, 2 * self.bin_count)
 
     def __call__(self, state, tokens=None):
+        if hasattr(self, "input_norm"):
+            state = self.input_norm(state.astype(mx.float32))
+            if tokens is not None:
+                tokens = self.input_norm(tokens.astype(mx.float32))
         if self.chunk_size > 1:
             context = self.context(tokens.astype(mx.float32))
             queries = self.action_queries[None] + self.context(state.astype(mx.float32))[:, None]
@@ -352,11 +362,14 @@ class TrainableStitch(nn.Module):
         for layer in encoder.layers:
             h = layer(h, masks[layer.attention_type])
         h = encoder.final_norm(h) + self.laya.type_emb(batch["qtype"])[:, None, :]
+        encoder_context = h
         h = self.laya.head(h, batch["attention_mask"][:, None, None, :].astype(mx.bool_))
         markers = h[mx.arange(h.shape[0])[:, None], batch["marker_pos"]]
         choices = self.laya.scorer(markers).squeeze(-1).astype(mx.float32)
         choices = mx.where(batch["marker_mask"], choices, -1e4)
-        return h, choices
+        return (
+            encoder_context if self.policy_config.action_context_source == "encoder" else h
+        ), choices
 
     def __call__(self, frames, batch, goal_ids, start):
         encoded = [self.encode_frame(*frame) for frame in frames]
@@ -418,6 +431,16 @@ class TrainableRuntime:
         config.lora_rank, config.lora_layers = rank, layers
         self.metadata["policy_config"] = asdict(config)
         self.metadata["laya_lora_enabled"] = True
+
+    def normalize_action_inputs(self):
+        """Opt-in migration: normalize Laya activations before action attention."""
+        config = self.module.policy_config
+        if not config.normalize_action_context:
+            self.module.actions.input_norm = nn.LayerNorm(
+                self.module.laya.encoder.config.hidden_size
+            )
+            config.normalize_action_context = True
+            self.metadata["policy_config"] = asdict(config)
 
     def expand_buttons(self, names):
         """Extend action vocabulary while preserving all existing learned logits."""

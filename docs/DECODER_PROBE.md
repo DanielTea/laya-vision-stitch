@@ -6,6 +6,10 @@ The exported checkpoint remains one neural model taking screenshots and goals.
 There is no inference-time lookup, menu rule or conversion from answer labels to
 keyboard events.
 
+For subsequent work, see [the normalization and wording experiments](ROBUST_DECODER.md)
+and [recorded gameplay button training](GAMEPLAY_BUTTONS.md). Those later runs
+unfreeze small adapters while retaining the original frozen backbones.
+
 ## Scope
 
 The controlled task has two possible actions: hold W or release all buttons.
