@@ -1,0 +1,81 @@
+{
+  "bundle": "artifacts/gameplay-buttons-002/bundle",
+  "samples": 32,
+  "warmup": 3,
+  "variants": {
+    "original_disk": {
+      "n": 32,
+      "p50_ms": 109.05441700015217,
+      "p95_ms": 114.32705800107215
+    },
+    "two_frames_memory": {
+      "n": 32,
+      "p50_ms": 105.79083350603469,
+      "p95_ms": 109.04746250598691
+    },
+    "cached_history": {
+      "n": 32,
+      "p50_ms": 61.69252100517042,
+      "p95_ms": 65.33991424948908
+    },
+    "cached_history_action_only": {
+      "n": 32,
+      "p50_ms": 60.12785452185199,
+      "p95_ms": 63.051179485046305
+    },
+    "cached_history_compiled_laya": {
+      "n": 32,
+      "p50_ms": 59.83920852304436,
+      "p95_ms": 62.20247326709796
+    }
+  },
+  "stages_with_sync_fences": {
+    "tokenize": {
+      "n": 32,
+      "p50_ms": 0.3930414968635887,
+      "p95_ms": 0.5631649488350376
+    },
+    "preprocess_two_frames": {
+      "n": 32,
+      "p50_ms": 3.481437510345131,
+      "p95_ms": 4.806578773423098
+    },
+    "vision_old_frame": {
+      "n": 32,
+      "p50_ms": 43.73620849219151,
+      "p95_ms": 45.44664595159702
+    },
+    "vision_current_frame": {
+      "n": 32,
+      "p50_ms": 43.49981198902242,
+      "p95_ms": 44.73853761446662
+    },
+    "connector": {
+      "n": 32,
+      "p50_ms": 1.2318329827394336,
+      "p95_ms": 1.9548184412997214
+    },
+    "laya_and_all_heads": {
+      "n": 32,
+      "p50_ms": 15.768083016155288,
+      "p95_ms": 16.383867018157616
+    },
+    "laya_actions_without_choice_head": {
+      "n": 32,
+      "p50_ms": 15.119396004593,
+      "p95_ms": 15.732272842433304
+    }
+  },
+  "output_max_abs_error": {
+    "cached_history": 0.0,
+    "cached_history_action_only": 0.0,
+    "cached_history_compiled_laya": 0.0
+  },
+  "button_threshold_disagreements": {
+    "cached_history": 0,
+    "cached_history_action_only": 0,
+    "cached_history_compiled_laya": 0
+  },
+  "input_events_sent": 0,
+  "scope": "Offline recorded frames; excludes capture, HTTP, decoding and input posting. Not a game-running contention test. Cache variants reuse prompt tokens and one previously encoded historical frame; current frame is always encoded."
+}
