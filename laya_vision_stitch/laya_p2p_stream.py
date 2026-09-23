@@ -63,8 +63,8 @@ class LayaP2PStream:
         goal = self.runtime.model.bridge(
             self.runtime.model.goal_features(*self.runtime.prepare_goal(row["goal"]))
         )
-        _, image = policy.vision(mx.array(preprocess(row["frames"][0]["image"])))
-        prefix = policy.prefix(image, goal)
+        spatial, image = policy.vision(mx.array(preprocess(row["frames"][0]["image"])))
+        prefix = policy.prefix(image, goal, spatial)
         context, _ = policy.context(prefix, caches=self.caches, position=self.position)
         tokens, logits = policy.decode(context, temperature=1.0)
         mx.eval(tokens, logits, prefix, self.caches)

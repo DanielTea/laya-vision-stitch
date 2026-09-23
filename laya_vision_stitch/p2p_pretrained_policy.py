@@ -182,12 +182,16 @@ class OpenP2PPolicy(nn.Module):
     def action_embeddings(self, tokens):
         return mx.stack([self.embeddings[self.action_type(i)](tokens[:, i]) for i in range(8)], 1)
 
-    def prefix(self, image_token, text=None):
+    def prefix(self, image_token, text=None, spatial=None):
         batch = image_token.shape[0]
         if image_token.ndim != 2 or image_token.shape[1] != 1024:
             raise ValueError("Expected a batch of 1024D image tokens")
         if hasattr(self, "visual_adapter"):
             image_token = self.visual_adapter(image_token)
+        if hasattr(self, "spatial_adapter"):
+            if spatial is None or text is None:
+                raise ValueError("Spatial checkpoint requires spatial features and a goal")
+            image_token = self.spatial_adapter(spatial, text, image_token)
         language = (
             mx.broadcast_to(self.no_text, (batch, 1, 1024))
             if text is None
@@ -266,8 +270,8 @@ class OpenP2PPolicy(nn.Module):
         return tuple(self.outputs[self.action_type(i)](h[:, i]) for i in range(8))
 
     def step(self, pixels, text=None, caches=None, position=0, forced=None, temperature=0.0):
-        _, image = self.vision(pixels)
-        prefix = self.prefix(image, text)
+        spatial, image = self.vision(pixels)
+        prefix = self.prefix(image, text, spatial)
         context, _ = self.context(prefix, caches=caches, position=position)
         tokens, logits = self.decode(context, forced=forced, temperature=temperature)
         _, updated = self.context(prefix, tokens, caches, position)

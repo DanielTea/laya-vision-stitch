@@ -1,0 +1,14 @@
+Offline feature teacher: google/siglip2-base-patch16-224
+Source: https://huggingface.co/google/siglip2-base-patch16-224
+Revision: 75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2
+Model-card license: Apache-2.0
+Paper: https://arxiv.org/abs/2502.14786
+
+Weights are downloaded separately, are not committed, and are not used in the
+live stitched model. Only frozen vision-tower patch features are used as offline
+supervision. The feature teacher is not a gameplay expert or an action oracle.
+
+The reviewed static grounding/goal images include Open World Agents D2E-480p
+(CC-BY-NC-4.0), as recorded in the dataset manifests and existing D2E notices.
+Generated conditional-control targets are experimental probes, not demonstrated
+human intentions. No checkpoint from these experiments is a qualified game agent.

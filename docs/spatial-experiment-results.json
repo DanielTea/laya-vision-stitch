@@ -1,0 +1,1817 @@
+{
+  "scope": "Static-image experiments only; no new live actions. Reused development holdouts. Menu recognition, feature similarity and synthetic conditional controls do not establish gameplay success.",
+  "total_updates": 4000,
+  "runs": [
+    {
+      "artifact": "artifacts/spatial-experiment-001",
+      "mode": "spatial",
+      "selected_step": 700,
+      "updates": 800,
+      "frozen_parents_unchanged": true,
+      "reload_logits_max_error": 0.0,
+      "test": {
+        "grounding_accuracy": 0.234375,
+        "grounding_balanced_accuracy": 0.46481481481481485,
+        "goal_accuracy": 0.5,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 33,
+            "fn": 70,
+            "exact": 89,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 19,
+            "button_f1": 0.07207207207207207,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.06020408163265306
+          },
+          "roblox/evade": {
+            "tp": 33,
+            "fp": 10,
+            "fn": 10,
+            "exact": 9,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7674418604651163,
+            "exact_button_set_accuracy": 0.375,
+            "supported_button_macro_f1": 0.656439393939394
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 23,
+            "fp": 3,
+            "fn": 8,
+            "exact": 14,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.8070175438596491,
+            "exact_button_set_accuracy": 0.5833333333333334,
+            "supported_button_macro_f1": 0.5765765765765766
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "shuffled_test": {
+        "grounding_accuracy": 0.265625,
+        "grounding_balanced_accuracy": 0.5240740740740741,
+        "goal_accuracy": 0.5,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 33,
+            "fn": 70,
+            "exact": 88,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 20,
+            "button_f1": 0.07207207207207207,
+            "exact_button_set_accuracy": 0.4943820224719101,
+            "supported_button_macro_f1": 0.05374149659863946
+          },
+          "roblox/evade": {
+            "tp": 25,
+            "fp": 18,
+            "fn": 18,
+            "exact": 4,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.5813953488372093,
+            "exact_button_set_accuracy": 0.16666666666666666,
+            "supported_button_macro_f1": 0.3606060606060606
+          },
+          "roblox/be-a-snake": {
+            "tp": 25,
+            "fp": 7,
+            "fn": 6,
+            "exact": 12,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7936507936507936,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.42857142857142855
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 14,
+            "fp": 12,
+            "fn": 17,
+            "exact": 8,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.49122807017543857,
+            "exact_button_set_accuracy": 0.3333333333333333,
+            "supported_button_macro_f1": 0.1891891891891892
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "final_step_training_metrics": {
+        "grounding_accuracy": 0.671875,
+        "grounding_balanced_accuracy": 0.5737179487179487,
+        "goal_accuracy": 0.46875,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 157,
+            "fp": 57,
+            "fn": 336,
+            "exact": 487,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 5,
+            "button_f1": 0.44413012729844414,
+            "exact_button_set_accuracy": 0.5881642512077294,
+            "supported_button_macro_f1": 0.23169950972226303
+          },
+          "doom": {
+            "tp": 56,
+            "fp": 10,
+            "fn": 28,
+            "exact": 37,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.7466666666666667,
+            "exact_button_set_accuracy": 0.578125,
+            "supported_button_macro_f1": 0.4577040724827672
+          },
+          "left-4-dead-2": {
+            "tp": 43,
+            "fp": 1,
+            "fn": 9,
+            "exact": 55,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 0,
+            "button_f1": 0.8958333333333334,
+            "exact_button_set_accuracy": 0.859375,
+            "supported_button_macro_f1": 0.7333333333333333
+          },
+          "roblox/be-a-tornado": {
+            "tp": 66,
+            "fp": 0,
+            "fn": 10,
+            "exact": 54,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.9295774647887324,
+            "exact_button_set_accuracy": 0.84375,
+            "supported_button_macro_f1": 0.7066666666666667
+          },
+          "roblox/blade-ball": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "exact": 63,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 0,
+            "button_f1": 0.9333333333333333,
+            "exact_button_set_accuracy": 0.984375,
+            "supported_button_macro_f1": 0.96
+          },
+          "roblox/hypershot": {
+            "tp": 90,
+            "fp": 18,
+            "fn": 28,
+            "exact": 33,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7964601769911505,
+            "exact_button_set_accuracy": 0.532258064516129,
+            "supported_button_macro_f1": 0.6094027306965313
+          },
+          "warhammer-vermintide-2": {
+            "tp": 49,
+            "fp": 15,
+            "fn": 22,
+            "exact": 41,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 0,
+            "button_f1": 0.725925925925926,
+            "exact_button_set_accuracy": 0.640625,
+            "supported_button_macro_f1": 0.5626329693760397
+          },
+          "euro-truck-simulator-2": {
+            "tp": 46,
+            "fp": 2,
+            "fn": 11,
+            "exact": 53,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 0,
+            "button_f1": 0.8761904761904762,
+            "exact_button_set_accuracy": 0.828125,
+            "supported_button_macro_f1": 0.5220959595959596
+          },
+          "call-of-duty-mobile": {
+            "tp": 73,
+            "fp": 5,
+            "fn": 9,
+            "exact": 52,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 0,
+            "button_f1": 0.9125,
+            "exact_button_set_accuracy": 0.8253968253968254,
+            "supported_button_macro_f1": 0.7104200590439124
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 62,
+            "fp": 10,
+            "fn": 10,
+            "exact": 48,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.8611111111111112,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.7602108036890645
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 71,
+          "f1": 0.0
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.08588957055214724,
+          "hordes_f1": 0.08588957055214724,
+          "grounding_balanced_accuracy": 0.6698113207547169,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_f1": 0.046242774566473986,
+          "grounding_balanced_accuracy": 0.5660377358490566,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 200,
+          "score": 0.013422818791946308,
+          "hordes_f1": 0.013422818791946308,
+          "grounding_balanced_accuracy": 0.4939965694682676,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 300,
+          "score": 0.02631578947368421,
+          "hordes_f1": 0.02631578947368421,
+          "grounding_balanced_accuracy": 0.5411663807890223,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.6337907375643225,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 500,
+          "score": 0.022988505747126436,
+          "hordes_f1": 0.022988505747126436,
+          "grounding_balanced_accuracy": 0.5368782161234991,
+          "goal_pairs": 0.015625,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 600,
+          "score": 0.034482758620689655,
+          "hordes_f1": 0.034482758620689655,
+          "grounding_balanced_accuracy": 0.7015437392795884,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 700,
+          "score": 0.10426540284360189,
+          "hordes_f1": 0.10426540284360189,
+          "grounding_balanced_accuracy": 0.646655231560892,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 800,
+          "score": 0.012048192771084338,
+          "hordes_f1": 0.012048192771084338,
+          "grounding_balanced_accuracy": 0.6389365351629502,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        }
+      ],
+      "deployment_eligible": false
+    },
+    {
+      "artifact": "artifacts/spatial-experiment-002",
+      "mode": "grounded",
+      "selected_step": 700,
+      "updates": 800,
+      "frozen_parents_unchanged": true,
+      "reload_logits_max_error": 0.0,
+      "test": {
+        "grounding_accuracy": 0.890625,
+        "grounding_balanced_accuracy": 0.8129629629629629,
+        "goal_accuracy": 0.484375,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 6,
+            "fp": 26,
+            "fn": 68,
+            "exact": 92,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 18,
+            "button_f1": 0.11320754716981132,
+            "exact_button_set_accuracy": 0.5168539325842697,
+            "supported_button_macro_f1": 0.1001552795031056
+          },
+          "roblox/evade": {
+            "tp": 34,
+            "fp": 10,
+            "fn": 9,
+            "exact": 13,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7816091954022989,
+            "exact_button_set_accuracy": 0.5416666666666666,
+            "supported_button_macro_f1": 0.5546808510638298
+          },
+          "roblox/be-a-snake": {
+            "tp": 27,
+            "fp": 4,
+            "fn": 4,
+            "exact": 16,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8709677419354839,
+            "exact_button_set_accuracy": 0.6666666666666666,
+            "supported_button_macro_f1": 0.611111111111111
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 22,
+            "fp": 2,
+            "fn": 9,
+            "exact": 13,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.5416666666666666,
+            "supported_button_macro_f1": 0.49324324324324326
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "shuffled_test": {
+        "grounding_accuracy": 0.734375,
+        "grounding_balanced_accuracy": 0.5166666666666667,
+        "goal_accuracy": 0.4765625,
+        "both_goals_correct": 0.0625,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 28,
+            "fn": 70,
+            "exact": 91,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 17,
+            "button_f1": 0.07547169811320754,
+            "exact_button_set_accuracy": 0.5112359550561798,
+            "supported_button_macro_f1": 0.05046583850931677
+          },
+          "roblox/evade": {
+            "tp": 29,
+            "fp": 15,
+            "fn": 14,
+            "exact": 8,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.3333333333333333,
+            "supported_button_macro_f1": 0.3946808510638298
+          },
+          "roblox/be-a-snake": {
+            "tp": 25,
+            "fp": 6,
+            "fn": 6,
+            "exact": 12,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8064516129032258,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.4444444444444444
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 14,
+            "fp": 10,
+            "fn": 17,
+            "exact": 9,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.509090909090909,
+            "exact_button_set_accuracy": 0.375,
+            "supported_button_macro_f1": 0.1891891891891892
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "final_step_training_metrics": {
+        "grounding_accuracy": 1.0,
+        "grounding_balanced_accuracy": 1.0,
+        "goal_accuracy": 0.4453125,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 173,
+            "fp": 63,
+            "fn": 320,
+            "exact": 496,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 12,
+            "button_f1": 0.47462277091906724,
+            "exact_button_set_accuracy": 0.5990338164251208,
+            "supported_button_macro_f1": 0.2516334364825189
+          },
+          "doom": {
+            "tp": 56,
+            "fp": 16,
+            "fn": 28,
+            "exact": 34,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.717948717948718,
+            "exact_button_set_accuracy": 0.53125,
+            "supported_button_macro_f1": 0.4473801560758082
+          },
+          "left-4-dead-2": {
+            "tp": 43,
+            "fp": 2,
+            "fn": 9,
+            "exact": 54,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 1,
+            "button_f1": 0.8865979381443299,
+            "exact_button_set_accuracy": 0.84375,
+            "supported_button_macro_f1": 0.6205128205128204
+          },
+          "roblox/be-a-tornado": {
+            "tp": 70,
+            "fp": 0,
+            "fn": 6,
+            "exact": 58,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.958904109589041,
+            "exact_button_set_accuracy": 0.90625,
+            "supported_button_macro_f1": 0.923076923076923
+          },
+          "roblox/blade-ball": {
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "exact": 63,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "button_f1": 0.9411764705882353,
+            "exact_button_set_accuracy": 0.984375,
+            "supported_button_macro_f1": 0.9714285714285715
+          },
+          "roblox/hypershot": {
+            "tp": 93,
+            "fp": 16,
+            "fn": 25,
+            "exact": 35,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8193832599118943,
+            "exact_button_set_accuracy": 0.5645161290322581,
+            "supported_button_macro_f1": 0.6250827675234901
+          },
+          "warhammer-vermintide-2": {
+            "tp": 45,
+            "fp": 17,
+            "fn": 26,
+            "exact": 38,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 0,
+            "button_f1": 0.6766917293233082,
+            "exact_button_set_accuracy": 0.59375,
+            "supported_button_macro_f1": 0.5456543456543457
+          },
+          "euro-truck-simulator-2": {
+            "tp": 44,
+            "fp": 2,
+            "fn": 13,
+            "exact": 52,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 0,
+            "button_f1": 0.8543689320388349,
+            "exact_button_set_accuracy": 0.8125,
+            "supported_button_macro_f1": 0.3524904214559387
+          },
+          "call-of-duty-mobile": {
+            "tp": 71,
+            "fp": 4,
+            "fn": 11,
+            "exact": 53,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 0,
+            "button_f1": 0.9044585987261147,
+            "exact_button_set_accuracy": 0.8412698412698413,
+            "supported_button_macro_f1": 0.6816562302800836
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 62,
+            "fp": 11,
+            "fn": 10,
+            "exact": 46,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.8551724137931035,
+            "exact_button_set_accuracy": 0.71875,
+            "supported_button_macro_f1": 0.5862573099415205
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 71,
+          "f1": 0.0
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.37785044565343207,
+          "hordes_f1": 0.08588957055214724,
+          "grounding_balanced_accuracy": 0.6698113207547169,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_f1": 0.028985507246376812,
+          "grounding_balanced_accuracy": 0.8636363636363636,
+          "goal_pairs": 0.015625,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 200,
+          "score": 0.4545454545454546,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.9090909090909092,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 300,
+          "score": 0.4216695254431103,
+          "hordes_f1": 0.025157232704402517,
+          "grounding_balanced_accuracy": 0.8181818181818181,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 400,
+          "score": 0.4203466019991719,
+          "hordes_f1": 0.041379310344827586,
+          "grounding_balanced_accuracy": 0.7993138936535162,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 500,
+          "score": 0.3940690154800081,
+          "hordes_f1": 0.024844720496894408,
+          "grounding_balanced_accuracy": 0.7632933104631218,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 600,
+          "score": 0.4593702386998476,
+          "hordes_f1": 0.1005586592178771,
+          "grounding_balanced_accuracy": 0.8181818181818181,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 700,
+          "score": 0.5053475935828877,
+          "hordes_f1": 0.14705882352941177,
+          "grounding_balanced_accuracy": 0.8636363636363636,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 800,
+          "score": 0.44464238433467257,
+          "hordes_f1": 0.08053691275167785,
+          "grounding_balanced_accuracy": 0.8087478559176673,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        }
+      ],
+      "deployment_eligible": false
+    },
+    {
+      "artifact": "artifacts/spatial-experiment-003",
+      "mode": "distilled",
+      "selected_step": 700,
+      "updates": 800,
+      "frozen_parents_unchanged": true,
+      "reload_logits_max_error": 0.0,
+      "test": {
+        "grounding_accuracy": 0.859375,
+        "grounding_balanced_accuracy": 0.7944444444444444,
+        "goal_accuracy": 0.5,
+        "both_goals_correct": 0.0,
+        "distillation_cosine": 0.2783668770105051,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 1,
+            "fp": 15,
+            "fn": 73,
+            "exact": 98,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 7,
+            "button_f1": 0.022222222222222223,
+            "exact_button_set_accuracy": 0.550561797752809,
+            "supported_button_macro_f1": 0.023809523809523808
+          },
+          "roblox/evade": {
+            "tp": 31,
+            "fp": 10,
+            "fn": 12,
+            "exact": 8,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7380952380952381,
+            "exact_button_set_accuracy": 0.3333333333333333,
+            "supported_button_macro_f1": 0.5612648221343874
+          },
+          "roblox/be-a-snake": {
+            "tp": 29,
+            "fp": 4,
+            "fn": 2,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.90625,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.75
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 23,
+            "fp": 2,
+            "fn": 8,
+            "exact": 14,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.8214285714285714,
+            "exact_button_set_accuracy": 0.5833333333333334,
+            "supported_button_macro_f1": 0.5932432432432433
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "shuffled_test": {
+        "grounding_accuracy": 0.703125,
+        "grounding_balanced_accuracy": 0.4981481481481481,
+        "goal_accuracy": 0.484375,
+        "both_goals_correct": 0.078125,
+        "distillation_cosine": 0.18856689131163415,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 2,
+            "fp": 14,
+            "fn": 72,
+            "exact": 97,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 9,
+            "button_f1": 0.044444444444444446,
+            "exact_button_set_accuracy": 0.5449438202247191,
+            "supported_button_macro_f1": 0.02702702702702703
+          },
+          "roblox/evade": {
+            "tp": 25,
+            "fp": 16,
+            "fn": 18,
+            "exact": 6,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.5952380952380952,
+            "exact_button_set_accuracy": 0.25,
+            "supported_button_macro_f1": 0.35968379446640314
+          },
+          "roblox/be-a-snake": {
+            "tp": 25,
+            "fp": 8,
+            "fn": 6,
+            "exact": 12,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.78125,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.4166666666666667
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 14,
+            "fp": 11,
+            "fn": 17,
+            "exact": 9,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.5,
+            "exact_button_set_accuracy": 0.375,
+            "supported_button_macro_f1": 0.1891891891891892
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "final_step_training_metrics": {
+        "grounding_accuracy": 0.546875,
+        "grounding_balanced_accuracy": 0.657051282051282,
+        "goal_accuracy": 0.45703125,
+        "both_goals_correct": 0.0078125,
+        "distillation_cosine": 0.3222139900261271,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 161,
+            "fp": 66,
+            "fn": 332,
+            "exact": 488,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 8,
+            "button_f1": 0.44722222222222224,
+            "exact_button_set_accuracy": 0.5893719806763285,
+            "supported_button_macro_f1": 0.23411894418068055
+          },
+          "doom": {
+            "tp": 52,
+            "fp": 13,
+            "fn": 32,
+            "exact": 33,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.697986577181208,
+            "exact_button_set_accuracy": 0.515625,
+            "supported_button_macro_f1": 0.41550466981824813
+          },
+          "left-4-dead-2": {
+            "tp": 42,
+            "fp": 3,
+            "fn": 10,
+            "exact": 52,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 0,
+            "button_f1": 0.865979381443299,
+            "exact_button_set_accuracy": 0.8125,
+            "supported_button_macro_f1": 0.5666666666666667
+          },
+          "roblox/be-a-tornado": {
+            "tp": 70,
+            "fp": 3,
+            "fn": 6,
+            "exact": 55,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.9395973154362416,
+            "exact_button_set_accuracy": 0.859375,
+            "supported_button_macro_f1": 0.8677248677248678
+          },
+          "roblox/blade-ball": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "exact": 63,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 0,
+            "button_f1": 0.9333333333333333,
+            "exact_button_set_accuracy": 0.984375,
+            "supported_button_macro_f1": 0.96
+          },
+          "roblox/hypershot": {
+            "tp": 90,
+            "fp": 17,
+            "fn": 28,
+            "exact": 33,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.532258064516129,
+            "supported_button_macro_f1": 0.6062169580966573
+          },
+          "warhammer-vermintide-2": {
+            "tp": 42,
+            "fp": 13,
+            "fn": 29,
+            "exact": 38,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 0,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.59375,
+            "supported_button_macro_f1": 0.46901669758812614
+          },
+          "euro-truck-simulator-2": {
+            "tp": 44,
+            "fp": 2,
+            "fn": 13,
+            "exact": 51,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 0,
+            "button_f1": 0.8543689320388349,
+            "exact_button_set_accuracy": 0.796875,
+            "supported_button_macro_f1": 0.3524904214559387
+          },
+          "call-of-duty-mobile": {
+            "tp": 74,
+            "fp": 5,
+            "fn": 8,
+            "exact": 53,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 0,
+            "button_f1": 0.9192546583850931,
+            "exact_button_set_accuracy": 0.8412698412698413,
+            "supported_button_macro_f1": 0.711976911976912
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 63,
+            "fp": 12,
+            "fn": 9,
+            "exact": 47,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.734375,
+            "supported_button_macro_f1": 0.7539759295078445
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 71,
+          "f1": 0.0
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.04448090062617333,
+          "hordes_f1": 0.08588957055214724,
+          "grounding_balanced_accuracy": 0.6698113207547169,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.00307223070019942
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_f1": 0.013513513513513514,
+          "grounding_balanced_accuracy": 0.5377358490566038,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.22544875169325174
+        },
+        {
+          "step": 200,
+          "score": 0.13071188929664515,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.5566037735849056,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.2614237785932903
+        },
+        {
+          "step": 300,
+          "score": 0.15090960600051062,
+          "hordes_f1": 0.02857142857142857,
+          "grounding_balanced_accuracy": 0.6037735849056604,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.27324778342959266
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_f1": 0.015151515151515152,
+          "grounding_balanced_accuracy": 0.5943396226415094,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.2812711128679961
+        },
+        {
+          "step": 500,
+          "score": 0.14322926232931,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.6792452830188679,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.28645852465862
+        },
+        {
+          "step": 600,
+          "score": 0.1765383618568012,
+          "hordes_f1": 0.062111801242236024,
+          "grounding_balanced_accuracy": 0.5849056603773585,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.29096492247136635
+        },
+        {
+          "step": 700,
+          "score": 0.18832023494945163,
+          "hordes_f1": 0.08383233532934131,
+          "grounding_balanced_accuracy": 0.5943396226415094,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.29280813456956195
+        },
+        {
+          "step": 800,
+          "score": 0.18765483220283805,
+          "hordes_f1": 0.07909604519774012,
+          "grounding_balanced_accuracy": 0.5394511149228131,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.296213619207936
+        }
+      ],
+      "deployment_eligible": false
+    },
+    {
+      "artifact": "artifacts/spatial-experiment-004",
+      "mode": "goals",
+      "selected_step": 700,
+      "updates": 800,
+      "frozen_parents_unchanged": true,
+      "reload_logits_max_error": 0.0,
+      "test": {
+        "grounding_accuracy": 0.71875,
+        "grounding_balanced_accuracy": 0.4666666666666667,
+        "goal_accuracy": 0.4921875,
+        "both_goals_correct": 0.015625,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 3,
+            "fp": 33,
+            "fn": 71,
+            "exact": 87,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 20,
+            "button_f1": 0.05454545454545454,
+            "exact_button_set_accuracy": 0.4887640449438202,
+            "supported_button_macro_f1": 0.02631578947368421
+          },
+          "roblox/evade": {
+            "tp": 30,
+            "fp": 8,
+            "fn": 13,
+            "exact": 8,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7407407407407407,
+            "exact_button_set_accuracy": 0.3333333333333333,
+            "supported_button_macro_f1": 0.525
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 2,
+            "fn": 3,
+            "exact": 19,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.9180327868852459,
+            "exact_button_set_accuracy": 0.7916666666666666,
+            "supported_button_macro_f1": 0.746031746031746
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 21,
+            "fp": 2,
+            "fn": 10,
+            "exact": 13,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.7777777777777778,
+            "exact_button_set_accuracy": 0.5416666666666666,
+            "supported_button_macro_f1": 0.4583333333333333
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "shuffled_test": {
+        "grounding_accuracy": 0.71875,
+        "grounding_balanced_accuracy": 0.4666666666666667,
+        "goal_accuracy": 0.4609375,
+        "both_goals_correct": 0.046875,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 6,
+            "fp": 30,
+            "fn": 68,
+            "exact": 92,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 18,
+            "button_f1": 0.10909090909090909,
+            "exact_button_set_accuracy": 0.5168539325842697,
+            "supported_button_macro_f1": 0.06766917293233082
+          },
+          "roblox/evade": {
+            "tp": 25,
+            "fp": 13,
+            "fn": 18,
+            "exact": 7,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.6172839506172839,
+            "exact_button_set_accuracy": 0.2916666666666667,
+            "supported_button_macro_f1": 0.32857142857142857
+          },
+          "roblox/be-a-snake": {
+            "tp": 25,
+            "fp": 5,
+            "fn": 6,
+            "exact": 14,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.819672131147541,
+            "exact_button_set_accuracy": 0.5833333333333334,
+            "supported_button_macro_f1": 0.4444444444444444
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 13,
+            "fp": 11,
+            "fn": 18,
+            "exact": 9,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.4727272727272727,
+            "exact_button_set_accuracy": 0.375,
+            "supported_button_macro_f1": 0.18055555555555555
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "final_step_training_metrics": {
+        "grounding_accuracy": 0.359375,
+        "grounding_balanced_accuracy": 0.6057692307692307,
+        "goal_accuracy": 1.0,
+        "both_goals_correct": 1.0,
+        "distillation_cosine": null,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 167,
+            "fp": 66,
+            "fn": 326,
+            "exact": 491,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 11,
+            "button_f1": 0.46005509641873277,
+            "exact_button_set_accuracy": 0.5929951690821256,
+            "supported_button_macro_f1": 0.2411008863907283
+          },
+          "doom": {
+            "tp": 52,
+            "fp": 13,
+            "fn": 32,
+            "exact": 33,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.697986577181208,
+            "exact_button_set_accuracy": 0.515625,
+            "supported_button_macro_f1": 0.4199358276959834
+          },
+          "left-4-dead-2": {
+            "tp": 42,
+            "fp": 3,
+            "fn": 10,
+            "exact": 52,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 1,
+            "button_f1": 0.865979381443299,
+            "exact_button_set_accuracy": 0.8125,
+            "supported_button_macro_f1": 0.5983882783882783
+          },
+          "roblox/be-a-tornado": {
+            "tp": 68,
+            "fp": 0,
+            "fn": 8,
+            "exact": 56,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.9444444444444444,
+            "exact_button_set_accuracy": 0.875,
+            "supported_button_macro_f1": 0.859047619047619
+          },
+          "roblox/blade-ball": {
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "exact": 63,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "button_f1": 0.9411764705882353,
+            "exact_button_set_accuracy": 0.984375,
+            "supported_button_macro_f1": 0.9714285714285715
+          },
+          "roblox/hypershot": {
+            "tp": 91,
+            "fp": 18,
+            "fn": 27,
+            "exact": 32,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.801762114537445,
+            "exact_button_set_accuracy": 0.5161290322580645,
+            "supported_button_macro_f1": 0.5832098871965982
+          },
+          "warhammer-vermintide-2": {
+            "tp": 46,
+            "fp": 18,
+            "fn": 25,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 0,
+            "button_f1": 0.6814814814814815,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.4992838007763381
+          },
+          "euro-truck-simulator-2": {
+            "tp": 47,
+            "fp": 3,
+            "fn": 10,
+            "exact": 52,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 0,
+            "button_f1": 0.8785046728971962,
+            "exact_button_set_accuracy": 0.8125,
+            "supported_button_macro_f1": 0.6386363636363637
+          },
+          "call-of-duty-mobile": {
+            "tp": 73,
+            "fp": 5,
+            "fn": 9,
+            "exact": 52,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 0,
+            "button_f1": 0.9125,
+            "exact_button_set_accuracy": 0.8253968253968254,
+            "supported_button_macro_f1": 0.7104200590439124
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 62,
+            "fp": 12,
+            "fn": 10,
+            "exact": 46,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.8493150684931506,
+            "exact_button_set_accuracy": 0.71875,
+            "supported_button_macro_f1": 0.7455218232276511
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 71,
+          "f1": 0.0
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.04294478527607362,
+          "hordes_f1": 0.08588957055214724,
+          "grounding_balanced_accuracy": 0.6698113207547169,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_f1": 0.015267175572519083,
+          "grounding_balanced_accuracy": 0.5,
+          "goal_pairs": 0.015625,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 200,
+          "score": 0.0078125,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.5283018867924528,
+          "goal_pairs": 0.015625,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 300,
+          "score": 0.046205357142857145,
+          "hordes_f1": 0.014285714285714285,
+          "grounding_balanced_accuracy": 0.5377358490566038,
+          "goal_pairs": 0.078125,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_f1": 0.014285714285714285,
+          "grounding_balanced_accuracy": 0.5471698113207547,
+          "goal_pairs": 0.3125,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_f1": 0.03389830508474576,
+          "grounding_balanced_accuracy": 0.5849056603773585,
+          "goal_pairs": 0.40625,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 600,
+          "score": 0.2331850165562914,
+          "hordes_f1": 0.013245033112582781,
+          "grounding_balanced_accuracy": 0.6037735849056604,
+          "goal_pairs": 0.453125,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 700,
+          "score": 0.234375,
+          "hordes_f1": 0.09375,
+          "grounding_balanced_accuracy": 0.6415094339622641,
+          "goal_pairs": 0.375,
+          "centered_feature_cosine": null
+        },
+        {
+          "step": 800,
+          "score": -1.0,
+          "hordes_f1": 0.038461538461538464,
+          "grounding_balanced_accuracy": 0.6320754716981132,
+          "goal_pairs": 0.359375,
+          "centered_feature_cosine": null
+        }
+      ],
+      "deployment_eligible": false
+    },
+    {
+      "artifact": "artifacts/spatial-experiment-005",
+      "mode": "combined",
+      "selected_step": 200,
+      "updates": 800,
+      "frozen_parents_unchanged": true,
+      "reload_logits_max_error": 0.0,
+      "test": {
+        "grounding_accuracy": 0.90625,
+        "grounding_balanced_accuracy": 0.7814814814814814,
+        "goal_accuracy": 0.515625,
+        "both_goals_correct": 0.046875,
+        "distillation_cosine": 0.23776165419574238,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 74,
+            "exact": 104,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 0,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.5842696629213483,
+            "supported_button_macro_f1": 0.0
+          },
+          "roblox/evade": {
+            "tp": 27,
+            "fp": 7,
+            "fn": 16,
+            "exact": 12,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.7012987012987013,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.4974008207934336
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 3,
+            "fn": 3,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.9032258064516129,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.7142857142857143
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 20,
+            "fp": 1,
+            "fn": 11,
+            "exact": 13,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.7692307692307693,
+            "exact_button_set_accuracy": 0.5416666666666666,
+            "supported_button_macro_f1": 0.47857142857142854
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "shuffled_test": {
+        "grounding_accuracy": 0.78125,
+        "grounding_balanced_accuracy": 0.5444444444444444,
+        "goal_accuracy": 0.5390625,
+        "both_goals_correct": 0.296875,
+        "distillation_cosine": 0.16650446272774902,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 74,
+            "exact": 104,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 0,
+            "button_f1": 0.0,
+            "exact_button_set_accuracy": 0.5842696629213483,
+            "supported_button_macro_f1": 0.0
+          },
+          "roblox/evade": {
+            "tp": 24,
+            "fp": 10,
+            "fn": 19,
+            "exact": 7,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.6233766233766234,
+            "exact_button_set_accuracy": 0.2916666666666667,
+            "supported_button_macro_f1": 0.4511823333984757
+          },
+          "roblox/be-a-snake": {
+            "tp": 25,
+            "fp": 6,
+            "fn": 6,
+            "exact": 13,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8064516129032258,
+            "exact_button_set_accuracy": 0.5416666666666666,
+            "supported_button_macro_f1": 0.42857142857142855
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 13,
+            "fp": 10,
+            "fn": 18,
+            "exact": 9,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "button_f1": 0.48148148148148145,
+            "exact_button_set_accuracy": 0.375,
+            "supported_button_macro_f1": 0.18055555555555555
+          }
+        },
+        "hordes_attack": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 29,
+          "f1": 0.0
+        }
+      },
+      "final_step_training_metrics": {
+        "grounding_accuracy": 1.0,
+        "grounding_balanced_accuracy": 1.0,
+        "goal_accuracy": 1.0,
+        "both_goals_correct": 1.0,
+        "distillation_cosine": 0.3117504310878053,
+        "gameplay": {
+          "Hordes.io": {
+            "tp": 169,
+            "fp": 60,
+            "fn": 324,
+            "exact": 495,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 9,
+            "button_f1": 0.46814404432132967,
+            "exact_button_set_accuracy": 0.5978260869565217,
+            "supported_button_macro_f1": 0.322325692727161
+          },
+          "doom": {
+            "tp": 56,
+            "fp": 16,
+            "fn": 28,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.717948717948718,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.44646464646464645
+          },
+          "left-4-dead-2": {
+            "tp": 43,
+            "fp": 4,
+            "fn": 9,
+            "exact": 52,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 1,
+            "button_f1": 0.8686868686868687,
+            "exact_button_set_accuracy": 0.8125,
+            "supported_button_macro_f1": 0.634102564102564
+          },
+          "roblox/be-a-tornado": {
+            "tp": 67,
+            "fp": 0,
+            "fn": 9,
+            "exact": 55,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.9370629370629371,
+            "exact_button_set_accuracy": 0.859375,
+            "supported_button_macro_f1": 0.8412698412698413
+          },
+          "roblox/blade-ball": {
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "exact": 63,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "button_f1": 0.9411764705882353,
+            "exact_button_set_accuracy": 0.984375,
+            "supported_button_macro_f1": 0.9714285714285715
+          },
+          "roblox/hypershot": {
+            "tp": 94,
+            "fp": 20,
+            "fn": 24,
+            "exact": 37,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "button_f1": 0.8103448275862069,
+            "exact_button_set_accuracy": 0.5967741935483871,
+            "supported_button_macro_f1": 0.6058447293803125
+          },
+          "warhammer-vermintide-2": {
+            "tp": 43,
+            "fp": 15,
+            "fn": 28,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 0,
+            "button_f1": 0.6666666666666666,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.5004989263609952
+          },
+          "euro-truck-simulator-2": {
+            "tp": 47,
+            "fp": 4,
+            "fn": 10,
+            "exact": 53,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 0,
+            "button_f1": 0.8703703703703703,
+            "exact_button_set_accuracy": 0.828125,
+            "supported_button_macro_f1": 0.5195360195360195
+          },
+          "call-of-duty-mobile": {
+            "tp": 73,
+            "fp": 5,
+            "fn": 9,
+            "exact": 53,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 0,
+            "button_f1": 0.9125,
+            "exact_button_set_accuracy": 0.8412698412698413,
+            "supported_button_macro_f1": 0.7104200590439124
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 59,
+            "fp": 12,
+            "fn": 13,
+            "exact": 43,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "button_f1": 0.8251748251748252,
+            "exact_button_set_accuracy": 0.671875,
+            "supported_button_macro_f1": 0.5722787542399014
+          }
+        },
+        "hordes_attack": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 70,
+          "f1": 0.0273972602739726
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.1896932805017659,
+          "hordes_f1": 0.08588957055214724,
+          "grounding_balanced_accuracy": 0.6698113207547169,
+          "goal_pairs": 0.0,
+          "centered_feature_cosine": 0.00307223070019942
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_f1": 0.0,
+          "grounding_balanced_accuracy": 0.7272727272727273,
+          "goal_pairs": 0.03125,
+          "centered_feature_cosine": 0.207559226045631
+        },
+        {
+          "step": 200,
+          "score": 0.23067980523534415,
+          "hordes_f1": 0.015267175572519083,
+          "grounding_balanced_accuracy": 0.6269296740994854,
+          "goal_pairs": 0.03125,
+          "centered_feature_cosine": 0.24927237126937202
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_f1": 0.038461538461538464,
+          "grounding_balanced_accuracy": 0.6269296740994854,
+          "goal_pairs": 0.125,
+          "centered_feature_cosine": 0.2615673130756904
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_f1": 0.014705882352941176,
+          "grounding_balanced_accuracy": 0.7272727272727273,
+          "goal_pairs": 0.203125,
+          "centered_feature_cosine": 0.2709356229635155
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_f1": 0.012048192771084338,
+          "grounding_balanced_accuracy": 0.6818181818181819,
+          "goal_pairs": 0.4375,
+          "centered_feature_cosine": 0.27710485891038766
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_f1": 0.014084507042253521,
+          "grounding_balanced_accuracy": 0.6818181818181819,
+          "goal_pairs": 0.328125,
+          "centered_feature_cosine": 0.2810393004234982
+        },
+        {
+          "step": 700,
+          "score": -1.0,
+          "hordes_f1": 0.0893854748603352,
+          "grounding_balanced_accuracy": 0.7727272727272727,
+          "goal_pairs": 0.4375,
+          "centered_feature_cosine": 0.28425665315342147
+        },
+        {
+          "step": 800,
+          "score": -1.0,
+          "hordes_f1": 0.026845637583892617,
+          "grounding_balanced_accuracy": 0.6818181818181819,
+          "goal_pairs": 0.46875,
+          "centered_feature_cosine": 0.2873996749082951
+        }
+      ],
+      "deployment_eligible": false
+    }
+  ],
+  "latency": [
+    {
+      "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 38.11527049401775,
+      "p95_ms": 39.31691634352319,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    },
+    {
+      "bundle": "artifacts/spatial-experiment-001/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 41.188895935192704,
+      "p95_ms": 42.0281604048796,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    },
+    {
+      "bundle": "artifacts/spatial-experiment-002/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 40.99614603910595,
+      "p95_ms": 119.43315439857498,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    },
+    {
+      "bundle": "artifacts/spatial-experiment-003/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 45.042936981189996,
+      "p95_ms": 50.81073098117485,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    },
+    {
+      "bundle": "artifacts/spatial-experiment-004/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 42.111124959774315,
+      "p95_ms": 46.78193365689367,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    },
+    {
+      "bundle": "artifacts/spatial-experiment-005/bundle",
+      "frames": 240,
+      "full_cache_samples": 40,
+      "p50_ms": 42.44474950246513,
+      "p95_ms": 48.19395249942316,
+      "scope": "Fresh preprocessing, frozen vision and Laya, trained adapter, temporal policy and autoregressive controls; excludes screenshot capture, input posting and game response."
+    }
+  ],
+  "teacher_audits": {
+    "qwen-grounding-report": {
+      "train": {
+        "examples": 64,
+        "accepted": 4
+      },
+      "validation": {
+        "examples": 64,
+        "accepted": 2
+      },
+      "test": {
+        "examples": 64,
+        "accepted": 35
+      }
+    },
+    "qwen-grounding-generated-report": {
+      "examples": 64,
+      "accepted": 32,
+      "accepted_by_label": {
+        "0": 29,
+        "1": 3
+      },
+      "scope": "Training screenshots only. Every accepted label agrees with prior hash-verified visual review in both option orders. No sequences or intent labels."
+    },
+    "qwen-grounding-reviewed-report": {
+      "examples": 64,
+      "accepted": 63,
+      "accepted_by_label": {
+        "0": 51,
+        "1": 12
+      },
+      "scope": "Training screenshots only. Every accepted label agrees with prior hash-verified visual review in both option orders. No sequences or intent labels."
+    },
+    "siglip-teacher": {
+      "model": "google/siglip2-base-patch16-224",
+      "revision": "75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2",
+      "license": "Apache-2.0",
+      "patches": "224px input; 14x14 teacher grid bilinearly aligned to 12x12 student grid",
+      "live_teacher": false
+    }
+  }
+}

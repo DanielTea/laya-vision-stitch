@@ -5,7 +5,15 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Latest training:** a small visual residual now learns through the frozen Open-P2P
+**Latest static-image experiments:** tested goal-conditioned spatial attention,
+reviewed Qwen grounding, SigLIP 2 feature distillation, paired goal training, and
+their combination over 4,000 updates. Menu recognition transfers at **81.3%
+balanced accuracy**, falling to **51.7% with shuffled images**. Goal/control
+transfer still fails, and no model replaces the live checkpoint. Fresh-image
+median inference is **41–45 ms offline**, excluding capture and input dispatch.
+[Experiments, latency tails and limitations](docs/SPATIAL_EXPERIMENTS.md).
+
+**Previous adapter training:** a small visual residual now learns through the frozen Open-P2P
 policy, alongside decoder LoRA. Five full-data runs were rejected as replacements.
 A 32-image capacity check reached 96.6% training button F1, falling to 13.8% with
 shuffled images; this verifies learnability, not new-scene gameplay.

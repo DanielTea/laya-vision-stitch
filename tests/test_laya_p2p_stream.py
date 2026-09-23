@@ -17,7 +17,7 @@ def fixture(dtype=mx.float32, logit_value=0):
 
     policy = SimpleNamespace(
         vision=lambda pixels: (None, mx.zeros((1, 1024))),
-        prefix=lambda image, goal: mx.zeros((1, 4, 1024)),
+        prefix=lambda image, goal, spatial=None: mx.zeros((1, 4, 1024)),
         context=context,
         decode=lambda context, temperature: (
             mx.array([[11, 0, 0, 0, 0, 0, 11, 8]]),

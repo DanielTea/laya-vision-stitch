@@ -108,6 +108,10 @@ class LayaP2PRuntime:
             from .p2p_adaptation import install_visual_adapter
 
             install_visual_adapter(model, **meta["visual_adapter"])
+        if meta.get("spatial_adapter"):
+            from .spatial_goal_adapter import install_spatial_adapter
+
+            install_spatial_adapter(model, **meta["spatial_adapter"])
         model.load_weights(str(directory / "model.safetensors"), strict=True)
         mx.eval(model.parameters())
         agent = Agent.__new__(Agent)
