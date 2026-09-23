@@ -183,14 +183,23 @@ class OpenP2PPolicy(nn.Module):
         return mx.stack([self.embeddings[self.action_type(i)](tokens[:, i]) for i in range(8)], 1)
 
     def prefix(self, image_token, text=None):
-        language = self.no_text if text is None else self.text_projection(text.reshape(1, 1, 768))
+        batch = image_token.shape[0]
+        if image_token.ndim != 2 or image_token.shape[1] != 1024:
+            raise ValueError("Expected a batch of 1024D image tokens")
+        if hasattr(self, "visual_adapter"):
+            image_token = self.visual_adapter(image_token)
+        language = (
+            mx.broadcast_to(self.no_text, (batch, 1, 1024))
+            if text is None
+            else self.text_projection(text.reshape(batch, 1, 768))
+        )
         language = mx.where(mx.any(language != 0, axis=-1, keepdims=True), language, self.no_text)
         return mx.concatenate(
             [
                 language + self.text_position,
                 image_token[:, None] + self.image_position,
-                self.thinking,
-                self.action_start,
+                mx.broadcast_to(self.thinking, (batch, 1, 1024)),
+                mx.broadcast_to(self.action_start, (batch, 1, 1024)),
             ],
             1,
         ).astype(self.text_projection.weight.dtype)
@@ -213,7 +222,7 @@ class OpenP2PPolicy(nn.Module):
             caches = [(k[:, :, STEP_TOKENS:], v[:, :, STEP_TOKENS:]) for k, v in caches]
             previous -= STEP_TOKENS
         target = (
-            mx.zeros((1, 8, 1024), prefix.dtype)
+            mx.zeros((prefix.shape[0], 8, 1024), prefix.dtype)
             if actions is None
             else self.action_embeddings(actions) + self.action_position
         )

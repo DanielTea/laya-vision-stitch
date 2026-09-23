@@ -73,3 +73,24 @@ def test_full_cache_rolls_exactly_one_frame_and_keeps_absolute_positions():
     assert not mask[3, -8:].any()  # Current decision cannot see target actions.
     with pytest.raises(ValueError, match="before the start"):
         model.context(mx.zeros((1, 4, 1024)), caches=cache, position=0)
+
+
+def test_batched_prefix_and_context_match_independent_examples():
+    mx.random.seed(48)
+    model = OpenP2PPolicy.__new__(OpenP2PPolicy)
+    nn.Module.__init__(model)
+    model.text_projection = nn.Linear(768, 1024, bias=False)
+    for name in ("no_text", "image_position", "text_position", "thinking", "action_start"):
+        setattr(model, name, mx.random.normal((1, 1, 1024)))
+    layer = Layer(1024, 16)
+    model.policy = lambda x, position, caches, mask: layer(x, position, None, mask)
+    images, goals = mx.random.normal((2, 1024)), mx.random.normal((2, 768))
+    batch = model.prefix(images, goals)
+    contexts = model.context(batch)[0]
+    for i in range(2):
+        single = model.prefix(images[i : i + 1], goals[i : i + 1])
+        np.testing.assert_allclose(np.asarray(batch[i : i + 1]), np.asarray(single), atol=1e-5)
+        np.testing.assert_allclose(
+            np.asarray(contexts[i : i + 1]), np.asarray(model.context(single)[0]), atol=2e-5
+        )
+    assert model.prefix(images).shape == (2, 4, 1024)

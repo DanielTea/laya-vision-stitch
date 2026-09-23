@@ -5,7 +5,13 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Latest experiment:** Laya goal features now condition the pretrained Open-P2P
+**Latest training:** a small visual residual now learns through the frozen Open-P2P
+policy, alongside decoder LoRA. Five full-data runs were rejected as replacements.
+A 32-image capacity check reached 96.6% training button F1, falling to 13.8% with
+shuffled images; this verifies learnability, not new-scene gameplay.
+[Training comparison and limitations](docs/P2P_VISUAL_ADAPTER.md).
+
+**Latest live experiment:** Laya goal features now condition the pretrained Open-P2P
 vision, memory and action decoder in one checkpoint. A complete **60-second live
 trial** measured **34.3 ms median inference** and **60.7 ms median screenshot-to-input
 latency** with a BF16 policy and FP32 vision. It moved and used camera controls,

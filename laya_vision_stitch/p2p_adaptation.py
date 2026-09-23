@@ -71,6 +71,29 @@ class ExtendedOutput(nn.Module):
         return mx.concatenate([self.base(x), self.extra(x)], -1)
 
 
+class VisualResidual(nn.Module):
+    """Identity-initialized bottleneck trained through the frozen temporal policy."""
+
+    def __init__(self, width=1024, bottleneck=64):
+        super().__init__()
+        if not 1 <= bottleneck <= width:
+            raise ValueError("Invalid visual bottleneck")
+        self.norm = nn.LayerNorm(width, affine=False)
+        self.down = nn.Linear(width, bottleneck)
+        self.up = nn.Linear(bottleneck, width, bias=False)
+        self.up.weight = mx.zeros_like(self.up.weight)
+
+    def __call__(self, x):
+        return x + self.up(nn.silu(self.down(self.norm(x))))
+
+
+def install_visual_adapter(model, bottleneck=64):
+    if hasattr(model.policy, "visual_adapter"):
+        raise ValueError("Visual adapter already installed")
+    # Preserve the trainability of any separately installed control adapters.
+    model.policy.visual_adapter = VisualResidual(bottleneck=bottleneck)
+
+
 def install_control_adapter(model, rank=4):
     if rank < 1 or rank > 64:
         raise ValueError("Invalid control LoRA rank")

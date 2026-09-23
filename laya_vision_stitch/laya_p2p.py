@@ -104,6 +104,10 @@ class LayaP2PRuntime:
             from .p2p_adaptation import install_control_adapter
 
             install_control_adapter(model, **meta["control_adapter"])
+        if meta.get("visual_adapter"):
+            from .p2p_adaptation import install_visual_adapter
+
+            install_visual_adapter(model, **meta["visual_adapter"])
         model.load_weights(str(directory / "model.safetensors"), strict=True)
         mx.eval(model.parameters())
         agent = Agent.__new__(Agent)

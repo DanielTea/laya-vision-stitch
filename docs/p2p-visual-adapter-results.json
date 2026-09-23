@@ -1,0 +1,5471 @@
+{
+  "scope": "Development experiments on existing weak Hordes controls plus public human replay. No qualified replacement; no new live input or latency measurement. Reused holdouts are development data, not a fresh final test.",
+  "total_updates": 4600,
+  "runs": [
+    {
+      "run": "laya-p2p-visual-adapter-001",
+      "settings": {
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "data": "artifacts/hordes-radio-data-001",
+        "cache": "artifacts/p2p-visual-features-001",
+        "output": "artifacts/laya-p2p-visual-adapter-001",
+        "steps": 600,
+        "batch_size": 8,
+        "rank": 16,
+        "bottleneck": 64,
+        "learning_rate": 0.0003,
+        "seed": 20260923
+      },
+      "updates": 600,
+      "selected_step": 0,
+      "trainable_parameters": 608577,
+      "parents_unchanged": true,
+      "fresh_image_reload_tokens_match": true,
+      "metrics": {
+        "train": {
+          "Hordes.io": {
+            "tp": 11,
+            "fp": 91,
+            "fn": 482,
+            "exact": 300,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 46,
+            "buttons": {
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 50,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 11,
+                "fp": 91,
+                "fn": 106,
+                "f1": 0.1004566210045662
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 71,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 100,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 7,
+                "f1": 0.0
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 144,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.03697478991596639,
+            "exact_button_set_accuracy": 0.36231884057971014,
+            "supported_button_macro_f1": 0.014350945857795172
+          },
+          "doom": {
+            "tp": 46,
+            "fp": 31,
+            "fn": 38,
+            "exact": 22,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 12,
+                "fp": 14,
+                "fn": 10,
+                "f1": 0.5
+              },
+              "mouse_left": {
+                "tp": 27,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.8709677419354839
+              },
+              "a": {
+                "tp": 4,
+                "fp": 6,
+                "fn": 9,
+                "f1": 0.34782608695652173
+              },
+              "d": {
+                "tp": 3,
+                "fp": 7,
+                "fn": 10,
+                "f1": 0.2608695652173913
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5714285714285714,
+            "exact_button_set_accuracy": 0.34375,
+            "supported_button_macro_f1": 0.32994389901823284
+          },
+          "left-4-dead-2": {
+            "tp": 35,
+            "fp": 11,
+            "fn": 17,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 30,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.9375
+              },
+              "space": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.5882352941176471
+              },
+              "a": {
+                "tp": 0,
+                "fp": 3,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7142857142857143,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.30514705882352944
+          },
+          "roblox/be-a-tornado": {
+            "tp": 62,
+            "fp": 12,
+            "fn": 14,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 56,
+                "fp": 8,
+                "fn": 0,
+                "f1": 0.9333333333333333
+              },
+              "d": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 11,
+                "f1": 0.45454545454545453
+              },
+              "a": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 3,
+                "f1": 0.25
+              }
+            },
+            "button_f1": 0.8266666666666667,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.545959595959596
+          },
+          "roblox/blade-ball": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 7,
+            "exact": 57,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "q": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.6666666666666666
+              },
+              "f": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.2,
+            "exact_button_set_accuracy": 0.890625,
+            "supported_button_macro_f1": 0.13333333333333333
+          },
+          "roblox/hypershot": {
+            "tp": 81,
+            "fp": 28,
+            "fn": 37,
+            "exact": 22,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "d": {
+                "tp": 20,
+                "fp": 10,
+                "fn": 5,
+                "f1": 0.7272727272727273
+              },
+              "mouse_left": {
+                "tp": 18,
+                "fp": 0,
+                "fn": 5,
+                "f1": 0.8780487804878049
+              },
+              "mouse_right": {
+                "tp": 11,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.8461538461538461
+              },
+              "w": {
+                "tp": 27,
+                "fp": 12,
+                "fn": 10,
+                "f1": 0.7105263157894737
+              },
+              "a": {
+                "tp": 3,
+                "fp": 6,
+                "fn": 8,
+                "f1": 0.3
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7136563876651982,
+            "exact_button_set_accuracy": 0.3548387096774194,
+            "supported_button_macro_f1": 0.5660002385291217
+          },
+          "warhammer-vermintide-2": {
+            "tp": 38,
+            "fp": 21,
+            "fn": 33,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 2,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 10,
+                "fn": 8,
+                "f1": 0.7272727272727273
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 5,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.5555555555555556
+              },
+              "a": {
+                "tp": 6,
+                "fp": 3,
+                "fn": 10,
+                "f1": 0.48
+              },
+              "mouse_left": {
+                "tp": 3,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.42857142857142855
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5846153846153846,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.3130571016285302
+          },
+          "euro-truck-simulator-2": {
+            "tp": 41,
+            "fp": 17,
+            "fn": 16,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 37,
+                "fp": 11,
+                "fn": 7,
+                "f1": 0.8043478260869565
+              },
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.36363636363636365
+              },
+              "a": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 4,
+                "f1": 0.4
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7130434782608696,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.39199604743083005
+          },
+          "call-of-duty-mobile": {
+            "tp": 66,
+            "fp": 6,
+            "fn": 16,
+            "exact": 46,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 53,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.9636363636363636
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 7,
+                "f1": 0.3333333333333333
+              },
+              "d": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 7,
+                "f1": 0.18181818181818182
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "mouse_right": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.7301587301587301,
+            "supported_button_macro_f1": 0.5797979797979798
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 57,
+            "fp": 25,
+            "fn": 15,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 42,
+                "fp": 16,
+                "fn": 1,
+                "f1": 0.8316831683168316
+              },
+              "d": {
+                "tp": 4,
+                "fp": 1,
+                "fn": 8,
+                "f1": 0.47058823529411764
+              },
+              "a": {
+                "tp": 9,
+                "fp": 6,
+                "fn": 4,
+                "f1": 0.6428571428571429
+              },
+              "mouse_right": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.8
+              },
+              "space": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7402597402597403,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.45752142441134874
+          }
+        },
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "idle_examples": 107,
+            "idle_false_positives": 13,
+            "buttons": {
+              "w": {
+                "tp": 7,
+                "fp": 26,
+                "fn": 32,
+                "f1": 0.19444444444444445
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 53,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 31,
+                "f1": 0.0
+              },
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263,
+            "supported_button_macro_f1": 0.03888888888888889
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 14,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.9333333333333333
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.4777777777777778
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.5
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.3333333333333333
+              }
+            },
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.611111111111111
+          }
+        },
+        "test": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 16,
+            "fn": 70,
+            "exact": 102,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 4,
+                "fp": 16,
+                "fn": 15,
+                "f1": 0.20512820512820512
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 23,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 29,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.0851063829787234,
+            "exact_button_set_accuracy": 0.5730337078651685,
+            "supported_button_macro_f1": 0.05128205128205128
+          },
+          "roblox/evade": {
+            "tp": 36,
+            "fp": 11,
+            "fn": 7,
+            "exact": 11,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 8,
+                "fp": 6,
+                "fn": 1,
+                "f1": 0.6956521739130435
+              },
+              "d": {
+                "tp": 3,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.6
+              },
+              "space": {
+                "tp": 1,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.4583333333333333,
+            "supported_button_macro_f1": 0.6294685990338165
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 24,
+            "fp": 3,
+            "fn": 7,
+            "exact": 15,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.972972972972973
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 5,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              }
+            },
+            "button_f1": 0.8275862068965517,
+            "exact_button_set_accuracy": 0.625,
+            "supported_button_macro_f1": 0.6361003861003861
+          }
+        }
+      },
+      "within_game_image_shuffle_test": {
+        "Hordes.io": {
+          "tp": 3,
+          "fp": 17,
+          "fn": 71,
+          "exact": 94,
+          "examples": 178,
+          "idle_examples": 104,
+          "idle_false_positives": 13,
+          "buttons": {
+            "mouse_right": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 23,
+              "f1": 0.0
+            },
+            "1": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 29,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 3,
+              "fp": 17,
+              "fn": 16,
+              "f1": 0.15384615384615385
+            },
+            "d": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.06382978723404255,
+          "exact_button_set_accuracy": 0.5280898876404494,
+          "supported_button_macro_f1": 0.038461538461538464
+        },
+        "roblox/evade": {
+          "tp": 28,
+          "fp": 19,
+          "fn": 15,
+          "exact": 3,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "space": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 6,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "a": {
+              "tp": 4,
+              "fp": 10,
+              "fn": 5,
+              "f1": 0.34782608695652173
+            }
+          },
+          "button_f1": 0.6222222222222222,
+          "exact_button_set_accuracy": 0.125,
+          "supported_button_macro_f1": 0.33695652173913043
+        },
+        "roblox/be-a-snake": {
+          "tp": 25,
+          "fp": 7,
+          "fn": 6,
+          "exact": 11,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 3,
+              "f1": 0.2857142857142857
+            },
+            "a": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.7936507936507936,
+          "exact_button_set_accuracy": 0.4583333333333333,
+          "supported_button_macro_f1": 0.42857142857142855
+        },
+        "roblox/a-dusty-trip": {
+          "tp": 14,
+          "fp": 13,
+          "fn": 17,
+          "exact": 7,
+          "examples": 24,
+          "idle_examples": 1,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 14,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.7567567567567568
+            },
+            "d": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 5,
+              "f1": 0.0
+            },
+            "mouse_left": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.4827586206896552,
+          "exact_button_set_accuracy": 0.2916666666666667,
+          "supported_button_macro_f1": 0.1891891891891892
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 3
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.2756598240469208,
+          "idle_false_positives": 97
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.2277580071174377,
+          "idle_false_positives": 69
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.2527075812274368,
+          "idle_false_positives": 70
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.12222222222222222,
+          "idle_false_positives": 20
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.16265060240963855,
+          "idle_false_positives": 91
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.04316546762589928,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.07432432432432433,
+          "idle_false_positives": 68
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.13658536585365855,
+          "idle_false_positives": 31
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.10240963855421686,
+          "idle_false_positives": 91
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.13973799126637554,
+          "idle_false_positives": 46
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.16736401673640167,
+          "idle_false_positives": 53
+        }
+      ],
+      "promoted": false
+    },
+    {
+      "run": "laya-p2p-visual-adapter-002",
+      "settings": {
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "data": "artifacts/hordes-radio-data-001",
+        "cache": "artifacts/p2p-visual-features-001",
+        "output": "artifacts/laya-p2p-visual-adapter-002",
+        "steps": 600,
+        "batch_size": 8,
+        "rank": 4,
+        "bottleneck": 64,
+        "learning_rate": 0.0001,
+        "replay_kl": 1.0,
+        "seed": 20260923
+      },
+      "updates": 600,
+      "selected_step": 200,
+      "trainable_parameters": 252033,
+      "parents_unchanged": true,
+      "fresh_image_reload_tokens_match": true,
+      "metrics": {
+        "train": {
+          "Hordes.io": {
+            "tp": 238,
+            "fp": 543,
+            "fn": 255,
+            "exact": 279,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 287,
+            "buttons": {
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 50,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 29,
+                "fp": 104,
+                "fn": 88,
+                "f1": 0.232
+              },
+              "1": {
+                "tp": 15,
+                "fp": 50,
+                "fn": 56,
+                "f1": 0.22058823529411764
+              },
+              "s": {
+                "tp": 88,
+                "fp": 114,
+                "fn": 12,
+                "f1": 0.5827814569536424
+              },
+              "a": {
+                "tp": 4,
+                "fp": 21,
+                "fn": 0,
+                "f1": 0.27586206896551724
+              },
+              "d": {
+                "tp": 7,
+                "fp": 37,
+                "fn": 0,
+                "f1": 0.27450980392156865
+              },
+              "mouse_right": {
+                "tp": 95,
+                "fp": 216,
+                "fn": 49,
+                "f1": 0.4175824175824176
+              },
+              "mouse_left": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.37362637362637363,
+            "exact_button_set_accuracy": 0.33695652173913043,
+            "supported_button_macro_f1": 0.28618914038818044
+          },
+          "doom": {
+            "tp": 56,
+            "fp": 40,
+            "fn": 28,
+            "exact": 17,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 6,
+            "buttons": {
+              "d": {
+                "tp": 7,
+                "fp": 8,
+                "fn": 6,
+                "f1": 0.5
+              },
+              "w": {
+                "tp": 12,
+                "fp": 13,
+                "fn": 10,
+                "f1": 0.5106382978723404
+              },
+              "mouse_left": {
+                "tp": 28,
+                "fp": 2,
+                "fn": 3,
+                "f1": 0.9180327868852459
+              },
+              "a": {
+                "tp": 9,
+                "fp": 17,
+                "fn": 4,
+                "f1": 0.46153846153846156
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.6222222222222222,
+            "exact_button_set_accuracy": 0.265625,
+            "supported_button_macro_f1": 0.398368257716008
+          },
+          "left-4-dead-2": {
+            "tp": 35,
+            "fp": 19,
+            "fn": 17,
+            "exact": 34,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 10,
+            "buttons": {
+              "w": {
+                "tp": 28,
+                "fp": 3,
+                "fn": 5,
+                "f1": 0.875
+              },
+              "a": {
+                "tp": 2,
+                "fp": 8,
+                "fn": 2,
+                "f1": 0.2857142857142857
+              },
+              "space": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 6,
+                "fn": 2,
+                "f1": 0.5555555555555556
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.660377358490566,
+            "exact_button_set_accuracy": 0.53125,
+            "supported_button_macro_f1": 0.34325396825396826
+          },
+          "roblox/be-a-tornado": {
+            "tp": 72,
+            "fp": 17,
+            "fn": 4,
+            "exact": 44,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 8,
+            "buttons": {
+              "d": {
+                "tp": 14,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.8
+              },
+              "w": {
+                "tp": 55,
+                "fp": 8,
+                "fn": 1,
+                "f1": 0.9243697478991597
+              },
+              "a": {
+                "tp": 3,
+                "fp": 4,
+                "fn": 1,
+                "f1": 0.5454545454545454
+              }
+            },
+            "button_f1": 0.8727272727272727,
+            "exact_button_set_accuracy": 0.6875,
+            "supported_button_macro_f1": 0.7566080977845684
+          },
+          "roblox/blade-ball": {
+            "tp": 6,
+            "fp": 8,
+            "fn": 2,
+            "exact": 57,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 4,
+            "buttons": {
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 0,
+                "f1": 0.5
+              },
+              "w": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 1,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.6666666666666666
+              },
+              "f": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.6666666666666666
+              },
+              "q": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5454545454545454,
+            "exact_button_set_accuracy": 0.890625,
+            "supported_button_macro_f1": 0.4809523809523809
+          },
+          "roblox/hypershot": {
+            "tp": 86,
+            "fp": 27,
+            "fn": 32,
+            "exact": 25,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "d": {
+                "tp": 15,
+                "fp": 6,
+                "fn": 10,
+                "f1": 0.6521739130434783
+              },
+              "mouse_left": {
+                "tp": 21,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.9545454545454546
+              },
+              "mouse_right": {
+                "tp": 12,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.8888888888888888
+              },
+              "w": {
+                "tp": 31,
+                "fp": 12,
+                "fn": 6,
+                "f1": 0.775
+              },
+              "space": {
+                "tp": 0,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 7,
+                "fp": 7,
+                "fn": 4,
+                "f1": 0.56
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7445887445887446,
+            "exact_button_set_accuracy": 0.4032258064516129,
+            "supported_button_macro_f1": 0.5472297509254032
+          },
+          "warhammer-vermintide-2": {
+            "tp": 38,
+            "fp": 32,
+            "fn": 33,
+            "exact": 27,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 2,
+            "buttons": {
+              "a": {
+                "tp": 9,
+                "fp": 10,
+                "fn": 7,
+                "f1": 0.5142857142857142
+              },
+              "d": {
+                "tp": 4,
+                "fp": 6,
+                "fn": 5,
+                "f1": 0.42105263157894735
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 5,
+                "fn": 3,
+                "f1": 0.5
+              },
+              "w": {
+                "tp": 20,
+                "fp": 9,
+                "fn": 12,
+                "f1": 0.6557377049180327
+              },
+              "e": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.6666666666666666
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5390070921985816,
+            "exact_button_set_accuracy": 0.421875,
+            "supported_button_macro_f1": 0.3939632453499087
+          },
+          "euro-truck-simulator-2": {
+            "tp": 37,
+            "fp": 12,
+            "fn": 20,
+            "exact": 37,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 30,
+                "fp": 0,
+                "fn": 14,
+                "f1": 0.8108108108108109
+              },
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.36363636363636365
+              },
+              "a": {
+                "tp": 3,
+                "fp": 6,
+                "fn": 3,
+                "f1": 0.4
+              },
+              "s": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.6666666666666666
+              }
+            },
+            "button_f1": 0.6981132075471698,
+            "exact_button_set_accuracy": 0.578125,
+            "supported_button_macro_f1": 0.5602784602784603
+          },
+          "call-of-duty-mobile": {
+            "tp": 71,
+            "fp": 10,
+            "fn": 11,
+            "exact": 47,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 1,
+            "buttons": {
+              "a": {
+                "tp": 4,
+                "fp": 2,
+                "fn": 5,
+                "f1": 0.5333333333333333
+              },
+              "w": {
+                "tp": 53,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.9636363636363636
+              },
+              "d": {
+                "tp": 4,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.5
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.9090909090909091
+              },
+              "mouse_right": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.8711656441717791,
+            "exact_button_set_accuracy": 0.746031746031746,
+            "supported_button_macro_f1": 0.651010101010101
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 59,
+            "fp": 33,
+            "fn": 13,
+            "exact": 29,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 6,
+            "buttons": {
+              "a": {
+                "tp": 10,
+                "fp": 14,
+                "fn": 3,
+                "f1": 0.5405405405405406
+              },
+              "d": {
+                "tp": 6,
+                "fp": 3,
+                "fn": 6,
+                "f1": 0.5714285714285714
+              },
+              "w": {
+                "tp": 40,
+                "fp": 13,
+                "fn": 3,
+                "f1": 0.8333333333333334
+              },
+              "mouse_right": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.8
+              },
+              "space": {
+                "tp": 0,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              }
+            },
+            "button_f1": 0.7195121951219512,
+            "exact_button_set_accuracy": 0.453125,
+            "supported_button_macro_f1": 0.6242170742170742
+          }
+        },
+        "validation": {
+          "Hordes.io": {
+            "tp": 34,
+            "fp": 99,
+            "fn": 96,
+            "exact": 83,
+            "examples": 237,
+            "idle_examples": 107,
+            "idle_false_positives": 58,
+            "buttons": {
+              "mouse_right": {
+                "tp": 18,
+                "fp": 66,
+                "fn": 35,
+                "f1": 0.26277372262773724
+              },
+              "1": {
+                "tp": 4,
+                "fp": 5,
+                "fn": 27,
+                "f1": 0.2
+              },
+              "w": {
+                "tp": 12,
+                "fp": 24,
+                "fn": 27,
+                "f1": 0.32
+              },
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 4,
+                "fn": 0,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.2585551330798479,
+            "exact_button_set_accuracy": 0.350210970464135,
+            "supported_button_macro_f1": 0.15655474452554746
+          },
+          "left-4-dead-2": {
+            "tp": 16,
+            "fp": 4,
+            "fn": 5,
+            "exact": 16,
+            "examples": 24,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 14,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.9655172413793104
+              },
+              "a": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 2,
+                "f1": 0.2857142857142857
+              },
+              "d": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.4
+              }
+            },
+            "button_f1": 0.7804878048780488,
+            "exact_button_set_accuracy": 0.6666666666666666,
+            "supported_button_macro_f1": 0.5504105090311987
+          },
+          "roblox/be-a-tornado": {
+            "tp": 27,
+            "fp": 6,
+            "fn": 3,
+            "exact": 15,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 1,
+                "fp": 5,
+                "fn": 0,
+                "f1": 0.2857142857142857
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.625,
+            "supported_button_macro_f1": 0.5952380952380952
+          }
+        },
+        "test": {
+          "Hordes.io": {
+            "tp": 21,
+            "fp": 136,
+            "fn": 53,
+            "exact": 30,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 95,
+            "buttons": {
+              "mouse_right": {
+                "tp": 13,
+                "fp": 120,
+                "fn": 10,
+                "f1": 0.16666666666666666
+              },
+              "1": {
+                "tp": 4,
+                "fp": 8,
+                "fn": 25,
+                "f1": 0.1951219512195122
+              },
+              "w": {
+                "tp": 3,
+                "fp": 3,
+                "fn": 16,
+                "f1": 0.24
+              },
+              "d": {
+                "tp": 1,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.18181818181818182,
+            "exact_button_set_accuracy": 0.16853932584269662,
+            "supported_button_macro_f1": 0.20600271002710027
+          },
+          "roblox/evade": {
+            "tp": 33,
+            "fp": 13,
+            "fn": 10,
+            "exact": 8,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 20,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.9090909090909091
+              },
+              "a": {
+                "tp": 9,
+                "fp": 8,
+                "fn": 0,
+                "f1": 0.6923076923076923
+              },
+              "d": {
+                "tp": 3,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.6
+              },
+              "space": {
+                "tp": 1,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.7415730337078652,
+            "exact_button_set_accuracy": 0.3333333333333333,
+            "supported_button_macro_f1": 0.6059052059052059
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 24,
+            "fp": 6,
+            "fn": 7,
+            "exact": 12,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "buttons": {
+              "d": {
+                "tp": 0,
+                "fp": 2,
+                "fn": 5,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.972972972972973
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 2,
+                "f1": 0.4444444444444444
+              }
+            },
+            "button_f1": 0.7868852459016393,
+            "exact_button_set_accuracy": 0.5,
+            "supported_button_macro_f1": 0.6043543543543544
+          }
+        }
+      },
+      "within_game_image_shuffle_test": {
+        "Hordes.io": {
+          "tp": 26,
+          "fp": 131,
+          "fn": 48,
+          "exact": 39,
+          "examples": 178,
+          "idle_examples": 104,
+          "idle_false_positives": 91,
+          "buttons": {
+            "mouse_right": {
+              "tp": 21,
+              "fp": 112,
+              "fn": 2,
+              "f1": 0.2692307692307692
+            },
+            "1": {
+              "tp": 3,
+              "fp": 9,
+              "fn": 26,
+              "f1": 0.14634146341463414
+            },
+            "w": {
+              "tp": 2,
+              "fp": 4,
+              "fn": 17,
+              "f1": 0.16
+            },
+            "d": {
+              "tp": 0,
+              "fp": 6,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.22510822510822512,
+          "exact_button_set_accuracy": 0.21910112359550563,
+          "supported_button_macro_f1": 0.14389305816135084
+        },
+        "roblox/evade": {
+          "tp": 26,
+          "fp": 20,
+          "fn": 17,
+          "exact": 4,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "space": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 6,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 20,
+              "fp": 0,
+              "fn": 4,
+              "f1": 0.9090909090909091
+            },
+            "a": {
+              "tp": 6,
+              "fp": 11,
+              "fn": 3,
+              "f1": 0.46153846153846156
+            }
+          },
+          "button_f1": 0.5842696629213483,
+          "exact_button_set_accuracy": 0.16666666666666666,
+          "supported_button_macro_f1": 0.34265734265734266
+        },
+        "roblox/be-a-snake": {
+          "tp": 25,
+          "fp": 7,
+          "fn": 6,
+          "exact": 11,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 3,
+              "f1": 0.2857142857142857
+            },
+            "a": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.7936507936507936,
+          "exact_button_set_accuracy": 0.4583333333333333,
+          "supported_button_macro_f1": 0.42857142857142855
+        },
+        "roblox/a-dusty-trip": {
+          "tp": 14,
+          "fp": 16,
+          "fn": 17,
+          "exact": 5,
+          "examples": 24,
+          "idle_examples": 1,
+          "idle_false_positives": 0,
+          "buttons": {
+            "d": {
+              "tp": 0,
+              "fp": 2,
+              "fn": 5,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 14,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.7567567567567568
+            },
+            "mouse_left": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.45901639344262296,
+          "exact_button_set_accuracy": 0.20833333333333334,
+          "supported_button_macro_f1": 0.1891891891891892
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 50,
+          "score": 0.30957131283989947,
+          "hordes_button_f1": 0.05970149253731343,
+          "idle_false_positives": 29
+        },
+        {
+          "step": 100,
+          "score": 0.30959578871950005,
+          "hordes_button_f1": 0.09278350515463918,
+          "idle_false_positives": 31
+        },
+        {
+          "step": 150,
+          "score": 0.3187829224610198,
+          "hordes_button_f1": 0.11458333333333333,
+          "idle_false_positives": 27
+        },
+        {
+          "step": 200,
+          "score": 0.4113084028719494,
+          "hordes_button_f1": 0.2585551330798479,
+          "idle_false_positives": 58
+        },
+        {
+          "step": 250,
+          "score": 0.363800310282507,
+          "hordes_button_f1": 0.17467248908296942,
+          "idle_false_positives": 43
+        },
+        {
+          "step": 300,
+          "score": 0.3670254819680107,
+          "hordes_button_f1": 0.20689655172413793,
+          "idle_false_positives": 75
+        },
+        {
+          "step": 350,
+          "score": 0.3020649915386758,
+          "hordes_button_f1": 0.07017543859649122,
+          "idle_false_positives": 14
+        },
+        {
+          "step": 400,
+          "score": 0.3460041783693237,
+          "hordes_button_f1": 0.14107883817427386,
+          "idle_false_positives": 40
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.1346153846153846,
+          "idle_false_positives": 40
+        },
+        {
+          "step": 500,
+          "score": 0.32927872073010256,
+          "hordes_button_f1": 0.10344827586206896,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 550,
+          "score": 0.35909172679934515,
+          "hordes_button_f1": 0.1935483870967742,
+          "idle_false_positives": 54
+        },
+        {
+          "step": 600,
+          "score": 0.37173179486089053,
+          "hordes_button_f1": 0.19047619047619047,
+          "idle_false_positives": 66
+        }
+      ],
+      "promoted": false
+    },
+    {
+      "run": "laya-p2p-visual-adapter-003",
+      "settings": {
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "data": "artifacts/hordes-radio-data-001",
+        "cache": "artifacts/p2p-visual-features-001",
+        "output": "artifacts/laya-p2p-visual-adapter-003",
+        "steps": 600,
+        "batch_size": 8,
+        "rank": 4,
+        "bottleneck": 64,
+        "learning_rate": 0.0001,
+        "replay_kl": 1.0,
+        "balanced_idle": true,
+        "shortcut_gates": true,
+        "seed": 20260923
+      },
+      "updates": 600,
+      "selected_step": 0,
+      "trainable_parameters": 252033,
+      "parents_unchanged": true,
+      "fresh_image_reload_tokens_match": true,
+      "metrics": {
+        "train": {
+          "Hordes.io": {
+            "tp": 11,
+            "fp": 91,
+            "fn": 482,
+            "exact": 300,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 46,
+            "buttons": {
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 50,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 11,
+                "fp": 91,
+                "fn": 106,
+                "f1": 0.1004566210045662
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 71,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 100,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 7,
+                "f1": 0.0
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 144,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.03697478991596639,
+            "exact_button_set_accuracy": 0.36231884057971014,
+            "supported_button_macro_f1": 0.014350945857795172
+          },
+          "doom": {
+            "tp": 46,
+            "fp": 31,
+            "fn": 38,
+            "exact": 22,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 12,
+                "fp": 14,
+                "fn": 10,
+                "f1": 0.5
+              },
+              "mouse_left": {
+                "tp": 27,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.8709677419354839
+              },
+              "a": {
+                "tp": 4,
+                "fp": 6,
+                "fn": 9,
+                "f1": 0.34782608695652173
+              },
+              "d": {
+                "tp": 3,
+                "fp": 7,
+                "fn": 10,
+                "f1": 0.2608695652173913
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5714285714285714,
+            "exact_button_set_accuracy": 0.34375,
+            "supported_button_macro_f1": 0.32994389901823284
+          },
+          "left-4-dead-2": {
+            "tp": 35,
+            "fp": 11,
+            "fn": 17,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 30,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.9375
+              },
+              "space": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.5882352941176471
+              },
+              "a": {
+                "tp": 0,
+                "fp": 3,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7142857142857143,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.30514705882352944
+          },
+          "roblox/be-a-tornado": {
+            "tp": 62,
+            "fp": 12,
+            "fn": 14,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 56,
+                "fp": 8,
+                "fn": 0,
+                "f1": 0.9333333333333333
+              },
+              "d": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 11,
+                "f1": 0.45454545454545453
+              },
+              "a": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 3,
+                "f1": 0.25
+              }
+            },
+            "button_f1": 0.8266666666666667,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.545959595959596
+          },
+          "roblox/blade-ball": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 7,
+            "exact": 57,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "q": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.6666666666666666
+              },
+              "f": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.2,
+            "exact_button_set_accuracy": 0.890625,
+            "supported_button_macro_f1": 0.13333333333333333
+          },
+          "roblox/hypershot": {
+            "tp": 81,
+            "fp": 28,
+            "fn": 37,
+            "exact": 22,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "mouse_left": {
+                "tp": 18,
+                "fp": 0,
+                "fn": 5,
+                "f1": 0.8780487804878049
+              },
+              "d": {
+                "tp": 20,
+                "fp": 10,
+                "fn": 5,
+                "f1": 0.7272727272727273
+              },
+              "mouse_right": {
+                "tp": 11,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.8461538461538461
+              },
+              "w": {
+                "tp": 27,
+                "fp": 12,
+                "fn": 10,
+                "f1": 0.7105263157894737
+              },
+              "a": {
+                "tp": 3,
+                "fp": 6,
+                "fn": 8,
+                "f1": 0.3
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7136563876651982,
+            "exact_button_set_accuracy": 0.3548387096774194,
+            "supported_button_macro_f1": 0.5660002385291217
+          },
+          "warhammer-vermintide-2": {
+            "tp": 38,
+            "fp": 21,
+            "fn": 33,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 2,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 10,
+                "fn": 8,
+                "f1": 0.7272727272727273
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 5,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.5555555555555556
+              },
+              "a": {
+                "tp": 6,
+                "fp": 3,
+                "fn": 10,
+                "f1": 0.48
+              },
+              "mouse_left": {
+                "tp": 3,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.42857142857142855
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5846153846153846,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.3130571016285302
+          },
+          "euro-truck-simulator-2": {
+            "tp": 41,
+            "fp": 17,
+            "fn": 16,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 37,
+                "fp": 11,
+                "fn": 7,
+                "f1": 0.8043478260869565
+              },
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.36363636363636365
+              },
+              "a": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 4,
+                "f1": 0.4
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7130434782608696,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.39199604743083005
+          },
+          "call-of-duty-mobile": {
+            "tp": 66,
+            "fp": 6,
+            "fn": 16,
+            "exact": 46,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 53,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.9636363636363636
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 7,
+                "f1": 0.3333333333333333
+              },
+              "d": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 7,
+                "f1": 0.18181818181818182
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "mouse_right": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.7301587301587301,
+            "supported_button_macro_f1": 0.5797979797979798
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 57,
+            "fp": 25,
+            "fn": 15,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 42,
+                "fp": 16,
+                "fn": 1,
+                "f1": 0.8316831683168316
+              },
+              "d": {
+                "tp": 4,
+                "fp": 1,
+                "fn": 8,
+                "f1": 0.47058823529411764
+              },
+              "a": {
+                "tp": 9,
+                "fp": 6,
+                "fn": 4,
+                "f1": 0.6428571428571429
+              },
+              "mouse_right": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.8
+              },
+              "space": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7402597402597403,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.45752142441134874
+          }
+        },
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "idle_examples": 107,
+            "idle_false_positives": 13,
+            "buttons": {
+              "w": {
+                "tp": 7,
+                "fp": 26,
+                "fn": 32,
+                "f1": 0.19444444444444445
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 53,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 31,
+                "f1": 0.0
+              },
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263,
+            "supported_button_macro_f1": 0.03888888888888889
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 14,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.9333333333333333
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.4777777777777778
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.5
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.3333333333333333
+              }
+            },
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.611111111111111
+          }
+        },
+        "test": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 16,
+            "fn": 70,
+            "exact": 102,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 4,
+                "fp": 16,
+                "fn": 15,
+                "f1": 0.20512820512820512
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 23,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 29,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.0851063829787234,
+            "exact_button_set_accuracy": 0.5730337078651685,
+            "supported_button_macro_f1": 0.05128205128205128
+          },
+          "roblox/evade": {
+            "tp": 36,
+            "fp": 11,
+            "fn": 7,
+            "exact": 11,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 8,
+                "fp": 6,
+                "fn": 1,
+                "f1": 0.6956521739130435
+              },
+              "d": {
+                "tp": 3,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.6
+              },
+              "space": {
+                "tp": 1,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.4583333333333333,
+            "supported_button_macro_f1": 0.6294685990338165
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 24,
+            "fp": 3,
+            "fn": 7,
+            "exact": 15,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.972972972972973
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 5,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              }
+            },
+            "button_f1": 0.8275862068965517,
+            "exact_button_set_accuracy": 0.625,
+            "supported_button_macro_f1": 0.6361003861003861
+          }
+        }
+      },
+      "within_game_image_shuffle_test": {
+        "Hordes.io": {
+          "tp": 1,
+          "fp": 19,
+          "fn": 73,
+          "exact": 88,
+          "examples": 178,
+          "idle_examples": 104,
+          "idle_false_positives": 17,
+          "buttons": {
+            "mouse_right": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 23,
+              "f1": 0.0
+            },
+            "1": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 29,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 1,
+              "fp": 19,
+              "fn": 18,
+              "f1": 0.05128205128205128
+            },
+            "d": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.02127659574468085,
+          "exact_button_set_accuracy": 0.4943820224719101,
+          "supported_button_macro_f1": 0.01282051282051282
+        },
+        "roblox/evade": {
+          "tp": 30,
+          "fp": 17,
+          "fn": 13,
+          "exact": 6,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "space": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 5,
+              "fp": 9,
+              "fn": 4,
+              "f1": 0.43478260869565216
+            },
+            "d": {
+              "tp": 1,
+              "fp": 3,
+              "fn": 5,
+              "f1": 0.2
+            }
+          },
+          "button_f1": 0.6666666666666666,
+          "exact_button_set_accuracy": 0.25,
+          "supported_button_macro_f1": 0.408695652173913
+        },
+        "roblox/be-a-snake": {
+          "tp": 26,
+          "fp": 6,
+          "fn": 5,
+          "exact": 15,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "f1": 0.5
+            }
+          },
+          "button_f1": 0.8253968253968254,
+          "exact_button_set_accuracy": 0.625,
+          "supported_button_macro_f1": 0.5
+        },
+        "roblox/a-dusty-trip": {
+          "tp": 13,
+          "fp": 14,
+          "fn": 18,
+          "exact": 3,
+          "examples": 24,
+          "idle_examples": 1,
+          "idle_false_positives": 1,
+          "buttons": {
+            "w": {
+              "tp": 13,
+              "fp": 6,
+              "fn": 5,
+              "f1": 0.7027027027027027
+            },
+            "d": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 5,
+              "f1": 0.0
+            },
+            "mouse_left": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.4482758620689655,
+          "exact_button_set_accuracy": 0.125,
+          "supported_button_macro_f1": 0.17567567567567569
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.015151515151515152,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.014598540145985401,
+          "idle_false_positives": 3
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 2
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "idle_false_positives": 2
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.02877697841726619,
+          "idle_false_positives": 2
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "idle_false_positives": 2
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.040268456375838924,
+          "idle_false_positives": 6
+        }
+      ],
+      "promoted": false
+    },
+    {
+      "run": "laya-p2p-visual-adapter-004",
+      "settings": {
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "data": "artifacts/hordes-radio-data-001",
+        "cache": "artifacts/p2p-visual-features-001",
+        "output": "artifacts/laya-p2p-visual-adapter-004",
+        "steps": 600,
+        "batch_size": 8,
+        "rank": 4,
+        "bottleneck": 0,
+        "learning_rate": 0.0001,
+        "replay_kl": 1.0,
+        "balanced_idle": true,
+        "shortcut_gates": true,
+        "seed": 20260923
+      },
+      "updates": 600,
+      "selected_step": 0,
+      "trainable_parameters": 120897,
+      "parents_unchanged": true,
+      "fresh_image_reload_tokens_match": true,
+      "metrics": {
+        "train": {
+          "Hordes.io": {
+            "tp": 11,
+            "fp": 91,
+            "fn": 482,
+            "exact": 300,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 46,
+            "buttons": {
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 50,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 11,
+                "fp": 91,
+                "fn": 106,
+                "f1": 0.1004566210045662
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 71,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 100,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 7,
+                "f1": 0.0
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 144,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.03697478991596639,
+            "exact_button_set_accuracy": 0.36231884057971014,
+            "supported_button_macro_f1": 0.014350945857795172
+          },
+          "doom": {
+            "tp": 46,
+            "fp": 31,
+            "fn": 38,
+            "exact": 22,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 12,
+                "fp": 14,
+                "fn": 10,
+                "f1": 0.5
+              },
+              "mouse_left": {
+                "tp": 27,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.8709677419354839
+              },
+              "a": {
+                "tp": 4,
+                "fp": 6,
+                "fn": 9,
+                "f1": 0.34782608695652173
+              },
+              "d": {
+                "tp": 3,
+                "fp": 7,
+                "fn": 10,
+                "f1": 0.2608695652173913
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5714285714285714,
+            "exact_button_set_accuracy": 0.34375,
+            "supported_button_macro_f1": 0.32994389901823284
+          },
+          "left-4-dead-2": {
+            "tp": 35,
+            "fp": 11,
+            "fn": 17,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 30,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.9375
+              },
+              "space": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.5882352941176471
+              },
+              "a": {
+                "tp": 0,
+                "fp": 3,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7142857142857143,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.30514705882352944
+          },
+          "roblox/be-a-tornado": {
+            "tp": 62,
+            "fp": 12,
+            "fn": 14,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 56,
+                "fp": 8,
+                "fn": 0,
+                "f1": 0.9333333333333333
+              },
+              "d": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 11,
+                "f1": 0.45454545454545453
+              },
+              "a": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 3,
+                "f1": 0.25
+              }
+            },
+            "button_f1": 0.8266666666666667,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.545959595959596
+          },
+          "roblox/blade-ball": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 7,
+            "exact": 57,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "q": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.6666666666666666
+              },
+              "f": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.2,
+            "exact_button_set_accuracy": 0.890625,
+            "supported_button_macro_f1": 0.13333333333333333
+          },
+          "roblox/hypershot": {
+            "tp": 81,
+            "fp": 28,
+            "fn": 37,
+            "exact": 22,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "d": {
+                "tp": 20,
+                "fp": 10,
+                "fn": 5,
+                "f1": 0.7272727272727273
+              },
+              "mouse_left": {
+                "tp": 18,
+                "fp": 0,
+                "fn": 5,
+                "f1": 0.8780487804878049
+              },
+              "mouse_right": {
+                "tp": 11,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.8461538461538461
+              },
+              "w": {
+                "tp": 27,
+                "fp": 12,
+                "fn": 10,
+                "f1": 0.7105263157894737
+              },
+              "a": {
+                "tp": 3,
+                "fp": 6,
+                "fn": 8,
+                "f1": 0.3
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7136563876651982,
+            "exact_button_set_accuracy": 0.3548387096774194,
+            "supported_button_macro_f1": 0.5660002385291217
+          },
+          "warhammer-vermintide-2": {
+            "tp": 38,
+            "fp": 21,
+            "fn": 33,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 2,
+            "buttons": {
+              "a": {
+                "tp": 6,
+                "fp": 3,
+                "fn": 10,
+                "f1": 0.48
+              },
+              "w": {
+                "tp": 24,
+                "fp": 10,
+                "fn": 8,
+                "f1": 0.7272727272727273
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 5,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.5555555555555556
+              },
+              "mouse_left": {
+                "tp": 3,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.42857142857142855
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5846153846153846,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.3130571016285302
+          },
+          "euro-truck-simulator-2": {
+            "tp": 41,
+            "fp": 17,
+            "fn": 16,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 37,
+                "fp": 11,
+                "fn": 7,
+                "f1": 0.8043478260869565
+              },
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.36363636363636365
+              },
+              "a": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 4,
+                "f1": 0.4
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7130434782608696,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.39199604743083005
+          },
+          "call-of-duty-mobile": {
+            "tp": 66,
+            "fp": 6,
+            "fn": 16,
+            "exact": 46,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 1,
+            "buttons": {
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 7,
+                "f1": 0.3333333333333333
+              },
+              "w": {
+                "tp": 53,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.9636363636363636
+              },
+              "d": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 7,
+                "f1": 0.18181818181818182
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "mouse_right": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.7301587301587301,
+            "supported_button_macro_f1": 0.5797979797979798
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 57,
+            "fp": 25,
+            "fn": 15,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "a": {
+                "tp": 9,
+                "fp": 6,
+                "fn": 4,
+                "f1": 0.6428571428571429
+              },
+              "w": {
+                "tp": 42,
+                "fp": 16,
+                "fn": 1,
+                "f1": 0.8316831683168316
+              },
+              "d": {
+                "tp": 4,
+                "fp": 1,
+                "fn": 8,
+                "f1": 0.47058823529411764
+              },
+              "mouse_right": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.8
+              },
+              "space": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7402597402597403,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.45752142441134874
+          }
+        },
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "idle_examples": 107,
+            "idle_false_positives": 13,
+            "buttons": {
+              "w": {
+                "tp": 7,
+                "fp": 26,
+                "fn": 32,
+                "f1": 0.19444444444444445
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 53,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 31,
+                "f1": 0.0
+              },
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263,
+            "supported_button_macro_f1": 0.03888888888888889
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 14,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.9333333333333333
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.4777777777777778
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.5
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.3333333333333333
+              }
+            },
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.611111111111111
+          }
+        },
+        "test": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 16,
+            "fn": 70,
+            "exact": 102,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 4,
+                "fp": 16,
+                "fn": 15,
+                "f1": 0.20512820512820512
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 23,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 29,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.0851063829787234,
+            "exact_button_set_accuracy": 0.5730337078651685,
+            "supported_button_macro_f1": 0.05128205128205128
+          },
+          "roblox/evade": {
+            "tp": 36,
+            "fp": 11,
+            "fn": 7,
+            "exact": 11,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 8,
+                "fp": 6,
+                "fn": 1,
+                "f1": 0.6956521739130435
+              },
+              "d": {
+                "tp": 3,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.6
+              },
+              "space": {
+                "tp": 1,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.4583333333333333,
+            "supported_button_macro_f1": 0.6294685990338165
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 24,
+            "fp": 3,
+            "fn": 7,
+            "exact": 15,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.972972972972973
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 5,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              }
+            },
+            "button_f1": 0.8275862068965517,
+            "exact_button_set_accuracy": 0.625,
+            "supported_button_macro_f1": 0.6361003861003861
+          }
+        }
+      },
+      "within_game_image_shuffle_test": {
+        "Hordes.io": {
+          "tp": 1,
+          "fp": 19,
+          "fn": 73,
+          "exact": 88,
+          "examples": 178,
+          "idle_examples": 104,
+          "idle_false_positives": 17,
+          "buttons": {
+            "mouse_right": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 23,
+              "f1": 0.0
+            },
+            "1": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 29,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 1,
+              "fp": 19,
+              "fn": 18,
+              "f1": 0.05128205128205128
+            },
+            "d": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.02127659574468085,
+          "exact_button_set_accuracy": 0.4943820224719101,
+          "supported_button_macro_f1": 0.01282051282051282
+        },
+        "roblox/evade": {
+          "tp": 30,
+          "fp": 17,
+          "fn": 13,
+          "exact": 6,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "space": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "a": {
+              "tp": 5,
+              "fp": 9,
+              "fn": 4,
+              "f1": 0.43478260869565216
+            },
+            "d": {
+              "tp": 1,
+              "fp": 3,
+              "fn": 5,
+              "f1": 0.2
+            }
+          },
+          "button_f1": 0.6666666666666666,
+          "exact_button_set_accuracy": 0.25,
+          "supported_button_macro_f1": 0.408695652173913
+        },
+        "roblox/be-a-snake": {
+          "tp": 26,
+          "fp": 6,
+          "fn": 5,
+          "exact": 15,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "f1": 0.5
+            }
+          },
+          "button_f1": 0.8253968253968254,
+          "exact_button_set_accuracy": 0.625,
+          "supported_button_macro_f1": 0.5
+        },
+        "roblox/a-dusty-trip": {
+          "tp": 13,
+          "fp": 14,
+          "fn": 18,
+          "exact": 3,
+          "examples": 24,
+          "idle_examples": 1,
+          "idle_false_positives": 1,
+          "buttons": {
+            "w": {
+              "tp": 13,
+              "fp": 6,
+              "fn": 5,
+              "f1": 0.7027027027027027
+            },
+            "d": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 5,
+              "f1": 0.0
+            },
+            "mouse_left": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.4482758620689655,
+          "exact_button_set_accuracy": 0.125,
+          "supported_button_macro_f1": 0.17567567567567569
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 1
+        }
+      ],
+      "promoted": false
+    },
+    {
+      "run": "laya-p2p-visual-adapter-005",
+      "settings": {
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "data": "artifacts/hordes-radio-data-001",
+        "cache": "artifacts/p2p-visual-features-001",
+        "output": "artifacts/laya-p2p-visual-adapter-005",
+        "steps": 2000,
+        "batch_size": 8,
+        "rank": 16,
+        "bottleneck": 64,
+        "learning_rate": 0.001,
+        "replay_kl": 1.0,
+        "balanced_idle": true,
+        "shortcut_gates": true,
+        "seed": 20260923
+      },
+      "updates": 2000,
+      "selected_step": 0,
+      "trainable_parameters": 608577,
+      "parents_unchanged": true,
+      "fresh_image_reload_tokens_match": true,
+      "metrics": {
+        "train": {
+          "Hordes.io": {
+            "tp": 11,
+            "fp": 91,
+            "fn": 482,
+            "exact": 300,
+            "examples": 828,
+            "idle_examples": 335,
+            "idle_false_positives": 46,
+            "buttons": {
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 50,
+                "f1": 0.0
+              },
+              "w": {
+                "tp": 11,
+                "fp": 91,
+                "fn": 106,
+                "f1": 0.1004566210045662
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 71,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 100,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 7,
+                "f1": 0.0
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 144,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.03697478991596639,
+            "exact_button_set_accuracy": 0.36231884057971014,
+            "supported_button_macro_f1": 0.014350945857795172
+          },
+          "doom": {
+            "tp": 46,
+            "fp": 31,
+            "fn": 38,
+            "exact": 22,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 12,
+                "fp": 14,
+                "fn": 10,
+                "f1": 0.5
+              },
+              "mouse_left": {
+                "tp": 27,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.8709677419354839
+              },
+              "a": {
+                "tp": 4,
+                "fp": 6,
+                "fn": 9,
+                "f1": 0.34782608695652173
+              },
+              "d": {
+                "tp": 3,
+                "fp": 7,
+                "fn": 10,
+                "f1": 0.2608695652173913
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5714285714285714,
+            "exact_button_set_accuracy": 0.34375,
+            "supported_button_macro_f1": 0.32994389901823284
+          },
+          "left-4-dead-2": {
+            "tp": 35,
+            "fp": 11,
+            "fn": 17,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 24,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 30,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.9375
+              },
+              "space": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 5,
+                "fn": 2,
+                "f1": 0.5882352941176471
+              },
+              "a": {
+                "tp": 0,
+                "fp": 3,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7142857142857143,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.30514705882352944
+          },
+          "roblox/be-a-tornado": {
+            "tp": 62,
+            "fp": 12,
+            "fn": 14,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 56,
+                "fp": 8,
+                "fn": 0,
+                "f1": 0.9333333333333333
+              },
+              "d": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 11,
+                "f1": 0.45454545454545453
+              },
+              "a": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 3,
+                "f1": 0.25
+              }
+            },
+            "button_f1": 0.8266666666666667,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.545959595959596
+          },
+          "roblox/blade-ball": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 7,
+            "exact": 57,
+            "examples": 64,
+            "idle_examples": 57,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "q": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.6666666666666666
+              },
+              "f": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.2,
+            "exact_button_set_accuracy": 0.890625,
+            "supported_button_macro_f1": 0.13333333333333333
+          },
+          "roblox/hypershot": {
+            "tp": 81,
+            "fp": 28,
+            "fn": 37,
+            "exact": 22,
+            "examples": 62,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "d": {
+                "tp": 20,
+                "fp": 10,
+                "fn": 5,
+                "f1": 0.7272727272727273
+              },
+              "mouse_left": {
+                "tp": 18,
+                "fp": 0,
+                "fn": 5,
+                "f1": 0.8780487804878049
+              },
+              "mouse_right": {
+                "tp": 11,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.8461538461538461
+              },
+              "w": {
+                "tp": 27,
+                "fp": 12,
+                "fn": 10,
+                "f1": 0.7105263157894737
+              },
+              "a": {
+                "tp": 3,
+                "fp": 6,
+                "fn": 8,
+                "f1": 0.3
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7136563876651982,
+            "exact_button_set_accuracy": 0.3548387096774194,
+            "supported_button_macro_f1": 0.5660002385291217
+          },
+          "warhammer-vermintide-2": {
+            "tp": 38,
+            "fp": 21,
+            "fn": 33,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 18,
+            "idle_false_positives": 2,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 10,
+                "fn": 8,
+                "f1": 0.7272727272727273
+              },
+              "d": {
+                "tp": 5,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.5555555555555556
+              },
+              "a": {
+                "tp": 6,
+                "fp": 3,
+                "fn": 10,
+                "f1": 0.48
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 3,
+                "fp": 4,
+                "fn": 4,
+                "f1": 0.42857142857142855
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              },
+              "e": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.5846153846153846,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.3130571016285302
+          },
+          "euro-truck-simulator-2": {
+            "tp": 41,
+            "fp": 17,
+            "fn": 16,
+            "exact": 39,
+            "examples": 64,
+            "idle_examples": 15,
+            "idle_false_positives": 8,
+            "buttons": {
+              "w": {
+                "tp": 37,
+                "fp": 11,
+                "fn": 7,
+                "f1": 0.8043478260869565
+              },
+              "d": {
+                "tp": 2,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.36363636363636365
+              },
+              "a": {
+                "tp": 2,
+                "fp": 2,
+                "fn": 4,
+                "f1": 0.4
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7130434782608696,
+            "exact_button_set_accuracy": 0.609375,
+            "supported_button_macro_f1": 0.39199604743083005
+          },
+          "call-of-duty-mobile": {
+            "tp": 66,
+            "fp": 6,
+            "fn": 16,
+            "exact": 46,
+            "examples": 63,
+            "idle_examples": 7,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 53,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.9636363636363636
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 7,
+                "f1": 0.3333333333333333
+              },
+              "d": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 7,
+                "f1": 0.18181818181818182
+              },
+              "mouse_right": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "mouse_left": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.8571428571428571,
+            "exact_button_set_accuracy": 0.7301587301587301,
+            "supported_button_macro_f1": 0.5797979797979798
+          },
+          "grand-theft-auto-san-andreas": {
+            "tp": 57,
+            "fp": 25,
+            "fn": 15,
+            "exact": 35,
+            "examples": 64,
+            "idle_examples": 8,
+            "idle_false_positives": 5,
+            "buttons": {
+              "w": {
+                "tp": 42,
+                "fp": 16,
+                "fn": 1,
+                "f1": 0.8316831683168316
+              },
+              "d": {
+                "tp": 4,
+                "fp": 1,
+                "fn": 8,
+                "f1": 0.47058823529411764
+              },
+              "a": {
+                "tp": 9,
+                "fp": 6,
+                "fn": 4,
+                "f1": 0.6428571428571429
+              },
+              "mouse_right": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.8
+              },
+              "space": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.0
+              },
+              "s": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.7402597402597403,
+            "exact_button_set_accuracy": 0.546875,
+            "supported_button_macro_f1": 0.45752142441134874
+          }
+        },
+        "validation": {
+          "Hordes.io": {
+            "tp": 7,
+            "fp": 26,
+            "fn": 123,
+            "exact": 101,
+            "examples": 237,
+            "idle_examples": 107,
+            "idle_false_positives": 13,
+            "buttons": {
+              "w": {
+                "tp": 7,
+                "fp": 26,
+                "fn": 32,
+                "f1": 0.19444444444444445
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 53,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 31,
+                "f1": 0.0
+              },
+              "tab": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 6,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.08588957055214724,
+            "exact_button_set_accuracy": 0.42616033755274263,
+            "supported_button_macro_f1": 0.03888888888888889
+          },
+          "left-4-dead-2": {
+            "tp": 15,
+            "fp": 2,
+            "fn": 6,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 8,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 14,
+                "fp": 1,
+                "fn": 1,
+                "f1": 0.9333333333333333
+              },
+              "a": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 2,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.7894736842105263,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.4777777777777778
+          },
+          "roblox/be-a-tornado": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 4,
+            "exact": 18,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 1,
+                "fp": 2,
+                "fn": 0,
+                "f1": 0.5
+              },
+              "d": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 4,
+                "f1": 0.3333333333333333
+              }
+            },
+            "button_f1": 0.896551724137931,
+            "exact_button_set_accuracy": 0.75,
+            "supported_button_macro_f1": 0.611111111111111
+          }
+        },
+        "test": {
+          "Hordes.io": {
+            "tp": 4,
+            "fp": 16,
+            "fn": 70,
+            "exact": 102,
+            "examples": 178,
+            "idle_examples": 104,
+            "idle_false_positives": 6,
+            "buttons": {
+              "w": {
+                "tp": 4,
+                "fp": 16,
+                "fn": 15,
+                "f1": 0.20512820512820512
+              },
+              "mouse_right": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 23,
+                "f1": 0.0
+              },
+              "1": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 29,
+                "f1": 0.0
+              },
+              "d": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 3,
+                "f1": 0.0
+              }
+            },
+            "button_f1": 0.0851063829787234,
+            "exact_button_set_accuracy": 0.5730337078651685,
+            "supported_button_macro_f1": 0.05128205128205128
+          },
+          "roblox/evade": {
+            "tp": 36,
+            "fp": 11,
+            "fn": 7,
+            "exact": 11,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 8,
+                "fp": 6,
+                "fn": 1,
+                "f1": 0.6956521739130435
+              },
+              "d": {
+                "tp": 3,
+                "fp": 1,
+                "fn": 3,
+                "f1": 0.6
+              },
+              "space": {
+                "tp": 1,
+                "fp": 4,
+                "fn": 3,
+                "f1": 0.2222222222222222
+              }
+            },
+            "button_f1": 0.8,
+            "exact_button_set_accuracy": 0.4583333333333333,
+            "supported_button_macro_f1": 0.6294685990338165
+          },
+          "roblox/be-a-snake": {
+            "tp": 28,
+            "fp": 4,
+            "fn": 3,
+            "exact": 17,
+            "examples": 24,
+            "idle_examples": 0,
+            "idle_false_positives": 0,
+            "buttons": {
+              "w": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "d": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              },
+              "a": {
+                "tp": 2,
+                "fp": 3,
+                "fn": 1,
+                "f1": 0.5
+              }
+            },
+            "button_f1": 0.8888888888888888,
+            "exact_button_set_accuracy": 0.7083333333333334,
+            "supported_button_macro_f1": 0.6904761904761904
+          },
+          "roblox/a-dusty-trip": {
+            "tp": 24,
+            "fp": 3,
+            "fn": 7,
+            "exact": 15,
+            "examples": 24,
+            "idle_examples": 1,
+            "idle_false_positives": 1,
+            "buttons": {
+              "w": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 0,
+                "f1": 0.972972972972973
+              },
+              "d": {
+                "tp": 0,
+                "fp": 1,
+                "fn": 5,
+                "f1": 0.0
+              },
+              "mouse_left": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 0,
+                "f1": 1.0
+              },
+              "a": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 2,
+                "f1": 0.5714285714285714
+              }
+            },
+            "button_f1": 0.8275862068965517,
+            "exact_button_set_accuracy": 0.625,
+            "supported_button_macro_f1": 0.6361003861003861
+          }
+        }
+      },
+      "within_game_image_shuffle_test": {
+        "Hordes.io": {
+          "tp": 2,
+          "fp": 18,
+          "fn": 72,
+          "exact": 92,
+          "examples": 178,
+          "idle_examples": 104,
+          "idle_false_positives": 14,
+          "buttons": {
+            "w": {
+              "tp": 2,
+              "fp": 18,
+              "fn": 17,
+              "f1": 0.10256410256410256
+            },
+            "mouse_right": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 23,
+              "f1": 0.0
+            },
+            "1": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 29,
+              "f1": 0.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.0425531914893617,
+          "exact_button_set_accuracy": 0.5168539325842697,
+          "supported_button_macro_f1": 0.02564102564102564
+        },
+        "roblox/evade": {
+          "tp": 32,
+          "fp": 15,
+          "fn": 11,
+          "exact": 8,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 6,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 7,
+              "fp": 7,
+              "fn": 2,
+              "f1": 0.6086956521739131
+            },
+            "space": {
+              "tp": 1,
+              "fp": 4,
+              "fn": 3,
+              "f1": 0.2222222222222222
+            }
+          },
+          "button_f1": 0.7111111111111111,
+          "exact_button_set_accuracy": 0.3333333333333333,
+          "supported_button_macro_f1": 0.45772946859903385
+        },
+        "roblox/be-a-snake": {
+          "tp": 25,
+          "fp": 7,
+          "fn": 6,
+          "exact": 14,
+          "examples": 24,
+          "idle_examples": 0,
+          "idle_false_positives": 0,
+          "buttons": {
+            "w": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 3,
+              "f1": 0.2857142857142857
+            },
+            "a": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 3,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.7936507936507936,
+          "exact_button_set_accuracy": 0.5833333333333334,
+          "supported_button_macro_f1": 0.42857142857142855
+        },
+        "roblox/a-dusty-trip": {
+          "tp": 15,
+          "fp": 12,
+          "fn": 16,
+          "exact": 6,
+          "examples": 24,
+          "idle_examples": 1,
+          "idle_false_positives": 1,
+          "buttons": {
+            "w": {
+              "tp": 15,
+              "fp": 4,
+              "fn": 3,
+              "f1": 0.8108108108108109
+            },
+            "d": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 5,
+              "f1": 0.0
+            },
+            "mouse_left": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 4,
+              "f1": 0.0
+            },
+            "a": {
+              "tp": 0,
+              "fp": 3,
+              "fn": 4,
+              "f1": 0.0
+            }
+          },
+          "button_f1": 0.5172413793103449,
+          "exact_button_set_accuracy": 0.25,
+          "supported_button_macro_f1": 0.20270270270270271
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.026578073089700997,
+          "idle_false_positives": 76
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.014598540145985401,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.014705882352941176,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 650,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 700,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 750,
+          "score": -1.0,
+          "hordes_button_f1": 0.05755395683453238,
+          "idle_false_positives": 3
+        },
+        {
+          "step": 800,
+          "score": -1.0,
+          "hordes_button_f1": 0.015151515151515152,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 850,
+          "score": -1.0,
+          "hordes_button_f1": 0.05555555555555555,
+          "idle_false_positives": 2
+        },
+        {
+          "step": 900,
+          "score": -1.0,
+          "hordes_button_f1": 0.015151515151515152,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 950,
+          "score": -1.0,
+          "hordes_button_f1": 0.07511737089201878,
+          "idle_false_positives": 26
+        },
+        {
+          "step": 1000,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 1050,
+          "score": -1.0,
+          "hordes_button_f1": 0.02857142857142857,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 1100,
+          "score": -1.0,
+          "hordes_button_f1": 0.05405405405405406,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1150,
+          "score": -1.0,
+          "hordes_button_f1": 0.04054054054054054,
+          "idle_false_positives": 3
+        },
+        {
+          "step": 1200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0821917808219178,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1250,
+          "score": 0.30219633307868604,
+          "hordes_button_f1": 0.06944444444444445,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1300,
+          "score": -1.0,
+          "hordes_button_f1": 0.11827956989247312,
+          "idle_false_positives": 13
+        },
+        {
+          "step": 1350,
+          "score": -1.0,
+          "hordes_button_f1": 0.14213197969543148,
+          "idle_false_positives": 19
+        },
+        {
+          "step": 1400,
+          "score": -1.0,
+          "hordes_button_f1": 0.07142857142857142,
+          "idle_false_positives": 8
+        },
+        {
+          "step": 1450,
+          "score": -1.0,
+          "hordes_button_f1": 0.08484848484848485,
+          "idle_false_positives": 6
+        },
+        {
+          "step": 1500,
+          "score": -1.0,
+          "hordes_button_f1": 0.06097560975609756,
+          "idle_false_positives": 7
+        },
+        {
+          "step": 1550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 0
+        },
+        {
+          "step": 1600,
+          "score": -1.0,
+          "hordes_button_f1": 0.05442176870748299,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1650,
+          "score": -1.0,
+          "hordes_button_f1": 0.0821917808219178,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1700,
+          "score": -1.0,
+          "hordes_button_f1": 0.2570281124497992,
+          "idle_false_positives": 47
+        },
+        {
+          "step": 1750,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "idle_false_positives": 6
+        },
+        {
+          "step": 1800,
+          "score": -1.0,
+          "hordes_button_f1": 0.04316546762589928,
+          "idle_false_positives": 1
+        },
+        {
+          "step": 1850,
+          "score": -1.0,
+          "hordes_button_f1": 0.05747126436781609,
+          "idle_false_positives": 10
+        },
+        {
+          "step": 1900,
+          "score": -1.0,
+          "hordes_button_f1": 0.0625,
+          "idle_false_positives": 5
+        },
+        {
+          "step": 1950,
+          "score": -1.0,
+          "hordes_button_f1": 0.011235955056179775,
+          "idle_false_positives": 16
+        },
+        {
+          "step": 2000,
+          "score": -1.0,
+          "hordes_button_f1": 0.03821656050955414,
+          "idle_false_positives": 5
+        }
+      ],
+      "promoted": false
+    }
+  ],
+  "capacity_diagnostic": {
+    "examples": 32,
+    "row_ids": [
+      "20260921-164505-761138-fast-live-159",
+      "20260921-163915-173188-fast-live-270",
+      "20260921-163836-341604-fast-live-156",
+      "20260921-172217-882118-fast-live-223",
+      "20260921-164545-525491-fast-live-5",
+      "20260921-172217-882118-fast-live-53",
+      "20260921-170215-987788-fast-live-154",
+      "20260921-163836-341604-fast-live-151",
+      "20260921-163836-341604-fast-live-41",
+      "20260921-163915-173188-fast-live-205",
+      "20260921-170256-309172-fast-live-23",
+      "20260921-163956-188706-fast-live-55",
+      "20260921-172217-882118-fast-live-62",
+      "20260921-171501-093088-fast-live-208",
+      "20260921-171842-835030-fast-live-10",
+      "20260921-170256-309172-fast-live-201",
+      "20260921-164505-761138-fast-live-179",
+      "20260921-164625-480660-fast-live-70",
+      "20260921-164545-525491-fast-live-140",
+      "20260921-164505-761138-fast-live-219",
+      "20260921-170135-397360-fast-live-54",
+      "20260921-163836-341604-fast-live-225",
+      "20260921-170256-309172-fast-live-262",
+      "20260921-163836-341604-fast-live-220",
+      "20260921-163915-173188-fast-live-75",
+      "20260921-171501-093088-fast-live-263",
+      "20260921-163915-173188-fast-live-23",
+      "20260921-163915-173188-fast-live-18",
+      "20260921-171303-304239-fast-live-48",
+      "20260921-170135-397360-fast-live-228",
+      "20260921-171501-093088-fast-live-164",
+      "20260921-170256-309172-fast-live-113"
+    ],
+    "history": [
+      {
+        "step": 100,
+        "loss": 0.009374486282467842,
+        "fit": {
+          "tp": 27,
+          "fp": 2,
+          "fn": 1,
+          "exact": 29,
+          "examples": 32,
+          "idle_examples": 4,
+          "idle_false_positives": 2,
+          "buttons": {
+            "tab": {
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "f1": 0.8888888888888888
+            },
+            "1": {
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "f1": 0.8888888888888888
+            },
+            "w": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "s": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "a": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "mouse_right": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 1,
+              "f1": 0.8571428571428571
+            }
+          },
+          "button_f1": 0.9473684210526315,
+          "exact_button_set_accuracy": 0.90625,
+          "supported_button_macro_f1": 0.9478458049886621
+        }
+      },
+      {
+        "step": 200,
+        "loss": 0.09378904849290848,
+        "fit": {
+          "tp": 28,
+          "fp": 2,
+          "fn": 0,
+          "exact": 30,
+          "examples": 32,
+          "idle_examples": 4,
+          "idle_false_positives": 2,
+          "buttons": {
+            "tab": {
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "f1": 0.8888888888888888
+            },
+            "1": {
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "f1": 0.8888888888888888
+            },
+            "w": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "s": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "a": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "d": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            },
+            "mouse_right": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "f1": 1.0
+            }
+          },
+          "button_f1": 0.9655172413793104,
+          "exact_button_set_accuracy": 0.9375,
+          "supported_button_macro_f1": 0.9682539682539683
+        }
+      }
+    ],
+    "fit": {
+      "tp": 28,
+      "fp": 2,
+      "fn": 0,
+      "exact": 30,
+      "examples": 32,
+      "idle_examples": 4,
+      "idle_false_positives": 2,
+      "buttons": {
+        "tab": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "f1": 0.8888888888888888
+        },
+        "1": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "f1": 0.8888888888888888
+        },
+        "w": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0
+        },
+        "s": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0
+        },
+        "a": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0
+        },
+        "d": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0
+        },
+        "mouse_right": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0
+        }
+      },
+      "button_f1": 0.9655172413793104,
+      "exact_button_set_accuracy": 0.9375,
+      "supported_button_macro_f1": 0.9682539682539683
+    },
+    "shuffled_images": {
+      "tp": 4,
+      "fp": 26,
+      "fn": 24,
+      "exact": 5,
+      "examples": 32,
+      "idle_examples": 4,
+      "idle_false_positives": 3,
+      "buttons": {
+        "tab": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 4,
+          "f1": 0.0
+        },
+        "s": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 4,
+          "f1": 0.0
+        },
+        "mouse_right": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 4,
+          "f1": 0.0
+        },
+        "w": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 4,
+          "f1": 0.0
+        },
+        "1": {
+          "tp": 2,
+          "fp": 3,
+          "fn": 2,
+          "f1": 0.4444444444444444
+        },
+        "d": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 2,
+          "f1": 0.5
+        },
+        "a": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 4,
+          "f1": 0.0
+        }
+      },
+      "button_f1": 0.13793103448275862,
+      "exact_button_set_accuracy": 0.15625,
+      "supported_button_macro_f1": 0.1349206349206349
+    },
+    "parents_unchanged": true,
+    "deployment_eligible": false,
+    "scope": "Training-set memorization/capacity diagnostic only. No held-out performance or gameplay claim. No inputs sent."
+  }
+}

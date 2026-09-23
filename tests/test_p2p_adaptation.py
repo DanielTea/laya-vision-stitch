@@ -8,6 +8,7 @@ from laya_vision_stitch.p2p_adaptation import (
     ExtendedEmbedding,
     ExtendedOutput,
     LoRALinear,
+    VisualResidual,
     encode_action,
 )
 from laya_vision_stitch.p2p_pretrained_policy import Layer, OpenP2PPolicy
@@ -83,3 +84,29 @@ def test_training_action_mapping_preserves_idle_and_quantization_boundaries():
     ) == [11, 20, 0, 0, 2, 0, 12, 7]
     with pytest.raises(ValueError, match="Unsupported controls"):
         encode_action({"buttons": ["enter"], "mouse_delta": [0, 0]})
+
+
+def test_visual_residual_starts_as_identity_and_learns_through_frozen_parent():
+    import mlx.optimizers as optim
+
+    class Model(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.parent = nn.Linear(16, 3)
+            self.parent.freeze()
+            self.adapter = VisualResidual(16, 4)
+
+        def __call__(self, x):
+            return self.parent(self.adapter(x))
+
+    model = Model()
+    x = mx.random.normal((4, 16))
+    before = np.asarray(model.parent.weight).copy()
+    np.testing.assert_array_equal(np.asarray(model.adapter(x)), np.asarray(x))
+    loss, grads = nn.value_and_grad(model, lambda m: (m(x) ** 2).mean())(model)
+    optimizer = optim.SGD(0.1)
+    optimizer.update(model, grads)
+    mx.eval(loss, model.parameters())
+    assert not np.allclose(np.asarray(model.adapter(x)), np.asarray(x))
+    np.testing.assert_array_equal(np.asarray(model.parent.weight), before)
+    assert all(k.startswith("adapter.") for k, _ in tree_flatten(model.trainable_parameters()))

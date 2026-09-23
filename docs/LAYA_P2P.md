@@ -161,6 +161,11 @@ was promoted. These results do not justify more repetitions on the same weak
 labels. Clean synchronized Hordes demonstrations and training through the visual
 connector are the remaining experiments; neither has established success yet.
 
+A subsequent [visual-connector training comparison](P2P_VISUAL_ADAPTER.md) adds
+the trainable visual path and completes five full-data runs. It passes a
+32-image capacity check but produces no qualifying replacement on held-out
+sessions. The apparent F1 gain in one run fails idle and image-shuffle checks.
+
 ## Reproduce
 
 From the repository root, with the pinned checkpoint and dataset already downloaded:
