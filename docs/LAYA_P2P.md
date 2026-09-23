@@ -51,8 +51,42 @@ presses. These are offline predictions, not evidence of combat or correct clicks
 Temperature 1 is the published Open-P2P default. Greedy decoding's idle collapse
 is not fixed by substituting the original released goal embedding.
 
-**No sub-60 ms live screenshot-to-input result has been established here.**
-The Mac was locked during this experiment; no new game inputs were posted.
+### Live trials on 2026-09-23
+
+| Configuration | Duration | Inference p50 / p95 | Screenshot-to-first-event p50 / p95 | Gameplay |
+|---|---:|---:|---:|---|
+| FP32 policy, 30 FPS capture | 53.2 s, stopped on focus loss | 33.5 / 63.4 ms | 81.3 / 108.0 ms | Four ability-1 presses; visible “Out of range”; no verified damage |
+| BF16 policy, FP32 vision, 60 FPS capture | Full 60 s | 34.3 / 36.9 ms | 60.7 / 73.8 ms | Movement and camera controls; no ability presses or XP gain |
+
+The second trial recorded 905 decisions, 294 steps with input events, and two
+temporal-memory resets. The selected Young Grub had 50/50 health at both endpoints;
+player health stayed 244/244 and XP stayed 466/1600 in the reviewed captures.
+There were no verified kills. Its endpoint was closer to the target, but that is
+not evidence of deliberate approach or successful combat.
+
+Median timing components were 9.4 ms for frame age before inference, 0.4 ms for
+the subsequent HUD check, 3.8 ms waiting for the previous input pulse, and 11.6 ms
+for native focus/layout guards. Component medians need not sum to total latency.
+The first-event metric excludes idle steps and ends at event posting, not game
+acknowledgement. Both capture rate and precision changed between runs, so this
+comparison cannot attribute improvement to either change alone.
+
+The precision audit retained all 512 highest-probability actions across 64
+recorded frames; mean distribution KL was 0.0000104. This checks numerical
+compatibility, not sampled-action identity or gameplay correctness. Vision stays
+FP32. A BF16-to-NumPy warmup error stopped an intermediate attempt before inputs;
+the runtime now casts logits to FP32 for finite checks, with regression coverage.
+
+**Neither reliable combat nor sub-60 ms median live reaction has been established.**
+The next learning experiment needs synchronized successful approach-and-attack
+demonstrations, with whole-session holdouts. Reusing these failed rollouts as
+positive demonstrations would reinforce the failure. A faster encoder alone
+does not teach the missing range and attack behavior.
+
+Local evidence is under `artifacts/hordes-p2p-live-001` and
+`artifacts/hordes-p2p-live-003`; each contains timestamped proposals, screenshots,
+a reconstructed video and a review page. Numeric summaries are retained in
+`docs/laya-p2p-results.json`.
 
 ## Conversion checks
 
@@ -154,4 +188,7 @@ checkpoint format when explicitly selected with `--bundle`; existing defaults
 have not changed. Its streaming memory commits the action reported as actually
 dispatched, not an unexecuted proposal. Missing action feedback, a new goal/session
 or a gap above 100 ms resets memory. A three-frame offline streaming smoke check
-passes; a live test still requires an unlocked, visible game and valid calibration.
+passes. Live tests require an unlocked, visible game and valid calibration.
+The runner accepts `--capture-fps 30|60|120` and `--crop X Y 1280 720` to match the
+reviewed viewport, including Chrome toolbars. Focus, layout and HUD checks remain
+active; calibration must be refreshed when the window layout changes.

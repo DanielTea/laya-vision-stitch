@@ -1394,5 +1394,151 @@
       }
     },
     "scope": "Weak labels, whole-session Hordes splits. No live success claim. Single-frame adaptation; temporal-memory deployment remains unvalidated. Shuffled test mixes games and is diagnostic, not a within-game causal score."
+  },
+  "live_trials": {
+    "hordes-p2p-live-001": {
+      "stop_reason": "Window changed or focus lost",
+      "observations": 688,
+      "applied_steps": 688,
+      "steps_with_input_events": 365,
+      "nonempty_button_steps": 314,
+      "proposed_buttons": {
+        "a": 107,
+        "s": 60,
+        "mouse_left": 39,
+        "d": 84,
+        "w": 137,
+        "right": 6,
+        "mouse_right": 21,
+        "e": 1,
+        "f": 2,
+        "1": 4,
+        "2": 1,
+        "up": 1,
+        "space": 3
+      },
+      "applied_buttons": {
+        "a": 107,
+        "s": 60,
+        "mouse_left": 39,
+        "d": 84,
+        "w": 137,
+        "mouse_right": 21,
+        "1": 4,
+        "2": 1,
+        "space": 3
+      },
+      "state_resets": 162,
+      "inference_p50_ms": 33.48368755541742,
+      "inference_p95_ms": 63.42526031075977,
+      "screenshot_to_first_event_p50_ms": 81.28162403590977,
+      "screenshot_to_first_event_p95_ms": 107.95925799757242,
+      "screenshot_to_dispatch_start_p50_ms": 78.43841699650511,
+      "screenshot_to_dispatch_start_p95_ms": 103.47884590155445,
+      "gameplay_success": null,
+      "note": "Dispatch-start and first-posted-event latency are separate. Idle steps have no event latency. Neither measures game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions.",
+      "review": {
+        "observed_duration_seconds": 53.16019,
+        "target": "Young Grub",
+        "target_health_at_reviewed_attack_and_end": "50/50",
+        "player_health_before_and_end": "244/244",
+        "experience_before_and_end": "466/1600",
+        "ability_feedback": "Out of range, visible in frame 00252",
+        "verified_kills": 0,
+        "conclusion": "Target selection and attack input occurred, but approach/range control failed; no verified damage or progress."
+      }
+    },
+    "hordes-p2p-live-003": {
+      "stop_reason": "duration_complete",
+      "observations": 905,
+      "applied_steps": 905,
+      "steps_with_input_events": 294,
+      "nonempty_button_steps": 254,
+      "proposed_buttons": {
+        "d": 67,
+        "a": 117,
+        "mouse_right": 10,
+        "w": 86,
+        "s": 42,
+        "f": 1,
+        "right": 2,
+        "left": 1
+      },
+      "applied_buttons": {
+        "d": 67,
+        "a": 117,
+        "mouse_right": 10,
+        "w": 86,
+        "s": 42
+      },
+      "state_resets": 2,
+      "inference_p50_ms": 34.33875006157905,
+      "inference_p95_ms": 36.897707963362336,
+      "screenshot_to_first_event_p50_ms": 60.70729100611061,
+      "screenshot_to_first_event_p95_ms": 73.77441478311084,
+      "screenshot_to_dispatch_start_p50_ms": 60.509542119689286,
+      "screenshot_to_dispatch_start_p95_ms": 73.57958317734301,
+      "gameplay_success": false,
+      "note": "Dispatch-start and first-posted-event latency are separate. Idle steps have no event latency. Neither measures game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions.",
+      "requested_seconds": 60,
+      "last_observation_elapsed_s": 59.910915500018746,
+      "timing_stages_ms": {
+        "frame_age_before_inference_ms": {
+          "samples": 905,
+          "p50": 9.440792025998235,
+          "p95": 16.479774843901396
+        },
+        "post_inference_hud_check_ms": {
+          "samples": 905,
+          "p50": 0.39041705895215273,
+          "p95": 0.5740670021623373
+        },
+        "pulse_wait_ms": {
+          "samples": 905,
+          "p50": 3.833165974356234,
+          "p95": 10.896425181999803
+        },
+        "dispatch_guard_ms": {
+          "samples": 905,
+          "p50": 11.593207949772477,
+          "p95": 18.220824911259115
+        }
+      },
+      "review": {
+        "reviewed_images": [
+          "before.png",
+          "frames/00450.jpg",
+          "after.png"
+        ],
+        "target": "Young Grub",
+        "target_health_before_after": "50/50",
+        "player_health_before_after": "244/244",
+        "player_xp_before_after": "466/1600",
+        "ability_presses": 0,
+        "verified_kills": 0,
+        "conclusion": "Movement and camera inputs; no demonstrated combat or XP gain. Live median reaction target still unmet."
+      }
+    }
+  },
+  "precision_audit": {
+    "parity_frames": 64,
+    "logit_distributions": 512,
+    "mean_kl": 1.0398069077826807e-05,
+    "max_kl": 0.00031363419839181006,
+    "argmax_disagreements": 0,
+    "scope": "Controlled precision comparison on recorded frames and applied-action history. Offline timing excludes capture and dispatch. No gameplay validation.",
+    "timing": {
+      "fp32": {
+        "full_cache_samples": 40,
+        "p50_ms": 62.30912503087893,
+        "p95_ms": 65.72414724505506
+      },
+      "bf16_policy_fp32_vision": {
+        "full_cache_samples": 40,
+        "p50_ms": 55.066562548745424,
+        "p95_ms": 75.1016413560137
+      }
+    },
+    "reload_greedy_tokens_match": true
   }
 }

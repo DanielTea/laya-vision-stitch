@@ -6,9 +6,11 @@ checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
 **Latest experiment:** Laya goal features now condition the pretrained Open-P2P
-vision, memory and action decoder in one checkpoint. Fresh screenshot inference
-takes **31.7 ms median** offline. Image interventions show visual dependence on
-public games, but Hordes combat and robust goal following remain unsolved.
+vision, memory and action decoder in one checkpoint. A complete **60-second live
+trial** measured **34.3 ms median inference** and **60.7 ms median screenshot-to-input
+latency** with a BF16 policy and FP32 vision. It moved and used camera controls,
+but pressed no attack abilities and gained no XP. Hordes combat and robust goal
+following remain unsolved; the live reaction target is still unmet.
 [Architecture, conversion checks and limitations](docs/LAYA_P2P.md).
 
 **Previous faster-vision experiment:** a native MLX C-RADIOv3-B visual encoder and learned visual

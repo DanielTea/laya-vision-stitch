@@ -94,7 +94,9 @@ class Pulse:
         self.release()
 
     def apply(self, action, deadline):
+        wait_started = time.perf_counter()
         self.finish()
+        wait_finished = time.perf_counter()
         target, Q = self.target, self.target.Q
         with self.lock:
             try:
@@ -166,7 +168,12 @@ class Pulse:
                     max(0, min(0.05 - elapsed, deadline - time.perf_counter())), self.release
                 )
                 self.timer.start()
-                return {"dispatch_start": start, "first_event_posted": first_post}
+                return {
+                    "dispatch_start": start,
+                    "first_event_posted": first_post,
+                    "pulse_wait_ms": (wait_finished - wait_started) * 1000,
+                    "dispatch_guard_ms": (start - wait_finished) * 1000,
+                }
             except BaseException:
                 target.release()
                 raise
@@ -182,6 +189,8 @@ def run(args):
 
     if not 1 <= args.seconds <= 60:
         raise ValueError("Trial duration must be 1–60 seconds")
+    if args.capture_fps not in (30, 60, 120):
+        raise ValueError("Capture rate must be 30, 60 or 120 FPS")
     stops = [Path("STOP"), args.screenquest_root / "STOP"]
     if any(p.exists() for p in stops):
         raise RuntimeError("STOP exists; no trial started")
@@ -192,9 +201,18 @@ def run(args):
         raise ValueError("Only the selected regular Chrome window is supported")
     desktop.KEYCODES.update(KEYS)
     bounds = target.original["kCGWindowBounds"]
-    if [int(bounds[k]) for k in ("Width", "Height")] != [1280, 807]:
-        raise ValueError("Reviewed calibration requires a 1280×807 window")
-    crop = [0, 87, 1280, 720]
+    width, height = [int(bounds[k]) for k in ("Width", "Height")]
+    crop = args.crop
+    x, y, crop_width, crop_height = crop
+    if (
+        (crop_width, crop_height) != (1280, 720)
+        or min(x, y) < 0
+        or x + crop_width > width
+        or y + crop_height > height
+    ):
+        raise ValueError(
+            "Reviewed calibration requires a complete 1280×720 viewport inside the window"
+        )
     gate = ScreenGate(str(args.reference), [1184, 4, 23, 28])
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "frames").mkdir()
@@ -227,7 +245,7 @@ def run(args):
         runtime.predict(warm_row, session_id="warmup", timestamp_seconds=i * 0.05)
     runtime.reset()
     events, futures, previous = [], [], []
-    stream = WindowStream(args.window, 1280, 807, fps=30)
+    stream = WindowStream(args.window, width, height, fps=args.capture_fps)
     pulse = Pulse(target, crop)
     start, stop_reason = None, "duration_complete"
     with ControllerLock(), ThreadPoolExecutor(max_workers=1) as writer:
@@ -271,6 +289,7 @@ def run(args):
                     image = desktop.viewport(frame.image, crop)
                     if not gate.check(image)["verified"]:
                         raise RuntimeError("HUD changed")
+                    inference_started = time.perf_counter()
                     proposal = runtime.predict(
                         {
                             "frames": [{"image": image, "age_seconds": 0}],
@@ -287,8 +306,10 @@ def run(args):
                     age = (time.perf_counter() - frame.captured_at) * 1000
                     applied = args.execute and age <= 180
                     fresh = stream.latest()
+                    hud_check_started = time.perf_counter()
                     if not gate.check(desktop.viewport(fresh.image, crop))["verified"]:
                         raise RuntimeError("HUD changed during inference")
+                    hud_check_ms = (time.perf_counter() - hud_check_started) * 1000
                     posted = pulse.apply(action, deadline) if applied else None
                     previous = (
                         [{"buttons": action["buttons"], "mouse_delta": action["mouse_delta"]}]
@@ -305,6 +326,11 @@ def run(args):
                         "bounded_action": action,
                         "applied": applied,
                         "frame_age_after_inference_ms": age,
+                        "frame_age_before_inference_ms": (inference_started - frame.captured_at)
+                        * 1000,
+                        "post_inference_hud_check_ms": hud_check_ms,
+                        "pulse_wait_ms": posted["pulse_wait_ms"] if posted else None,
+                        "dispatch_guard_ms": posted["dispatch_guard_ms"] if posted else None,
                         "screenshot_to_dispatch_start_ms": (
                             posted["dispatch_start"] - frame.captured_at
                         )
@@ -351,6 +377,8 @@ def run(args):
     ]
     summary = {
         "stop_reason": stop_reason,
+        "requested_seconds": args.seconds,
+        "last_observation_elapsed_s": events[-1]["elapsed_s"] if events else None,
         "observations": len(events),
         "applied_steps": sum(e["applied"] for e in events),
         "steps_with_input_events": sum(
@@ -381,6 +409,19 @@ def run(args):
         "gameplay_success": None,
         "note": "Dispatch-start and first-posted-event latency are separate. Idle steps have no event latency. Neither measures game acknowledgement. Requires visual review. No gameplay heuristics or teacher actions.",
     }
+    summary["timing_stages_ms"] = {}
+    for field in (
+        "frame_age_before_inference_ms",
+        "post_inference_hud_check_ms",
+        "pulse_wait_ms",
+        "dispatch_guard_ms",
+    ):
+        values = [e[field] for e in events if e[field] is not None]
+        summary["timing_stages_ms"][field] = {
+            "samples": len(values),
+            "p50": float(np.median(values)) if values else None,
+            "p95": float(np.percentile(values, 95)) if values else None,
+        }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2), flush=True)
 
@@ -393,6 +434,8 @@ def main():
     p.add_argument("--reference", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--seconds", type=float, default=20)
+    p.add_argument("--crop", type=int, nargs=4, default=[0, 87, 1280, 720])
+    p.add_argument("--capture-fps", type=int, default=30)
     p.add_argument(
         "--goal",
         default="Select a nearby Young Grub with Tab, approach with WASD, and attack with ability 1. Avoid other players. Retreat if health is low.",

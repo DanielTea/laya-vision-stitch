@@ -68,7 +68,7 @@ class LayaP2PStream:
         context, _ = policy.context(prefix, caches=self.caches, position=self.position)
         tokens, logits = policy.decode(context, temperature=1.0)
         mx.eval(tokens, logits, prefix, self.caches)
-        if not all(np.isfinite(np.asarray(logit)).all() for logit in logits):
+        if not all(np.isfinite(np.asarray(logit.astype(mx.float32))).all() for logit in logits):
             self.reset()
             raise FloatingPointError("Nonfinite model logits")
         action = physical_action(

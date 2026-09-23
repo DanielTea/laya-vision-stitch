@@ -40,6 +40,7 @@ def main():
         concat.append("file 'after.jpg'")
     else:
         concat.append(f"file '{rows[-1]['image']}'")
+    after_image = "after.png" if (trial / "after.png").exists() else rows[-1]["image"]
     (trial / "video.ffconcat").write_text("\n".join(concat) + "\n")
     subprocess.run(
         [
@@ -77,10 +78,10 @@ def main():
 <p>One checkpoint, actual screenshot feedback and bounded native controls. Video reconstructed from timestamped model-input frames, without audio or cursor.</p>
 <video controls preload="metadata" src="gameplay.mp4"></video>
 <p><a href="events.jsonl">Every proposal and bounded action</a> · <a href="config.json">Trial configuration</a></p>
-<p>Applied steps include empty actions. Timing ends at dispatch start, not game response. The first 20-second trial used the incorrect raw label “screenshot_to_post” for this same dispatch-start timestamp.</p>
+<p>Applied steps include empty actions. First-posted-event and dispatch-start latency are reported separately when available; neither measures game response.</p>
 <h2>Measurements</h2><pre>{html.escape(json.dumps(summary, indent=2))}</pre>
 <h2>Before</h2><img src="before.png" alt="Game before the trial">
-<h2>After</h2><img src="after.png" alt="Game after the trial">
+<h2>Last captured state</h2><img src="{html.escape(after_image)}" alt="Last captured game state">
 </html>""")
     print(trial / "review.html")
 

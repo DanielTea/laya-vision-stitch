@@ -7,7 +7,7 @@ from PIL import Image
 from laya_vision_stitch.laya_p2p_stream import LayaP2PStream
 
 
-def fixture():
+def fixture(dtype=mx.float32, logit_value=0):
     committed = []
 
     def context(prefix, actions=None, caches=None, position=0):
@@ -21,7 +21,7 @@ def fixture():
         context=context,
         decode=lambda context, temperature: (
             mx.array([[11, 0, 0, 0, 0, 0, 11, 8]]),
-            (mx.zeros((1, 20)),),
+            (mx.full((1, 20), logit_value, dtype=dtype),),
         ),
     )
     runtime = SimpleNamespace(
@@ -37,6 +37,16 @@ def fixture():
         "previous_actions": [],
     }
     return LayaP2PStream(runtime), row, committed
+
+
+@pytest.mark.parametrize("dtype", [mx.float32, mx.bfloat16])
+def test_logit_validation_supports_runtime_precision(dtype):
+    stream, row, _ = fixture(dtype)
+    assert stream.predict(row, session_id="test", timestamp_seconds=0)["buttons"] == ["w"]
+    stream, row, _ = fixture(dtype, float("nan"))
+    with pytest.raises(FloatingPointError, match="Nonfinite"):
+        stream.predict(row, session_id="test", timestamp_seconds=0)
+    assert stream.pending is None
 
 
 def test_memory_commits_applied_action_instead_of_proposed_action():
