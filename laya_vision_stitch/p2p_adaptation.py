@@ -124,3 +124,15 @@ def encode_action(action):
         for edges, value in zip((X_EDGES, Y_EDGES), np.rint(delta), strict=True)
     ]
     return keys + [0] * (4 - len(keys)) + mouse + [0] * (2 - len(mouse)) + bins
+
+
+def install_policy_lora(model, rank=8):
+    """LoRA in every temporal-policy layer; call after `install_control_adapter`."""
+    if rank < 1 or rank > 64:
+        raise ValueError("Invalid policy LoRA rank")
+    for layer in model.policy.policy.layers:
+        if isinstance(layer.attention.qkv, LoRALinear):
+            raise ValueError("Policy LoRA already installed")
+        layer.attention.qkv = LoRALinear(layer.attention.qkv, rank)
+        layer.attention.output = LoRALinear(layer.attention.output, rank)
+        layer.w2 = LoRALinear(layer.w2, rank)

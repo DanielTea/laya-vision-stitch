@@ -5,7 +5,40 @@ connector, Laya with small LoRA adapters, and action outputs**. It exports as on
 checkpoint and runs without Qwen language decoding, generated captions or a
 reference-image bank. Original pretrained backbone weights stay frozen.
 
-**Latest static-image experiments:** tested goal-conditioned spatial attention,
+**Current status and all research findings: [docs/STATUS.md](docs/STATUS.md).**
+
+**Latest round: toward a general model.** Nothing in this round is trained on Hordes;
+Hordes is only an unseen test.
+- **More games.** LoRA trained on 24 public D2E games lowers recorded-action NLL on all
+  five fully held-out games, by 3–12%.
+- **Where to click.** A RADIO click-position head beats clicking the screen center on
+  four of those five games. A goal-conditioned pointer trained on Molmo points doubles
+  agreement on unseen games.
+- **Dual system.** Molmo-7B runs as a slow planner (3–5 s per answer) beside the 20 ms
+  controller, and a RADIO feature tracker keeps its target up to date.
+
+In a 60-second live Hordes trial, the dual system selected a monster by clicking it, with a
+median of 36 ms from screenshot to input. It never attacked: no ability key was pressed.
+
+Conditioning the controller on hindsight click targets did not teach it to act on a
+target. Instead the planner now approaches with W/A/S/D and clicks the skill-bar icon
+Molmo points to. In two live runs Molmo found no monsters, so these actions are not yet
+tested in play. The planner stack has only been tested on Hordes.
+[General model](docs/GENERAL_MODEL.md).
+
+**Previous round:** proposed architecture and production improvements were tested without
+new Hordes recordings. On held-out D2E games, which are not in Open-P2P's training data,
+the pretrained policy does not beat repeating the previous action. Fine-tuning its action
+decoder on 58k frames of public D2E gameplay (Monster Hunter Wilds, MapleStory Worlds,
+Eternal Return, GTA V) cuts held-out-session NLL by 24% and reaches the persistence
+baseline. Flow-matching chunks, real-time chunking, goal guidance, a slow planner,
+elapsed-time memory, foveation, latent actions, a world model, outcome weighting and the
+300M checkpoint gave no qualifying gain. Goal caching, compilation and a pipelined
+runtime reduce replayed latency; no live trial ran.
+[Results and limitations](docs/IMPROVEMENT_EXPERIMENTS.md) ·
+[Production readiness](docs/PRODUCTION_READINESS.md).
+
+**Previous static-image experiments:** tested goal-conditioned spatial attention,
 reviewed Qwen grounding, SigLIP 2 feature distillation, paired goal training, and
 their combination over 4,000 updates. Menu recognition transfers at **81.3%
 balanced accuracy**, falling to **51.7% with shuffled images**. Goal/control

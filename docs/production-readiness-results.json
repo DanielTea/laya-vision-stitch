@@ -1,0 +1,776 @@
+{
+  "date": "2026-09-23",
+  "label": "contended smoke test: another process was training on the same GPU; latencies are not idle-GPU measurements",
+  "input_events_sent": 0,
+  "model_latency": {
+    "artifact": "artifacts/prod-model-latency-001/report.json",
+    "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+    "frames": "artifacts/hordes-p2p-live-003/frames",
+    "method": "Variants interleaved frame by frame with rotating order; recorded applied actions as feedback; greedy decoding for parity; synthetic 50 ms timestamps (no gap resets).",
+    "variants": {
+      "original": {
+        "compile_status": "disabled",
+        "compile_parity_relative_error": null,
+        "growing_cache_ms": {
+          "samples": 195,
+          "p50": 52.38716606982052,
+          "p95": 378.4942411934021
+        },
+        "full_cache_ms": {
+          "samples": 60,
+          "p50": 39.222082996275276,
+          "p95": 236.5062284923623
+        },
+        "greedy_token_agreement_with_original": 1.0,
+        "max_abs_logit_difference_growing": 0.0,
+        "max_abs_logit_difference_full": 0.0
+      },
+      "goal_cache": {
+        "compile_status": "disabled",
+        "compile_parity_relative_error": null,
+        "growing_cache_ms": {
+          "samples": 195,
+          "p50": 37.78666700236499,
+          "p95": 295.790912315715
+        },
+        "full_cache_ms": {
+          "samples": 60,
+          "p50": 29.50227103428915,
+          "p95": 174.2778814805204
+        },
+        "greedy_token_agreement_with_original": 1.0,
+        "max_abs_logit_difference_growing": 0.0,
+        "max_abs_logit_difference_full": 0.0
+      },
+      "goal_cache_compiled": {
+        "compile_status": "compiled",
+        "compile_parity_relative_error": {
+          "encode": 6.40334010638548e-07,
+          "commit": 0.0,
+          "propose": 0.0,
+          "decode": 0.0
+        },
+        "growing_cache_ms": {
+          "samples": 195,
+          "p50": 35.659249988384545,
+          "p95": 364.1240044380532
+        },
+        "full_cache_ms": {
+          "samples": 60,
+          "p50": 24.74085404537618,
+          "p95": 113.56124375015457
+        },
+        "greedy_token_agreement_with_original": 1.0,
+        "max_abs_logit_difference_growing": 1.52587890625e-05,
+        "max_abs_logit_difference_full": 1.621246337890625e-05
+      },
+      "compiled_precommit": {
+        "compile_status": "compiled",
+        "compile_parity_relative_error": {
+          "encode": 6.40334010638548e-07,
+          "commit": 0.0,
+          "propose": 0.0,
+          "decode": 0.0
+        },
+        "growing_cache_ms": {
+          "samples": 195,
+          "p50": 26.114166947081685,
+          "p95": 199.30603308603142
+        },
+        "full_cache_ms": {
+          "samples": 60,
+          "p50": 20.37033357191831,
+          "p95": 195.80802476266396
+        },
+        "greedy_token_agreement_with_original": 1.0,
+        "max_abs_logit_difference_growing": 1.52587890625e-05,
+        "max_abs_logit_difference_full": 1.621246337890625e-05,
+        "commit_off_path_ms": {
+          "growing_cache": {
+            "samples": 195,
+            "p50": 8.973042014986277,
+            "p95": 12.540775025263414
+          },
+          "full_cache": {
+            "samples": 60,
+            "p50": 7.348708575591445,
+            "p95": 11.766189913032575
+          }
+        }
+      }
+    },
+    "sampled_parity_temperature_1": {
+      "frames": 30,
+      "seed": 20260923,
+      "token_agreement": 1.0
+    }
+  },
+  "pipeline": {
+    "artifacts": "artifacts/prod-pipeline-001/{stub-34ms,real-fp32,real-fp32-compiled}/report.json",
+    "settings": {
+      "fps": 60.0,
+      "seconds": 20.0,
+      "guard_ms": 11.6,
+      "loop_guard_ms": 11.6,
+      "hud_ms": 0.4,
+      "pulse_wait_ms": 3.8,
+      "guard_interval": 0.05,
+      "max_frame_age": 0.18,
+      "max_apply_age": 0.18
+    },
+    "guard_cost_source": "medians from hordes-p2p-live-003 (docs/LAYA_P2P.md); serial loop-top guard cost is an assumption equal to the dispatch guard",
+    "stub_model_34_3ms_commit_7_3ms": {
+      "serial": {
+        "stop_reason": "duration_complete",
+        "decisions": 321,
+        "applied": 321,
+        "decisions_per_second": 16.05351348422952,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 321,
+          "p50": 59.04795799870044,
+          "p95": 66.53412489686161
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 321,
+          "p50": 8.78675002604723,
+          "p95": 16.193000017665327
+        },
+        "inference_ms": {
+          "samples": 321,
+          "p50": 34.3018330167979,
+          "p95": 34.33512500487268
+        },
+        "state_resets": 1,
+        "frames_published": 1208
+      },
+      "pipelined": {
+        "stop_reason": "duration_complete",
+        "decisions": 581,
+        "applied": 581,
+        "decisions_per_second": 29.096989967042326,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 581,
+          "p50": 42.73325006943196,
+          "p95": 50.140040926635265
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 581,
+          "p50": 8.360499981790781,
+          "p95": 15.783499926328659
+        },
+        "inference_ms": {
+          "samples": 581,
+          "p50": 34.30116700474173,
+          "p95": 34.302292042411864
+        },
+        "state_resets": 1,
+        "frames_published": 1205,
+        "guard_pass_ms": {
+          "samples": 397,
+          "p50": 12.003374984487891,
+          "p95": 12.006325414404273
+        },
+        "skipped": {}
+      },
+      "pipelined_precommit": {
+        "stop_reason": "duration_complete",
+        "decisions": 581,
+        "applied": 581,
+        "decisions_per_second": 29.07267745478123,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 581,
+          "p50": 35.146209062077105,
+          "p95": 42.83733293414116
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 581,
+          "p50": 8.07233399245888,
+          "p95": 15.783958020620048
+        },
+        "inference_ms": {
+          "samples": 581,
+          "p50": 27.001208043657243,
+          "p95": 27.002708055078983
+        },
+        "state_resets": 1,
+        "frames_published": 1206,
+        "guard_pass_ms": {
+          "samples": 397,
+          "p50": 12.003584066405892,
+          "p95": 12.009791168384254
+        },
+        "skipped": {}
+      }
+    },
+    "real_fp32": {
+      "serial": {
+        "stop_reason": "duration_complete",
+        "decisions": 353,
+        "applied": 353,
+        "decisions_per_second": 17.644113886731567,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 353,
+          "p50": 53.56612498871982,
+          "p95": 62.85628303885459
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 353,
+          "p50": 9.12845809943974,
+          "p95": 16.419233451597393
+        },
+        "inference_ms": {
+          "samples": 353,
+          "p50": 30.590458074584603,
+          "p95": 32.85204162821174
+        },
+        "state_resets": 1,
+        "frames_published": 1205
+      },
+      "pipelined": {
+        "stop_reason": "duration_complete",
+        "decisions": 660,
+        "applied": 660,
+        "decisions_per_second": 33.03258145351843,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 660,
+          "p50": 39.15166651131585,
+          "p95": 47.463358007371426
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 660,
+          "p50": 8.889457967597991,
+          "p95": 15.939946210710332
+        },
+        "inference_ms": {
+          "samples": 660,
+          "p50": 31.067166477441788,
+          "p95": 33.13158683013171
+        },
+        "state_resets": 1,
+        "frames_published": 1206,
+        "guard_pass_ms": {
+          "samples": 396,
+          "p50": 12.006604461930692,
+          "p95": 12.482249439926818
+        },
+        "skipped": {}
+      },
+      "pipelined_precommit": {
+        "stop_reason": "duration_complete",
+        "decisions": 630,
+        "applied": 630,
+        "decisions_per_second": 31.52882192403238,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 630,
+          "p50": 30.17077053664252,
+          "p95": 39.08760987105779
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 630,
+          "p50": 7.266312546562403,
+          "p95": 15.684389590751378
+        },
+        "inference_ms": {
+          "samples": 630,
+          "p50": 23.19612546125427,
+          "p95": 24.974625202594325
+        },
+        "state_resets": 1,
+        "frames_published": 1205,
+        "guard_pass_ms": {
+          "samples": 396,
+          "p50": 12.006416451185942,
+          "p95": 12.34876029775478
+        },
+        "skipped": {}
+      }
+    },
+    "real_fp32_compiled": {
+      "serial": {
+        "stop_reason": "duration_complete",
+        "decisions": 369,
+        "applied": 369,
+        "decisions_per_second": 18.44612098939792,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 369,
+          "p50": 50.65287498291582,
+          "p95": 60.06585019640624
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 369,
+          "p50": 9.366750018671155,
+          "p95": 16.324624535627663
+        },
+        "inference_ms": {
+          "samples": 369,
+          "p50": 27.679916936904192,
+          "p95": 29.66915867291391
+        },
+        "state_resets": 1,
+        "frames_published": 1205
+      },
+      "pipelined": {
+        "stop_reason": "duration_complete",
+        "decisions": 590,
+        "applied": 588,
+        "decisions_per_second": 29.52380927665392,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 588,
+          "p50": 39.69389549456537,
+          "p95": 56.289287604158744
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 590,
+          "p50": 8.024750044569373,
+          "p95": 15.662171354051678
+        },
+        "inference_ms": {
+          "samples": 590,
+          "p50": 31.585250049829483,
+          "p95": 45.483539428096265
+        },
+        "state_resets": 4,
+        "frames_published": 1207,
+        "guard_pass_ms": {
+          "samples": 390,
+          "p50": 12.009854021016508,
+          "p95": 12.283109955023972
+        },
+        "skipped": {
+          "frame_too_old": 2
+        }
+      },
+      "pipelined_precommit": {
+        "stop_reason": "duration_complete",
+        "decisions": 487,
+        "applied": 487,
+        "decisions_per_second": 24.381271004943947,
+        "screenshot_to_dispatch_start_ms": {
+          "samples": 487,
+          "p50": 37.382708047516644,
+          "p95": 45.606687502004206
+        },
+        "frame_age_before_inference_ms": {
+          "samples": 487,
+          "p50": 8.435875060968101,
+          "p95": 16.04175012325868
+        },
+        "inference_ms": {
+          "samples": 487,
+          "p50": 29.273041989654303,
+          "p95": 32.287342147901654
+        },
+        "state_resets": 1,
+        "frames_published": 1205,
+        "guard_pass_ms": {
+          "samples": 396,
+          "p50": 12.007082928903401,
+          "p95": 12.179790996015072
+        },
+        "skipped": {}
+      }
+    },
+    "calibration_recorded_live_p2p_003": {
+      "decisions_per_second": 15.093664116546694,
+      "screenshot_to_dispatch_start_ms": {
+        "samples": 905,
+        "p50": 60.509542119689286,
+        "p95": 73.57958317734301
+      },
+      "frame_age_before_inference_ms": {
+        "samples": 905,
+        "p50": 9.440792025998235,
+        "p95": 16.479774843901396
+      }
+    },
+    "timer_leeway": "Plain time.sleep in this process overshot by about 50% of the request, capped near 10 ms (34.3 ms -> 44.3 ms); the benchmark uses a precise sleep for emulated costs and frame pacing."
+  },
+  "closed_loop_scorecard": {
+    "artifact": "artifacts/prod-scorecard-001/scorecard.json",
+    "trials": {
+      "hordes-temporal-live-001": {
+        "trial": "hordes-temporal-live-001",
+        "bundle": "artifacts/temporal-expanded-regularized-001/attention/bundle",
+        "goal": "Select a nearby Young Grub with Tab, approach with WASD, and attack with ability 1. Avoid other players. Retreat if health is low.",
+        "capture_fps": 30,
+        "requested_seconds": 20.0,
+        "execute": true,
+        "stop_reason": "duration_complete",
+        "status": "scored",
+        "observed_span_s": 19.86453487491235,
+        "decisions": 305,
+        "applied_decisions": 305,
+        "decisions_with_posted_events": 37,
+        "idle_fraction": 0.8786885245901639,
+        "decisions_per_second": 15.312847679658148,
+        "control_decisions": {
+          "movement_wasd": 17,
+          "space": 0,
+          "tab": 0,
+          "abilities_1_4": 0,
+          "mouse_buttons": 5,
+          "cursor_motion": 20
+        },
+        "button_presses": {
+          "mouse_left": 5,
+          "w": 17
+        },
+        "proposed_buttons": {
+          "mouse_left": 5,
+          "w": 17
+        },
+        "blocked_proposals": {},
+        "mouse_clamped_decisions": 0,
+        "time_to_first_ability_s": null,
+        "memory_resets": 4,
+        "latency_ms": {
+          "inference": {
+            "samples": 305,
+            "p50": 51.92916700616479,
+            "p95": 54.38510864041746
+          },
+          "screenshot_to_dispatch_start": {
+            "samples": 305,
+            "p50": 72.35654210671782,
+            "p95": 91.98043262585998
+          },
+          "screenshot_to_first_event": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "frame_age_before_inference": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "decision_interval": {
+            "samples": 304,
+            "p50": 67.74718698579818,
+            "p95": 70.20063761156052
+          }
+        },
+        "decision_gaps_over_100ms": 3,
+        "legacy_dispatch_field": true,
+        "outcome_signals": {
+          "logged_per_decision": [],
+          "manual_reviews": []
+        }
+      },
+      "hordes-temporal-live-002": {
+        "trial": "hordes-temporal-live-002",
+        "bundle": "artifacts/temporal-expanded-regularized-001/attention/bundle",
+        "goal": "Select a nearby Young Grub with Tab, approach with WASD, and attack with ability 1. Avoid other players. Retreat if health is low.",
+        "capture_fps": 30,
+        "requested_seconds": 60.0,
+        "execute": true,
+        "stop_reason": "duration_complete",
+        "status": "scored",
+        "observed_span_s": 59.91230083303526,
+        "decisions": 840,
+        "applied_decisions": 840,
+        "decisions_with_posted_events": 209,
+        "idle_fraction": 0.7511904761904762,
+        "decisions_per_second": 14.006499119701413,
+        "control_decisions": {
+          "movement_wasd": 95,
+          "space": 0,
+          "tab": 0,
+          "abilities_1_4": 0,
+          "mouse_buttons": 39,
+          "cursor_motion": 113
+        },
+        "button_presses": {
+          "mouse_left": 39,
+          "w": 95
+        },
+        "proposed_buttons": {
+          "mouse_left": 39,
+          "w": 95
+        },
+        "blocked_proposals": {},
+        "mouse_clamped_decisions": 16,
+        "time_to_first_ability_s": null,
+        "memory_resets": 111,
+        "latency_ms": {
+          "inference": {
+            "samples": 840,
+            "p50": 52.70206299610436,
+            "p95": 95.80522534088232
+          },
+          "screenshot_to_dispatch_start": {
+            "samples": 840,
+            "p50": 75.70522947935387,
+            "p95": 122.77064972440712
+          },
+          "screenshot_to_first_event": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "frame_age_before_inference": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "decision_interval": {
+            "samples": 839,
+            "p50": 67.88904196582735,
+            "p95": 102.53435806371272
+          }
+        },
+        "decision_gaps_over_100ms": 110,
+        "legacy_dispatch_field": false,
+        "outcome_signals": {
+          "logged_per_decision": [],
+          "manual_reviews": [
+            {
+              "source": "docs/hordes-temporal-live-002.json#visual_review",
+              "fields": {
+                "initial_target": "self",
+                "final_target": "Mature Grub",
+                "final_target_health": "70/70",
+                "player_health_before_after": "244/244",
+                "xp_before_after": "466/1600",
+                "ability_key_proposals": 0,
+                "combat_demonstrated": false,
+                "automated_success_rate": null
+              }
+            }
+          ]
+        }
+      },
+      "hordes-p2p-live-001": {
+        "trial": "hordes-p2p-live-001",
+        "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+        "goal": "Defeat nearby monsters. Avoid attacking players. Retreat when health is low.",
+        "capture_fps": 30,
+        "requested_seconds": 60.0,
+        "execute": true,
+        "stop_reason": "Window changed or focus lost",
+        "status": "scored",
+        "observed_span_s": 53.160189999151044,
+        "decisions": 688,
+        "applied_decisions": 688,
+        "decisions_with_posted_events": 365,
+        "idle_fraction": 0.46947674418604646,
+        "decisions_per_second": 12.933793465252835,
+        "control_decisions": {
+          "movement_wasd": 273,
+          "space": 3,
+          "tab": 0,
+          "abilities_1_4": 5,
+          "mouse_buttons": 59,
+          "cursor_motion": 141
+        },
+        "button_presses": {
+          "1": 4,
+          "2": 1,
+          "a": 107,
+          "d": 84,
+          "mouse_left": 39,
+          "mouse_right": 21,
+          "s": 60,
+          "space": 3,
+          "w": 137
+        },
+        "proposed_buttons": {
+          "1": 4,
+          "2": 1,
+          "a": 107,
+          "d": 84,
+          "e": 1,
+          "f": 2,
+          "mouse_left": 39,
+          "mouse_right": 21,
+          "right": 6,
+          "s": 60,
+          "space": 3,
+          "up": 1,
+          "w": 137
+        },
+        "blocked_proposals": {
+          "e": 1,
+          "f": 2,
+          "right": 6,
+          "up": 1
+        },
+        "mouse_clamped_decisions": 26,
+        "time_to_first_ability_s": 16.621742416056804,
+        "memory_resets": 162,
+        "latency_ms": {
+          "inference": {
+            "samples": 688,
+            "p50": 33.48368755541742,
+            "p95": 63.42526031075977
+          },
+          "screenshot_to_dispatch_start": {
+            "samples": 688,
+            "p50": 78.43841699650511,
+            "p95": 103.47884590155445
+          },
+          "screenshot_to_first_event": {
+            "samples": 365,
+            "p50": 81.28162403590977,
+            "p95": 107.95925799757242
+          },
+          "frame_age_before_inference": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "decision_interval": {
+            "samples": 687,
+            "p50": 72.41058209910989,
+            "p95": 110.4979213909246
+          }
+        },
+        "decision_gaps_over_100ms": 161,
+        "legacy_dispatch_field": false,
+        "outcome_signals": {
+          "logged_per_decision": [],
+          "manual_reviews": [
+            {
+              "source": "hordes-p2p-live-001/summary.json review",
+              "fields": {
+                "observed_duration_seconds": 53.16019,
+                "target": "Young Grub",
+                "target_health_at_reviewed_attack_and_end": "50/50",
+                "player_health_before_and_end": "244/244",
+                "experience_before_and_end": "466/1600",
+                "ability_feedback": "Out of range, visible in frame 00252",
+                "verified_kills": 0,
+                "conclusion": "Target selection and attack input occurred, but approach/range control failed; no verified damage or progress."
+              }
+            }
+          ]
+        }
+      },
+      "hordes-p2p-live-002": {
+        "trial": "hordes-p2p-live-002",
+        "bundle": "artifacts/laya-p2p-bf16-001/bundle",
+        "goal": "Defeat nearby monsters. Avoid attacking players. Retreat when health is low.",
+        "capture_fps": 60,
+        "requested_seconds": 60.0,
+        "execute": true,
+        "stop_reason": null,
+        "status": "no_decisions_logged",
+        "files": [
+          "config.json",
+          "frames"
+        ],
+        "saved_frames": 0
+      },
+      "hordes-p2p-live-003": {
+        "trial": "hordes-p2p-live-003",
+        "bundle": "artifacts/laya-p2p-bf16-001/bundle",
+        "goal": "Defeat nearby monsters. Avoid attacking players. Retreat when health is low.",
+        "capture_fps": 60,
+        "requested_seconds": 60.0,
+        "execute": true,
+        "stop_reason": "duration_complete",
+        "status": "scored",
+        "observed_span_s": 59.910915500018746,
+        "decisions": 905,
+        "applied_decisions": 905,
+        "decisions_with_posted_events": 294,
+        "idle_fraction": 0.6751381215469614,
+        "decisions_per_second": 15.093664116546694,
+        "control_decisions": {
+          "movement_wasd": 253,
+          "space": 0,
+          "tab": 0,
+          "abilities_1_4": 0,
+          "mouse_buttons": 10,
+          "cursor_motion": 52
+        },
+        "button_presses": {
+          "a": 117,
+          "d": 67,
+          "mouse_right": 10,
+          "s": 42,
+          "w": 86
+        },
+        "proposed_buttons": {
+          "a": 117,
+          "d": 67,
+          "f": 1,
+          "left": 1,
+          "mouse_right": 10,
+          "right": 2,
+          "s": 42,
+          "w": 86
+        },
+        "blocked_proposals": {
+          "f": 1,
+          "left": 1,
+          "right": 2
+        },
+        "mouse_clamped_decisions": 6,
+        "time_to_first_ability_s": null,
+        "memory_resets": 2,
+        "latency_ms": {
+          "inference": {
+            "samples": 905,
+            "p50": 34.33875006157905,
+            "p95": 36.897707963362336
+          },
+          "screenshot_to_dispatch_start": {
+            "samples": 905,
+            "p50": 60.509542119689286,
+            "p95": 73.57958317734301
+          },
+          "screenshot_to_first_event": {
+            "samples": 294,
+            "p50": 60.70729100611061,
+            "p95": 73.77441478311084
+          },
+          "frame_age_before_inference": {
+            "samples": 905,
+            "p50": 9.440792025998235,
+            "p95": 16.479774843901396
+          },
+          "decision_interval": {
+            "samples": 904,
+            "p50": 69.80568746803328,
+            "p95": 80.28660613927052
+          }
+        },
+        "decision_gaps_over_100ms": 1,
+        "legacy_dispatch_field": false,
+        "outcome_signals": {
+          "logged_per_decision": [],
+          "manual_reviews": [
+            {
+              "source": "hordes-p2p-live-003/summary.json review",
+              "fields": {
+                "reviewed_images": [
+                  "before.png",
+                  "frames/00450.jpg",
+                  "after.png"
+                ],
+                "target": "Young Grub",
+                "target_health_before_after": "50/50",
+                "player_health_before_after": "244/244",
+                "player_xp_before_after": "466/1600",
+                "ability_presses": 0,
+                "verified_kills": 0,
+                "conclusion": "Movement and camera inputs; no demonstrated combat or XP gain. Live median reaction target still unmet."
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "promotion_gate_example": {
+    "artifact": "artifacts/prod-gate-001/cfg4-vs-greedy-with-live-003.json",
+    "note": "Mechanics demonstration: cfg_4_greedy (candidate) versus greedy (baseline) from artifacts/seqdecode-p2p-001/report.json, with closed-loop gates read from hordes-p2p-live-003, which ran a different decoding (sampling) and checkpoint (BF16).",
+    "passed": false,
+    "failed_gates": [
+      "onset_f1_beats_baseline [fresh_test]",
+      "ability_presses [hordes-p2p-live-003]",
+      "screenshot_to_dispatch_start_p50 [hordes-p2p-live-003]"
+    ]
+  }
+}

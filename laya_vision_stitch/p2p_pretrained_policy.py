@@ -159,10 +159,11 @@ class Stack(nn.Module):
 
 
 class OpenP2PPolicy(nn.Module):
-    def __init__(self, vision=None):
+    def __init__(self, vision=None, depth=10):
         super().__init__()
         self.vision = vision if vision is not None else OpenP2PVision()
-        self.policy = Stack(10, 16)
+        # Released 150M/300M checkpoints differ only in policy depth (10/20 at width 1024).
+        self.policy = Stack(depth, 16)
         self.decoder = Stack(3, 8, sinks=1)
         self.text_projection = nn.Linear(768, 1024, bias=False)
         self.decoder_projection = nn.Linear(1024, 1024)
@@ -182,7 +183,7 @@ class OpenP2PPolicy(nn.Module):
     def action_embeddings(self, tokens):
         return mx.stack([self.embeddings[self.action_type(i)](tokens[:, i]) for i in range(8)], 1)
 
-    def prefix(self, image_token, text=None, spatial=None):
+    def prefix(self, image_token, text=None, spatial=None, target=None):
         batch = image_token.shape[0]
         if image_token.ndim != 2 or image_token.shape[1] != 1024:
             raise ValueError("Expected a batch of 1024D image tokens")
@@ -198,11 +199,17 @@ class OpenP2PPolicy(nn.Module):
             else self.text_projection(text.reshape(batch, 1, 768))
         )
         language = mx.where(mx.any(language != 0, axis=-1, keepdims=True), language, self.no_text)
+        thinking = mx.broadcast_to(self.thinking, (batch, 1, 1024))
+        if target is not None and hasattr(self, "target_encoder"):
+            # Optional screen point to act on (NaN rows: none), on the constant thinking slot.
+            thinking = thinking + self.target_encoder(target.reshape(batch, 2))[:, None].astype(
+                thinking.dtype
+            )
         return mx.concatenate(
             [
                 language + self.text_position,
                 image_token[:, None] + self.image_position,
-                mx.broadcast_to(self.thinking, (batch, 1, 1024)),
+                thinking,
                 mx.broadcast_to(self.action_start, (batch, 1, 1024)),
             ],
             1,
@@ -211,7 +218,8 @@ class OpenP2PPolicy(nn.Module):
     def context(self, prefix, actions=None, caches=None, position=0):
         if position < 0 or position % STEP_TOKENS:
             raise ValueError("Policy position must start a frame")
-        if caches is not None and len(caches) != 10:
+        depth = len(getattr(self.policy, "layers", caches or ()))
+        if caches is not None and len(caches) != depth:
             raise ValueError("Expected one cache per policy layer")
         previous = 0 if caches is None else caches[0][0].shape[2]
         if previous % STEP_TOKENS or previous > 200 * STEP_TOKENS:
@@ -280,7 +288,9 @@ class OpenP2PPolicy(nn.Module):
     @classmethod
     def from_state(cls, state, dtype=mx.float32):
         vision = OpenP2PVision.from_state(state, mx.float32)
-        model, mapped, used = cls(vision), [], set()
+        prefix = "bc_transformer._transformer.transformer_layers."
+        depth = len({k.removeprefix(prefix).split(".")[0] for k in state if k.startswith(prefix)})
+        model, mapped, used = cls(vision, depth=depth), [], set()
 
         def copy(target, source):
             used.add(source)
@@ -304,7 +314,7 @@ class OpenP2PPolicy(nn.Module):
         ):
             copy(ours, "bc_transformer." + theirs)
         for stack, source, depth, sinks in (
-            ("policy", "bc_transformer._transformer", 10, False),
+            ("policy", "bc_transformer._transformer", depth, False),
             ("decoder", "bc_transformer.action_decoder", 3, True),
         ):
             for i in range(depth):

@@ -1,7 +1,13 @@
 """Bounded experimental native trial; neural proposals with no gameplay heuristics.
 
 Uses ScreenQuest's capture/input transport only. Does not import its live policy,
-planner, targeting, OCR or combat controller. Default is observation only.
+planner, targeting, OCR or combat controller. Default is observation only: without
+`--execute` it captures, runs the model and logs proposals, and posts no events.
+`--planner` adds the Molmo slow planner (one selection click per target); `--planner-act`
+also lets it approach the target with W/A/S/D and click the skill Molmo points to on the
+skill bar (general control conventions, see planner_actions.py).
+`--pipeline` selects the pipelined scheduler in `live_pipeline.py` (asynchronous guards,
+non-waiting pulses); the serial loop remains the default.
 """
 
 import argparse
@@ -20,19 +26,22 @@ from .temporal_runtime import TemporalRuntime
 
 KEYS = {"w": 13, "a": 0, "s": 1, "d": 2, "space": 49, "tab": 48, "1": 18, "2": 19, "3": 20, "4": 21}
 ALLOWED = set(KEYS) | {"mouse_left", "mouse_right"}
+MOVEMENT = {"w", "a", "s", "d"}
 
 
 class LiveRuntime:
     """Select the checkpoint's trained neural path; no gameplay decisions here."""
 
-    def __init__(self, bundle):
+    def __init__(self, bundle, stream_options=None):
         metadata = json.loads((Path(bundle) / "config.json").read_text())
         if metadata.get("format") == "laya-p2p-1":
             from .laya_p2p_stream import LayaP2PStream
 
-            self.model = LayaP2PStream.load(bundle)
+            self.model = LayaP2PStream.load(bundle, **(stream_options or {}))
             self.temporal = True
             return
+        if stream_options:
+            raise ValueError("Streaming options apply only to laya-p2p-1 checkpoints")
         from .trainable_model import TrainableRuntime
 
         model = TrainableRuntime.load(bundle)
@@ -64,24 +73,71 @@ def bounded_action(proposal):
         raise ValueError("Invalid mouse proposal")
     raw = np.rint(delta * 512).astype(int)
     bounded = np.clip(raw, -64, 64)
-    return {
+    action = {
         "buttons": sorted(set(proposal["buttons"]) & ALLOWED),
         "mouse_delta": (bounded / 512).tolist(),
         "blocked_buttons": sorted(set(proposal["buttons"]) - ALLOWED),
         "mouse_clamped": bool(np.any(raw != bounded)),
     }
+    if proposal.get("pointer_xy") is not None:
+        xy = np.asarray(proposal["pointer_xy"], dtype=float)
+        if xy.shape != (2,) or not np.isfinite(xy).all():
+            raise ValueError("Invalid pointer proposal")
+        action["pointer_xy"] = np.clip(xy, 0, 1).tolist()
+    hold = proposal.get("planner_hold")
+    if hold is not None:
+        if not set(hold) <= set(KEYS):
+            raise ValueError("Invalid planner movement")
+        # The planner moves the character: its keys replace the policy's movement keys.
+        action["buttons"] = sorted((set(action["buttons"]) - MOVEMENT) | set(hold))
+        action["planner_hold"] = sorted(hold)
+    click = proposal.get("planner_click")
+    if click is not None:
+        xy = np.asarray(click["xy"], dtype=float)
+        if xy.shape != (2,) or not np.isfinite(xy).all() or click.get("button") != "mouse_left":
+            raise ValueError("Invalid planner click")
+        # The slow planner's high-level action: one left click on its target or skill button.
+        action["planner_click"] = {
+            "xy": np.clip(xy, 0, 1).tolist(),
+            "button": "mouse_left",
+            "kind": click.get("kind", "select"),
+        }
+        action["pointer_xy"] = action["planner_click"]["xy"]
+        action["buttons"] = sorted(set(action["buttons"]) | {"mouse_left"})
+    return action
 
 
 class Pulse:
     """Release after 50 ms independently of the next model inference."""
 
-    def __init__(self, target, crop):
+    # Cursor bounds as fractions of the viewport (x0, x1, y0, y1). The default central
+    # playfield suits relative camera control; pointer mode allows most of the viewport
+    # but keeps clear of the top menu band and the outer margins.
+    CENTRAL, POINTER = (0.36, 0.72, 0.22, 0.63), (0.03, 0.97, 0.08, 0.97)
+
+    def __init__(self, target, crop, pointer=False):
         self.target, self.crop = target, crop
         self.lock = threading.Lock()
         self.timer = None
         b = target.original["kCGWindowBounds"]
         self.origin = (b["X"] + crop[0], b["Y"] + crop[1])
         self.point = (self.origin[0] + crop[2] / 2, self.origin[1] + crop[3] / 2)
+        self.pointer, self.bounds, self.held = (
+            pointer,
+            self.POINTER if pointer else self.CENTRAL,
+            set(),
+        )
+
+    def clamp(self, x, y):
+        x0, x1, y0, y1 = self.bounds
+        return (
+            float(
+                np.clip(x, self.origin[0] + x0 * self.crop[2], self.origin[0] + x1 * self.crop[2])
+            ),
+            float(
+                np.clip(y, self.origin[1] + y0 * self.crop[3], self.origin[1] + y1 * self.crop[3])
+            ),
+        )
 
     def release(self):
         with self.lock:
@@ -93,22 +149,53 @@ class Pulse:
             self.timer = None
         self.release()
 
+    def settle(self):
+        """End the previous pulse before the next one; serial runner waits for it."""
+        self.finish()
+
+    def check(self, deadline):
+        """Synchronous guards, called under the transport lock just before posting."""
+        target = self.target
+        if not target.focused() or not target.unchanged():
+            raise RuntimeError("Game window lost focus or moved")
+        if target.text_input_focused():
+            raise RuntimeError("Text input focused")
+        if time.perf_counter() >= deadline:
+            raise RuntimeError("Trial deadline reached")
+
+    def schedule_release(self, delay):
+        self.timer = threading.Timer(delay, self.release)
+        self.timer.start()
+
     def apply(self, action, deadline):
         wait_started = time.perf_counter()
-        self.finish()
+        self.settle()
         wait_finished = time.perf_counter()
         target, Q = self.target, self.target.Q
         with self.lock:
             try:
-                if not target.focused() or not target.unchanged():
-                    raise RuntimeError("Game window lost focus or moved")
-                if target.text_input_focused():
-                    raise RuntimeError("Text input focused")
-                if time.perf_counter() >= deadline:
-                    raise RuntimeError("Trial deadline reached")
+                self.check(deadline)
                 start = time.perf_counter()
                 first_post = None
                 buttons = action["buttons"]
+                mouse = {"mouse_left", "mouse_right"} & set(buttons)
+                onset = mouse - self.held
+                if action.get("planner_click"):
+                    onset = onset | {"mouse_left"}  # a planner click is always a new press
+                self.held = mouse
+                if self.pointer and onset and action.get("pointer_xy") is not None:
+                    # Absolute pointing only when a button is newly pressed; holds keep
+                    # relative drags so camera control is unchanged.
+                    px, py = action["pointer_xy"]
+                    self.point = self.clamp(
+                        self.origin[0] + px * self.crop[2], self.origin[1] + py * self.crop[3]
+                    )
+                    target.mouse_event("move", self.point)
+                    first_post = time.perf_counter()
+                    action["pointer_applied"] = [
+                        (self.point[0] - self.origin[0]) / self.crop[2],
+                        (self.point[1] - self.origin[1]) / self.crop[3],
+                    ]
                 for key in buttons:
                     if key in KEYS:
                         target.event(key, True)
@@ -125,20 +212,7 @@ class Pulse:
                 dx, dy = [round(v * 512) for v in action["mouse_delta"]]
                 x, y = self.point
                 # Cursor stays within the central playfield, clear of browser/HUD controls.
-                nx = float(
-                    np.clip(
-                        x + dx,
-                        self.origin[0] + 0.36 * self.crop[2],
-                        self.origin[0] + 0.72 * self.crop[2],
-                    )
-                )
-                ny = float(
-                    np.clip(
-                        y + dy,
-                        self.origin[1] + 0.22 * self.crop[3],
-                        self.origin[1] + 0.63 * self.crop[3],
-                    )
-                )
+                nx, ny = self.clamp(x + dx, y + dy)
                 dx, dy = round(nx - x), round(ny - y)
                 action["mouse_delta"] = [dx / 512, dy / 512]
                 if dx or dy:
@@ -164,10 +238,7 @@ class Pulse:
                     if target.left_pressed:
                         target.left_point = self.point
                 elapsed = time.perf_counter() - start
-                self.timer = threading.Timer(
-                    max(0, min(0.05 - elapsed, deadline - time.perf_counter())), self.release
-                )
-                self.timer.start()
+                self.schedule_release(max(0, min(0.05 - elapsed, deadline - time.perf_counter())))
                 return {
                     "dispatch_start": start,
                     "first_event_posted": first_post,
@@ -177,6 +248,49 @@ class Pulse:
             except BaseException:
                 target.release()
                 raise
+
+
+class PreemptingPulse(Pulse):
+    """Pipelined transport: a new pulse supersedes the active one instead of waiting.
+
+    The active pulse is released at once, so the event sequence (key-up, then key-down)
+    matches the serial runner but an earlier pulse can be shorter than 50 ms. Focus,
+    layout, text-input and HUD checks run in the pipeline guard loop; `permit()` returns
+    its fail-closed denial and is read under the transport lock right before posting.
+    ScreenQuest's mouse-button helpers still re-check focus per event.
+    """
+
+    def __init__(self, target, crop, permit, pointer=False):
+        super().__init__(target, crop, pointer)
+        self.permit, self.generation = permit, 0
+
+    def settle(self):
+        with self.lock:
+            # A release timer that already fired but waits for the lock must not end
+            # the pulse posted after this point.
+            self.generation += 1
+        if self.timer:
+            self.timer.cancel()
+            self.timer = None
+        self.release()
+
+    def check(self, deadline):
+        reason = self.permit()
+        if reason:
+            raise RuntimeError(reason)
+        if time.perf_counter() >= deadline:
+            raise RuntimeError("Trial deadline reached")
+
+    def schedule_release(self, delay):
+        generation = self.generation
+
+        def release():
+            with self.lock:
+                if generation == self.generation:
+                    self.target.release()
+
+        self.timer = threading.Timer(delay, release)
+        self.timer.start()
 
 
 def run(args):
@@ -191,6 +305,29 @@ def run(args):
         raise ValueError("Trial duration must be 1–60 seconds")
     if args.capture_fps not in (30, 60, 120):
         raise ValueError("Capture rate must be 30, 60 or 120 FPS")
+    if args.precommit and not args.pipeline:
+        raise ValueError("--precommit requires --pipeline")
+    if not 0 <= args.wait_for_focus <= 60:
+        raise ValueError("Focus wait must be 0-60 seconds")
+    if not 0.005 <= args.guard_interval <= 0.5:
+        raise ValueError("Guard interval must be 5-500 ms")
+    stream_options = {}
+    if args.compile:
+        stream_options["compile"] = True
+    if args.max_memory_gap is not None:
+        stream_options["max_gap_seconds"] = args.max_memory_gap
+    planner = None
+    if args.planner:
+        if not args.pointer:
+            raise ValueError("--planner requires --pointer")
+        from .molmo_planner import AsyncPlanner
+
+        print("Starting Molmo planner process...", flush=True)
+        planner = AsyncPlanner()
+        stream_options["planner"] = planner
+        stream_options["act"] = bool(args.planner_act)
+    elif args.planner_act:
+        raise ValueError("--planner-act requires --planner")
     stops = [Path("STOP"), args.screenquest_root / "STOP"]
     if any(p.exists() for p in stops):
         raise RuntimeError("STOP exists; no trial started")
@@ -232,7 +369,11 @@ def run(args):
         + "\n"
     )
     print("Loading experimental stitched checkpoint...", flush=True)
-    runtime = LiveRuntime(args.bundle)
+    runtime = LiveRuntime(args.bundle, stream_options)
+    if args.precommit and not hasattr(runtime.model, "commit"):
+        raise ValueError("--precommit requires a laya-p2p-1 checkpoint")
+    if args.compile:
+        print(f"Compile status: {runtime.model.compile_status}", flush=True)
     from PIL import Image
 
     warm_row = {
@@ -246,8 +387,14 @@ def run(args):
     runtime.reset()
     events, futures, previous = [], [], []
     stream = WindowStream(args.window, width, height, fps=args.capture_fps)
-    pulse = Pulse(target, crop)
-    start, stop_reason = None, "duration_complete"
+    if args.pipeline:
+        from .live_pipeline import GuardVeto
+
+        veto = GuardVeto(max(0.1, 2 * args.guard_interval))
+        pulse = PreemptingPulse(target, crop, veto.denial, args.pointer)
+    else:
+        pulse = Pulse(target, crop, args.pointer)
+    start, stop_reason, pipeline_summary = None, "duration_complete", None
     with ControllerLock(), ThreadPoolExecutor(max_workers=1) as writer:
         try:
             stream.start()
@@ -257,6 +404,15 @@ def run(args):
                 if time.perf_counter() > until:
                     raise RuntimeError("No capture frame")
                 time.sleep(0.005)
+            if args.execute and args.wait_for_focus and not target.focused():
+                print(
+                    f"Click inside the game window to start (waiting {args.wait_for_focus:g} s)...",
+                    flush=True,
+                )
+                until = time.perf_counter() + args.wait_for_focus
+                while not target.focused() and time.perf_counter() < until:
+                    desktop.refresh_app_events()
+                    time.sleep(0.05)
             if args.execute and not target.focused():
                 raise RuntimeError("Selected game window is not focused")
             initial = desktop.viewport(stream.latest().image, crop)
@@ -273,7 +429,73 @@ def run(args):
                 flush=True,
             )
             with (args.output / "events.jsonl").open("w") as log:
-                while time.perf_counter() < deadline:
+                if args.pipeline:
+                    from .live_pipeline import LivePipeline, PollingCapture
+
+                    def predict(image, frame, previous):
+                        row = {
+                            "frames": [{"image": image, "age_seconds": 0}],
+                            "goal": args.goal,
+                            "controls": args.controls,
+                            "previous_actions": previous,
+                        }
+                        return runtime.predict(
+                            row, session_id=str(args.output), timestamp_seconds=frame.captured_at
+                        )
+
+                    def on_record(record, image):
+                        record["image"] = f"frames/{record['step']:05d}.jpg"
+                        futures.append(
+                            writer.submit(image.save, args.output / record["image"], quality=85)
+                        )
+                        events.append(record)
+                        log.write(json.dumps(record) + "\n")
+                        log.flush()
+
+                    def stop_file():
+                        return "STOP requested" if any(p.exists() for p in stops) else None
+
+                    def focus_layout():
+                        if not target.unchanged() or (args.execute and not target.focused()):
+                            return "Window changed or focus lost"
+                        return None
+
+                    def text_input():
+                        return (
+                            "Text input focused"
+                            if args.execute and target.text_input_focused()
+                            else None
+                        )
+
+                    def hud():
+                        image = desktop.viewport(stream.latest().image, crop)
+                        return None if gate.check(image)["verified"] else "HUD changed"
+
+                    guards = [
+                        ("stop", stop_file),
+                        ("focus_layout", focus_layout),
+                        ("text_input", text_input),
+                        ("hud", hud),
+                    ]
+                    pipeline_summary = LivePipeline(
+                        capture=PollingCapture(stream),
+                        prepare=lambda frame: desktop.viewport(frame.image, crop),
+                        predict=predict,
+                        dispatcher=pulse,
+                        guards=guards,
+                        deadline=deadline,
+                        execute=args.execute,
+                        veto=veto,
+                        commit=runtime.model.commit if args.precommit else None,
+                        guard_interval=args.guard_interval,
+                        on_record=on_record,
+                        pump=desktop.refresh_app_events,
+                        start=start,
+                    ).run()
+                    if pipeline_summary["stop_reason"] != "duration_complete":
+                        raise RuntimeError(pipeline_summary["stop_reason"])
+                # Serial loop (default); skipped entirely when the pipeline ran.
+                while not args.pipeline and time.perf_counter() < deadline:
                     desktop.refresh_app_events()
                     if any(p.exists() for p in stops):
                         raise RuntimeError("STOP requested")
@@ -366,6 +588,8 @@ def run(args):
         finally:
             pulse.finish()
             stream.close()
+            if planner is not None:
+                planner.close()
             for future in futures:
                 future.result()
     inference = [e["proposal"]["image_to_outputs_ms"] for e in events]
@@ -422,6 +646,17 @@ def run(args):
             "p50": float(np.median(values)) if values else None,
             "p95": float(np.percentile(values, 95)) if values else None,
         }
+    if pipeline_summary is not None:
+        summary["pipeline"] = pipeline_summary
+    if stream_options or args.pipeline:
+        summary["runtime_options"] = {
+            **{k: v for k, v in stream_options.items() if k != "planner"},
+            "planner": "molmo" if stream_options.get("planner") is not None else None,
+            "pipeline": args.pipeline,
+            "precommit": args.precommit,
+            "guard_interval_s": args.guard_interval if args.pipeline else None,
+            "compile_status": getattr(runtime.model, "compile_status", None),
+        }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2), flush=True)
 
@@ -442,6 +677,33 @@ def main():
     )
     p.add_argument("--execute", action="store_true")
     p.add_argument("--controls", default=CONTROLS)
+    # Experimental options; defaults keep the reviewed serial runner unchanged.
+    p.add_argument("--pipeline", action="store_true", help="asynchronous guards, no pulse wait")
+    p.add_argument("--guard-interval", type=float, default=0.05, help="pipeline guard period (s)")
+    p.add_argument("--precommit", action="store_true", help="commit feedback before next frame")
+    p.add_argument("--compile", action="store_true", help="mx.compile the laya-p2p-1 stream")
+    p.add_argument("--max-memory-gap", type=float, help="laya-p2p-1 memory gap bound (s)")
+    p.add_argument(
+        "--planner",
+        action="store_true",
+        help="run the Molmo planner: it targets goal objects and issues one click per new target",
+    )
+    p.add_argument(
+        "--planner-act",
+        action="store_true",
+        help="let the planner also approach its target (W/A/S/D) and click the skill Molmo points to",
+    )
+    p.add_argument(
+        "--pointer",
+        action="store_true",
+        help="move the cursor to the checkpoint's absolute pointer output on new mouse presses",
+    )
+    p.add_argument(
+        "--wait-for-focus",
+        type=float,
+        default=0,
+        help="seconds to wait for the user to focus the game before an --execute trial",
+    )
     run(p.parse_args())
 
 

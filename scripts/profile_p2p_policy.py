@@ -57,6 +57,7 @@ def main():
     ]
     state = {k: v.float() for k, v in state.items()}
     model = OpenP2PPolicy.from_state({k: v.float().numpy() for k, v in state.items()})
+    depth = len(model.policy.layers)
 
     def subset(prefix):
         return {k.removeprefix(prefix): v for k, v in state.items() if k.startswith(prefix)}
@@ -72,7 +73,7 @@ def main():
             embed_dim=1024,
             n_q_head=16,
             n_kv_head=16,
-            n_transformer_layers=10,
+            n_transformer_layers=depth,
             dropout=0,
             n_kv_sink_tokens=0,
         )
@@ -99,7 +100,7 @@ def main():
         .eval()
     )
     decoder.load_state_dict(subset("bc_transformer.action_decoder."), strict=True)
-    ref_cache = [cache_config.init_state() for _ in range(10)]
+    ref_cache = [cache_config.init_state() for _ in range(depth)]
     native_cache = None
     frames = sorted(args.frames.glob("*.jpg"))
     if len(frames) < 3:
@@ -224,6 +225,8 @@ def main():
                 "revision": P2P_REVISION,
                 "precision": "float32",
                 "laya_stitched": False,
+                "depth": depth,
+                "checkpoint": str(args.checkpoint),
             },
             indent=2,
         )

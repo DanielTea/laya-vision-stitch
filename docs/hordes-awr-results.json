@@ -1,0 +1,2502 @@
+{
+  "experiment": "Advantage-weighted regression (AWR) on weak Hordes controller labels",
+  "artifact": "artifacts/hordes-awr-002",
+  "total_updates": 4800,
+  "promoted": false,
+  "replication": "BC seed 20260923 reproduces artifacts/laya-p2p-visual-adapter-003 exactly: losses, validation and shuffled-validation metrics at all 13 checkpoints, frozen hash and test metrics.",
+  "superseded": "artifacts/hordes-awr-001 ran the same eight trainings with identical losses and unshuffled metrics, but seeded shuffle controls per training seed and so failed its own identical-baseline check. It is not reported.",
+  "scope": "Offline development experiment. Logged controller OCR state only weights training examples and is never a model input. Weak single-frame Hordes labels plus public human replay; two-recording Hordes validation/test are reused development holdouts. No live inputs or gameplay claim; nothing is deployment eligible.",
+  "settings": {
+    "bundle": "artifacts/laya-p2p-bridge-001/bundle",
+    "data": "artifacts/hordes-radio-data-001",
+    "cache": "artifacts/p2p-visual-features-001",
+    "output": "artifacts/hordes-awr-002",
+    "steps": 600,
+    "batch_size": 8,
+    "rank": 4,
+    "bottleneck": 64,
+    "learning_rate": 0.0001,
+    "replay_kl": 1.0,
+    "eval_every": 50,
+    "betas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "max_weight": 20.0,
+    "horizon": 1.5,
+    "threshold": 0.02,
+    "health_penalty": 0.5,
+    "seeds": [
+      20260923,
+      20260924
+    ],
+    "shuffle_seed": 20260923
+  },
+  "reward_definition": {
+    "horizon": 1.5,
+    "threshold": 0.02,
+    "health_penalty": 0.5,
+    "reward": "target_damage - health_penalty * player_health_loss over (t, t + horizon]",
+    "target_damage": "drop of the same-named selected target's OCR health fraction (minimum later reading); zero at or below threshold, without a named target at t, or without later readings",
+    "player_health_loss": "drop of the player's OCR health fraction; zero at or below threshold",
+    "out_of_range": "flag only: any logged out_of_range state in the window"
+  },
+  "rewards": {
+    "train": {
+      "examples": 828,
+      "reward": {
+        "mean": 0.01596135265700483,
+        "std": 0.05326293772754548,
+        "min": -0.014500000000000013,
+        "max": 0.31200000000000006,
+        "positive": 85,
+        "negative": 37,
+        "zero": 706
+      },
+      "target_damage_examples": 85,
+      "player_health_loss_examples": 54,
+      "target_status": {
+        "no_target": 124,
+        "unidentified": 379,
+        "observed": 318,
+        "unobserved": 7
+      },
+      "player_health_unobserved": 4,
+      "incomplete_windows": 45,
+      "out_of_range_windows": 16,
+      "by_action": {
+        "attack_damage": {
+          "examples": 25,
+          "mean_reward": 0.14378000000000005
+        },
+        "attack_no_damage": {
+          "examples": 46,
+          "mean_reward": -0.0005326086956521732
+        },
+        "idle": {
+          "examples": 335,
+          "mean_reward": 0.02402537313432836
+        },
+        "other_active": {
+          "examples": 422,
+          "mean_reward": 0.0037855450236966826
+        }
+      },
+      "attack": {
+        "labels": 71,
+        "damage_followed": 25,
+        "no_damage_complete_window": 40,
+        "no_damage_incomplete_window": 6,
+        "out_of_range_after": 3
+      }
+    },
+    "validation": {
+      "examples": 237,
+      "reward": {
+        "mean": 0.004130801687763713,
+        "std": 0.026088695285892815,
+        "min": 0.0,
+        "max": 0.256,
+        "positive": 10,
+        "negative": 0,
+        "zero": 227
+      },
+      "target_damage_examples": 10,
+      "player_health_loss_examples": 0,
+      "target_status": {
+        "no_target": 9,
+        "observed": 167,
+        "unidentified": 59,
+        "unobserved": 2
+      },
+      "player_health_unobserved": 0,
+      "incomplete_windows": 6,
+      "out_of_range_windows": 3,
+      "by_action": {
+        "attack_damage": {
+          "examples": 3,
+          "mean_reward": 0.07566666666666667
+        },
+        "attack_no_damage": {
+          "examples": 28,
+          "mean_reward": 0.0
+        },
+        "idle": {
+          "examples": 107,
+          "mean_reward": 0.006635514018691589
+        },
+        "other_active": {
+          "examples": 99,
+          "mean_reward": 0.00042424242424242404
+        }
+      },
+      "attack": {
+        "labels": 31,
+        "damage_followed": 3,
+        "no_damage_complete_window": 26,
+        "no_damage_incomplete_window": 2,
+        "out_of_range_after": 1
+      }
+    },
+    "test": {
+      "examples": 178,
+      "reward": {
+        "mean": 0.04721629213483145,
+        "std": 0.07605929542113574,
+        "min": -0.01050000000000001,
+        "max": 0.32599999999999996,
+        "positive": 58,
+        "negative": 1,
+        "zero": 119
+      },
+      "target_damage_examples": 58,
+      "player_health_loss_examples": 5,
+      "target_status": {
+        "no_target": 28,
+        "observed": 149,
+        "unidentified": 1
+      },
+      "player_health_unobserved": 0,
+      "incomplete_windows": 6,
+      "out_of_range_windows": 13,
+      "by_action": {
+        "attack_damage": {
+          "examples": 15,
+          "mean_reward": 0.15799999999999995
+        },
+        "attack_no_damage": {
+          "examples": 14,
+          "mean_reward": 0.0
+        },
+        "idle": {
+          "examples": 104,
+          "mean_reward": 0.04928365384615385
+        },
+        "other_active": {
+          "examples": 45,
+          "mean_reward": 0.0202
+        }
+      },
+      "attack": {
+        "labels": 29,
+        "damage_followed": 15,
+        "no_damage_complete_window": 13,
+        "no_damage_incomplete_window": 1,
+        "out_of_range_after": 3
+      }
+    },
+    "matches_dataset_attack_audit": true
+  },
+  "value_baseline": {
+    "features": "Frozen 1024D Open-P2P image token (standardized); ridge regression",
+    "alpha": 10000.0,
+    "cross_validation_mse": {
+      "1.0": 0.013704902291204342,
+      "10.0": 0.006862053172562794,
+      "100.0": 0.0036322278981236,
+      "1000.0": 0.0025146583818582225,
+      "10000.0": 0.002473469931280917,
+      "100000.0": 0.002741917839647945
+    },
+    "fit": "Train Hordes rows only; train advantages use leave-one-run-out predictions",
+    "splits": {
+      "train": {
+        "r2": 0.12812062838683091,
+        "value_damage_auc_on_attack_frames": 0.856,
+        "value_damage_auc_interval": [
+          0.76,
+          0.937
+        ]
+      },
+      "validation": {
+        "r2": -0.17964316558594295,
+        "value_damage_auc_on_attack_frames": 0.2692307692307692,
+        "value_damage_auc_interval": [
+          0.11538461538461539,
+          0.44871794871794873
+        ]
+      },
+      "test": {
+        "r2": 0.062231243994581686,
+        "value_damage_auc_on_attack_frames": 0.7538461538461538,
+        "value_damage_auc_interval": [
+          0.5487179487179488,
+          0.9128205128205128
+        ]
+      }
+    }
+  },
+  "awr_weights": {
+    "0.5": {
+      "effective_sample_fraction": 0.1671714243650831,
+      "clipped_fraction": 0.0748792270531401,
+      "raw_mean": 2.4096354690703947,
+      "max_normalized": 8.30001062680063,
+      "by_action": {
+        "attack_damage": {
+          "mean_weight": 7.529349599250476,
+          "weight_share": 0.22733543475997814
+        },
+        "attack_no_damage": {
+          "mean_weight": 0.23908702590329706,
+          "weight_share": 0.013282612550183169
+        },
+        "idle": {
+          "mean_weight": 1.26734892184068,
+          "weight_share": 0.512755904367908
+        },
+        "other_active": {
+          "mean_weight": 0.48390134599658424,
+          "weight_share": 0.2466260483219306
+        }
+      }
+    },
+    "1": {
+      "effective_sample_fraction": 0.18713156078524407,
+      "clipped_fraction": 0.03140096618357488,
+      "raw_mean": 1.8472603386659687,
+      "max_normalized": 10.826844263025398,
+      "by_action": {
+        "attack_damage": {
+          "mean_weight": 5.183408386611193,
+          "weight_share": 0.15650387640734276
+        },
+        "attack_no_damage": {
+          "mean_weight": 0.3978721511924209,
+          "weight_share": 0.022104008399578937
+        },
+        "idle": {
+          "mean_weight": 1.2370227436486125,
+          "weight_share": 0.5004862549786052
+        },
+        "other_active": {
+          "mean_weight": 0.6296446735961699,
+          "weight_share": 0.32090586021447304
+        }
+      }
+    },
+    "2": {
+      "effective_sample_fraction": 0.334403926023396,
+      "clipped_fraction": 0.0,
+      "raw_mean": 1.2816757231305738,
+      "max_normalized": 14.852852291478811,
+      "by_action": {
+        "attack_damage": {
+          "mean_weight": 2.6857506180315522,
+          "weight_share": 0.08109150416761932
+        },
+        "attack_no_damage": {
+          "mean_weight": 0.6624584608443846,
+          "weight_share": 0.03680324782468803
+        },
+        "idle": {
+          "mean_weight": 1.1553617936367693,
+          "weight_share": 0.4674471024979682
+        },
+        "other_active": {
+          "mean_weight": 0.813594655170739,
+          "weight_share": 0.4146581455097244
+        }
+      }
+    }
+  },
+  "checks": {
+    "parents_unchanged": true,
+    "same_frozen_parents": true,
+    "identical_baselines": true,
+    "fresh_image_tokens_match": true
+  },
+  "trainable_parameters": 252033,
+  "baseline": {
+    "validation": {
+      "hordes_button_f1": 0.08588957055214724,
+      "supported_button_macro_f1": 0.03888888888888889,
+      "exact_button_set_accuracy": 0.42616033755274263,
+      "idle_false_positive_rate": 0.12149532710280374,
+      "per_button_f1": {
+        "1": 0.0,
+        "d": 0.0,
+        "mouse_right": 0.0,
+        "tab": 0.0,
+        "w": 0.19444444444444445
+      },
+      "public_mean_button_f1": 0.8430127041742287,
+      "shuffled_hordes_button_f1": 0.06134969325153374,
+      "damage_auc": 0.28205128205128205,
+      "damage_auc_interval": [
+        0.07692307692307693,
+        0.5384615384615384
+      ],
+      "shuffled_damage_auc": 0.3974358974358974,
+      "attack_vs_idle_auc": 0.5462767561049141,
+      "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+      "mean_p_attack": {
+        "damage_followed": 0.00011869739197815458,
+        "no_damage": 0.0002688529341937213,
+        "out_of_range_after": 6.33267845842056e-05,
+        "idle": 0.00023643469344661355,
+        "all_hordes": 0.0002941990906767103
+      },
+      "greedy_attack_rate": {
+        "damage_followed": 0.0,
+        "no_damage": 0.0,
+        "idle": 0.0
+      }
+    },
+    "test": {
+      "hordes_button_f1": 0.0851063829787234,
+      "supported_button_macro_f1": 0.05128205128205128,
+      "exact_button_set_accuracy": 0.5730337078651685,
+      "idle_false_positive_rate": 0.057692307692307696,
+      "per_button_f1": {
+        "1": 0.0,
+        "d": 0.0,
+        "mouse_right": 0.0,
+        "w": 0.20512820512820512
+      },
+      "public_mean_button_f1": 0.8388250319284802,
+      "shuffled_hordes_button_f1": 0.10638297872340426,
+      "damage_auc": 0.35384615384615387,
+      "damage_auc_interval": [
+        0.16397435897435897,
+        0.5692307692307692
+      ],
+      "shuffled_damage_auc": 0.5384615384615384,
+      "attack_vs_idle_auc": 0.6548408488063661,
+      "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+      "mean_p_attack": {
+        "damage_followed": 0.0002893114059891862,
+        "no_damage": 0.00043770300488596637,
+        "out_of_range_after": 0.0006064500291055689,
+        "idle": 0.00028191876166462095,
+        "all_hordes": 0.0003540791217193565
+      },
+      "greedy_attack_rate": {
+        "damage_followed": 0.0,
+        "no_damage": 0.0,
+        "idle": 0.0
+      }
+    }
+  },
+  "seed_means": {
+    "selected": {
+      "bc": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack_idle": 0.00028191876166462095
+        }
+      },
+      "awr-beta-0.5": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack_idle": 0.00028191876166462095
+        }
+      },
+      "awr-beta-1": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack_idle": 0.00028191876166462095
+        }
+      },
+      "awr-beta-2": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack_idle": 0.00028191876166462095
+        }
+      }
+    },
+    "final": {
+      "bc": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.020134228187919462,
+          "idle_false_positive_rate": 0.028037383177570093,
+          "public_mean_button_f1": 0.8224978918474357,
+          "shuffled_hordes_button_f1": 0.013422818791946308,
+          "damage_auc": 0.23076923076923078,
+          "shuffled_damage_auc": 0.35256410256410253,
+          "attack_vs_idle_auc": 0.5590895387398251,
+          "shuffled_attack_vs_idle_auc": 0.4879409104612602,
+          "mean_p_attack_idle": 0.08600906998019178
+        },
+        "test": {
+          "hordes_button_f1": 0.026153846153846153,
+          "idle_false_positive_rate": 0.004807692307692308,
+          "public_mean_button_f1": 0.814435230530924,
+          "shuffled_hordes_button_f1": 0.01282051282051282,
+          "damage_auc": 0.41025641025641024,
+          "shuffled_damage_auc": 0.6153846153846154,
+          "attack_vs_idle_auc": 0.6006299734748011,
+          "shuffled_attack_vs_idle_auc": 0.47994031830238726,
+          "mean_p_attack_idle": 0.09781715377735403
+        }
+      },
+      "awr-beta-0.5": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "idle_false_positive_rate": 0.0,
+          "public_mean_button_f1": 0.8119564002100024,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.41025641025641024,
+          "shuffled_damage_auc": 0.20512820512820512,
+          "attack_vs_idle_auc": 0.49532710280373826,
+          "shuffled_attack_vs_idle_auc": 0.49909556828459456,
+          "mean_p_attack_idle": 0.07945227366219336
+        },
+        "test": {
+          "hordes_button_f1": 0.051308016877637135,
+          "idle_false_positive_rate": 0.0,
+          "public_mean_button_f1": 0.8167242422813306,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.5,
+          "shuffled_damage_auc": 0.382051282051282,
+          "attack_vs_idle_auc": 0.5837201591511936,
+          "shuffled_attack_vs_idle_auc": 0.3934018567639257,
+          "mean_p_attack_idle": 0.09034639936334525
+        }
+      },
+      "awr-beta-1": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.021739130434782608,
+          "idle_false_positive_rate": 0.009345794392523364,
+          "public_mean_button_f1": 0.8046467348522334,
+          "shuffled_hordes_button_f1": 0.007246376811594203,
+          "damage_auc": 0.3782051282051282,
+          "shuffled_damage_auc": 0.26282051282051283,
+          "attack_vs_idle_auc": 0.5058788061501356,
+          "shuffled_attack_vs_idle_auc": 0.4724148326801326,
+          "mean_p_attack_idle": 0.06812875450775897
+        },
+        "test": {
+          "hordes_button_f1": 0.03930735930735931,
+          "idle_false_positive_rate": 0.0,
+          "public_mean_button_f1": 0.816787454516074,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.4717948717948718,
+          "shuffled_damage_auc": 0.4512820512820513,
+          "attack_vs_idle_auc": 0.5820623342175066,
+          "shuffled_attack_vs_idle_auc": 0.40401193633952254,
+          "mean_p_attack_idle": 0.09106597367924854
+        }
+      },
+      "awr-beta-2": {
+        "seeds": 2,
+        "validation": {
+          "hordes_button_f1": 0.007407407407407408,
+          "idle_false_positive_rate": 0.004672897196261682,
+          "public_mean_button_f1": 0.8148382350510011,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.3269230769230769,
+          "shuffled_damage_auc": 0.26282051282051283,
+          "attack_vs_idle_auc": 0.5022610792885137,
+          "shuffled_attack_vs_idle_auc": 0.4697015375339162,
+          "mean_p_attack_idle": 0.07185948253435162
+        },
+        "test": {
+          "hordes_button_f1": 0.013157894736842105,
+          "idle_false_positive_rate": 0.0,
+          "public_mean_button_f1": 0.8099142064390366,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.41538461538461535,
+          "shuffled_damage_auc": 0.5102564102564102,
+          "attack_vs_idle_auc": 0.5749336870026525,
+          "shuffled_attack_vs_idle_auc": 0.46236737400530503,
+          "mean_p_attack_idle": 0.08521935565826985
+        }
+      }
+    }
+  },
+  "runs": {
+    "bc/seed-20260923": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.040268456375838924,
+          "supported_button_macro_f1": 0.027493540051679588,
+          "exact_button_set_accuracy": 0.4388185654008439,
+          "idle_false_positive_rate": 0.056074766355140186,
+          "per_button_f1": {
+            "1": 0.09302325581395349,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.044444444444444446
+          },
+          "public_mean_button_f1": 0.8419267299864315,
+          "shuffled_hordes_button_f1": 0.026845637583892617,
+          "damage_auc": 0.2948717948717949,
+          "damage_auc_interval": [
+            0.1282051282051282,
+            0.5
+          ],
+          "shuffled_damage_auc": 0.34615384615384615,
+          "attack_vs_idle_auc": 0.5854687971058186,
+          "shuffled_attack_vs_idle_auc": 0.48779017184202594,
+          "mean_p_attack": {
+            "damage_followed": 0.058293127765258156,
+            "no_damage": 0.15745371664301133,
+            "out_of_range_after": 0.07572893053293228,
+            "idle": 0.10427877693175922,
+            "all_hordes": 0.12433172979211349
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.07692307692307693,
+            "idle": 0.037383177570093455
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.02564102564102564,
+          "supported_button_macro_f1": 0.015625,
+          "exact_button_set_accuracy": 0.5842696629213483,
+          "idle_false_positive_rate": 0.009615384615384616,
+          "per_button_f1": {
+            "1": 0.0625,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8166558943925416,
+          "shuffled_hordes_button_f1": 0.02564102564102564,
+          "damage_auc": 0.4666666666666667,
+          "damage_auc_interval": [
+            0.23076923076923078,
+            0.6717948717948717
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.5765915119363395,
+          "shuffled_attack_vs_idle_auc": 0.45125994694960214,
+          "mean_p_attack": {
+            "damage_followed": 0.17274804065624874,
+            "no_damage": 0.1818873667373107,
+            "out_of_range_after": 0.0841135283311208,
+            "idle": 0.13615381391718984,
+            "all_hordes": 0.14901452947910246
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.06666666666666667,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.01994151614658604
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.48717948717948717,
+          "mean_p_attack_idle": 0.04106765341396644
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.6025641025641025,
+          "mean_p_attack_idle": 0.0686665632909982
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.47435897435897434,
+          "mean_p_attack_idle": 0.1134483442754946
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.015151515151515152,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.09071071188305026
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.014598540145985401,
+          "damage_auc": 0.44871794871794873,
+          "mean_p_attack_idle": 0.04911578205962465
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.06543719800728783
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2692307692307692,
+          "mean_p_attack_idle": 0.04064107138802794
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.07274171646475514
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.02877697841726619,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.047489615944954
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.04147143542840555
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.040268456375838924,
+          "damage_auc": 0.2948717948717949,
+          "mean_p_attack_idle": 0.10427877693175922
+        }
+      ]
+    },
+    "awr-beta-0.5/seed-20260923": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8172238372093024,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.5512820512820513,
+          "damage_auc_interval": [
+            0.34615384615384615,
+            0.7435897435897436
+          ],
+          "shuffled_damage_auc": 0.10256410256410256,
+          "attack_vs_idle_auc": 0.5188423274042809,
+          "shuffled_attack_vs_idle_auc": 0.5197467591196865,
+          "mean_p_attack": {
+            "damage_followed": 0.09992750113209088,
+            "no_damage": 0.12266710191929284,
+            "out_of_range_after": 0.00930874701589346,
+            "idle": 0.10504639680088262,
+            "all_hordes": 0.11191987585205632
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0759493670886076,
+          "supported_button_macro_f1": 0.14166666666666666,
+          "exact_button_set_accuracy": 0.601123595505618,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.06666666666666667,
+            "d": 0.4,
+            "mouse_right": 0.0,
+            "w": 0.1
+          },
+          "public_mean_button_f1": 0.8235321165817769,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.4358974358974359,
+          "damage_auc_interval": [
+            0.23076923076923078,
+            0.6615384615384615
+          ],
+          "shuffled_damage_auc": 0.4512820512820513,
+          "attack_vs_idle_auc": 0.6024535809018567,
+          "shuffled_attack_vs_idle_auc": 0.3637267904509284,
+          "mean_p_attack": {
+            "damage_followed": 0.11916357030471166,
+            "no_damage": 0.1641286465411003,
+            "out_of_range_after": 0.16378136972586313,
+            "idle": 0.12105390492181939,
+            "all_hordes": 0.1365957291079999
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.07692307692307693,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.06679363139887627
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.041727282707448875
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.41025641025641024,
+          "mean_p_attack_idle": 0.07460914109180743
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.0916931800169992
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.46153846153846156,
+          "mean_p_attack_idle": 0.04239701165460816
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.44871794871794873,
+          "mean_p_attack_idle": 0.0902622517385459
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.014492753623188406,
+          "damage_auc": 0.47435897435897434,
+          "mean_p_attack_idle": 0.06762398606618848
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.4358974358974359,
+          "mean_p_attack_idle": 0.02027515353195404
+        },
+        {
+          "step": 450,
+          "score": 0.30485971869051093,
+          "hordes_button_f1": 0.06711409395973154,
+          "damage_auc": 0.4358974358974359,
+          "mean_p_attack_idle": 0.08710929166490787
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.027210884353741496,
+          "damage_auc": 0.47435897435897434,
+          "mean_p_attack_idle": 0.11859027858579828
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.48717948717948717,
+          "mean_p_attack_idle": 0.02740247492737215
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.5512820512820513,
+          "mean_p_attack_idle": 0.10504639680088262
+        }
+      ]
+    },
+    "awr-beta-1/seed-20260923": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8172238372093024,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "damage_auc_interval": [
+            0.1794871794871795,
+            0.5512820512820513
+          ],
+          "shuffled_damage_auc": 0.20512820512820512,
+          "attack_vs_idle_auc": 0.5266807356044618,
+          "shuffled_attack_vs_idle_auc": 0.482363581549593,
+          "mean_p_attack": {
+            "damage_followed": 0.04348285992940267,
+            "no_damage": 0.09415280028658274,
+            "out_of_range_after": 0.00810924731194973,
+            "idle": 0.078626954499371,
+            "all_hordes": 0.08628109119142865
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.05194805194805195,
+          "supported_button_macro_f1": 0.125,
+          "exact_button_set_accuracy": 0.5955056179775281,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.4,
+            "mouse_right": 0.0,
+            "w": 0.1
+          },
+          "public_mean_button_f1": 0.8306265259853506,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.4512820512820513,
+          "damage_auc_interval": [
+            0.24102564102564103,
+            0.6717948717948717
+          ],
+          "shuffled_damage_auc": 0.48717948717948717,
+          "attack_vs_idle_auc": 0.5948275862068966,
+          "shuffled_attack_vs_idle_auc": 0.3736737400530504,
+          "mean_p_attack": {
+            "damage_followed": 0.12475969729324182,
+            "no_damage": 0.15391222960673845,
+            "out_of_range_after": 0.11264486114184062,
+            "idle": 0.10859150803074814,
+            "all_hordes": 0.12195168433480719
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.057683694374390714
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3076923076923077,
+          "mean_p_attack_idle": 0.04595321677973337
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.056927899808283444
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.38461538461538464,
+          "mean_p_attack_idle": 0.13068698156868744
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.06959523372003966
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.41025641025641024,
+          "mean_p_attack_idle": 0.0750815257882682
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.04643738649950894
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.03041524375858499
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.014388489208633094,
+          "damage_auc": 0.34615384615384615,
+          "mean_p_attack_idle": 0.07784103135639261
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.38461538461538464,
+          "mean_p_attack_idle": 0.07747497607596984
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.02283575830716753
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.078626954499371
+        }
+      ]
+    },
+    "awr-beta-2/seed-20260923": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8313131313131313,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "damage_auc_interval": [
+            0.19230769230769232,
+            0.5387820512820495
+          ],
+          "shuffled_damage_auc": 0.23076923076923078,
+          "attack_vs_idle_auc": 0.5245703949351824,
+          "shuffled_attack_vs_idle_auc": 0.46397347000301475,
+          "mean_p_attack": {
+            "damage_followed": 0.0281305480748415,
+            "no_damage": 0.08184156262163575,
+            "out_of_range_after": 0.010582583956420422,
+            "idle": 0.0667966317742297,
+            "all_hordes": 0.0763227884676838
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.02631578947368421,
+          "supported_button_macro_f1": 0.1,
+          "exact_button_set_accuracy": 0.5898876404494382,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.4,
+            "mouse_right": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8235321165817769,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.38974358974358975,
+          "damage_auc_interval": [
+            0.18974358974358974,
+            0.6052564102564095
+          ],
+          "shuffled_damage_auc": 0.49743589743589745,
+          "attack_vs_idle_auc": 0.5752652519893899,
+          "shuffled_attack_vs_idle_auc": 0.45026525198938994,
+          "mean_p_attack": {
+            "damage_followed": 0.10346886726717154,
+            "no_damage": 0.13504974429423994,
+            "out_of_range_after": 0.07229961827397346,
+            "idle": 0.0895143339338784,
+            "all_hordes": 0.09964024318444929
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.02086364323268949
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.41025641025641024,
+          "mean_p_attack_idle": 0.04244601705642504
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.04941945244497228
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.38461538461538464,
+          "mean_p_attack_idle": 0.08504251227061325
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.07393219954743285
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.035854630781529104
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.043409247736873054
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2692307692307692,
+          "mean_p_attack_idle": 0.027995920042664022
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.06788072211528633
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.04813692394086969
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.027782254207174284
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.0667966317742297
+        }
+      ]
+    },
+    "bc/seed-20260924": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.80306905370844,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.16666666666666666,
+          "damage_auc_interval": [
+            0.038461538461538464,
+            0.3333333333333333
+          ],
+          "shuffled_damage_auc": 0.358974358974359,
+          "attack_vs_idle_auc": 0.5327102803738317,
+          "shuffled_attack_vs_idle_auc": 0.4880916490804944,
+          "mean_p_attack": {
+            "damage_followed": 0.026519435768326122,
+            "no_damage": 0.08442846735796103,
+            "out_of_range_after": 0.014064930379390717,
+            "idle": 0.06773936302862435,
+            "all_hordes": 0.07470689957985018
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.02666666666666667,
+          "supported_button_macro_f1": 0.025,
+          "exact_button_set_accuracy": 0.5898876404494382,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.1
+          },
+          "public_mean_button_f1": 0.8122145666693065,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.15884615384615383,
+            0.5743589743589743
+          ],
+          "shuffled_damage_auc": 0.6923076923076923,
+          "attack_vs_idle_auc": 0.6246684350132626,
+          "shuffled_attack_vs_idle_auc": 0.5086206896551724,
+          "mean_p_attack": {
+            "damage_followed": 0.0666507658859094,
+            "no_damage": 0.08381037757946895,
+            "out_of_range_after": 0.058081661040584244,
+            "idle": 0.05948049363751824,
+            "all_hordes": 0.07207032825714083
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.018867924528301886,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.050601264531506554
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.05520464755838441
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3076923076923077,
+          "mean_p_attack_idle": 0.017510364363057033
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.0454305259980888
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.04513423938617528
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.34615384615384615,
+          "mean_p_attack_idle": 0.07381153125620543
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.013986013986013986,
+          "damage_auc": 0.24358974358974358,
+          "mean_p_attack_idle": 0.08583606287802213
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.1111111111111111,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.11309359636958514
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.02702702702702703,
+          "damage_auc": 0.23076923076923078,
+          "mean_p_attack_idle": 0.02860652484548078
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.14102564102564102,
+          "mean_p_attack_idle": 0.09558588294225319
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.036585365853658534,
+          "damage_auc": 0.2692307692307692,
+          "mean_p_attack_idle": 0.08400999151483596
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.16666666666666666,
+          "mean_p_attack_idle": 0.06773936302862435
+        }
+      ]
+    },
+    "awr-beta-0.5/seed-20260924": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8066889632107024,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.2692307692307692,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5
+          ],
+          "shuffled_damage_auc": 0.3076923076923077,
+          "attack_vs_idle_auc": 0.47181187820319564,
+          "shuffled_attack_vs_idle_auc": 0.4784443774495026,
+          "mean_p_attack": {
+            "damage_followed": 0.022331709042191505,
+            "no_damage": 0.06070849084510253,
+            "out_of_range_after": 0.007062936667352915,
+            "idle": 0.05385815052350409,
+            "all_hordes": 0.05592566434655511
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.02666666666666667,
+          "supported_button_macro_f1": 0.125,
+          "exact_button_set_accuracy": 0.5898876404494382,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.5,
+            "mouse_right": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8099163679808842,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.5641025641025641,
+          "damage_auc_interval": [
+            0.3435897435897436,
+            0.7898717948717942
+          ],
+          "shuffled_damage_auc": 0.3128205128205128,
+          "attack_vs_idle_auc": 0.5649867374005305,
+          "shuffled_attack_vs_idle_auc": 0.4230769230769231,
+          "mean_p_attack": {
+            "damage_followed": 0.06716162177423636,
+            "no_damage": 0.06739627526929745,
+            "out_of_range_after": 0.0529007725417614,
+            "idle": 0.05963889380487112,
+            "all_hordes": 0.0604045956835067
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2948717948717949,
+          "mean_p_attack_idle": 0.008349704126953626
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2692307692307692,
+          "mean_p_attack_idle": 0.004982900002832028
+        },
+        {
+          "step": 150,
+          "score": 0.28439650821533,
+          "hordes_button_f1": 0.03614457831325301,
+          "damage_auc": 0.34615384615384615,
+          "mean_p_attack_idle": 0.010539261345418658
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.32051282051282054,
+          "mean_p_attack_idle": 0.012569701744604717
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.022222222222222223,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.03936513939384963
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.04819277108433735,
+          "damage_auc": 0.3333333333333333,
+          "mean_p_attack_idle": 0.05499150852942578
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.038461538461538464,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.06499298100977718
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3076923076923077,
+          "mean_p_attack_idle": 0.008923002585081087
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.058823529411764705,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.017789611020604165
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.013888888888888888,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.03431780218521011
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.03296703296703297,
+          "damage_auc": 0.4230769230769231,
+          "mean_p_attack_idle": 0.05682885802620761
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2692307692307692,
+          "mean_p_attack_idle": 0.05385815052350409
+        }
+      ]
+    },
+    "awr-beta-1/seed-20260924": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.043478260869565216,
+          "supported_button_macro_f1": 0.02355889724310777,
+          "exact_button_set_accuracy": 0.45569620253164556,
+          "idle_false_positive_rate": 0.018691588785046728,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.07017543859649122,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.047619047619047616
+          },
+          "public_mean_button_f1": 0.7920696324951644,
+          "shuffled_hordes_button_f1": 0.014492753623188406,
+          "damage_auc": 0.3974358974358974,
+          "damage_auc_interval": [
+            0.19230769230769232,
+            0.6282051282051282
+          ],
+          "shuffled_damage_auc": 0.32051282051282054,
+          "attack_vs_idle_auc": 0.48507687669580946,
+          "shuffled_attack_vs_idle_auc": 0.4624660838106723,
+          "mean_p_attack": {
+            "damage_followed": 0.03747725859284401,
+            "no_damage": 0.06898580206773029,
+            "out_of_range_after": 0.005730590783059597,
+            "idle": 0.05763055451614695,
+            "all_hordes": 0.06113096002247656
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.02666666666666667,
+          "supported_button_macro_f1": 0.016666666666666666,
+          "exact_button_set_accuracy": 0.5898876404494382,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.06666666666666667,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.8029483830467975,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.49230769230769234,
+          "damage_auc_interval": [
+            0.27692307692307694,
+            0.7025641025641025
+          ],
+          "shuffled_damage_auc": 0.4153846153846154,
+          "attack_vs_idle_auc": 0.5692970822281167,
+          "shuffled_attack_vs_idle_auc": 0.4343501326259947,
+          "mean_p_attack": {
+            "damage_followed": 0.09747689850628376,
+            "no_damage": 0.08463879058567378,
+            "out_of_range_after": 0.053383382658163704,
+            "idle": 0.07354043932774892,
+            "all_hordes": 0.07650036024704074
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.06666666666666667,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2564102564102564,
+          "mean_p_attack_idle": 0.024093881657969416
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2564102564102564,
+          "mean_p_attack_idle": 0.006089016275369414
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.011972866680964863
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.017116742963667646
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.010309278350515464,
+          "damage_auc": 0.47435897435897434,
+          "mean_p_attack_idle": 0.03520282229711084
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.039735099337748346,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.06070764210710528
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.011494252873563218,
+          "damage_auc": 0.4230769230769231,
+          "mean_p_attack_idle": 0.06653123444259584
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.1595744680851064,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.035533907327139486
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.02666666666666667,
+          "damage_auc": 0.38461538461538464,
+          "mean_p_attack_idle": 0.02532648331067899
+        },
+        {
+          "step": 500,
+          "score": 0.30581296444959766,
+          "hordes_button_f1": 0.07947019867549669,
+          "damage_auc": 0.47435897435897434,
+          "mean_p_attack_idle": 0.06553583386763234
+        },
+        {
+          "step": 550,
+          "score": -1.0,
+          "hordes_button_f1": 0.07329842931937172,
+          "damage_auc": 0.48717948717948717,
+          "mean_p_attack_idle": 0.07036351740238404
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.043478260869565216,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.05763055451614695
+        }
+      ]
+    },
+    "awr-beta-2/seed-20260924": {
+      "selected_step": 0,
+      "selected": {
+        "validation": {
+          "hordes_button_f1": 0.08588957055214724,
+          "supported_button_macro_f1": 0.03888888888888889,
+          "exact_button_set_accuracy": 0.42616033755274263,
+          "idle_false_positive_rate": 0.12149532710280374,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "tab": 0.0,
+            "w": 0.19444444444444445
+          },
+          "public_mean_button_f1": 0.8430127041742287,
+          "shuffled_hordes_button_f1": 0.06134969325153374,
+          "damage_auc": 0.28205128205128205,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.3974358974358974,
+          "attack_vs_idle_auc": 0.5462767561049141,
+          "shuffled_attack_vs_idle_auc": 0.45764244799517634,
+          "mean_p_attack": {
+            "damage_followed": 0.00011869739197815458,
+            "no_damage": 0.0002688529341937213,
+            "out_of_range_after": 6.33267845842056e-05,
+            "idle": 0.00023643469344661355,
+            "all_hordes": 0.0002941990906767103
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0851063829787234,
+          "supported_button_macro_f1": 0.05128205128205128,
+          "exact_button_set_accuracy": 0.5730337078651685,
+          "idle_false_positive_rate": 0.057692307692307696,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.20512820512820512
+          },
+          "public_mean_button_f1": 0.8388250319284802,
+          "shuffled_hordes_button_f1": 0.10638297872340426,
+          "damage_auc": 0.35384615384615387,
+          "damage_auc_interval": [
+            0.16397435897435897,
+            0.5692307692307692
+          ],
+          "shuffled_damage_auc": 0.5384615384615384,
+          "attack_vs_idle_auc": 0.6548408488063661,
+          "shuffled_attack_vs_idle_auc": 0.5152519893899205,
+          "mean_p_attack": {
+            "damage_followed": 0.0002893114059891862,
+            "no_damage": 0.00043770300488596637,
+            "out_of_range_after": 0.0006064500291055689,
+            "idle": 0.00028191876166462095,
+            "all_hordes": 0.0003540791217193565
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "final": {
+        "validation": {
+          "hordes_button_f1": 0.014814814814814815,
+          "supported_button_macro_f1": 0.007272727272727273,
+          "exact_button_set_accuracy": 0.45147679324894513,
+          "idle_false_positive_rate": 0.009345794392523364,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.03636363636363636,
+            "s": 0.0,
+            "tab": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.7983633387888707,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.2948717948717949,
+          "damage_auc_interval": [
+            0.07692307692307693,
+            0.5384615384615384
+          ],
+          "shuffled_damage_auc": 0.2948717948717949,
+          "attack_vs_idle_auc": 0.47995176364184505,
+          "shuffled_attack_vs_idle_auc": 0.47542960506481763,
+          "mean_p_attack": {
+            "damage_followed": 0.04134103283286095,
+            "no_damage": 0.08756859521739759,
+            "out_of_range_after": 0.015163194388151169,
+            "idle": 0.07692233329447352,
+            "all_hordes": 0.08183511013149397
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        },
+        "test": {
+          "hordes_button_f1": 0.0,
+          "supported_button_macro_f1": 0.0,
+          "exact_button_set_accuracy": 0.5842696629213483,
+          "idle_false_positive_rate": 0.0,
+          "per_button_f1": {
+            "1": 0.0,
+            "d": 0.0,
+            "mouse_right": 0.0,
+            "w": 0.0
+          },
+          "public_mean_button_f1": 0.7962962962962963,
+          "shuffled_hordes_button_f1": 0.0,
+          "damage_auc": 0.441025641025641,
+          "damage_auc_interval": [
+            0.22564102564102564,
+            0.6666666666666666
+          ],
+          "shuffled_damage_auc": 0.5230769230769231,
+          "attack_vs_idle_auc": 0.5746021220159151,
+          "shuffled_attack_vs_idle_auc": 0.4744694960212202,
+          "mean_p_attack": {
+            "damage_followed": 0.10314984669287999,
+            "no_damage": 0.09917057792727764,
+            "out_of_range_after": 0.05980569372574488,
+            "idle": 0.08092437738266128,
+            "all_hordes": 0.08849078155216876
+          },
+          "greedy_attack_rate": {
+            "damage_followed": 0.0,
+            "no_damage": 0.0,
+            "idle": 0.0
+          }
+        }
+      },
+      "validation_history": [
+        {
+          "step": 0,
+          "score": 0.32259705453842163,
+          "hordes_button_f1": 0.08588957055214724,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.00023643469344661355
+        },
+        {
+          "step": 50,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.09587711591499849
+        },
+        {
+          "step": 100,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.28205128205128205,
+          "mean_p_attack_idle": 0.016856222478215905
+        },
+        {
+          "step": 150,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.2948717948717949,
+          "mean_p_attack_idle": 0.006364022715073775
+        },
+        {
+          "step": 200,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.46153846153846156,
+          "mean_p_attack_idle": 0.026692389458348263
+        },
+        {
+          "step": 250,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.3717948717948718,
+          "mean_p_attack_idle": 0.03082368616014719
+        },
+        {
+          "step": 300,
+          "score": -1.0,
+          "hordes_button_f1": 0.02631578947368421,
+          "damage_auc": 0.3076923076923077,
+          "mean_p_attack_idle": 0.062081539903323504
+        },
+        {
+          "step": 350,
+          "score": -1.0,
+          "hordes_button_f1": 0.0,
+          "damage_auc": 0.38461538461538464,
+          "mean_p_attack_idle": 0.057476641864855293
+        },
+        {
+          "step": 400,
+          "score": -1.0,
+          "hordes_button_f1": 0.22707423580786026,
+          "damage_auc": 0.3076923076923077,
+          "mean_p_attack_idle": 0.07099583610961928
+        },
+        {
+          "step": 450,
+          "score": -1.0,
+          "hordes_button_f1": 0.014084507042253521,
+          "damage_auc": 0.2948717948717949,
+          "mean_p_attack_idle": 0.026258000592640208
+        },
+        {
+          "step": 500,
+          "score": -1.0,
+          "hordes_button_f1": 0.028169014084507043,
+          "damage_auc": 0.358974358974359,
+          "mean_p_attack_idle": 0.09760116649983085
+        },
+        {
+          "step": 550,
+          "score": 0.3047615422677273,
+          "hordes_button_f1": 0.06976744186046512,
+          "damage_auc": 0.3974358974358974,
+          "mean_p_attack_idle": 0.07451367186747979
+        },
+        {
+          "step": 600,
+          "score": -1.0,
+          "hordes_button_f1": 0.014814814814814815,
+          "damage_auc": 0.2948717948717949,
+          "mean_p_attack_idle": 0.07692233329447352
+        }
+      ]
+    }
+  }
+}

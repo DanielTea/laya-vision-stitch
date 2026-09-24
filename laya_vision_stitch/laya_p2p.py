@@ -52,7 +52,8 @@ class LayaP2PRuntime:
     @classmethod
     def build(cls, policy_bundle):
         agent = load_laya("english")
-        policy = OpenP2PPolicy()
+        source = json.loads((Path(policy_bundle) / "config.json").read_text())
+        policy = OpenP2PPolicy(depth=source.get("depth", 10))
         policy.load_weights(str(Path(policy_bundle) / "model.safetensors"), strict=True)
         policy.freeze()
         model = LayaP2P(agent.model, policy)
@@ -66,7 +67,7 @@ class LayaP2PRuntime:
                 "laya_revision": LAYA_MODELS["english"][1],
                 "encoder_config": agent.encoder_cfg,
                 "agent_config": agent.cfg,
-                "policy_source": json.loads((Path(policy_bundle) / "config.json").read_text()),
+                "policy_source": source,
                 "trained_goal_bridge": False,
                 "deployment_eligible": False,
                 "scope": "Laya encoder and decision-head features condition the pretrained P2P image/action policy. No inherited full Qwen reasoning is claimed.",
@@ -99,11 +100,28 @@ class LayaP2PRuntime:
         if meta["format"] != "laya-p2p-1":
             raise ValueError("Unsupported stitched checkpoint")
         laya = DecisionModel(EncoderConfig.from_dict(meta["encoder_config"]), meta["agent_config"])
-        model = LayaP2P(laya, OpenP2PPolicy())
+        model = LayaP2P(laya, OpenP2PPolicy(depth=meta["policy_source"].get("depth", 10)))
         if meta.get("control_adapter"):
             from .p2p_adaptation import install_control_adapter
 
             install_control_adapter(model, **meta["control_adapter"])
+        if meta.get("policy_lora"):
+            from .p2p_adaptation import install_policy_lora
+
+            install_policy_lora(model, **meta["policy_lora"])
+        if "target_encoder" in meta:
+            from .target_conditioning import install_target_encoder
+
+            install_target_encoder(model, **meta["target_encoder"])
+        if meta.get("pointer_head"):
+            from .pointer_head import PointerHead
+
+            model.policy.pointer_head = PointerHead(**meta["pointer_head"])
+        if meta.get("pointer_encoder") == "radio":
+            from .radio_vision import RadioVision
+
+            # Frozen C-RADIOv3-B used only on steps that propose a mouse press.
+            model.policy.pointer_encoder = RadioVision()
         if meta.get("visual_adapter"):
             from .p2p_adaptation import install_visual_adapter
 
