@@ -191,6 +191,8 @@ with Molmo sharing the GPU, the median is 33–36 ms and the p95 is 150–170 ms
 | `hordes-planner-live-001` | + Molmo planner (select click) | 36 / 153 ms | 2 planner clicks, 1 selected a Mature Grub; health stayed 70/70; a center click later reselected the player |
 | `hordes-act-live-001` | + planner actions, full viewport | 33 / 156 ms | Molmo found no monsters (0/15 answers); no planner action |
 | `hordes-act-live-002` | same | 33 / 171 ms | Stopped at 48 s (focus lost); 0/12 answers with monsters |
+| `hordes-hold-live-001` | camera-trained bundle `general-002`, `--hold --all-keys`, no planner | 38 / 56 ms | Left-button drags rotated the camera; no zoom or attack; opening click selected self |
+| `hordes-hold-live-002` | same | 38 / 58 ms | Left drag tilted the camera to a third-person view; walked toward the village; no zoom or attack |
 
 Earlier rounds ran live trials at 34–53 ms median inference. They produced movement and
 occasional selection, never attacks with damage
@@ -232,7 +234,12 @@ Against the same recipe on the existing data, the model trained with all four:
 - improves click timing in Diablo II (onset F1 0.22 to 0.30).
 
 Zoom timing and drag detection improve little, and middle-button camera rotation could
-not be tested offline. The bundle `laya-p2p-general-002` is ready for a live `--hold` test.
+not be tested offline.
+
+**Live (`hordes-hold-live-001`).** With `--hold`, the model held the left button for up to
+3.8 s while moving the mouse, and the Hordes camera rotated. This is the first live camera
+control. Screenshot to first input took 38 ms median and 56 ms p95. There was no zoom and
+no attack, and the drag's opening click selected the player's own character.
 
 ### 10. Jev-Omni: a native multimodal decision model instead of stitching?
 

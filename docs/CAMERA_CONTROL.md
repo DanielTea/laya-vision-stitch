@@ -200,6 +200,43 @@ click head: 43 keys, reload bit-identical. On a replay of 20 s of recorded Horde
 ran at 29.6 ms p50 and 55 ms p95 (GPU shared). It proposed movement, 28 steps holding the
 right button and 18 left clicks.
 
+## Live Hordes trial with holds
+
+`hordes-hold-live-001`: 60 s, bundle `laya-p2p-general-002`, `--hold --all-keys --pointer
+--pipeline --precommit --compile`, no planner. The game viewport was the calibrated
+1280×720 in a 1280×807 window.
+- **Latency.** The trial completed with 1,678 decisions (28/s). Inference took 22 ms
+  median (40 ms p95); screenshot to first input took 38 ms median and **56 ms p95**, the
+  best tail so far and under the 60 ms target.
+- **Holds.** The model held the left button in 36 runs, the longest 106 steps (3.8 s,
+  612 px of horizontal motion), and the right button in 4 short runs. 112 steps were drags
+  (a button held while moving).
+
+It pressed Space on 18 steps, W/A/S/D on 253, and never used the wheel.
+
+**The camera rotated.** During the long left-button drag (6.2–10.7 s) the view turned
+around the centered character: the village and tree gave way to the path, then to
+cobblestones. This is the first camera control observed live; the pulse transport could
+not produce it.
+
+The press that started the drag went to the screen center (pointer head), which selected
+the player's own character.
+
+Not seen live:
+- no wheel zoom;
+- no middle-button use;
+- no attacks.
+
+**Second run** (`hordes-hold-live-002`, same setup):
+- **Latency.** 1,755 decisions; screenshot to first input took 38 ms median and 58 ms p95.
+- **Holds.** 20 left-button runs, the longest 104 steps, and 96 drag steps.
+- **Camera.** The longest drag (25.2–30.3 s) tilted the camera from a steep top-down view
+  to a horizontal third-person view with the village in sight.
+- **Behavior.** The character then walked toward the village, holding W on 410 steps, and
+  passed close to another player.
+- **Missing.** No zoom, no ability keys and no attack. The opening center click again
+  selected the player's own character.
+
 ## Reproduce
 
 ```sh
