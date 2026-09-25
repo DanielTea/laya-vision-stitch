@@ -116,3 +116,29 @@ def test_d2e_sessions_split_chronologically_per_game():
     ]
     assert splits[("H", "recording_1")] == "train"
     assert set(assign(grouped, "fresh_games").values()) == {"fresh_games"}
+
+
+def test_control_report_scores_scroll_onsets_and_drags():
+    from laya_vision_stitch.sequence_metrics import control_report
+
+    rows = [{"game": "g", "sequence": "s", "step": k} for k in range(6)]
+    truth = [
+        frozenset(),
+        frozenset(),
+        frozenset({"scroll_up"}),
+        frozenset(),
+        frozenset({"mouse_right"}),
+        frozenset({"mouse_right"}),
+    ]
+    motion = [[0, 0]] * 4 + [[10, 0], [8, 2]]
+    same = control_report(rows, truth, truth, motion, motion)
+    assert same["scroll_up"]["onset_f1"] == 1.0 and same["mouse_right"]["onset_f1"] == 1.0
+    assert same["drag"]["f1"] == 1.0 and abs(same["drag"]["cosine"] - 1) < 1e-9
+    idle = control_report(rows, [frozenset()] * 6, truth, [[0, 0]] * 6, motion)
+    assert (
+        idle["scroll_up"]["onset_f1"] == 0.0
+        and idle["drag"]["f1"] == 0.0
+        and idle["drag"]["cosine"] is None
+    )
+    reversed_drag = control_report(rows, truth, truth, [[0, 0]] * 4 + [[-10, 0], [-8, -2]], motion)
+    assert reversed_drag["drag"]["cosine"] < -0.9

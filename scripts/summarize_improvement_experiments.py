@@ -216,6 +216,9 @@ def main():
         "policy-lora-captions-001",
         "policy-lora-targets-001",
         "policy-lora-targets10-001",
+        "policy-lora-extended-base-001",
+        "policy-lora-extended-ck3-001",
+        "policy-lora-extended-camera-001",
     ]:
         report = load(root, name)
         if report is None:

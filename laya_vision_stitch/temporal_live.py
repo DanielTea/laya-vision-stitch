@@ -21,11 +21,53 @@ from pathlib import Path
 
 import numpy as np
 
+from .hold_transport import HoldTransport
 from .p2p_data import CONTROLS
 from .temporal_runtime import TemporalRuntime
 
 KEYS = {"w": 13, "a": 0, "s": 1, "d": 2, "space": 49, "tab": 48, "1": 18, "2": 19, "3": 20, "4": 21}
 ALLOWED = set(KEYS) | {"mouse_left", "mouse_right"}
+# macOS virtual key codes for every keyboard control in the extended vocabulary
+# (p2p_adaptation.EXTENDED_KEYS); `--all-keys` allows them with the middle button and wheel.
+KEY_CODES = {
+    **KEYS,
+    "e": 14,
+    "f": 3,
+    "q": 12,
+    "z": 6,
+    "r": 15,
+    "c": 8,
+    "x": 7,
+    "v": 9,
+    "g": 5,
+    "i": 34,
+    "m": 46,
+    "b": 11,
+    "t": 17,
+    "h": 4,
+    "5": 23,
+    "6": 22,
+    "7": 26,
+    "8": 28,
+    "9": 25,
+    "0": 29,
+    "up": 126,
+    "down": 125,
+    "left": 123,
+    "right": 124,
+    "shift": 56,
+    "ctrl": 59,
+    "alt": 58,
+    "escape": 53,
+    "enter": 36,
+}
+EXTENDED_ALLOWED = set(KEY_CODES) | {
+    "mouse_left",
+    "mouse_right",
+    "mouse_middle",
+    "scroll_up",
+    "scroll_down",
+}
 MOVEMENT = {"w", "a", "s", "d"}
 
 
@@ -336,6 +378,9 @@ def run(args):
     target = desktop.NativeWindow(args.window)
     if target.original["kCGWindowOwnerName"] != "Google Chrome":
         raise ValueError("Only the selected regular Chrome window is supported")
+    if args.all_keys:
+        KEYS.update(KEY_CODES)
+        ALLOWED.update(EXTENDED_ALLOWED)
     desktop.KEYCODES.update(KEYS)
     bounds = target.original["kCGWindowBounds"]
     width, height = [int(bounds[k]) for k in ("Width", "Height")]
@@ -391,9 +436,17 @@ def run(args):
         from .live_pipeline import GuardVeto
 
         veto = GuardVeto(max(0.1, 2 * args.guard_interval))
-        pulse = PreemptingPulse(target, crop, veto.denial, args.pointer)
+        pulse = (
+            HoldTransport(target, crop, set(KEYS), args.pointer, permit=veto.denial)
+            if args.hold
+            else PreemptingPulse(target, crop, veto.denial, args.pointer)
+        )
     else:
-        pulse = Pulse(target, crop, args.pointer)
+        pulse = (
+            HoldTransport(target, crop, set(KEYS), args.pointer)
+            if args.hold
+            else Pulse(target, crop, args.pointer)
+        )
     start, stop_reason, pipeline_summary = None, "duration_complete", None
     with ControllerLock(), ThreadPoolExecutor(max_workers=1) as writer:
         try:
@@ -687,6 +740,16 @@ def main():
         "--planner",
         action="store_true",
         help="run the Molmo planner: it targets goal objects and issues one click per new target",
+    )
+    p.add_argument(
+        "--hold",
+        action="store_true",
+        help="stateful transport: controls stay down across steps, drags, clutching, wheel",
+    )
+    p.add_argument(
+        "--all-keys",
+        action="store_true",
+        help="allow every extended-vocabulary key plus the middle button and mouse wheel",
     )
     p.add_argument(
         "--planner-act",

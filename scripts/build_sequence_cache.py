@@ -15,8 +15,14 @@ import numpy as np
 from PIL import Image
 
 from laya_vision_stitch.laya_p2p import LayaP2PRuntime
-from laya_vision_stitch.p2p_adaptation import encode_action
-from laya_vision_stitch.p2p_pretrained_policy import KEY_NAMES, MOUSE_NAMES
+from laya_vision_stitch.p2p_adaptation import (
+    EXTENDED_KEYS,
+    KEYS_WITH_TAB,
+    encode_action,
+    install_control_adapter,
+    restrict_controls,
+)
+from laya_vision_stitch.p2p_pretrained_policy import KEY_NAMES
 from laya_vision_stitch.p2p_pretrained_vision import preprocess
 from laya_vision_stitch.sequence_policy import sequence_contexts
 
@@ -44,13 +50,6 @@ def sequences(rows):
             raise ValueError(f"Sequence {name} mixes games")
         result.append(idx)
     return result
-
-
-def supported(action):
-    """Drop controls outside the released vocabulary (no Tab); the frame is flagged incomplete."""
-    known = (set(KEY_NAMES) | set(MOUSE_NAMES)) - {None}
-    buttons = [b for b in action["buttons"] if b in known]
-    return {**action, "buttons": buttons}, len(buttons) == len(action["buttons"])
 
 
 def resolve(image, root):
@@ -89,11 +88,21 @@ def main():
         action="store_true",
         help="Store 12x12x112 grids only for frames with a pointer press (pointer-head training)",
     )
+    p.add_argument(
+        "--vocabulary",
+        choices=["released", "extended"],
+        default="released",
+        help="extended adds Tab, mouse-wheel notches and more keys (p2p_adaptation.EXTENDED_KEYS)",
+    )
     args = p.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     runtime = LayaP2PRuntime.load(args.bundle)
     model = runtime.model
     policy = model.policy
+    vocabulary = EXTENDED_KEYS if args.vocabulary == "extended" else KEY_NAMES
+    if args.vocabulary == "extended":
+        # New controls start at the mean key embedding; zero-initialized LoRA changes nothing.
+        install_control_adapter(model, rank=1, extra_keys=len(EXTENDED_KEYS) - len(KEY_NAMES))
     goal_cache = {}
 
     def goal_vector(text):
@@ -106,6 +115,8 @@ def main():
         "bundle": str(args.bundle),
         "source_weights_sha256": digest(args.bundle / "model.safetensors"),
         "data": str(args.data),
+        "vocabulary": args.vocabulary,
+        "key_names": [k for k in vocabulary],
         "splits": {},
         "scope": "Frozen features; contexts use recorded previous actions (teacher forcing)",
     }
@@ -171,8 +182,10 @@ def main():
                 fovea[start : start + len(batch)] = np.asarray(crop_token)
             for j, r in enumerate(batch):
                 goals[start + j] = goal_vector(r["goal"])
-                action, complete[start + j] = supported(r["action"])
-                tokens[start + j] = encode_action(action)
+                action, complete[start + j] = restrict_controls(r["action"], vocabulary)
+                tokens[start + j] = encode_action(
+                    action, KEYS_WITH_TAB if vocabulary is KEY_NAMES else vocabulary
+                )
         contexts = np.zeros((n, 1024), np.float32)
         unconditional = np.zeros((n, 1024), np.float32)
         offset = 0

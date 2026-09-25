@@ -389,8 +389,8 @@ class LayaP2PStream:
         self.committed = True
 
     def _commit(self, action):
-        actual = encode_action(action)
         key_names = self.runtime.metadata.get("key_names", KEY_NAMES)
+        actual = encode_action(action, key_names)
         if any(k >= len(key_names) for k in actual[:4]):
             raise ValueError("Applied action is outside this checkpoint's vocabulary")
         actions = mx.array([actual], mx.int32)

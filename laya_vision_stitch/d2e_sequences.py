@@ -57,21 +57,21 @@ def assign(grouped, mode):
     return result
 
 
-def decode_window(container, stream, pts_list):
-    """Frames at or before each requested PTS (<=MAX_FRAME_AGE old); None if any is missing."""
+def decode_window(container, stream, pts_list, max_age=MAX_FRAME_AGE):
+    """Frames at or before each requested PTS (<= max_age old); None if any is missing."""
     container.seek(max(0, int((pts_list[0] - 1.0) / float(stream.time_base))), stream=stream)
     wanted, result, previous = list(pts_list), [], None
     for frame in container.decode(stream):
         stamp = float(frame.pts * frame.time_base)
         while wanted and stamp > wanted[0]:
-            if previous is None or wanted[0] - previous[0] > MAX_FRAME_AGE:
+            if previous is None or wanted[0] - previous[0] > max_age:
                 return None
             result.append(previous[1])
             wanted.pop(0)
         if not wanted:
             break
         previous = (stamp, frame)
-    while wanted and previous is not None and wanted[0] - previous[0] <= MAX_FRAME_AGE:
+    while wanted and previous is not None and wanted[0] - previous[0] <= max_age:
         result.append(previous[1])
         wanted.pop(0)
     return result if not wanted else None

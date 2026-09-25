@@ -8,17 +8,17 @@ from collections import defaultdict
 
 import numpy as np
 
-from .p2p_adaptation import KEYS_WITH_TAB
+from .p2p_adaptation import EXTENDED_KEYS
 from .p2p_pretrained_policy import MOUSE_NAMES, MOUSE_X, MOUSE_Y
 
-BUTTONS = tuple(dict.fromkeys(k for k in (*KEYS_WITH_TAB, *MOUSE_NAMES) if k is not None))
+BUTTONS = tuple(dict.fromkeys(k for k in (*EXTENDED_KEYS, *MOUSE_NAMES) if k is not None))
 
 
 def token_buttons(tokens):
     tokens = np.asarray(tokens)
     result = []
     for row in tokens.reshape(-1, 8):
-        names = {KEYS_WITH_TAB[t] for t in row[:4]} | {MOUSE_NAMES[t] for t in row[4:6]}
+        names = {EXTENDED_KEYS[t] for t in row[:4]} | {MOUSE_NAMES[t] for t in row[4:6]}
         result.append(frozenset(n for n in names if n is not None))
     return result
 
@@ -126,3 +126,72 @@ def baselines(rows, truth, true_mouse):
         "repeat_previous": evaluate_actions(rows, repeat, truth, repeat_mouse, true_mouse),
         "no_input": evaluate_actions(rows, empty, truth, np.zeros_like(repeat_mouse), true_mouse),
     }
+
+
+CAMERA_CONTROLS = ("scroll_up", "scroll_down", "mouse_left", "mouse_right", "mouse_middle")
+MOUSE_BUTTONS = frozenset({"mouse_left", "mouse_right", "mouse_middle"})
+
+
+def control_report(
+    rows, predicted, truth, pred_mouse, true_mouse, controls=CAMERA_CONTROLS, tolerance=2
+):
+    """Per-control onset F1 pooled over games, plus drags (a held mouse button with motion).
+
+    drag_f1 scores steps predicted and recorded as drags; drag_cosine is the mean cosine of
+    predicted and recorded motion on steps where both drag.
+    """
+    order = defaultdict(list)
+    for i, r in enumerate(rows):
+        order[r["sequence"]].append(i)
+    previous, first = [frozenset()] * len(rows), set()
+    for idx in order.values():
+        idx.sort(key=lambda i: rows[i]["step"])
+        first.add(idx[0])
+        for a, b in zip(idx[:-1], idx[1:], strict=True):
+            previous[b] = truth[a]
+    pred_on, true_on = onsets(predicted, previous), onsets(truth, previous)
+    report = {}
+    for control in controls:
+        tp = fp = fn = 0
+        for idx in order.values():
+            valid = [i for i in idx if i not in first]
+            p = [rows[i]["step"] for i in valid if control in pred_on[i]]
+            t = [rows[i]["step"] for i in valid if control in true_on[i]]
+            used = set()
+            for s in t:
+                match = next(
+                    (k for k, q in enumerate(p) if k not in used and abs(q - s) <= tolerance), None
+                )
+                if match is None:
+                    fn += 1
+                else:
+                    used.add(match)
+                    tp += 1
+            fp += len(p) - len(used)
+        report[control] = {
+            "onset_f1": _f1(tp, fp, fn),
+            "true_onsets": tp + fn,
+            "predicted_onsets": tp + fp,
+        }
+    pred_mouse, true_mouse = np.asarray(pred_mouse, float), np.asarray(true_mouse, float)
+    pred_drag = np.array([bool(MOUSE_BUTTONS & set(b)) for b in predicted]) & (
+        np.abs(pred_mouse).sum(1) > 0
+    )
+    true_drag = np.array([bool(MOUSE_BUTTONS & set(b)) for b in truth]) & (
+        np.abs(true_mouse).sum(1) > 0
+    )
+    both = pred_drag & true_drag
+    norms = np.linalg.norm(pred_mouse[both], axis=1) * np.linalg.norm(true_mouse[both], axis=1)
+    report["drag"] = {
+        "f1": _f1(
+            int(both.sum()),
+            int((pred_drag & ~true_drag).sum()),
+            int((~pred_drag & true_drag).sum()),
+        ),
+        "true_steps": int(true_drag.sum()),
+        "predicted_steps": int(pred_drag.sum()),
+        "cosine": float(((pred_mouse[both] * true_mouse[both]).sum(1) / norms).mean())
+        if both.any()
+        else None,
+    }
+    return report

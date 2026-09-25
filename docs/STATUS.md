@@ -214,6 +214,55 @@ occasional selection, never attacks with damage
 The planner stack contains no game names or rules, but its generality is a design goal,
 not a result.
 
+### 9. Camera control and strategy games
+
+Camera control now has a general path: [CAMERA_CONTROL.md](CAMERA_CONTROL.md).
+- **Vocabulary.** The action vocabulary gains mouse-wheel notches and 20 more keys.
+- **Runtime.** A stateful live transport (`--hold`) keeps buttons down, sends drags,
+  clutches the cursor and posts wheel events.
+- **Data.** Training adds Crusader Kings III (CC-BY-4.0) and three privately used
+  "other"-licensed sets: Baldur's Gate 3, Civilization VI and Diablo II. About half of
+  those sets' sessions have encrypted input logs and were skipped. Training windows are
+  also placed around rare drag and wheel events.
+
+Against the same recipe on the existing data, the model trained with all four:
+- has lower NLL on all five held-out D2E games;
+- beats repeating the previous action on held-out Baldur's Gate 3, Civilization VI and
+  Diablo II sessions (for example Diablo II button F1 0.715 vs 0.698);
+- improves click timing in Diablo II (onset F1 0.22 to 0.30).
+
+Zoom timing and drag detection improve little, and middle-button camera rotation could
+not be tested offline. The bundle `laya-p2p-general-002` is ready for a live `--hold` test.
+
+### 10. Jev-Omni: a native multimodal decision model instead of stitching?
+
+[`akhilaaa3/Jev-Omni`](https://huggingface.co/akhilaaa3/Jev-Omni) (revision `c050d51`,
+Apache-2.0) is Gemma 4 12B-it with a linear head. It reads text, image, audio or video,
+takes a question and 2–256 options, and returns one probability per option from a single
+forward pass. This is the interface Laya provides, with vision built in.
+
+`laya_vision_stitch/jev_omni.py` ports the reference CUDA loader to MLX. It uses only
+`unified/` (bf16, 23.9 GB) and the 4 MB head. `scripts/evaluate_jev_omni.py` evaluates
+it; the report is at `artifacts/jev-omni-eval-001`.
+
+| Check | Result |
+|---|---|
+| Parity with the repository's reference probabilities | max difference 0.023 (the repository's own two versions differ by 0.019) |
+| Latency on M3 Max, bf16 | 270 ms per text question; 753 ms per question on a 1280×720 screenshot |
+| Hordes: "Is a monster selected?" (80 frames; ground truth from the target panel color) | AUC 0.67–0.79 depending on wording; best wording catches 14 of 40 selections with no false yes |
+| Held-out D2E games: which of 9 regions is clicked (100 click frames) | 40%, answering "middle center" 86% of the time; always-center scores 43%, the RADIO click head 48% |
+
+**Verdict.** It runs locally and is faster than Molmo's answers, but it reads game UI
+state unreliably and has no spatial sense of where to act.
+
+It cannot replace the controller either: it has no key or mouse outputs, no memory and
+no coordinates. It also would not remove any stitching that currently matters. In the
+current model Laya only supplies goal features, and those carry almost no action
+information.
+
+It is not integrated. It could return as a planner question-answerer if its UI reading
+improves, for example through fine-tuning on labelled game-state questions.
+
 ## Earlier rounds, in brief
 
 - **No-training stitches.** CLIP/Qwen → Laya with paired references or a lexical bridge

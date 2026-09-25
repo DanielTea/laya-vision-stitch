@@ -20,12 +20,15 @@ from mlx.utils import tree_flatten
 
 from laya_vision_stitch.laya_p2p import LayaP2PRuntime
 from laya_vision_stitch.p2p_adaptation import (
+    EXTENDED_KEYS,
     KEYS_WITH_TAB,
     install_control_adapter,
     install_policy_lora,
 )
+from laya_vision_stitch.p2p_pretrained_policy import KEY_NAMES
 from laya_vision_stitch.sequence_metrics import (
     baselines,
+    control_report,
     evaluate_actions,
     token_buttons,
     token_mouse,
@@ -40,6 +43,7 @@ def read(path):
 
 CAPTIONS = {}  # (data directory name, sequence) -> bridged caption goal vector
 USE_TARGETS = False
+EXTENDED = False  # use <split>.tokens-extended.npz where the cache was built in another vocabulary
 TARGET_LABELS = "targets"
 
 
@@ -58,6 +62,15 @@ def load(item):
     for i, s in enumerate(a["sequence_index"]):
         groups[int(s)].append(i)
     seqs = [np.array(sorted(v, key=lambda i: a["steps"][i])) for v in groups.values()]
+    meta = json.loads((Path(cache) / "metadata.json").read_text())
+    extended_tokens = Path(cache) / f"{split}.tokens-extended.npz"
+    if EXTENDED and meta.get("vocabulary") != "extended":
+        if not extended_tokens.exists():
+            raise FileNotFoundError(f"{extended_tokens} missing; run scripts/retokenize_caches.py")
+        relabelled = np.load(extended_tokens)
+        a["tokens"], a["label_complete"] = relabelled["tokens"], relabelled["label_complete"]
+    elif not EXTENDED and meta.get("vocabulary") == "extended":
+        raise ValueError(f"{cache} uses the extended vocabulary; pass --vocabulary extended")
     a["target_xy"] = np.full((len(rows), 2), np.nan, np.float32)
     a["target_pointer"] = np.zeros(len(rows), bool)
     labels = Path(cache) / f"{split}.{TARGET_LABELS}.npz"
@@ -161,6 +174,11 @@ def target_audit(policy, item, limit=None):
     return result
 
 
+def validation_nll(policy, items, limit):
+    """Mean over validation splits of their mean recorded-action NLL."""
+    return float(np.mean([evaluate(policy, i, samples=0, limit=limit)["mean_nll"] for i in items]))
+
+
 def goal_audit(policy, a, seqs):
     """Recorded-action NLL with the clip's own caption, another clip's caption, or none."""
     captioned = [g for g in seqs if a["captioned"][g[0]]]
@@ -223,7 +241,12 @@ def evaluate(policy, item, samples=1, limit=None):
     truth, mouse = token_buttons(a["tokens"][order]), token_mouse(a["tokens"][order])
 
     def score(tokens):
-        return evaluate_actions(used, token_buttons(tokens), truth, token_mouse(tokens), mouse)
+        result = evaluate_actions(used, token_buttons(tokens), truth, token_mouse(tokens), mouse)
+        if EXTENDED:
+            result["controls"] = control_report(
+                used, token_buttons(tokens), truth, token_mouse(tokens), mouse
+            )
+        return result
 
     return {
         "frames": len(order),
@@ -239,7 +262,15 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--bundle", type=Path, required=True)
     p.add_argument("--train", nargs="+", required=True)
-    p.add_argument("--validation", required=True)
+    p.add_argument(
+        "--validation", nargs="+", required=True, help="Mean NLL over these splits selects"
+    )
+    p.add_argument(
+        "--game-weight",
+        nargs="*",
+        default=[],
+        help="Game=factor sampling weights (default 1 each); e.g. Crusader_Kings_III=3",
+    )
     p.add_argument("--evaluate", nargs="+", required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--policy-rank", type=int, default=8)
@@ -260,6 +291,12 @@ def main():
         "--target-labels", default="targets", help="Label set from add_target_labels.py --tag"
     )
     p.add_argument(
+        "--vocabulary",
+        choices=["tab", "extended"],
+        default="tab",
+        help="extended: EXTENDED_KEYS (mouse wheel and more keys); older caches need retokenize_caches.py",
+    )
+    p.add_argument(
         "--evaluate-existing",
         action="store_true",
         help="Skip training; evaluate the checkpoint already in --output (history from <output>.log)",
@@ -272,6 +309,9 @@ def main():
                 {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}, indent=2
             )
         )
+    global EXTENDED
+    EXTENDED = args.vocabulary == "extended"
+    key_names = EXTENDED_KEYS if EXTENDED else KEYS_WITH_TAB
     mx.random.seed(args.seed)
     rng = np.random.default_rng(args.seed)
     runtime = LayaP2PRuntime.load(args.bundle)
@@ -291,10 +331,17 @@ def main():
             json.dumps({"captioned_sequences": len(CAPTIONS), "unique_captions": len(vectors)}),
             flush=True,
         )
+    if EXTENDED:
+        # The released table has no rows for the new controls: install them first (mean
+        # embedding, -8 logit bias, zero LoRA), so the reference is the pretrained policy.
+        install_control_adapter(
+            model, rank=args.decoder_rank, extra_keys=len(key_names) - len(KEY_NAMES)
+        )
     reference = {item: evaluate(policy, item) for item in args.evaluate}
     for item, r in reference.items():
         print(json.dumps({"pretrained": item, "nll": round(r["mean_nll"], 4)}), flush=True)
-    install_control_adapter(model, rank=args.decoder_rank)
+    if not EXTENDED:
+        install_control_adapter(model, rank=args.decoder_rank)
     if args.policy_rank:
         install_policy_lora(model, rank=args.policy_rank)
     if args.targets:
@@ -312,6 +359,13 @@ def main():
             if len(g) >= args.window:
                 pools[rows[g[0]]["game"]].append((len(data) - 1, g))
     games = sorted(pools)
+    weights = {g: 1.0 for g in games}
+    for item in args.game_weight:
+        game, factor = item.split("=")
+        if game not in weights:
+            raise ValueError(f"No training windows for weighted game {game}")
+        weights[game] = float(factor)
+    probabilities = np.array([weights[g] for g in games]) / sum(weights.values())
 
     def loss_fn(m, images, goals, tokens, mask, targets=None):
         c = sequence_contexts(m.policy, images, goals, tokens, target=targets)
@@ -328,15 +382,13 @@ def main():
         best_step = min(history, key=lambda h: h["validation_nll"])["step"]
         steps = range(0)
     else:
-        best = evaluate(policy, args.validation, samples=0, limit=args.validation_sequences)[
-            "mean_nll"
-        ]
+        best = validation_nll(policy, args.validation, args.validation_sequences)
         best_step, history = 0, [{"step": 0, "validation_nll": best}]
         model.save_weights(str(args.output / "model.safetensors"))
         steps = range(1, args.steps + 1)
     for step in steps:
         batch = []
-        for game in rng.choice(games, args.batch):
+        for game in rng.choice(games, args.batch, p=probabilities):
             source, g = pools[game][rng.integers(len(pools[game]))]
             start = rng.integers(0, len(g) - args.window + 1)
             batch.append((source, g[start : start + args.window]))
@@ -361,9 +413,7 @@ def main():
         optimizer.update(model, grads)
         mx.eval(model.parameters(), optimizer.state, loss)
         if step % 250 == 0 or step == args.steps:
-            v = evaluate(policy, args.validation, samples=0, limit=args.validation_sequences)[
-                "mean_nll"
-            ]
+            v = validation_nll(policy, args.validation, args.validation_sequences)
             history.append({"step": step, "train_loss": float(loss), "validation_nll": v})
             print(json.dumps(history[-1]), flush=True)
             if v < best:
@@ -390,6 +440,7 @@ def main():
     report = {
         "trainable_parameters": trainable,
         "games": {g: len(v) for g, v in pools.items()},
+        "game_weights": {g: w for g, w in weights.items() if w != 1.0},
         "selected_step": best_step,
         "history": history,
         "pretrained": reference,
@@ -418,8 +469,11 @@ def main():
         )
     config = {
         **runtime.metadata,
-        "control_adapter": {"rank": args.decoder_rank},
-        "key_names": list(KEYS_WITH_TAB),
+        "control_adapter": {
+            "rank": args.decoder_rank,
+            "extra_keys": len(key_names) - len(KEY_NAMES),
+        },
+        "key_names": list(key_names),
         "deployment_eligible": False,
     }
     if args.policy_rank:
