@@ -237,6 +237,12 @@ Not seen live:
 - **Missing.** No zoom, no ability keys and no attack. The opening center click again
   selected the player's own character.
 
+**Fix after these runs.** With `--hold`, the stream now moves pointer-head presses that
+fall on the avatar (within 0.08 of the screen center) 0.15 out from the center, in the
+predicted direction or straight up (`planner_actions.clear_of_avatar`). A drag then
+starts on the ground beside the character instead of selecting it. This is the same
+screen-center avatar convention the planner uses; it has not yet been tried live.
+
 ## Reproduce
 
 ```sh

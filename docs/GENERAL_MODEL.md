@@ -214,8 +214,11 @@ The runtime now works as follows:
 - It counts a match below 0.75 as lost. True matches score 0.88 median under synthetic
   shifts and about 0.77 after seconds of real motion; wrong matches score 0.76.
 - It keeps a target for up to 30 s while it can still be found (previously 6 s).
-- With the planner running, a click from the pointer head that falls on the avatar
-  (screen center) no longer moves the cursor.
+- With the planner running (and with `--hold`), a click from the pointer head that falls
+  on the avatar (within 0.08 of the screen center) moves 0.15 out from the center in its
+  own direction, or straight up when it is dead center (`planner_actions.clear_of_avatar`).
+  Withholding the move, the first version, still clicked the avatar whenever the cursor
+  rested at the center.
 
 The recorded trial was replayed with Molmo's recorded answers, so no live Molmo process
 competed for the GPU. Controller latency was p50 38 ms and p95 80 ms without planning, and

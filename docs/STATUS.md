@@ -239,7 +239,8 @@ not be tested offline.
 **Live (`hordes-hold-live-001`).** With `--hold`, the model held the left button for up to
 3.8 s while moving the mouse, and the Hordes camera rotated. This is the first live camera
 control. Screenshot to first input took 38 ms median and 56 ms p95. There was no zoom and
-no attack, and the drag's opening click selected the player's own character.
+no attack, and the drag's opening click selected the player's own character. Presses
+predicted on the avatar now move 0.15 off it in `--hold` mode (not yet tried live).
 
 ### 10. Jev-Omni: a native multimodal decision model instead of stitching?
 

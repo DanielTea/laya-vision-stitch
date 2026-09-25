@@ -358,6 +358,9 @@ def run(args):
         stream_options["compile"] = True
     if args.max_memory_gap is not None:
         stream_options["max_gap_seconds"] = args.max_memory_gap
+    if args.hold:
+        # Held presses start drags; one on the avatar would select the player's character.
+        stream_options["avoid_avatar"] = True
     planner = None
     if args.planner:
         if not args.pointer:

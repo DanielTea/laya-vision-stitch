@@ -142,19 +142,28 @@ def test_stream_feeds_tracked_target_or_none_to_the_policy():
     assert np.allclose(seen[-1], [[0.7, 0.3]]) and np.allclose(out["target_input"], [0.7, 0.3])
 
 
-def test_pointer_head_click_on_the_avatar_is_withheld_when_planning():
+def test_pointer_head_click_on_the_avatar_moves_off_it_when_avoiding():
     from types import SimpleNamespace
 
     press = (11, 0, 0, 0, 1, 0, 11, 8)
     stream, row, _ = stream_fixture(tokens=press, pointer=(0.52, 0.49))
     out = stream.predict(row, session_id="s", timestamp_seconds=0)
     assert out["pointer_source"] == "pointer_head" and np.allclose(out["pointer_xy"], [0.52, 0.49])
+    # Planner mode (on by default when a planner is given): the press moves 0.15 out.
     stream, row, _ = stream_fixture(tokens=press, pointer=(0.52, 0.49))
     stream.planner = SimpleNamespace(poll=lambda: None, submit=lambda image, goal: None)
+    stream.avoid_avatar = True
     out = stream.predict(row, session_id="s", timestamp_seconds=0)
-    assert out["pointer_source"] == "avatar_zone" and "pointer_xy" not in out
+    assert out["pointer_source"] == "avatar_zone_shifted"
+    assert np.allclose(out["pointer_xy"], [0.5 + 0.15 * 2 / 5**0.5, 0.5 - 0.15 / 5**0.5])
+    # Without a planner (hold mode), explicitly enabled; a dead-center click goes straight up.
+    stream, row, _ = stream_fixture(tokens=press, pointer=(0.5, 0.5))
+    stream.avoid_avatar = True
+    out = stream.predict(row, session_id="s", timestamp_seconds=0)
+    assert np.allclose(out["pointer_xy"], [0.5, 0.35])
+    # Clicks away from the avatar are untouched.
     stream, row, _ = stream_fixture(tokens=press, pointer=(0.8, 0.3))
-    stream.planner = SimpleNamespace(poll=lambda: None, submit=lambda image, goal: None)
+    stream.avoid_avatar = True
     assert np.allclose(
         stream.predict(row, session_id="s", timestamp_seconds=0)["pointer_xy"], [0.8, 0.3]
     )

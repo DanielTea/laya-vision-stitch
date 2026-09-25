@@ -24,6 +24,22 @@ SAFE_AREA = (0.03, 0.97, 0.1, 0.97)
 SKILL_AGREEMENT = 0.04
 # A key is held when the direction has a component beyond sin(22.5 deg): eight sectors.
 SECTOR = math.sin(math.radians(22.5))
+# Clicks predicted on the avatar (screen center) are moved this far out from the center.
+AVATAR_CLEARANCE = 0.15
+
+
+def clear_of_avatar(xy, clearance=AVATAR_CLEARANCE):
+    """Move a click off the avatar at the screen center, keeping its direction.
+
+    A click on the controlled character selects it (or does nothing useful), so the press
+    goes to the ground `clearance` away from the center in the predicted direction, or
+    straight up (ahead of the character) when the prediction is at the center itself.
+    """
+    dx, dy = xy[0] - 0.5, xy[1] - 0.5
+    norm = math.hypot(dx, dy)
+    if norm < 0.02:
+        dx, dy, norm = 0.0, -1.0, 1.0
+    return [0.5 + dx / norm * clearance, 0.5 + dy / norm * clearance]
 
 
 def direction_keys(dx, dy):

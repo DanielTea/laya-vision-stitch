@@ -96,6 +96,7 @@ class LayaP2PStream:
         max_target_age=30.0,
         plan_interval=4.0,
         avatar_radius=0.08,
+        avoid_avatar=None,
         acquire_window=0.3,
         act=False,
         skill_refresh=60.0,
@@ -125,6 +126,8 @@ class LayaP2PStream:
             float(avatar_radius),
             None,
         )
+        # Clicks predicted on the avatar move off it; on by default with a planner.
+        self.avoid_avatar = planner is not None if avoid_avatar is None else bool(avoid_avatar)
         self.acquire_window = float(acquire_window)
         # Optional planner actions on the target: select, approach, use the skill Molmo found.
         self.actions, self.skill_refresh, self.skill_time = None, float(skill_refresh), None
@@ -262,13 +265,13 @@ class LayaP2PStream:
         if head is None:
             return None
         xy, source = self._pointer_head(pixels, context, image)
-        if (
-            self.planner is not None
-            and (xy[0] - 0.5) ** 2 + (xy[1] - 0.5) ** 2 <= self.avatar_radius**2
-        ):
-            # Same camera assumption as the planner: the center is the avatar, so the cursor
-            # stays where it is (usually on the last target) instead of selecting oneself.
-            return None, "avatar_zone"
+        if self.avoid_avatar and (xy[0] - 0.5) ** 2 + (xy[1] - 0.5) ** 2 <= self.avatar_radius**2:
+            # Same camera assumption as the planner: the center is the avatar. The press moves
+            # just off it (the cursor may already rest at the center, so withholding the
+            # move would still click the avatar).
+            from .planner_actions import clear_of_avatar
+
+            return clear_of_avatar(xy), "avatar_zone_shifted"
         return xy, source
 
     def _pointer_head(self, pixels, context, image):
